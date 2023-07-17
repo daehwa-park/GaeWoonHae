@@ -18,7 +18,7 @@ public class UserService {
     public User login(String email) {
         Optional<User> userInfo = userRepository.findByEmail(email);
 
-        if (userInfo.isPresent())
+        return null;
     }
 
 }
