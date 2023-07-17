@@ -1,4 +1,4 @@
-## 서버 구동
+# 서버 구동
 
 1. npm i
 2. npm run start
