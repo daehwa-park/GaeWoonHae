@@ -15,7 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private int user_id;
+    private int userId;
 
     @Column(name = "nickname", nullable = false)
     private String nickname;
@@ -24,8 +24,6 @@ public class User {
     private String email;
 
     @Column(name = "refresh_token", nullable = false)
-    private String refresh_token;
-
-
+    private String refreshToken;
 
 }
