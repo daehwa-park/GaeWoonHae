@@ -2,14 +2,13 @@ package com.threeracha.gaewoonhae.api.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class KakaoTokenDTO {
-
-    String email;
-
+public class UserDTO {
+    String nickname;
+    String accessToken;
+    String refreshToken;
 }
