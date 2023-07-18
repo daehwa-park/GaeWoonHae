@@ -9,23 +9,23 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity //JPA Entity 임을 명시
 @Getter //Lombok 어노테이션으로 getter
 @Setter //Lombok 어노테이션으로 setter
-@Table(name = "user_tbl") //테이블 관련 설정 어노테이션
-public class User {
-
+@Table(name = "record_tbl") //테이블 관련 설정 어노테이션
+public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
     @Column(name = "user_id")
-    private int user_id;
+    private int userId;
 
-    @Column(name = "nickname", nullable = false)
-    private String nickname;
+    @Column(name = "game_type")
+    private int gameType;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+    @Column(name = "count")
+    private int count;
 
-    @Column(name = "refresh_token", nullable = false)
-    private String refresh_token;
-
-
+    @Column(name = "my_time")
+    private String myTime;
 
 }
