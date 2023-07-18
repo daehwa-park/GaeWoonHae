@@ -18,14 +18,9 @@ public class UserService {
 
     public User getUserInfo(KakaoTokenDTO token) {
         return userRepository.findByEmail(token.getEmail())
-                .orElseGet(()-> {
-                    User user = new User();
-                    user.setEmail(token.getEmail());
-
-                    user = userRepository.save(user);
-
-                    return user;
-                });
+                .orElse(null);
     }
+
+
 
 }
