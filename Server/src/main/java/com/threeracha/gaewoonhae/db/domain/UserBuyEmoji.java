@@ -11,29 +11,14 @@ import org.hibernate.annotations.DynamicUpdate;
 @Getter //Lombok 어노테이션으로 getter
 @Setter //Lombok 어노테이션으로 setter
 @ToString
-@Table(name = "room_tbl") //테이블 관련 설정 어노테이션
-public class Room{
+@Table(name = "user_buy_emoji_tbl") //테이블 관련 설정 어노테이션
+public class UserBuyEmoji {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "session_id")
-    private String sessionId;
+    @Column(name = "user_id")
+    private int userId;
 
-    @Column(name = "current_user_num")
-    private String currentUserNum;
-
-    @Column(name = "limit_user_num")
-    private String limitUserNum;
-
-    @Column(name = "is_public_room")
-    private int isPublicRoom;
-
-    @Column(name = "admin")
-    private int admin;
-
-    @Column(name = "game_type")
-    private int gameType;
-
-    @Column(name = "time_limit")
-    private int timeLimit;
+    @Column(name = "emoji_id")
+    private int emojiId;
 
 }
