@@ -1,4 +1,5 @@
 package com.threeracha.gaewoonhae.db.domain;
+import com.threeracha.gaewoonhae.enums.OAuthProvider;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -23,11 +24,10 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "refresh_token", nullable = false)
-<<<<<<< HEAD
-    private String refresh_token;
-=======
+    @Column(name = "oauth_provider")
+    private OAuthProvider oAuthProvider;
+
+    @Column(name = "refresh_token", nullable = true)
     private String refreshToken;
->>>>>>> cf9161407c640a3ec549fa6438e730129b665af5
 
 }
