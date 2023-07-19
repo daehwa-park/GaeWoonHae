@@ -1,22 +1,23 @@
 package com.threeracha.gaewoonhae.api.controller;
 
-import com.threeracha.gaewoonhae.api.service.UserService;
-import com.threeracha.gaewoonhae.db.domain.User;
+import com.threeracha.gaewoonhae.api.response.CommonResponse;
+import com.threeracha.gaewoonhae.api.response.oauth.OAuthInfoResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/api/oauth")
+public class OAuthContorller {
 
-    final UserService userService;
+
+    public ResponseEntity<CommonResponse<OAuthInfoResponse>> getOauthUserInfo() {
+
+    }
 
 
 }

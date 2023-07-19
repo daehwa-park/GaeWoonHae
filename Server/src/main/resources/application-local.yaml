@@ -12,3 +12,8 @@ spring:
         format_sql: true
     show-sql: true
 
+oauth:
+  kakao:
+    url:
+      api: https://kapi.kakao.com
+
