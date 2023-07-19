@@ -1,16 +1,21 @@
-import { StyledLoginimage, StyledLoginbutton, Button }from '../../components/common/Button';
-import {Link} from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
+const Login = () => {
+  const navigate = useNavigate();
 
-const LoginPage=() => {
-    return (
+  const loginKakaoApi = () => {
+    // 여기에 Kakao API와 통신하는 로직을 구현하세요.
+    // 통신이 성공하면 아래 코드를 실행하세요.
+    navigate("/login-kakao");
+  };
+
+  return (
     <div>
-        <h1>로그인 페이지</h1>
-        <Link to="/main"><Button>로그인</Button></Link>
-        <StyledLoginimage>버튼</StyledLoginimage>
-        <StyledLoginbutton>버튼</StyledLoginbutton>
+      {/* 로그인 버튼을 클릭하면 loginKakaoApi() 함수 실행 */}
+      <button onClick={loginKakaoApi}>로그인</button>
     </div>
-    );
+  );
 };
 
-export default LoginPage;
+export default Login;
