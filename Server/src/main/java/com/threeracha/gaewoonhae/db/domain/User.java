@@ -16,7 +16,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private int userId;
+    private long userId;
 
     @Column(name = "nickname", nullable = false)
     private String nickname;
@@ -25,9 +25,17 @@ public class User {
     private String email;
 
     @Column(name = "oauth_provider")
+    @Enumerated(EnumType.STRING)
     private OAuthProvider oAuthProvider;
 
     @Column(name = "refresh_token", nullable = true)
     private String refreshToken;
+
+    @Builder
+    public User(String email, String nickname, OAuthProvider oAuthProvider) {
+        this.email = email;
+        this.nickname = nickname;
+        this.oAuthProvider = oAuthProvider;
+    }
 
 }
