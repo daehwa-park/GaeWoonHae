@@ -1,13 +1,14 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+
+const kakaoLoginAPI = `https://kauth.kakao.com/oauth/authorize?
+client_id=${process.env.REACT_APP_KAKAO_JS_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
 
 const Login = () => {
-  const navigate = useNavigate();
 
   const loginKakaoApi = () => {
-    // 여기에 Kakao API와 통신하는 로직을 구현하세요.
-    // 통신이 성공하면 아래 코드를 실행하세요.
-    navigate("/login-kakao");
+
+    window.location.href = kakaoLoginAPI;
+
   };
 
   return (

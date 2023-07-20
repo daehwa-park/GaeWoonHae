@@ -1,16 +1,16 @@
 package com.threeracha.gaewoonhae.api.service.oauth;
 
-import com.threeracha.gaewoonhae.api.request.oauth.OAuthLoginParam;
+import com.threeracha.gaewoonhae.api.request.oauth.OAuthLoginParams;
 import com.threeracha.gaewoonhae.api.response.oauth.OAuthInfoResponse;
 import com.threeracha.gaewoonhae.enums.OAuthProvider;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 public class RequestOAuthInfoService {
     private final Map<OAuthProvider, OAuthApiClient> clients;
 
@@ -20,7 +20,7 @@ public class RequestOAuthInfoService {
         );
     }
 
-    public OAuthInfoResponse request(OAuthLoginParam params) {
+    public OAuthInfoResponse request(OAuthLoginParams params) {
         OAuthApiClient client = clients.get(params.oAuthProvider());
         String accessToken = client.requestAccessToken(params);
         return client.requestOauthInfo(accessToken);
