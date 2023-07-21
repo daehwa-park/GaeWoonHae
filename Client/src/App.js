@@ -1,32 +1,36 @@
-import "./App.css";
+import './App.css';
+import { Route, Routes } from 'react-router-dom'; 
+import LoginPage from './roompage/LoginPage/LoginPage';
+import MainPage from './roompage/MainPage/MainPage';
+import LobbyPage from './roompage/Lobby/Lobby';
+import GamePage1 from './roompage/GamePage/Game1';
+import MyPage from './roompage/MyPage/MyPage';
 
-import { Route, Routes } from "react-router-dom";
-import LoginPage from "./components/LoginPage/LoginPage";
-import MainPage from "./components/MainPage/MainPage";
-import LobbyPage from "./components/Lobby/Lobby";
-import GamePage from "./components/GamePage/GamePage";
-import MyPage from "./components/MyPage/MyPage";
-import LoginKaKao from "./components/LoginPage/LoginKakao";
+// const GameLoomList = () => {
+//   return (
+//     <div>
 
-const App = () => {
+//     </div>
+//   )
+// }
+
+function App() {
   return (
     <Routes>
-      {/* 카카오 로그인 후 페이지 */}
-      <Route path="/login-kakao" element={<LoginKaKao />} />
       {/* 로그인페이지 */}
-      <Route path="/" element={<LoginPage />} />
+      <Route path='/' element={<LoginPage/>}/>
       {/* 메인페이지 */}
-      <Route path="/main" element={<MainPage />} />
+      <Route path='/main' element={<MainPage/>}/>
       {/* 선택한 게임 로비페이지 */}
-      <Route path="/lobby/:gameid" element={<LobbyPage />} />
-      {/* 해당 게임페이지 */}
-      <Route path="/gamepage/:gameid" element={<GamePage />} />
+      <Route path='/lobby/:gameid' element={<LobbyPage/>}/>
+      {/* 게임페이지 Switch방식 */}
+      <Route path='/gamepage/:gameid' element={<GamePage1/>}/>
       {/* 마이페이지 */}
-      <Route path="/mypage" element={<MyPage />} />
+      <Route path='/mypage' element={<MyPage/>}/>
       {/* 잘못된 경로로 들어갔을 경우 */}
-      <Route path="*" element={<div>There's nothing here!</div>} />
+      <Route path ="*" element = {<div>There's nothing here!</div>} />
     </Routes>
   );
-};
+}
 
 export default App;
