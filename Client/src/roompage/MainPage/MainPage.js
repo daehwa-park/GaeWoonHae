@@ -1,11 +1,12 @@
 import {Link} from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
-
-const Mainpage=()=> {
+const Mainpage=(props)=> {
+    const num = useSelector((state) => state.A);
     return (
         <div>
             <h1>메인페이지</h1>
-    
+            <h3>{num}</h3>
             {/* nav */}
             <button>main</button>
             <Link to='/mypage'><button>Profile</button></Link>
