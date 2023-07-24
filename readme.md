@@ -4,7 +4,7 @@
 # 프로젝트 사용 방법
 - 테스트 할 내용은 branch를 새로 만들어 작성
 - 새로운 기능 merge시 메인 README에 해당 내용 업데이트
-
+- swagger: http://localhost:5000/swagger-ui/index.html#/
 
 # React
 ### 실행
