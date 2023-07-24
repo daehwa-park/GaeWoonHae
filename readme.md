@@ -13,14 +13,16 @@ npm run start
 # Spring
 
 ### version
-- SDK : Azur zulu java 17
-- Spring : 3.1.1
+- SDK : Azur zulu java 11
+- Spring : 2.7.1
 - build tool : Gradle groovy
 
 
 ### Dependency
 - Spring Web
 - Spring Data JPA
+- Spring Security
+- Spring Security Oauth2
 - Lombok
 - Mysql Driver
 - Spring Devtools
