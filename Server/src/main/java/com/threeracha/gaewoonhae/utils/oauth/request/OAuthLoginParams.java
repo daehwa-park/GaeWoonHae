@@ -1,6 +1,6 @@
-package com.threeracha.gaewoonhae.api.request.oauth;
+package com.threeracha.gaewoonhae.utils.oauth.request;
 
-import com.threeracha.gaewoonhae.enums.OAuthProvider;
+import com.threeracha.gaewoonhae.utils.oauth.enums.OAuthProvider;
 import org.springframework.util.MultiValueMap;
 
 public interface OAuthLoginParams {

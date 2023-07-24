@@ -1,8 +1,8 @@
-package com.threeracha.gaewoonhae.api.service;
+package com.threeracha.gaewoonhae.utils.oauth.service;
 
-import com.threeracha.gaewoonhae.api.request.oauth.OAuthLoginParams;
-import com.threeracha.gaewoonhae.api.response.oauth.OAuthInfoResponse;
-import com.threeracha.gaewoonhae.api.service.oauth.RequestOAuthInfoService;
+import com.threeracha.gaewoonhae.api.response.LoginResponse;
+import com.threeracha.gaewoonhae.utils.oauth.request.OAuthLoginParams;
+import com.threeracha.gaewoonhae.utils.oauth.response.OAuthInfoResponse;
 import com.threeracha.gaewoonhae.db.domain.User;
 import com.threeracha.gaewoonhae.db.repository.UserRepository;
 import com.threeracha.gaewoonhae.utils.jwt.AuthTokens;
@@ -19,23 +19,23 @@ public class OAuthLoginService {
 
     public AuthTokens login(OAuthLoginParams params) {
         OAuthInfoResponse oAuthInfoResponse = requestOAuthInfoService.request(params);
-        Long userId = findOrCreateUser(oAuthInfoResponse);
-        return authTokensGenerator.generate(userId);
+        User user = findOrCreateUser(oAuthInfoResponse);
+        AuthTokens tokens = authTokensGenerator.generate(user.getUserId());
+        return LoginResponse.builder().tokens(tokens).nickname(user.getNickname())
     }
 
-    private Long findOrCreateUser(OAuthInfoResponse oAuthInfoResponse) {
+    private User findOrCreateUser(OAuthInfoResponse oAuthInfoResponse) {
         return userRepository.findByEmail(oAuthInfoResponse.getEmail())
-                .map(User::getUserId)
                 .orElseGet(() -> newUser(oAuthInfoResponse));
     }
 
-    private Long newUser(OAuthInfoResponse oAuthInfoResponse) {
+    private User newUser(OAuthInfoResponse oAuthInfoResponse) {
         User user = User.builder()
                 .email(oAuthInfoResponse.getEmail())
                 .nickname(oAuthInfoResponse.getNickname())
                 .oAuthProvider(oAuthInfoResponse.getOAuthProvider())
                 .build();
 
-        return userRepository.save(user).getUserId();
+        return userRepository.save(user);
     }
 }

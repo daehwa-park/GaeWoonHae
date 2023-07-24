@@ -1,10 +1,8 @@
-package com.threeracha.gaewoonhae.api.controller;
+package com.threeracha.gaewoonhae.utils.oauth;
 
-import com.threeracha.gaewoonhae.api.request.oauth.KakaoLoginParams;
-import com.threeracha.gaewoonhae.api.request.oauth.NaverLoginParams;
-import com.threeracha.gaewoonhae.api.response.CommonResponse;
-import com.threeracha.gaewoonhae.api.response.oauth.OAuthInfoResponse;
-import com.threeracha.gaewoonhae.api.service.OAuthLoginService;
+import com.threeracha.gaewoonhae.utils.oauth.request.KakaoLoginParams;
+import com.threeracha.gaewoonhae.utils.oauth.request.NaverLoginParams;
+import com.threeracha.gaewoonhae.utils.oauth.service.OAuthLoginService;
 import com.threeracha.gaewoonhae.utils.jwt.AuthTokens;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

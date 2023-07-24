@@ -1,8 +1,8 @@
-package com.threeracha.gaewoonhae.api.service.oauth;
+package com.threeracha.gaewoonhae.utils.oauth.service;
 
-import com.threeracha.gaewoonhae.api.request.oauth.OAuthLoginParams;
-import com.threeracha.gaewoonhae.api.response.oauth.OAuthInfoResponse;
-import com.threeracha.gaewoonhae.enums.OAuthProvider;
+import com.threeracha.gaewoonhae.utils.oauth.request.OAuthLoginParams;
+import com.threeracha.gaewoonhae.utils.oauth.response.OAuthInfoResponse;
+import com.threeracha.gaewoonhae.utils.oauth.enums.OAuthProvider;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
