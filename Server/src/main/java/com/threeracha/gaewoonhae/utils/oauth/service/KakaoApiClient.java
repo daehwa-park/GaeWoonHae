@@ -1,10 +1,10 @@
-package com.threeracha.gaewoonhae.api.service.oauth;
+package com.threeracha.gaewoonhae.utils.oauth.service;
 
-import com.threeracha.gaewoonhae.api.dto.oauth.NaverTokens;
-import com.threeracha.gaewoonhae.api.request.oauth.OAuthLoginParams;
-import com.threeracha.gaewoonhae.api.response.oauth.NaverInfoResponse;
-import com.threeracha.gaewoonhae.api.response.oauth.OAuthInfoResponse;
-import com.threeracha.gaewoonhae.enums.OAuthProvider;
+import com.threeracha.gaewoonhae.utils.oauth.token.KakaoTokens;
+import com.threeracha.gaewoonhae.utils.oauth.request.OAuthLoginParams;
+import com.threeracha.gaewoonhae.utils.oauth.response.KakaoInfoResponse;
+import com.threeracha.gaewoonhae.utils.oauth.response.OAuthInfoResponse;
+import com.threeracha.gaewoonhae.utils.oauth.enums.OAuthProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -17,32 +17,23 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 @RequiredArgsConstructor
-public class NaverApiClient implements OAuthApiClient {
-
-    private static final String GRANT_TYPE = "authorization_code";
-
-    @Value("${oauth.naver.url.auth}")
-    private String authUrl;
-
-    @Value("${oauth.naver.url.api}")
-    private String apiUrl;
-
-    @Value("${oauth.naver.client-id}")
-    private String clientId;
-
-    @Value("${oauth.naver.secret}")
-    private String clientSecret;
+public class KakaoApiClient implements OAuthApiClient{
 
     private final RestTemplate restTemplate;
+    private static final String GRANT_TYPE = "authorization_code";
 
-    @Override
-    public OAuthProvider oAuthProvider() {
-        return OAuthProvider.NAVER;
-    }
+    @Value("${oauth.kakao.url.auth}")
+    private String authUrl;
+
+    @Value("${oauth.kakao.url.api}")
+    private String apiUrl;
+
+    @Value("${oauth.kakao.client-id}")
+    private String clientId;
 
     @Override
     public String requestAccessToken(OAuthLoginParams params) {
-        String url = authUrl + "/oauth2.0/token";
+        String url = authUrl + "/oauth/token";
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -50,28 +41,34 @@ public class NaverApiClient implements OAuthApiClient {
         MultiValueMap<String, String> body = params.makeBody();
         body.add("grant_type", GRANT_TYPE);
         body.add("client_id", clientId);
-        body.add("client_secret", clientSecret);
 
         HttpEntity<?> request = new HttpEntity<>(body, httpHeaders);
 
-        NaverTokens response = restTemplate.postForObject(url, request, NaverTokens.class);
+        KakaoTokens response = restTemplate.postForObject(url, request, KakaoTokens.class);
 
         assert response != null;
         return response.getAccessToken();
     }
 
     @Override
+    public OAuthProvider oAuthProvider() {
+        return OAuthProvider.KAKAO;
+    }
+
+
+    @Override
     public OAuthInfoResponse requestOauthInfo(String accessToken) {
-        String url = apiUrl + "/v1/nid/me";
+        String url = apiUrl + "/v2/user/me";
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         httpHeaders.set("Authorization", "Bearer " + accessToken);
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("property_keys", "[\"kakao_account.email\", \"kakao_account.profile\"]");
 
         HttpEntity<?> request = new HttpEntity<>(body, httpHeaders);
 
-        return restTemplate.postForObject(url, request, NaverInfoResponse.class);
+        return restTemplate.postForObject(url, request, KakaoInfoResponse.class);
     }
 }

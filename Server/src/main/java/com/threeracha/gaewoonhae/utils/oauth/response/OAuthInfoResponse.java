@@ -1,6 +1,6 @@
-package com.threeracha.gaewoonhae.api.response.oauth;
+package com.threeracha.gaewoonhae.utils.oauth.response;
 
-import com.threeracha.gaewoonhae.enums.OAuthProvider;
+import com.threeracha.gaewoonhae.utils.oauth.enums.OAuthProvider;
 
 public interface OAuthInfoResponse {
     String getEmail();

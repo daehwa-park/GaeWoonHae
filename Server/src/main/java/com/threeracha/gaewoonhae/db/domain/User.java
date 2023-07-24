@@ -1,5 +1,5 @@
 package com.threeracha.gaewoonhae.db.domain;
-import com.threeracha.gaewoonhae.enums.OAuthProvider;
+import com.threeracha.gaewoonhae.utils.oauth.enums.OAuthProvider;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;

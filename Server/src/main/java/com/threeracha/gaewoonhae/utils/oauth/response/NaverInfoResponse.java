@@ -1,8 +1,9 @@
-package com.threeracha.gaewoonhae.api.response.oauth;
+package com.threeracha.gaewoonhae.utils.oauth.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.threeracha.gaewoonhae.enums.OAuthProvider;
+import com.threeracha.gaewoonhae.utils.oauth.enums.OAuthProvider;
+import com.threeracha.gaewoonhae.utils.oauth.response.OAuthInfoResponse;
 import lombok.Getter;
 
 @Getter
