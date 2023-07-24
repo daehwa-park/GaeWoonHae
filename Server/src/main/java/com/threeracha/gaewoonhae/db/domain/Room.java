@@ -1,7 +1,7 @@
 package com.threeracha.gaewoonhae.db.domain;
-import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import javax.persistence.*;
 
 
 @NoArgsConstructor //기본 생성자 만들어줌
@@ -13,8 +13,8 @@ import org.hibernate.annotations.DynamicUpdate;
 @ToString
 @Table(name = "room_tbl") //테이블 관련 설정 어노테이션
 public class Room{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id @GeneratedValue
     @Column(name = "session_id")
     private String sessionId;
 
