@@ -1,8 +1,8 @@
 package com.threeracha.gaewoonhae.db.domain;
 import com.threeracha.gaewoonhae.enums.OAuthProvider;
-import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import javax.persistence.*;
 
 @NoArgsConstructor //기본 생성자 만들어줌
 @AllArgsConstructor //여기에 필드에 쓴 모든생성자만 만들어줌
