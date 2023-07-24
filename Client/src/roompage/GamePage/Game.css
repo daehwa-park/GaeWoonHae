@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+.Logo1 {
+    font-size:24px;
+    color: #FD873E;
+}
+
+.Logo2 {
+    font-size: 30px;
+    color: #FD7F32;
+    font-family: 'Righteous', cursive;
+}
+
+.gamepage {
+    background-color: #FDE8FF;
+    height: 100vh;
+}
+
+.mainscreen {
+    margin:0 auto;
+    background-color: white;
+    width: 98vw;
+    height: 90vh;
+    border-radius: 20px;
+}
+
+.gametitle {
+    /* background-color: aquamarine;
+    display:flex;
+    justify-content: center; */
+    text-align: center;
+    /* margin: 0 auto; */
+}
