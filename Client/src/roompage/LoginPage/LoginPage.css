@@ -34,4 +34,17 @@ img{
 
 .login-font {
     font-family: 'Bagel Fat One', cursive;
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+.login-link {
+  font-family: 'Bagel Fat One', cursive;
+  color: #000; /* 원하는 색상으로 변경 */
+  text-decoration: none;
+  border-bottom: 2px solid #000; /* 밑줄 효과 추가 */
+  
+}
+
+.login-link:hover {
+  color: #ff0000; /* 마우스를 올렸을 때의 색상 변경 */
 }

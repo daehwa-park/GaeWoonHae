@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import React from "react";
 import "./LoginPage.css";
 
-
 const LoginBox = () => {
   return (
     <div className="login-box">
@@ -14,14 +13,14 @@ const LoginBox = () => {
         />
       </div>
 
-      <div className="login-font">게임으로 운동하자</div>
-      <div>
+      <div className="login-font">게임으로 운동하자!!</div>
+      <div className="mb-2">
         <Link to="/main">
           <img src="/images/img/KakaoLoginBtn.png" alt="dsa" />
         </Link>
       </div>
       <div>
-        <Link>비회원으로 로그인 하기</Link>
+        <Link className="login-link">비회원으로 로그인 하기</Link>
       </div>
     </div>
   );
