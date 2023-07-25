@@ -1,6 +1,7 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom'; 
 import LoginPage from './roompage/LoginPage/LoginPage';
+import LoginKakaoPage from './roompage/LoginPage/LoginKakaoPage';
 import MainPage from './roompage/MainPage/MainPage';
 import LobbyPage from './roompage/Lobby/Lobby';
 import GamePage1 from './roompage/GamePage/Game1';
@@ -19,6 +20,8 @@ function App() {
     <Routes>
       {/* 로그인페이지 */}
       <Route path='/' element={<LoginPage/>}/>
+      {/* 카카오 로그인페이지 */}
+      <Route path='/login/kakao/callback' element={<LoginKakaoPage/>}/>
       {/* 메인페이지 */}
       <Route path='/main' element={<MainPage/>}/>
       {/* 선택한 게임 로비페이지 */}
