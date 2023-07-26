@@ -21,22 +21,20 @@ public class Room{
     @Column(name = "user_id")
     private int userId;
 
-    @Column(name = "current_user_num")
-    private String currentUserNum;
-
-    @Column(name = "limit_user_num")
-    private String limitUserNum;
-
-    @Column(name = "is_public_room")
-    private int isPublicRoom;
-
-    @Column(name = "admin")
-    private int admin;
-
     @Column(name = "game_type")
     private int gameType;
 
-    @Column(name = "time_limit")
-    private int timeLimit;
+    @Column(name = "current_user_num")
+    private int currentUserNum;
+
+    @Column(name = "limit_user_num")
+    private int limitUserNum;
+
+    @Column(name = "is_public_room")
+    private char isPublicRoom;
+
+    @Column(name = "room_status")
+    private char roomStatus;
+
 
 }
