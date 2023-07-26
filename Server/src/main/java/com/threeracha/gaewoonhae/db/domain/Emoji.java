@@ -20,7 +20,7 @@ public class Emoji {
     private Long emojiId;
 
     @Column(name="emoji_price", nullable = false)
-    private int emojiPrice;
+    private Integer emojiPrice;
 
 
 }

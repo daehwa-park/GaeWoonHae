@@ -1,4 +1,5 @@
 package com.threeracha.gaewoonhae.db.domain;
+import com.threeracha.gaewoonhae.api.dto.response.UserResponse;
 import com.threeracha.gaewoonhae.utils.oauth.enums.OAuthProvider;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -44,6 +45,17 @@ public class User {
         this.nickname = nickname;
         this.oAuthProvider = oAuthProvider;
     }
+
+//    public UserResponse toUserInfoResponse() {
+//        UserResponse userResponse = new UserResponse();
+//
+//        userResponse.setPoint(this.getPoint());
+//        userResponse.setNickname(this.getNickname());
+//        userResponse.setEmojiId(this.getEmojiId());
+//        userResponse.setOAuthProvider(this.getOAuthProvider());
+//
+//        return userResponse;
+//    }
 
 }
 
