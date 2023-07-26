@@ -2,6 +2,7 @@ package com.threeracha.gaewoonhae.db.domain;
 import com.threeracha.gaewoonhae.api.dto.response.UserResponse;
 import com.threeracha.gaewoonhae.utils.oauth.enums.OAuthProvider;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
@@ -17,7 +18,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //기본 키 자동 생성
     @Column(name = "user_id")
-    private int userId;
+    private Long userId;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -35,7 +36,7 @@ public class User {
     @Column(name = "point", nullable = false)
     private int point;
 
-    @Column(name = "emoji_id")
+    @Column(name = "emoji_id", nullable = false)
     private int emojiId;
 
     @Builder

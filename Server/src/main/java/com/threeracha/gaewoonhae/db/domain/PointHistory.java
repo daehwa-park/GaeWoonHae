@@ -19,10 +19,10 @@ public class PointHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "history_id")
-    private Integer historyId;
+    private Long historyId;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Column(name = "point_change", nullable = false)
     private Integer pointChange;
