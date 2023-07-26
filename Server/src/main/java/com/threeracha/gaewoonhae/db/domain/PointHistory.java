@@ -1,8 +1,9 @@
 package com.threeracha.gaewoonhae.db.domain;
-import javax.persistence.*;
+
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
+import javax.persistence.*;
 import java.util.Date;
 
 @NoArgsConstructor //기본 생성자 만들어줌
@@ -11,27 +12,24 @@ import java.util.Date;
 @Entity //JPA Entity 임을 명시
 @Getter //Lombok 어노테이션으로 getter
 @Setter //Lombok 어노테이션으로 setter
-@Table(name = "record_tbl") //테이블 관련 설정 어노테이션
-public class Record {
+@ToString
+@Table(name = "point_history_tbl") //테이블 관련 설정 어노테이션
+public class PointHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "game_record_id")
-    private int gameRecordId;
+    @Column(name = "history_id")
+    private int historyId;
 
     @Column(name = "user_id")
     private int userId;
 
-    @Column(name = "game_type")
-    private int gameType;
+    @Column(name = "point_change", nullable = false)
+    private int pointChange;
 
-    @Column(name = "count", nullable = false)
-    private int count;
-
-    @Column(name = "my_time", nullable = false)
-    private String myTime;
+    @Column(name = "chang_time", nullable = false)
+    private String changeTime;
 
 //    @Temporal(TemporalType.TIMESTAMP)
 //    private Date changeTime;
-
 }
