@@ -9,6 +9,4 @@ import java.util.Optional;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, String> {
     Optional<Room> findBySessionId(String sessionId);
-
-    Optional<Room>
 }
