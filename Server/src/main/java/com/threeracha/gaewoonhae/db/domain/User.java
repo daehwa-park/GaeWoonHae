@@ -14,22 +14,28 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //기본 키 자동 생성
     @Column(name = "user_id")
-    private long userId;
+    private int userId;
+
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
     @Column(name = "nickname", nullable = false)
     private String nickname;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+    @Column(name = "refresh_token", nullable = true)
+    private String refreshToken;
 
-    @Column(name = "oauth_provider")
+    @Column(name = "oauth_provider", nullable = false)
     @Enumerated(EnumType.STRING)
     private OAuthProvider oAuthProvider;
 
-    @Column(name = "refresh_token", nullable = true)
-    private String refreshToken;
+    @Column(name = "point", nullable = false)
+    private int point;
+
+    @Column(name = "emoji_id")
+    private int emojiId;
 
     @Builder
     public User(String email, String nickname, OAuthProvider oAuthProvider) {
@@ -39,3 +45,5 @@ public class User {
     }
 
 }
+
+
