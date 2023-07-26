@@ -5,15 +5,7 @@ import MainPage from './roompage/MainPage/MainPage';
 import LobbyPage from './roompage/Lobby/Lobby';
 import GamePage1 from './roompage/GamePage/Game1';
 import MyPage from './roompage/MyPage/MyPage';
-
-// const GameLoomList = () => {
-//   return (
-//     <div>
-
-//     </div>
-//   )
-// }
-
+import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   return (
     <Routes>
