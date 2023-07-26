@@ -10,11 +10,11 @@ const LoginKakaoPage = () => {
     const movePage = useNavigate()
 
     useEffect(()=> {
-        axios.post(process.env.REACT_APP_SPRING_URI+"/api/auth/kakao", {
+        axios.post(process.env.REACT_APP_SPRING_URI+"/api/oauth/login/kakao", {
             authorizationCode
         }).then((resp)=> {
             console.log(resp.data);
-            movePage("/main")
+            // movePage("/main")
         }).catch((e)=> {
             console.log(e);
             movePage("/")

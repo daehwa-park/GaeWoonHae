@@ -1,6 +1,5 @@
 package com.threeracha.gaewoonhae.utils.oauth.service;
 
-import com.threeracha.gaewoonhae.api.response.LoginResponse;
 import com.threeracha.gaewoonhae.utils.oauth.request.OAuthLoginParams;
 import com.threeracha.gaewoonhae.utils.oauth.response.OAuthInfoResponse;
 import com.threeracha.gaewoonhae.db.domain.User;
