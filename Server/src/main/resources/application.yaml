@@ -3,25 +3,10 @@ server:
 
 
 
----
-
-spring:
-  profiles:
-    active: dev
-
----
-
-spring:
-  profiles:
-    active: prod
-
----
-
 spring:
   profiles:
     active: local
 
----
 
 springdoc:
   packages-to-scan: com.threeracha.gaewoonhae.api

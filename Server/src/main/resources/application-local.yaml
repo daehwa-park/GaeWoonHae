@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/GWHDB?serverTimezone=Asia/Seoul
-    username: root
-    password: root
+    username: ssafy
+    password: ssafy
   jpa:
     hibernate:
       ddl-auto: create

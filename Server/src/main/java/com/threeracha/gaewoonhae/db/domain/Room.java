@@ -18,6 +18,9 @@ public class Room{
     @Column(name = "session_id")
     private String sessionId;
 
+    @Column(name = "user_id")
+    private int userId;
+
     @Column(name = "current_user_num")
     private String currentUserNum;
 
