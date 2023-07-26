@@ -25,7 +25,7 @@ public class PointHistory {
     private Long userId;
 
     @Column(name = "point_change", nullable = false)
-    private int pointChange;
+    private Integer pointChange;
 
     @Column(name = "chang_time", nullable = false)
     private String changeTime;

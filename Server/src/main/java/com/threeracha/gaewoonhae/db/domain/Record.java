@@ -26,7 +26,7 @@ public class Record {
     private int gameType;
 
     @Column(name = "count", nullable = false)
-    private int count;
+    private Integer count;
 
     @Column(name = "record_date_time", nullable = false)
     private String recordDateTime;
