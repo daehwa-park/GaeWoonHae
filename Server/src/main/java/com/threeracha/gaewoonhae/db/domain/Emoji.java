@@ -17,10 +17,10 @@ public class Emoji {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="emoji_id")
-    private int emojiId;
+    private Integer emojiId;
 
     @Column(name="emoji_price", nullable = false)
-    private int emojiPrice;
+    private Integer emojiPrice;
 
 
 }
