@@ -16,12 +16,12 @@ public class UserService {
 
     final UserRepository userRepository;
 
-    public User getUserInfo(int userId) {
+    public User getUserInfo(Long userId) {
         return userRepository.findByUserId(userId)
                 .orElseThrow(() -> new CustomException(CustomExceptionList.MEMBER_NOT_FOUND_ERROR));
     }
 
-    public User updateUser(int userId) {
+    public User updateUser(Long userId) {
         User user = userRepository.findByUserId(userId).get();
         user.setPoint(100);
         userRepository.flush();

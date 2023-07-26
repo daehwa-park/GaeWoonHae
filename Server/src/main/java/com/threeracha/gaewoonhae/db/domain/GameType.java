@@ -21,7 +21,7 @@ public class GameType {
     private Integer gameType;
 
     @Column(name="time_limit", nullable = false)
-    private Integer timeLimit;
+    private int timeLimit;
 
     @Column(name="game_name", nullable = false)
     private String gameName;
