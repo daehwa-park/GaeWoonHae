@@ -1,21 +1,25 @@
-import {Link} from 'react-router-dom';
-
+// import { Link } from "react-router-dom";
+// import { Container, Row, Col } from "react-bootstrap";
+import LoginBox from "./LoginBox";
+import "./LoginPage.css";
 const LoginPage = () => {
-
-  const url = 'https://kauth.kakao.com/oauth/authorize?client_id=' +
-    process.env.REACT_APP_KAKAO_JS_KEY +
-    '&redirect_uri=' +
-    process.env.REACT_APP_KAKAO_REDIRECT_URI +
-    '&response_type=code';
-
-
   return (
-    <div>
-      <h1>로그인페이지</h1>
-      <Link to='/main'><button>네이버 로그인</button></Link>
-      <a href={url}><button>카카오 로그인</button></a>
+    <div className="login-bg">
+      <LoginBox />
+      {/* <Container>
+        <Row>
+          <Col lg={3}>
+            <Link to="/main">
+              <img src="/images/img/KakaoLoginBtn.png" alt="dsa" />
+            </Link>
+          </Col>
+          <Col lg={9}>
+            <img src="/images/img/bg.png" alt="" />
+          </Col>
+        </Row> 
+  </Container> */}
     </div>
   );
 };
 
-export default LoginPage
+export default LoginPage;

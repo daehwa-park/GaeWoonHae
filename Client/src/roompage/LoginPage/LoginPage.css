@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap');
+
+img{
+    cursor:pointer
+}
+.login-bg {
+    display: flex;
+    background-image: url("./bg.png");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    /* 이하 원하는 배경 스타일을 추가적으로 설정할 수 있습니다. */
+  }
+.login-box {
+    width: 480px;
+    height: 100vh;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column ;
+    background-color: whitesmoke;
+
+}
+@media (max-width: 991.98px) {
+    .login-bg .d-none.d-lg-block {
+      display: none;
+    }
+  }
+.login-logo {
+    width:440px;
+    height: 330px;
+}
+
+.login-font {
+    font-family: 'Bagel Fat One', cursive;
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+.login-link {
+  font-family: 'Bagel Fat One', cursive;
+  color: #c1aaaa; /* 원하는 색상으로 변경 */
+  text-decoration: none;
+  border-bottom: 2px solid #b4a7a7; /* 밑줄 효과 추가 */
+  
+}
+
+.login-link:hover {
+  color: #ff0000; /* 마우스를 올렸을 때의 색상 변경 */
+}
