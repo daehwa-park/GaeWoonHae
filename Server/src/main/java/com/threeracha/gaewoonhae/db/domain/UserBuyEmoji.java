@@ -13,16 +13,12 @@ import org.hibernate.annotations.DynamicUpdate;
 @ToString
 @Table(name = "user_buy_emoji_tbl") //테이블 관련 설정 어노테이션
 public class UserBuyEmoji {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "buy_id")
-    private Long buyId;
+    @Column(name = "user_id")
+    private int userId;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
-
-    @Column(name = "emoji_id", nullable = false)
+    @Column(name = "emoji_id")
     private int emojiId;
 
 }

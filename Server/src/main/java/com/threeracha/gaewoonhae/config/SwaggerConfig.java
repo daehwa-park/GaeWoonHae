@@ -17,8 +17,8 @@ public class SwaggerConfig {
 
     private Info apiInfo() {
         return new Info()
-                .title("GWH project swagger")
-                .description("여러분들의 무궁한 테스트를 위한 swagger 페이지입니다^^")
+                .title("Springdoc 테스트")
+                .description("Springdoc을 사용한 Swagger UI 테스트")
                 .version("1.0.0");
     }
 }
