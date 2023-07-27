@@ -1,11 +1,7 @@
 server:
   port: 5000
 
----
 
-server.ssl.enabled: false
-OPENVIDU_URL: http://localhost:4443/
-OPENVIDU_SECRET: MY_SECRET
 
 ---
 
@@ -23,7 +19,7 @@ spring:
 
 spring:
   profiles:
-    active: prod
+    active: local
 
 ---
 
