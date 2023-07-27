@@ -1,6 +1,7 @@
 package com.threeracha.gaewoonhae.db.domain;
-import com.threeracha.gaewoonhae.enums.OAuthProvider;
+import com.threeracha.gaewoonhae.utils.oauth.enums.OAuthProvider;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
@@ -14,22 +15,28 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //기본 키 자동 생성
     @Column(name = "user_id")
-    private long userId;
+    private Long userId;
+
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
     @Column(name = "nickname", nullable = false)
     private String nickname;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+    @Column(name = "refresh_token", nullable = true)
+    private String refreshToken;
 
-    @Column(name = "oauth_provider")
+    @Column(name = "oauth_provider", nullable = false)
     @Enumerated(EnumType.STRING)
     private OAuthProvider oAuthProvider;
 
-    @Column(name = "refresh_token", nullable = true)
-    private String refreshToken;
+    @Column(name = "point", nullable = false)
+    private int point;
+
+    @Column(name = "emoji_id", nullable = false)
+    private int emojiId;
 
     @Builder
     public User(String email, String nickname, OAuthProvider oAuthProvider) {
@@ -37,5 +44,6 @@ public class User {
         this.nickname = nickname;
         this.oAuthProvider = oAuthProvider;
     }
-
 }
+
+

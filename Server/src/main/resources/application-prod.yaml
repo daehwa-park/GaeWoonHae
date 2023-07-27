@@ -1,1 +1,31 @@
 
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://i9b303.p.ssafy.io:3306/GWHDB?serverTimezone=Asia/Seoul
+    username: b303
+    password: g96878gh43t2qh78u6g7frc6t
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+jwt:
+  secret-key: Z29nby10bS1zZXJ2ZXItZGxyamVvYW9yb3JodG9kZ290c3Atam9vbmdhbmduaW0teWVvbHNpbWhpaGFsZ2VveW8K
+
+oauth:
+  kakao:
+    client-id: 17a1b4d9fcc605cecc82fd7399c0717f
+    url:
+      auth: https://kauth.kakao.com
+      api: https://kapi.kakao.com
+  naver:
+    secret: W_2DmcLfYU
+    client-id: Y2i4SlApP7A1KZsUoott
+    url:
+      auth: https://nid.naver.com
+      api: https://openapi.naver.com
+

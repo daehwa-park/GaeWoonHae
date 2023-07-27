@@ -5,6 +5,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,7 @@ import java.util.Base64;
 import java.util.Date;
 
 @Component
+@Slf4j
 public class JwtTokenProvider {
 
     private final Key key;
@@ -33,6 +35,11 @@ public class JwtTokenProvider {
     public String extractSubject(String accessToken) {
         Claims claims = parseClaims(accessToken);
         return claims.getSubject();
+    }
+
+    public boolean verifyToken(String accessToken) {
+        Claims claims = parseClaims(accessToken);
+        return claims.getExpiration().after(new Date());
     }
 
     private Claims parseClaims(String accessToken) {

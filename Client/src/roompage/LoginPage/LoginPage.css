@@ -39,9 +39,9 @@ img{
 }
 .login-link {
   font-family: 'Bagel Fat One', cursive;
-  color: #000; /* 원하는 색상으로 변경 */
+  color: #c1aaaa; /* 원하는 색상으로 변경 */
   text-decoration: none;
-  border-bottom: 2px solid #000; /* 밑줄 효과 추가 */
+  border-bottom: 2px solid #b4a7a7; /* 밑줄 효과 추가 */
   
 }
 
