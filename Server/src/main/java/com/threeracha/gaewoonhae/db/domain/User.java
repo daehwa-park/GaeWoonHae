@@ -1,6 +1,7 @@
 package com.threeracha.gaewoonhae.db.domain;
 import com.threeracha.gaewoonhae.utils.oauth.enums.OAuthProvider;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
