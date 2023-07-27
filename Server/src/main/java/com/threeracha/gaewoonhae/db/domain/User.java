@@ -44,7 +44,6 @@ public class User {
         this.nickname = nickname;
         this.oAuthProvider = oAuthProvider;
     }
-
 }
 
 
