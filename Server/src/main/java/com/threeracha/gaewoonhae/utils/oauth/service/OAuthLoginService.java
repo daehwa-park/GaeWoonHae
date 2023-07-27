@@ -1,6 +1,9 @@
 package com.threeracha.gaewoonhae.utils.oauth.service;
 
+import com.threeracha.gaewoonhae.exception.CustomException;
+import com.threeracha.gaewoonhae.exception.CustomExceptionList;
 import com.threeracha.gaewoonhae.utils.oauth.request.OAuthLoginParams;
+import com.threeracha.gaewoonhae.utils.oauth.response.LoginResponse;
 import com.threeracha.gaewoonhae.utils.oauth.response.OAuthInfoResponse;
 import com.threeracha.gaewoonhae.db.domain.User;
 import com.threeracha.gaewoonhae.db.repository.UserRepository;
@@ -16,7 +19,7 @@ public class OAuthLoginService {
     private final AuthTokensGenerator authTokensGenerator;
     private final RequestOAuthInfoService requestOAuthInfoService;
 
-    public AuthTokens login(OAuthLoginParams params) {
+    public LoginResponse login(OAuthLoginParams params) {
         // API 서버로부터 유저 정보를 받아옴
         OAuthInfoResponse oAuthInfoResponse = requestOAuthInfoService.request(params);
         
@@ -30,12 +33,23 @@ public class OAuthLoginService {
         user.setRefreshToken(token.getRefreshToken());
         userRepository.flush();
 
-        return token;
+        return new LoginResponse(token, user.getUserId());
+    }
+
+    public Long logout(Long userId) {
+        User user = userRepository.findByUserId(userId)
+                .orElseThrow(() -> new CustomException(CustomExceptionList.MEMBER_NOT_FOUND_ERROR));
+
+        user.setRefreshToken(null);
+        userRepository.save(user);
+
+        return user.getUserId();
     }
 
     private User findOrCreateUser(OAuthInfoResponse oAuthInfoResponse) {
-        return userRepository.findByEmail(oAuthInfoResponse.getEmail())
-                .orElseGet(() -> newUser(oAuthInfoResponse));
+        return userRepository.findByEmail(oAuthInfoResponse
+                        .getEmail())
+                        .orElseGet(() -> newUser(oAuthInfoResponse));
     }
 
     private User newUser(OAuthInfoResponse oAuthInfoResponse) {

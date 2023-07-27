@@ -17,10 +17,10 @@ public class UserBuyEmoji {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "buy_id")
-    private int buyId;
+    private Long buyId;
 
     @Column(name = "user_id", nullable = false)
-    private int userId;
+    private Long userId;
 
     @Column(name = "emoji_id", nullable = false)
     private int emojiId;

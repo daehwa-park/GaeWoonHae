@@ -1,12 +1,32 @@
 package com.threeracha.gaewoonhae.db.repository;
 
 import com.threeracha.gaewoonhae.db.domain.Room;
-import org.springframework.data.jpa.repository.JpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 @Repository
-public interface RoomRepository extends JpaRepository<Room, String> {
-//    Optional<Room> findBySessionId(String sessionId);
+@RequiredArgsConstructor
+public class RoomRepository {
+
+    private final EntityManager em;
+
+    public Room findFitRoom(int gameType) {
+        try {
+            Room Fitroom = em.createQuery("SELECT r FROM Room r WHERE r.gameType = :gameType AND r.isPublicRoom = 'Y' AND r.currentUserNum < 5", Room.class)
+                    .setParameter("gameType", gameType)
+                    .setMaxResults(1)
+                    .getSingleResult();
+            Fitroom.setCurrentUserNum(Fitroom.getCurrentUserNum()+1);
+            return Fitroom;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public void makeNewRoom(Room newRoom) {
+        em.persist(newRoom);
+    }
 }
