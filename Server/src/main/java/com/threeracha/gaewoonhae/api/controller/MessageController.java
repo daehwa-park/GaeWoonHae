@@ -1,5 +1,7 @@
-package com.threeracha.gaewoonhae.chat;
+package com.threeracha.gaewoonhae.api.controller;
 
+import com.threeracha.gaewoonhae.chat.Chat;
+import com.threeracha.gaewoonhae.chat.Message;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
@@ -14,6 +16,7 @@ public class MessageController {
     @MessageMapping("/chatroom/{roomNumber}/enter")
     @SendTo("/topic/chatroom/{roomNumber}/messages")
     public Message enter(Chat message, StompHeaderAccessor session) throws Exception {
+        System.out.println("누가 들어왔음");
         return new Message(HtmlUtils.htmlEscape(session.getSessionAttributes().get("name") + "님께서 입장하셨습니다!"));
     }
     @MessageMapping("/chatroom/{roomNumber}/exit")

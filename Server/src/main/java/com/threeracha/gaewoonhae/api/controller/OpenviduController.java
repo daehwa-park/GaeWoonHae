@@ -1,6 +1,7 @@
-package com.threeracha.gaewoonhae.openvidu;
+package com.threeracha.gaewoonhae.api.controller;
 
 import io.openvidu.java.client.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
-
+@Tag(name = "OPENVIDU API", description = "세션 초기화, 연결 생성  ")
 @CrossOrigin(origins = "*")
 @RestController
-public class Controller {
+public class OpenviduController {
 
     @Value("${OPENVIDU_URL}")
     private String OPENVIDU_URL;
