@@ -36,14 +36,14 @@ public class OAuthLoginService {
         return new LoginResponse(token, user.getUserId());
     }
 
-    public String logout(Long userId) {
+    public Long logout(Long userId) {
         User user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> new CustomException(CustomExceptionList.MEMBER_NOT_FOUND_ERROR));
 
         user.setRefreshToken(null);
-        userRepository.flush();
+        userRepository.save(user);
 
-        return "logout!";
+        return user.getUserId();
     }
 
     private User findOrCreateUser(OAuthInfoResponse oAuthInfoResponse) {

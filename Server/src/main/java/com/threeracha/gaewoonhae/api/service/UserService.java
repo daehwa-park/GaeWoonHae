@@ -1,5 +1,6 @@
 package com.threeracha.gaewoonhae.api.service;
 
+import com.threeracha.gaewoonhae.api.dto.request.NicknameRequest;
 import com.threeracha.gaewoonhae.db.domain.User;
 import com.threeracha.gaewoonhae.db.repository.UserRepository;
 import com.threeracha.gaewoonhae.exception.CustomException;
@@ -14,24 +15,32 @@ import javax.transaction.Transactional;
 @Transactional
 public class UserService {
 
-    final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public User getUserInfo(Long userId) {
         return userRepository.findByUserId(userId)
                 .orElseThrow(() -> new CustomException(CustomExceptionList.MEMBER_NOT_FOUND_ERROR));
     }
 
-    public User updateUser(Long userId) {
-        User user = userRepository.findByUserId(userId).get();
-        user.setPoint(100);
-        userRepository.flush();
+    public String changeNickname(NicknameRequest nicknameReq) {
+        User user = userRepository.findByUserId(nicknameReq.getUserId())
+                .orElseThrow(()-> new CustomException(CustomExceptionList.MEMBER_NOT_FOUND_ERROR));
 
-        return user;
+        user.setNickname(nicknameReq.getNickname());
+        userRepository.save(user);
+
+        return user.getNickname();
     }
 
-//    public User getUserPoint(int userId) {
-//        return userRepository.findBy(userId)
-//                .orElseThrow(() -> new CustomException(CustomExceptionList.MEMBER_NOT_FOUND_ERROR));
-//    }
+    public int updateUserPoint(Long userId, int changePoint) {
 
+        User user = userRepository.findByUserId(userId)
+                .orElseThrow(() -> new CustomException(CustomExceptionList.MEMBER_NOT_FOUND_ERROR));
+
+        int currentUserPoint = user.getPoint();
+        user.setPoint(currentUserPoint + changePoint);
+        userRepository.save(user);
+
+        return user.getPoint();
+    }
 }
