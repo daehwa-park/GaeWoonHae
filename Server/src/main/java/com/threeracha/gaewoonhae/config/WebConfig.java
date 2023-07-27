@@ -22,11 +22,11 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("OPTIONS","GET","POST","PUT","DELETE");
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry interceptorRegistry) {
-
-        interceptorRegistry.addInterceptor(authInterceptor)
-                            .addPathPatterns("/**")
-                            .excludePathPatterns("/api/oauth/login/**");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry interceptorRegistry) {
+//
+//        interceptorRegistry.addInterceptor(authInterceptor)
+//                            .addPathPatterns("/**")
+//                            .excludePathPatterns("/api/oauth/login/**");
+//    }
 }

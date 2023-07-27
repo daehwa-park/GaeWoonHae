@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 
 @NoArgsConstructor //기본 생성자 만들어줌
+//@RequiredArgsConstructor
 @AllArgsConstructor //여기에 필드에 쓴 모든생성자만 만들어줌
 @DynamicUpdate //update 할때 실제 값이 변경됨 컬럼으로만 update 쿼리를 만듬
 @Entity //JPA Entity 임을 명시
@@ -18,25 +19,23 @@ public class Room{
     @Column(name = "session_id")
     private String sessionId;
 
-    @Column(name = "user_id")
-    private int userId;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
-    @Column(name = "current_user_num")
-    private String currentUserNum;
-
-    @Column(name = "limit_user_num")
-    private String limitUserNum;
-
-    @Column(name = "is_public_room")
-    private int isPublicRoom;
-
-    @Column(name = "admin")
-    private int admin;
-
-    @Column(name = "game_type")
+    @Column(name = "game_type", nullable = false)
     private int gameType;
 
-    @Column(name = "time_limit")
-    private int timeLimit;
+    @Column(name = "current_user_num", nullable = false)
+    private int currentUserNum;
+
+    @Column(name = "limit_user_num", nullable = false)
+    private int limitUserNum;
+
+    @Column(name = "is_public_room", nullable = false)
+    private char isPublicRoom;
+
+    @Column(name = "room_status", nullable = false)
+    private char roomStatus;
+
 
 }
