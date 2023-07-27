@@ -16,4 +16,7 @@ public class CommonResponse<T> {
         this.data = data;
     }
 
+    public CommonResponse() {
+
+    }
 }

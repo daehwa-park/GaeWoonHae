@@ -1,37 +1,41 @@
 package com.threeracha.gaewoonhae.api.controller;
 
+import com.threeracha.gaewoonhae.api.dto.request.NicknameRequest;
+import com.threeracha.gaewoonhae.api.dto.request.UserInfoRequest;
+import com.threeracha.gaewoonhae.api.dto.response.NicknameResponse;
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
-import com.threeracha.gaewoonhae.api.dto.response.UserResponse;
+import com.threeracha.gaewoonhae.api.dto.response.UserInfoResponse;
 import com.threeracha.gaewoonhae.api.service.UserService;
-import com.threeracha.gaewoonhae.db.domain.User;
+import com.threeracha.gaewoonhae.db.dto.MakeNewRoomDto;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-
+@Tag(name = "사용자관리 API", description = "사용자 로그인, 회원가입 ")
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     final UserService userService;
     static final String SUCCESS = "success";
 
-    @PostMapping("/myPage")
-    public ResponseEntity<CommonResponse<UserResponse>> userInfo (@RequestBody Integer userId) {
+    @PostMapping("/userinfo")
+    public ResponseEntity<CommonResponse<UserInfoResponse>> userInfo (@RequestBody UserInfoRequest userInfoRequest) {
 
-        User user = userService.getUserInfo(userId);
-        UserResponse userResponse = UserResponse.builder()
-                .nickname(user.getNickname())
-                .emojiId(user.getEmojiId())
-                .oAuthProvider(user.getOAuthProvider())
-                .point(user.getPoint())
-                .build();
-        return new ResponseEntity<>(makeCommonResponse(SUCCESS, userResponse), HttpStatus.OK);
+        User userInfo = userService.getUserInfo(userInfoRequest.getUserId());
+
+        return new ResponseEntity<>(
+                makeCommonResponse(SUCCESS, new UserInfoResponse(userInfo)), HttpStatus.OK);
+    }
+
+    @PostMapping("/change-nickname")
+    public ResponseEntity<CommonResponse<NicknameResponse>> changeNickname (@RequestBody NicknameRequest nicknameRequest) {
+        return null;
     }
 
     private <T> CommonResponse<T> makeCommonResponse(String message, T data) {
