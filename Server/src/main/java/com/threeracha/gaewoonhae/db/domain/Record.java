@@ -17,19 +17,19 @@ public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "game_record_id")
-    private int gameRecordId;
+    private Long gameRecordId;
 
-    @Column(name = "user_id")
-    private int userId;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
-    @Column(name = "game_type")
+    @Column(name = "game_type", nullable = false)
     private int gameType;
 
     @Column(name = "count", nullable = false)
     private int count;
 
-    @Column(name = "my_time", nullable = false)
-    private String myTime;
+    @Column(name = "record_date_time", nullable = false)
+    private String recordDateTime;
 
 //    @Temporal(TemporalType.TIMESTAMP)
 //    private Date changeTime;
