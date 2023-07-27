@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 
 @NoArgsConstructor //기본 생성자 만들어줌
+//@RequiredArgsConstructor
 @AllArgsConstructor //여기에 필드에 쓴 모든생성자만 만들어줌
 @DynamicUpdate //update 할때 실제 값이 변경됨 컬럼으로만 update 쿼리를 만듬
 @Entity //JPA Entity 임을 명시
