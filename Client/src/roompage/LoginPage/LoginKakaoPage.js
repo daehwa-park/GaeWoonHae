@@ -14,7 +14,7 @@ const LoginKakaoPage = () => {
             authorizationCode
         }).then((resp)=> {
             console.log(resp.data);
-            // movePage("/main")
+            
         }).catch((e)=> {
             console.log(e);
             movePage("/")
