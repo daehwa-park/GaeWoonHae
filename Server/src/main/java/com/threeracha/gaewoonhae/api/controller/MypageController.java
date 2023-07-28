@@ -37,5 +37,4 @@ public class MypageController {
     @GetMapping("/history")
     public void getPointHistory(FindFitRoomDto findFitRoomDto) {
     }
-
 }
