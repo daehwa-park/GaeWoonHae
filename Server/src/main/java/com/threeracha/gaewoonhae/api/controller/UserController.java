@@ -37,8 +37,6 @@ public class UserController {
         return new ResponseEntity<>(makeCommonResponse(SUCCESS, userService.changeNickname(nicknameReq)), HttpStatus.OK);
     }
 
-    @PutMapping("/change")
-
     private <T> CommonResponse<T> makeCommonResponse(String message, T data) {
         return CommonResponse.<T>builder()
                 .message(message)
