@@ -16,12 +16,8 @@ import './MainPage.css'
 
 
 const Mainpage=(props)=> {
-    const num = useSelector((state) => state.A);
+    const num = useSelector((state) => state.A);  //리덕스  연습
 
-    // const [modalOpen, setModalOpen] = useState(false);
-    // const showModal = () => {
-    //     setModalOpen(true);
-    // };
     return (
         <div>
             <div className='mainheader'>
@@ -29,26 +25,15 @@ const Mainpage=(props)=> {
             </div>
             <div className='maintitle'>
                 {/* 좌측 네비바 */}
-                <div className='mainnavber'> 
-                    <MainNav />
-                </div>
+                <MainNav className='mainnavber'/>
                 {/* 우측 게임입장 슬라이드 */}
-                <div className='maingame'>
-                    <MainSlide />
-
-                </div>
+                <MainSlide className='maingame'/>
             </div>
             <h3>{num}</h3>
 
 
             {/*  */}
             <Link to='/'><button>로그아웃</button></Link>
-
-            {/* <div>
-                <button className='messagebtn' onClick={showModal}>버튼</button>
-                {modalOpen && <ChatModal setModalOpen={setModalOpen} />}
-            </div> */}
-            {/* <ChatTest></ChatTest> */}
         </div>
     )
 }
