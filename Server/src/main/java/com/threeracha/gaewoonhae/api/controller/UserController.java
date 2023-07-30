@@ -35,7 +35,7 @@ public class UserController {
     })
     @Parameter(name = "userId", description = "조회할 사용자의 userId")
     @GetMapping("/userinfo/{userId}")
-    public ResponseEntity<CommonResponse<UserInfoResponse>> userInfo (@PathVariable("userId") Long userId) {
+    public ResponseEntity<CommonResponse<UserInfoResponse>> getUserInfo (@PathVariable("userId") Long userId) {
 
         User userInfo = userService.getUserInfo(userId);
 
