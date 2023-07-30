@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 
+.head {
+    height: 5vh;
+}
+
 .Logo1 {
     font-size:24px;
     color: #FD873E;
@@ -20,7 +24,7 @@
     margin:0 auto;
     background-color: white;
     width: 98vw;
-    height: 90vh;
+    height: 85vh;
     border-radius: 20px;
 }
 
@@ -29,5 +33,59 @@
     display:flex;
     justify-content: center; */
     text-align: center;
+    /* height: 10vh; */
+    /* line-height: 5vh; */
     /* margin: 0 auto; */
+}
+
+.titlename {
+    margin-top: 10px;
+}
+
+.messagebtntag{
+    position: flex;
+    /* top: 50%; */
+    /* left:50%; */
+    width: 25vw;
+    height: 60vh;
+    border: 2px solid black;
+}
+
+.messagebtn {
+    /* margin-top: 45vh; */
+    margin-top: 62vh;
+    margin-left: 2vw;
+    width:6vw;
+    height: 6vw;
+    border-radius: 3vw;
+}
+
+
+
+.gamescreen {
+    display:flex;
+    /* align-items: center; */
+    height: 60vh;
+}
+
+.mainvideo {
+    width: 75vw;
+    height: 60vh;
+    border :2px solid red;
+}
+.lienhr {
+    height: 5vh;
+}
+
+.footer {
+    height: 5vh;
+}
+
+.timer {
+    position:relative;
+    top: 75vh;
+    left: 58vw;
+    width: 150px;
+    height: 150px;
+    /* background-color: blue; */
 }
