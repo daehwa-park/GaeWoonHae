@@ -1,5 +1,6 @@
 package com.threeracha.gaewoonhae.api.controller;
 
+import com.threeracha.gaewoonhae.api.dto.request.GameStartRequest;
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
 import com.threeracha.gaewoonhae.api.service.RoomService;
 
@@ -14,10 +15,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 @Tag(name = "방관리 API", description = "방 접속, 생성, 게임 시작, 종료")
 @RestController
 @Slf4j
@@ -47,7 +46,7 @@ public class RoomController {
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = String.class)))
     })
     @PostMapping("/make")
-    public ResponseEntity<CommonResponse<String>> makeNewRoom(NewRoomRequest newRoomRequest) {
+    public ResponseEntity<CommonResponse<String>> makeNewRoom(@RequestBody NewRoomRequest newRoomRequest) {
         String madeSessionId = roomService.makeNewRoom(newRoomRequest);
         return new ResponseEntity<>(
                 makeCommonResponse(SUCCESS, madeSessionId), HttpStatus.OK);
@@ -59,7 +58,8 @@ public class RoomController {
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = Character.class)))
     })
     @PostMapping("/start")
-    public ResponseEntity<CommonResponse<Character>> GameStart(String sessionId) {
+    public ResponseEntity<CommonResponse<Character>> GameStart(@RequestBody GameStartRequest gameStartRequest) {
+        String sessionId = gameStartRequest.getSessionId();
         Character roomStatus = roomService.startGame(sessionId);
         return new ResponseEntity<>(
                 makeCommonResponse(SUCCESS, roomStatus), HttpStatus.OK);

@@ -40,6 +40,9 @@ public class RoomRepository {
     }
 
     public Character gameStart(Room room) {
+        int currentUserNum = room.getCurrentUserNum();
+        System.out.println(currentUserNum);
+
         if(room.getCurrentUserNum()==5 && room.getRoomStatus()=='R') {
             room.setRoomStatus('S');
             return 'S';
