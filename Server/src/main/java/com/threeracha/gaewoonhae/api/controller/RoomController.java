@@ -41,7 +41,7 @@ public class RoomController {
                 makeCommonResponse(SUCCESS, findSessionId), HttpStatus.OK);
     }
 
-    @Operation(summary = "새로운 방 생성", description = "newRoomDto 객체를 활용해서 새로운 방 생성 및 db 저장")
+    @Operation(summary = "새로운 방 생성", description = "newRoomRequest 객체를 활용해서 새로운 방 생성 및 db 저장")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = String.class)))
@@ -53,12 +53,20 @@ public class RoomController {
                 makeCommonResponse(SUCCESS, madeSessionId), HttpStatus.OK);
     }
 
+    @Operation(summary = "게임시작", description = "현재 roomStatus가 R 이고 유저가 5명이면 S 반환, 아니면 R 반환")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = Character.class))),
+            @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = Character.class)))
+    })
     @PostMapping("/start")
-    public void roomGameStart(NewRoomRequest makeNewRoomDto) {
+    public ResponseEntity<CommonResponse<Character>> GameStart(String sessionId) {
+        Character roomStatus = roomService.startGame(sessionId);
+        return new ResponseEntity<>(
+                makeCommonResponse(SUCCESS, roomStatus), HttpStatus.OK);
     }
 
     @PostMapping("/end")
-    public void roomGameFinish(NewRoomRequest makeNewRoomDto) {
+    public void GameFinish(NewRoomRequest makeNewRoomDto) {
     }
 
     private <T> CommonResponse<T> makeCommonResponse(String message, T data) {

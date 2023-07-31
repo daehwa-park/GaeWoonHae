@@ -34,7 +34,25 @@ public class RoomRepository {
         }
     }
 
-    public void makeNewRoom(Room newRoom) {
+    public String makeNewRoom(Room newRoom) {
         em.persist(newRoom);
+        return newRoom.getSessionId();
     }
+
+    public Character gameStart(Room room) {
+        if(room.getCurrentUserNum()==5 && room.getRoomStatus()=='R') {
+            room.setRoomStatus('S');
+            return 'S';
+        }
+        else {
+            return 'R';
+        }
+    }
+
+    public Room findRoomBySessionId(String SessionId) {
+        Room  findRoom = em.find(Room.class, SessionId);
+        return findRoom;
+    }
+
+
 }
