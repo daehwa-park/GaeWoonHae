@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Repository
-public interface PointHistoryRepository extends JpaRepository<PointHistory, Integer> {
+public interface PointHistoryRepository extends JpaRepository<PointHistory, Long> {
     Optional<PointHistory> findByUserUserIdAndChangeTime(Long userId, Date changeTime);
     Optional<PointHistory> findByUserUserIdAndPointChange(Long userId, int pointChange);
 

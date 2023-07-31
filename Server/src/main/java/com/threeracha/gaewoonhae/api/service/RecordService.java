@@ -22,7 +22,7 @@ public class RecordService {
     public List<RecordResponse> getAllRecord(Long userId) {
 
         List<Record> records = recordRepository.findRecordsByUserUserId(userId)
-                .orElseThrow(() -> new CustomException(CustomExceptionList.EXERCISE_RECORD_NOT_EXIST));
+                .orElseThrow(() -> new CustomException("운동 기록을 조회할 수 없습니다."));
 
         return records.stream()
                 .map(RecordResponse::new)
