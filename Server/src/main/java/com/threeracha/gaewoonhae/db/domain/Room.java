@@ -19,11 +19,13 @@ public class Room{
     @Column(name = "session_id")
     private String sessionId;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(name = "game_type", nullable = false)
-    private int gameType;
+    @ManyToOne
+    @JoinColumn(name = "game_type")
+    private GameType gameType;
 
     @Column(name = "current_user_num", nullable = false)
     private int currentUserNum;
