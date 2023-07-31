@@ -17,6 +17,9 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
 
     Optional<List<Record>> findRecordsByUserUserIdAndGameTypeGameType(Long userId, Integer gameType);
 
-    Optional<List<Record>> findRecordsByUserUserIdAndRecordDateTime(Long userId, Date currentTime);
+    Optional<List<Record>> findRecordsByUserUserIdAndRecordDateTimeBetween(
+            Long user_userId,
+            Timestamp startDateTime,
+            Timestamp endDateTime);
 
 }
