@@ -1,6 +1,5 @@
 package com.threeracha.gaewoonhae.api.controller;
 
-import com.threeracha.gaewoonhae.db.dto.FindFitRoomDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,15 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmojiController {
 
     @GetMapping("/store")
-    public void getEmojiList(FindFitRoomDto findFitRoomDto) {
+    public void getEmojiList() {
     }
 
     @PostMapping("/store/buy")
-    public void buyEmoji(FindFitRoomDto findFitRoomDto) {
+    public void buyEmoji() {
     }
 
     @PostMapping("/choice")
-    public void choiceMainEmoji(FindFitRoomDto findFitRoomDto) {
+    public void choiceMainEmoji() {
     }
 
 }
