@@ -1,4 +1,4 @@
-package com.threeracha.gaewoonhae.db.dto;
+package com.threeracha.gaewoonhae.api.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,9 +10,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor //기본 생성자 만들어줌
 @AllArgsConstructor //여기에 필드에 쓴 모든생성자만 만들어줌
-public class MakeNewRoomDto {
+public class NewRoomRequest {
     private char isPublicRoom;
     private Long userId;
     private int gameType;
-    private int timeLimit;
 }

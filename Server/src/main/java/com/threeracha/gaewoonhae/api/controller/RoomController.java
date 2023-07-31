@@ -1,12 +1,10 @@
 package com.threeracha.gaewoonhae.api.controller;
 
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
-import com.threeracha.gaewoonhae.api.dto.response.UserInfoResponse;
 import com.threeracha.gaewoonhae.api.service.RoomService;
-import com.threeracha.gaewoonhae.db.dto.FindFitRoomDto;
-import com.threeracha.gaewoonhae.db.dto.MakeNewRoomDto;
+
+import com.threeracha.gaewoonhae.api.dto.request.NewRoomRequest;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -28,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoomController {
 
     private final RoomService roomService;
+
+
     static final String SUCCESS = "success";
     @Operation(summary = "최선의 방 조회", description = "게임 타입에 적합한 방이 있는 경우 roomId 반환, 아닐 경우 empty 반환")
     @ApiResponses(value = {
@@ -36,9 +36,9 @@ public class RoomController {
     })
     @GetMapping("/find")
     public ResponseEntity<CommonResponse<String>> findFitRoomByGameType(int gameType) {
-        String fitRoomId = roomService.findFitRoom(gameType);
+        String findSessionId = roomService.findFitRoom(gameType);
         return new ResponseEntity<>(
-                makeCommonResponse(SUCCESS, fitRoomId), HttpStatus.OK);
+                makeCommonResponse(SUCCESS, findSessionId), HttpStatus.OK);
     }
 
     @Operation(summary = "새로운 방 생성", description = "newRoomDto 객체를 활용해서 새로운 방 생성 및 db 저장")
@@ -47,17 +47,18 @@ public class RoomController {
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = String.class)))
     })
     @PostMapping("/make")
-    public ResponseEntity<CommonResponse<String>> makeNewRoom(MakeNewRoomDto makeNewRoomDto) {
-
-        roomService.makeNewRoom(makeNewRoomDto);
+    public ResponseEntity<CommonResponse<String>> makeNewRoom(NewRoomRequest newRoomRequest) {
+        String madeSessionId = roomService.makeNewRoom(newRoomRequest);
+        return new ResponseEntity<>(
+                makeCommonResponse(SUCCESS, madeSessionId), HttpStatus.OK);
     }
 
     @PostMapping("/start")
-    public void roomGameStart(MakeNewRoomDto makeNewRoomDto) {
+    public void roomGameStart(NewRoomRequest makeNewRoomDto) {
     }
 
     @PostMapping("/end")
-    public void roomGameFinish(MakeNewRoomDto makeNewRoomDto) {
+    public void roomGameFinish(NewRoomRequest makeNewRoomDto) {
     }
 
     private <T> CommonResponse<T> makeCommonResponse(String message, T data) {

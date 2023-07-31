@@ -1,5 +1,6 @@
 package com.threeracha.gaewoonhae.db.repository;
 
+import com.threeracha.gaewoonhae.db.domain.GameType;
 import com.threeracha.gaewoonhae.db.domain.Room;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -13,18 +14,23 @@ public class RoomRepository {
 
     private final EntityManager em;
 
-    public String findFitRoom(int gameType) {
-        String fitRoomId ="empty";
+    public GameType findGameType(int gameTypeId) {
+        GameType gameType = em.find(GameType.class, gameTypeId);
+        return gameType;
+    }
+
+    public String findFitRoom(GameType gameType) {
+        String findSessionId ="empty";
         try {
             Room Fitroom = em.createQuery("SELECT r FROM Room r WHERE r.gameType = :gameType AND r.isPublicRoom = 'Y' AND r.currentUserNum < 5", Room.class)
                     .setParameter("gameType", gameType)
                     .setMaxResults(1)
                     .getSingleResult();
             Fitroom.setCurrentUserNum(Fitroom.getCurrentUserNum()+1);
-            fitRoomId = Fitroom.getSessionId();
-            return fitRoomId;
+            findSessionId = Fitroom.getSessionId();
+            return findSessionId;
         } catch (NoResultException e) {
-            return fitRoomId;
+            return findSessionId;
         }
     }
 
