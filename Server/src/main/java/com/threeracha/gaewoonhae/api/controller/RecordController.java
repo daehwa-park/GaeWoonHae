@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "기록 관리 API", description = "사용자 기록 저장, 조회")
+@Tag(name = "기록 관리 API", description = "사용자 기록 조회")
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -55,7 +55,6 @@ public class RecordController {
         return new ResponseEntity<>(makeCommonResponse(SUCCESS,
                 recordService.getRecordsDate(userId, recordDateRequest.getDate())), HttpStatus.OK);
     }
-
 
     private <T> CommonResponse<T> makeCommonResponse(String message, T data) {
         return CommonResponse.<T>builder()

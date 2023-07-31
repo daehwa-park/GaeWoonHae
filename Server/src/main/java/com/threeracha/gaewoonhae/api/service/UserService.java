@@ -1,6 +1,7 @@
 package com.threeracha.gaewoonhae.api.service;
 
 import com.threeracha.gaewoonhae.api.dto.request.NicknameRequest;
+import com.threeracha.gaewoonhae.api.dto.request.ResignUserRequest;
 import com.threeracha.gaewoonhae.db.domain.User;
 import com.threeracha.gaewoonhae.db.repository.UserRepository;
 import com.threeracha.gaewoonhae.exception.CustomException;
@@ -43,5 +44,23 @@ public class UserService {
         userRepository.save(user);
 
         return user.getPoint();
+    }
+
+    public String removeUser(ResignUserRequest resignUserReq) {
+
+        User user = userRepository.findByUserIdAndNickname(resignUserReq.getUserId(), resignUserReq.getNickname())
+                .orElseThrow(() -> new CustomException("아이디와 닉네임이 일치하는 정보가 없습니다."));
+
+        /*
+            refreshToken이 일치하는지 검증하는 로직 작성 요망 (Redis 설치 후)
+         */
+        
+        userRepository.deleteById(user.getUserId());
+        
+        /*
+            redis에서 삭제 로직
+         */
+
+        return "resign complete";
     }
 }
