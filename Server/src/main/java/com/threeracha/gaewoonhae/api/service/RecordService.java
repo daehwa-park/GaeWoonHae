@@ -13,6 +13,9 @@ import javax.transaction.Transactional;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,8 +49,29 @@ public class RecordService {
 
     public List<RecordResponse> getRecordsToday(Long userId) {
 
-        Date today = new Date(System.currentTimeMillis());
-        List<Record> records = recordRepository.findRecordsByUserUserIdAndRecordDateTime(userId, today)
+        Timestamp startDatetime = Timestamp.valueOf(
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0)));
+
+        Timestamp endDatetime = Timestamp.valueOf(
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59)));
+
+        List<Record> records = recordRepository.findRecordsByUserUserIdAndRecordDateTimeBetween(userId, startDatetime, endDatetime)
+                .orElseThrow(() -> new CustomException("운동 기록을 조회할 수 없습니다."));
+
+        return records.stream()
+                .map(RecordResponse::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<RecordResponse> getRecordsDate(Long userId, Timestamp startDatetime) {
+
+        Timestamp endDatetime = Timestamp.valueOf(
+                LocalDateTime.of(startDatetime
+                                            .toLocalDateTime()
+                                            .toLocalDate(),
+                LocalTime.of(23,59,59)));
+
+        List<Record> records = recordRepository.findRecordsByUserUserIdAndRecordDateTimeBetween(userId, startDatetime, endDatetime)
                 .orElseThrow(() -> new CustomException("운동 기록을 조회할 수 없습니다."));
 
         return records.stream()
