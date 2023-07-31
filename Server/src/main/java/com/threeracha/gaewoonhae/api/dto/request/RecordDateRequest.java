@@ -3,11 +3,11 @@ package com.threeracha.gaewoonhae.api.dto.request;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
+import java.sql.Timestamp;
+
 @Getter
-public class NicknameRequest {
+@Setter
+public class RecordDateRequest {
 
-    Long userId;
-    String nickname;
-
+    Timestamp date;
 }

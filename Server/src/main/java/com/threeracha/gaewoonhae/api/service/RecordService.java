@@ -63,4 +63,20 @@ public class RecordService {
                 .collect(Collectors.toList());
     }
 
+    public List<RecordResponse> getRecordsDate(Long userId, Timestamp startDatetime) {
+
+        Timestamp endDatetime = Timestamp.valueOf(
+                LocalDateTime.of(startDatetime
+                                            .toLocalDateTime()
+                                            .toLocalDate(),
+                LocalTime.of(23,59,59)));
+
+        List<Record> records = recordRepository.findRecordsByUserUserIdAndRecordDateTimeBetween(userId, startDatetime, endDatetime)
+                .orElseThrow(() -> new CustomException("운동 기록을 조회할 수 없습니다."));
+
+        return records.stream()
+                .map(RecordResponse::new)
+                .collect(Collectors.toList());
+    }
+
 }
