@@ -31,6 +31,24 @@ public class RecordController {
         return new ResponseEntity<>(makeCommonResponse(SUCCESS, recordService.getAllRecord(userId)), HttpStatus.OK);
     }
 
+    @GetMapping("/{userId}/{gameTypeId}")
+    public ResponseEntity<CommonResponse<List<RecordResponse>>> getExerciseRecordByGameType(
+            @PathVariable("userId") Long userId,
+            @PathVariable("gameTypeId") Integer gameTypeId
+    ) {
+
+        return new ResponseEntity<>(makeCommonResponse(SUCCESS, recordService.getRecordsByGameType(userId, gameTypeId)), HttpStatus.OK);
+    }
+
+    @GetMapping("/today/{userId}")
+    public ResponseEntity<CommonResponse<List<RecordResponse>>> getExerciseRecordToday(
+            @PathVariable("userId") Long userId
+    ) {
+
+        return new ResponseEntity<>(makeCommonResponse(SUCCESS, recordService.getRecordsToday(userId)), HttpStatus.OK);
+    }
+
+
     private <T> CommonResponse<T> makeCommonResponse(String message, T data) {
         return CommonResponse.<T>builder()
                 .message(message)
