@@ -31,6 +31,12 @@ function App() {
       {/* 잘못된 경로로 들어갔을 경우 */}
       <Route path ="*" element = {<div>There's nothing here!</div>} />
     </Routes>
+
+    //1. 로비 /public /select_id/세션id
+    // 2. 로비 /시크릿 /select_id/세션id 
+    // game1 /세션id/
+    // game2 /세션id/
+    // game3 /세션id/
   );
 }
 

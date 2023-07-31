@@ -1,9 +1,9 @@
 import {useNavigate} from "react-router-dom"
-import RecommendModal from "../modal/RecommendModal"
-import BgmModal from "../modal/bgmModal"
+import RecommendModal from "./sideNavBox/RecommendModal"
+import BgmModal from "./sideNavBox/bgmModal"
 import {useState} from "react" 
-import "./mainnavbar.css"
-
+import "./SideNavBox.css"
+import {Link} from "react-router-dom"
 
 function Mainnav() {
     // 1. navigate 선언
@@ -35,6 +35,7 @@ function Mainnav() {
                 <button className="mainnav" onClick={showModal2}>BGM</button>
                 {modalOpen2 && <BgmModal setModalOpen2={setModalOpen2} />}
             </div>
+            <Link to="/"><button>로그아웃</button></Link>
         </div>
     )
 }

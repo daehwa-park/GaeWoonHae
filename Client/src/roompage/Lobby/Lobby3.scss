@@ -1,0 +1,294 @@
+  .container-fluid {
+    max-width: 1400px;
+  }
+  .header {
+      padding: 30px 65px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 113px;
+      z-index: 10;
+      mix-blend-mode: exclusion;
+      filter: invert(65%);
+      &__logo {
+        width: 50px;
+        img {
+          width: 100%;
+        }
+      }
+      &__menu {
+        position: absolute;
+        top: 30px;
+        right: 65px;
+      width: 50px;
+      cursor: pointer;
+      }
+  }
+  .icon {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    font-size: 30px;
+  }
+  .slider-wrapper {
+    position: relative;
+    width: 90%;
+    max-width: 1024px;
+    margin: 2em auto;
+    /* hide horizontal scrollbar on IE11 */
+    overflow-x: hidden;
+    padding: 30px 65px;
+  }
+  
+  .slider {
+    & > li {
+      position: absolute; 
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      /* hide vertical scrollbar on IE11 */
+      overflow: hidden;
+      &.visible {
+        position: relative;
+        z-index: 2;
+        opacity: 1;
+        .text span.text__word {opacity: 0;}
+      }
+      &.is-animating {
+        z-index: 3;
+        opacity: 1;
+      }
+    }
+    &__info {
+      margin-left: 65px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+      color: #fff;
+    }
+    &__title {
+      font-weight: 700;
+      font-size: 36px;
+        margin-bottom: 7px;
+        overflow: hidden;     
+        span {
+          display: block;
+      }
+    }
+    &__desc {
+      font-size: 10px;
+      overflow: hidden;
+      span {
+        display: block;
+      }
+    }
+    &__site {
+      display: block;
+      font-weight: bold;
+      font-size: 13px;
+    }
+    &__visit {
+      display: block;
+        margin-right: 32px;
+    }
+    &__link {
+      padding-right: 32px;
+      position: absolute;
+      top: 50%; 
+      transform: translateY(-50%);
+      right: 32px;
+      color: #fff;
+      text-align: right;
+      font-size: 10px;
+      overflow: hidden;
+      a {
+        color: #fff;
+        overflow: hidden;
+        display: block;
+        &:hover, &:focus {
+          text-decoration: none;
+        }
+      }
+      .arrow {
+        position: relative;
+        right: 0;
+      }
+    }
+    image {
+      pointer-events: none;
+      transform-origin: 50% 50%;
+    }
+  }
+  
+  .slider .svg-wrapper {
+    /* using padding Hack to fix bug on IE - svg height not properly calculated */
+    height: 0;
+    padding-bottom: 57.15%;
+  }
+  
+  .slider-wrapper {
+    width: 100%;
+    height: calc(100% + 9px);
+    padding: 0;
+    margin: -9px 0 0;
+    max-width: 100%;
+    overflow: hidden;
+    ul {
+      margin: 0;
+      padding: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        // transition-property: all;
+        // transition-duration: 500ms;
+        // transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        //transition-property: all;
+        //transition-duration: 1000ms;
+        //transition-timing-function: cubic-bezier(.25,0,.25,1);
+        &.animate {
+          top: 100px;
+          right: 120px;
+          left: 120px;
+          bottom: 100px;
+  
+        }
+    }
+    svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  /* -------------------------------- 
+  
+  Slider navigation
+  
+  -------------------------------- */
+  .slider-navigation li {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    bottom: auto;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 10px;
+    height: 48px;
+    width: 48px;
+  }
+  .slider-navigation li a {
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+    -webkit-transition: -webkit-transform 0.2s;
+    -moz-transition: -moz-transform 0.2s;
+    transition: transform 0.2s;
+  }
+  .no-touch .slider-navigation li a:hover {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+  .slider-navigation li:last-of-type {
+    left: 10px;
+    right: auto;
+  }
+  .slider-navigation li:last-of-type a {
+    background-position: -48px 0;
+  }
+  
+  /* -------------------------------- 
+  
+  Slider dots/controls 
+  
+  -------------------------------- */
+  .slider-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    right: auto;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    z-index: 3;
+    text-align: center;
+    width: 90%;
+    mix-blend-mode: exclusion;
+    -webkit-filter: invert(65%);
+    filter: invert(65%);
+  }
+  .slider-controls::after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+  .slider-controls li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .slider-controls li:last-of-type {
+    margin-right: 0;
+  }
+  .slider-controls li.selected a {
+    background-color: #ffffff;
+  }
+  .slider-controls a {
+    display: block;
+    /* image replacement */
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+    color: transparent;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+  }
+  .no-touch .slider-controls a:hover {
+    background-color: #ffffff;
+  }
+  
+  .text__first, .text__second{
+    position: relative;
+  }
+  
+  .text__word{
+    opacity: 0;
+  }
+  
+  .text__first-bg, .text__second-bg{
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  
+  .text__first-bg{
+    background-color: #5fbff9;
+  }
+  
+  .text__second-bg{
+    background-color: #f06543;
+  }

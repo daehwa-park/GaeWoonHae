@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import React, {useState}  from "react";
 import Slider from "react-slick";
-import GoLobby from "../modal/goLobby"
+import GoLobby from "./mainslide/goLobby"
 
 
 function Mainslide() {
