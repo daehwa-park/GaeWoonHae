@@ -9,5 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserBuyRepository extends JpaRepository<UserBuyEmoji, Integer> {
-    Optional<UserBuyEmoji> findByBuyId(int buyId);
+    //Optional<UserBuyEmoji> findByBuyId(int buyId);
+
+    Optional<UserBuyEmoji> findByUserUserId(User user);
 }
