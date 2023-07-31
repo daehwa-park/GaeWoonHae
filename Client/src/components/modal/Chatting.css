@@ -1,0 +1,13 @@
+#chatbody {
+    height: 40vh;
+    background-color: wheat;
+    border-radius: 5px;
+}
+
+.rowchat {
+    height: 40vh;
+}
+
+#send {
+    margin-left: 15vw;
+}

@@ -35,8 +35,9 @@ public class User {
     @Column(name = "point", nullable = false)
     private int point;
 
-    @Column(name = "emoji_id", nullable = false)
-    private int emojiId;
+    @ManyToOne
+    @JoinColumn(name = "emoji_id")
+    private Emoji emoji;
 
     @Builder
     public User(String email, String nickname, OAuthProvider oAuthProvider) {

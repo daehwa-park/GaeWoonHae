@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserBuyRepository extends JpaRepository<UserBuyEmoji, Integer> {
+public interface UserBuyRepository extends JpaRepository<UserBuyEmoji, Long> {
     Optional<UserBuyEmoji> findByBuyId(int buyId);
 }
