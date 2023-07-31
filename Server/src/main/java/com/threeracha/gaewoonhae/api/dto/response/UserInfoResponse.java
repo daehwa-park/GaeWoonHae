@@ -10,13 +10,13 @@ import lombok.Setter;
 public class UserInfoResponse {
     String nickname;
     int point;
-    int emojiId;
+    long emojiId;
     OAuthProvider oAuthProvider;
 
     public UserInfoResponse(User user) {
         this.nickname = user.getNickname();
         this.point = user.getPoint();
-        this.emojiId = user.getEmojiId();
+        this.emojiId = user.getEmoji().getEmojiId();
         this.oAuthProvider = user.getOAuthProvider();
     }
 

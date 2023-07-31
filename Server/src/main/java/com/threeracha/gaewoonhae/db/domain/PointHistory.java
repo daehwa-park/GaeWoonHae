@@ -1,9 +1,11 @@
 package com.threeracha.gaewoonhae.db.domain;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @NoArgsConstructor //기본 생성자 만들어줌
@@ -25,11 +27,13 @@ public class PointHistory {
     @JoinColumn(name = "user_id")
     private User user;
 
+
     @Column(name = "point_change", nullable = false)
     private int pointChange;
 
+    @CreationTimestamp
     @Column(name = "change_time", nullable = false)
-    private Date changeTime;
+    private Timestamp changeTime;
 
 //    @Temporal(TemporalType.TIMESTAMP)
 //    private Date changeTime;
