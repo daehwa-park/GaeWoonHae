@@ -21,14 +21,15 @@ public class PointHistory {
     @Column(name = "history_id")
     private Long historyId;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "point_change", nullable = false)
     private int pointChange;
 
-    @Column(name = "chang_time", nullable = false)
-    private String changeTime;
+    @Column(name = "change_time", nullable = false)
+    private Date changeTime;
 
 //    @Temporal(TemporalType.TIMESTAMP)
 //    private Date changeTime;

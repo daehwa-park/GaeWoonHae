@@ -19,17 +19,19 @@ public class Record {
     @Column(name = "game_record_id")
     private Long gameRecordId;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(name = "game_type", nullable = false)
-    private int gameType;
+    @ManyToOne
+    @JoinColumn(name = "game_type")
+    private GameType gameType;
 
     @Column(name = "count", nullable = false)
     private int count;
 
     @Column(name = "record_date_time", nullable = false)
-    private String recordDateTime;
+    private Date recordDateTime;
 
 //    @Temporal(TemporalType.TIMESTAMP)
 //    private Date changeTime;

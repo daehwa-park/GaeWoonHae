@@ -19,10 +19,12 @@ public class UserBuyEmoji {
     @Column(name = "buy_id")
     private Long buyId;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(name = "emoji_id", nullable = false)
-    private int emojiId;
+    @ManyToOne
+    @JoinColumn(name = "emoji_id")
+    private Emoji emoji;
 
 }
