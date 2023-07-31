@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    static final String SUCCESS = "success";
+    final String SUCCESS = "success";
 
     @Operation(summary = "사용자 정보 조회", description = "파라미터로 받은 userId와 일치하는 사용자 정보를 전달.")
     @ApiResponses(value = {
