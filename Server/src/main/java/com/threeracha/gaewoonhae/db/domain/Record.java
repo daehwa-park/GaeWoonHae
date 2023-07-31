@@ -1,8 +1,12 @@
 package com.threeracha.gaewoonhae.db.domain;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @NoArgsConstructor //기본 생성자 만들어줌
@@ -30,8 +34,9 @@ public class Record {
     @Column(name = "count", nullable = false)
     private int count;
 
+    @CreationTimestamp
     @Column(name = "record_date_time", nullable = false)
-    private Date recordDateTime;
+    private Timestamp recordDateTime;
 
 //    @Temporal(TemporalType.TIMESTAMP)
 //    private Date changeTime;

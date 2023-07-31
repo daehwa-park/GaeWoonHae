@@ -37,8 +37,8 @@ public class OAuthLoginService {
     }
 
     public Long logout(Long userId) {
-        User user = userRepository.findByUserId(userId)
-                .orElseThrow(() -> new CustomException(CustomExceptionList.MEMBER_NOT_FOUND_ERROR));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException("유저를 찾을 수 없습니다."));
 
         user.setRefreshToken(null);
         userRepository.save(user);

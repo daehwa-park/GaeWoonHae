@@ -4,6 +4,7 @@ spring:
     url: jdbc:mysql://localhost:3306/GWHDB?serverTimezone=Asia/Seoul
     username: root
     password: ssafy
+
   jpa:
     hibernate:
       ddl-auto: create
@@ -11,6 +12,10 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
 
 jwt:
   secret-key: Z29nby10bS1zZXJ2ZXItZGxyamVvYW9yb3JodG9kZ290c3Atam9vbmdhbmduaW0teWVvbHNpbWhpaGFsZ2VveW8K
