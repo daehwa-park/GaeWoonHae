@@ -15,16 +15,19 @@ public class RoomService {
     private final RoomRepository roomRepository;
 
     @Transactional
-    public void makeNewRoom(MakeNewRoomDto makeNewRoomDto) {
-        System.out.println(makeNewRoomDto.getGameType());
+    public String makeNewRoom(MakeNewRoomDto makeNewRoomDto) {
+        int gameType = makeNewRoomDto.getGameType();
+        char isPublicRoom = makeNewRoomDto.getIsPublicRoom();
+        Long userId = makeNewRoomDto.getUserId();
+        Room newRoom = new Room("sessionId", userId, gameType, 1, 5, isPublicRoom,'R');
+        return "hi";
     }
 
     @Transactional
     public String findFitRoom(int gameType) {
-        Room fitRoom = roomRepository.findFitRoom(gameType);
-        String FitSessionId =  fitRoom.getSessionId();
+        String fitRoomId  = roomRepository.findFitRoom(gameType);
 
-        return FitSessionId;
+        return fitRoomId;
     }
 
 }

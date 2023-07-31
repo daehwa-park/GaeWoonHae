@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Table(name = "room_tbl") //테이블 관련 설정 어노테이션
 public class Room{
 
-    @Id @GeneratedValue
+    @Id
     @Column(name = "session_id")
     private String sessionId;
 

@@ -11,19 +11,8 @@ OPENVIDU_SECRET: MY_SECRET
 
 spring:
   profiles:
-    active: dev
+    active: local
 
----
-
-spring:
-  profiles:
-    active: prod
-
----
-
-spring:
-  profiles:
-    active: prod
 
 ---
 

@@ -13,16 +13,18 @@ public class RoomRepository {
 
     private final EntityManager em;
 
-    public Room findFitRoom(int gameType) {
+    public String findFitRoom(int gameType) {
+        String fitRoomId ="empty";
         try {
             Room Fitroom = em.createQuery("SELECT r FROM Room r WHERE r.gameType = :gameType AND r.isPublicRoom = 'Y' AND r.currentUserNum < 5", Room.class)
                     .setParameter("gameType", gameType)
                     .setMaxResults(1)
                     .getSingleResult();
             Fitroom.setCurrentUserNum(Fitroom.getCurrentUserNum()+1);
-            return Fitroom;
+            fitRoomId = Fitroom.getSessionId();
+            return fitRoomId;
         } catch (NoResultException e) {
-            return null;
+            return fitRoomId;
         }
     }
 
