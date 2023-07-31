@@ -1,31 +1,18 @@
 server:
   port: 5000
 
----
 
 server.ssl.enabled: false
 OPENVIDU_URL: http://localhost:4443/
 OPENVIDU_SECRET: MY_SECRET
 
----
+
 
 spring:
   profiles:
-    active: dev
+    active: local
 
----
 
-spring:
-  profiles:
-    active: prod
-
----
-
-spring:
-  profiles:
-    active: prod
-
----
 
 springdoc:
   packages-to-scan: com.threeracha.gaewoonhae.api

@@ -16,7 +16,6 @@ import javax.persistence.*;
 public class GameType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "game_type")
     private Integer gameType;
 

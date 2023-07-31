@@ -27,6 +27,6 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
         log.error("access denied");
-        throw new CustomException(CustomExceptionList.ACCESS_TOKEN_ERROR);
+        throw new CustomException("엑세스 토큰이 잘못되었습니다.");
     }
 }
