@@ -1,6 +1,6 @@
 package com.threeracha.gaewoonhae.api.controller;
 
-import com.threeracha.gaewoonhae.api.dto.request.GameStartRequest;
+import com.threeracha.gaewoonhae.api.dto.request.SessiondIdRequest;
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
 import com.threeracha.gaewoonhae.api.service.RoomService;
 
@@ -28,17 +28,32 @@ public class RoomController {
 
 
     static final String SUCCESS = "success";
-    @Operation(summary = "최선의 방 조회", description = "게임 타입에 적합한 방이 있는 경우 roomId 반환, 아닐 경우 empty 반환")
+    @Operation(summary = "최선의 방 조회", description = "게임 타입에 적합한 방이 있는 경우 sessionId 반환, 아닐 경우 customException 반환")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = String.class)))
     })
     @GetMapping("/find")
-    public ResponseEntity<CommonResponse<String>> findFitRoomByGameType(int gameType) {
-        String findSessionId = roomService.findFitRoom(gameType);
+    public ResponseEntity<CommonResponse<String>> findRoomByGameType(int gameType) {
+        String findSessionId = roomService.findRoomByGameType(gameType);
         return new ResponseEntity<>(
                 makeCommonResponse(SUCCESS, findSessionId), HttpStatus.OK);
     }
+
+    @Operation(summary = "초대코드로 방 조회", description = "초대코드에 해당하는 방이 있는 경우 sessionId 반환, 아닐 경우 customException 반환")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = String.class)))
+    })
+    @PostMapping("/find")
+    public ResponseEntity<CommonResponse<String>> findRoomBySessionId(@RequestBody SessiondIdRequest sessiondIdRequest) {
+        String sessionId = sessiondIdRequest.getSessionId();
+        String roomBySessionId = roomService.findRoomBySessionId(sessionId);
+
+        return new ResponseEntity<>(
+                makeCommonResponse(SUCCESS, roomBySessionId), HttpStatus.OK);
+    }
+
 
     @Operation(summary = "새로운 방 생성", description = "newRoomRequest 객체를 활용해서 새로운 방 생성 및 db 저장")
     @ApiResponses(value = {
@@ -58,7 +73,7 @@ public class RoomController {
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = Character.class)))
     })
     @PostMapping("/start")
-    public ResponseEntity<CommonResponse<Character>> GameStart(@RequestBody GameStartRequest gameStartRequest) {
+    public ResponseEntity<CommonResponse<Character>> GameStart(@RequestBody SessiondIdRequest gameStartRequest) {
         String sessionId = gameStartRequest.getSessionId();
         Character roomStatus = roomService.startGame(sessionId);
         return new ResponseEntity<>(
