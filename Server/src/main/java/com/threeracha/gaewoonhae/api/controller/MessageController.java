@@ -13,6 +13,16 @@ import java.util.Date;
 
 @Controller
 public class MessageController {
+    @MessageMapping("/chatroom/{roomNumber}/refresh")
+    @SendTo("/topic/chatroom/{roomNumber}/refresh")
+    public Message userListRefresh(Chat message, StompHeaderAccessor session) throws Exception {
+        return new Message(message.getChat());
+    }
+    @MessageMapping("/chatroom/{roomNumber}/join")
+    @SendTo("/topic/chatroom/{roomNumber}/host")
+    public Message userListUpdate(Chat message, StompHeaderAccessor session) throws Exception {
+        return new Message((String) session.getSessionAttributes().get("name"));
+    }
     @MessageMapping("/chatroom/{roomNumber}/enter")
     @SendTo("/topic/chatroom/{roomNumber}/messages")
     public Message enter(Chat message, StompHeaderAccessor session) throws Exception {
@@ -34,6 +44,5 @@ public class MessageController {
         String senderName = session.getSessionAttributes().get("name").toString();
         return new Message(HtmlUtils.htmlEscape("[" + roomNumber + "] " + senderName + " : " + message.getChat() + " [" + currentTime + "]"));
     }
-
 
 }

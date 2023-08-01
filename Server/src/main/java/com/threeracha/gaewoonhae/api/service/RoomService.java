@@ -28,14 +28,12 @@ public class RoomService {
         return findSessionId;
     }
 
-
     public String findRoomBySessionId(String sessionId) {
         Room roomBySessionId = roomRepository.findRoomBySessionId(sessionId)
                 .orElseThrow(() -> new CustomException("해당 게임방이 없습니다."));
         String findSessionId = roomBySessionId.getSessionId();
         return findSessionId;
     }
-
 
     public String makeNewRoom(NewRoomRequest newRoomRequest) {
         User findUser = userService.getUserInfo(newRoomRequest.getUserId());

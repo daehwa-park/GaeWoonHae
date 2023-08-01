@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import java.util.Optional;
 
 @Repository
@@ -21,10 +20,10 @@ public class RoomRepository {
     }
 
     public Optional<Room> findRoomByGameType(GameType gameType) {
-            Room findRoom = em.createQuery("SELECT r FROM Room r WHERE r.gameType = :gameType AND r.isPublicRoom = 'Y' AND r.currentUserNum < 5", Room.class)
-                    .setParameter("gameType", gameType)
-                    .setMaxResults(1)
-                    .getSingleResult();
+        Room findRoom = em.createQuery("SELECT r FROM Room r WHERE r.gameType = :gameType AND r.isPublicRoom = 'Y' AND r.currentUserNum < 5", Room.class)
+                .setParameter("gameType", gameType)
+                .setMaxResults(1)
+                .getSingleResult();
 
         return Optional.ofNullable(findRoom);
     }
@@ -41,3 +40,4 @@ public class RoomRepository {
 
 
 }
+
