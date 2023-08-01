@@ -6,6 +6,12 @@ import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
+/*
+ * Swagger Address
+ * http://localhost:5000/swagger-ui/index.html#/%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B4%80%EB%A6%AC%20API/userInfo
+ */
+
 @Configuration
 public class SwaggerConfig {
     @Bean

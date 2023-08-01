@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/GWHDB?serverTimezone=Asia/Seoul
-    username: root
-    password: 1234
+    username: ssafy
+    password: ssafy
 
   jpa:
     hibernate:
@@ -16,6 +16,7 @@ spring:
   sql:
     init:
       mode: always
+
 
 jwt:
   secret-key: Z29nby10bS1zZXJ2ZXItZGxyamVvYW9yb3JodG9kZ290c3Atam9vbmdhbmduaW0teWVvbHNpbWhpaGFsZ2VveW8K
@@ -32,4 +33,11 @@ oauth:
     url:
       auth: https://nid.naver.com
       api: https://openapi.naver.com
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type: trace
 
