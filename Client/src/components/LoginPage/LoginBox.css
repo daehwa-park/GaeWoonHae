@@ -1,0 +1,38 @@
+.login-box {
+  width: 480px;
+  height: 100vh;
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column ;
+  background-color: whitesmoke;
+
+}
+@media (max-width: 991.98px) {
+  .login-bg .d-none.d-lg-block {
+    display: none;
+  }
+}
+.login-logo {
+  width:440px;
+  height: 330px;
+  cursor: default;
+}
+
+.login-font {
+  font-family: 'Bagel Fat One', cursive;
+  font-size: 30px;
+  margin-bottom: 25px;
+}
+.login-link {
+font-family: 'Bagel Fat One', cursive;
+color: #c1aaaa; /* 원하는 색상으로 변경 */
+text-decoration: none;
+border-bottom: 2px solid #b4a7a7; /* 밑줄 효과 추가 */
+
+}
+
+.login-link:hover {
+color: #ff0000; /* 마우스를 올렸을 때의 색상 변경 */
+}

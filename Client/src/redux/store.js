@@ -5,19 +5,19 @@ import {
 } from "@reduxjs/toolkit";
 
 //room에 위치한 state정리파일(Reducer) 가져오기
-import MypageReducer from "./roompage/MyPage/MyPageReducer";
 
-// 여러 개의 리듀서(reducer)를 하나로 결합
-const reducers = combineReducers({
-  Mypage: MypageReducer,
-});
+import authenticateReducer from "./reducer/authenticateReducer";
+import MyPageReducer from "./reducer/MyPageReducer";
 
-const Store = configureStore({
-  reducer: reducers,
+const store = configureStore({
+  reducer: {
+    auth: authenticateReducer,
+    myPage: MyPageReducer,
+  },
   middleware: getDefaultMiddleware({
     // 기본적으로 포함되어야할 미들웨어 목록
     serializableCheck: false,
   }),
 });
 
-export default Store;
+export default store;
