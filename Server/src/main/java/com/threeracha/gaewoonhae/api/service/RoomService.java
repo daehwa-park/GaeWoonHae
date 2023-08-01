@@ -1,6 +1,7 @@
 package com.threeracha.gaewoonhae.api.service;
 
 import com.threeracha.gaewoonhae.api.dto.request.NewRoomRequest;
+import com.threeracha.gaewoonhae.api.dto.response.RoomInfoResponse;
 import com.threeracha.gaewoonhae.db.domain.GameType;
 import com.threeracha.gaewoonhae.db.domain.Room;
 import com.threeracha.gaewoonhae.db.domain.User;
@@ -25,6 +26,7 @@ public class RoomService {
         int updateUserNum = roomByGameType.getCurrentUserNum()+1;
         roomByGameType.setCurrentUserNum(updateUserNum);
         String findSessionId = roomByGameType.getSessionId();
+
         return findSessionId;
     }
 
@@ -35,15 +37,18 @@ public class RoomService {
         return findSessionId;
     }
 
-    public String makeNewRoom(NewRoomRequest newRoomRequest) {
+    public RoomInfoResponse makeNewRoom(NewRoomRequest newRoomRequest) {
         User findUser = userService.getUserInfo(newRoomRequest.getUserId());
         GameType gameType = roomRepository.findGameType(newRoomRequest.getGameType());
         char isPublicRoom = newRoomRequest.getIsPublicRoom();
         String makeSessionId = this.generateSessionId();
         Room newRoom = new Room(makeSessionId, findUser, gameType, 1, 5,isPublicRoom,'R');
         String madeSessionId = roomRepository.makeNewRoom(newRoom);
-        return madeSessionId;
+        String nickname = findUser.getNickname();
+        RoomInfoResponse roomInfoResponse = new RoomInfoResponse(madeSessionId, nickname);
+        return roomInfoResponse;
     }
+
 
     public String generateSessionId() {
         String passwordSource = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

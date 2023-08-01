@@ -2,6 +2,7 @@ package com.threeracha.gaewoonhae.api.controller;
 
 import com.threeracha.gaewoonhae.api.dto.request.SessiondIdRequest;
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
+import com.threeracha.gaewoonhae.api.dto.response.RoomInfoResponse;
 import com.threeracha.gaewoonhae.api.service.RoomService;
 
 import com.threeracha.gaewoonhae.api.dto.request.NewRoomRequest;
@@ -61,10 +62,10 @@ public class RoomController {
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = String.class)))
     })
     @PostMapping("/make")
-    public ResponseEntity<CommonResponse<String>> makeNewRoom(@RequestBody NewRoomRequest newRoomRequest) {
-        String madeSessionId = roomService.makeNewRoom(newRoomRequest);
+    public ResponseEntity<CommonResponse<RoomInfoResponse>> makeNewRoom(@RequestBody NewRoomRequest newRoomRequest) {
+        RoomInfoResponse roomInfoResponse = roomService.makeNewRoom(newRoomRequest);
         return new ResponseEntity<>(
-                makeCommonResponse(SUCCESS, madeSessionId), HttpStatus.OK);
+                makeCommonResponse(SUCCESS, roomInfoResponse), HttpStatus.OK);
     }
 
     @Operation(summary = "게임시작", description = "현재 roomStatus가 R 이고 유저가 5명이면 S 반환, 아니면 R 반환")
