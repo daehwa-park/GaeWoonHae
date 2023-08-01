@@ -12,7 +12,6 @@ import javax.persistence.Column;
 @Setter
 public class EmojiResponse {
     long emojiId;
-    long userId;
     int emojiPrice;
 
     public EmojiResponse(Emoji emoji) {

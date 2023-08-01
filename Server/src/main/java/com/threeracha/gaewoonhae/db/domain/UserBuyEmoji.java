@@ -27,4 +27,16 @@ public class UserBuyEmoji {
     @JoinColumn(name = "emoji_id")
     private Emoji emoji;
 
+    @Builder
+    public UserBuyEmoji(User user, Emoji emoji){
+        this.user=user;
+        this.emoji=emoji;
+    }
+
+    public static UserBuyEmoji addEmoji(User user, Emoji emoji) {
+        return UserBuyEmoji.builder()
+                .user(user)
+                .emoji(emoji)
+                .build();
+    }
 }

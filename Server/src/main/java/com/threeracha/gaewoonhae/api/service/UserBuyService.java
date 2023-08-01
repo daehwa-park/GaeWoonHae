@@ -5,6 +5,7 @@ import com.threeracha.gaewoonhae.db.domain.User;
 import com.threeracha.gaewoonhae.db.domain.UserBuyEmoji;
 import com.threeracha.gaewoonhae.db.repository.UserBuyRepository;
 import com.threeracha.gaewoonhae.db.repository.UserRepository;
+import com.threeracha.gaewoonhae.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -19,9 +20,8 @@ public class UserBuyService {
     private final UserRepository userRepository;
 
     public List<Emoji> getList(Long userId) {
-        User user = userRepository.findById()
 
-        return userBuyRepository.findByUserUserId(user)
+        return userBuyRepository.findByUserUserId(userId)
                 .stream()
                 .map(UserBuyEmoji::getEmoji)
                 .collect(Collectors.toList());
