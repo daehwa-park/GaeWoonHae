@@ -35,13 +35,15 @@ public class User {
     @Column(name = "point", nullable = false)
     private int point;
 
-    @Column(name = "emoji_id", nullable = false)
-    private int emojiId;
+    @ManyToOne
+    @JoinColumn(name = "emoji_id", nullable = false)
+    private Emoji emoji;
 
     @Builder
-    public User(String email, String nickname, OAuthProvider oAuthProvider) {
+    public User(String email, String nickname, Emoji emoji, OAuthProvider oAuthProvider) {
         this.email = email;
         this.nickname = nickname;
+        this.emoji = emoji;
         this.oAuthProvider = oAuthProvider;
     }
 }

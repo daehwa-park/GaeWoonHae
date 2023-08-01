@@ -5,7 +5,6 @@ import "./LoginBox.css";
 
 const LoginBox = () => {
   const getKakaoAuthURL = () => {
-    
     const kakaoAuthURL =
       "https://kauth.kakao.com/oauth/authorize" +
       "?client_id=" +
@@ -14,7 +13,6 @@ const LoginBox = () => {
       process.env.REACT_APP_KAKAO_REDIRECT_URI +
       "&response_type=code";
     window.location.href = kakaoAuthURL; // URL로 리다이렉트
-    
   };
 
   return (

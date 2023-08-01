@@ -8,7 +8,11 @@
 *{
     box-sizing: border-box;
 }
-/* 슬라이드 */
+
+/*--------------------------------------------------------------
+슬라이드 스타일
+--------------------------------------------------------------*/
+
 .slidebar {
   margin-top: 10vh;
   margin-left: 4vw;
@@ -22,13 +26,16 @@
 .modaltag {
   overflow: visible;
 }
+
 body {
   margin: 0;
   font-family: 'Rajdhani', sans-serif;
 }
+
 h2 {
       line-height:1.1;
 }
+
 .hero-slider {
   width: 50vw;
   height: 70vh;
@@ -79,7 +86,8 @@ h2 {
   align-items: center;
   text-align: left;
 }
-/* 버튼 css */
+
+/* 사이드버튼 css */
 .hero-slider .swiper-button-prev,
 .hero-slider .swiper-button-next {
   background: transparent;
@@ -94,6 +102,7 @@ h2 {
   visibility:hidden;
   transition:all .3s ease;
 }
+
 .hero-slider:hover .swiper-button-prev,
 .hero-slider:hover .swiper-button-next {
   transform:translateX(0);
@@ -197,7 +206,7 @@ h2 {
   transition:all .4s ease;
 }
 
-/* @media (max-width: 991px) {
+@media (max-width: 991px) {
   .hero-style {
     height: 100vh;
   }
@@ -213,7 +222,7 @@ h2 {
   .hero-style .container {
     padding-top: 95px;
   }
-} */
+}
 
 .hero-style .slide-title,
 .hero-style .slide-text,
@@ -221,15 +230,16 @@ h2 {
   max-width: 690px;
 }
 
+/* 타이틀 제목 */
 .hero-style .slide-title h2 {
   font-size: 40px;
   font-weight: 600;
   line-height: 1;
-  color: #ffffff;
+  color: #f8f1f1;
   margin: 0 0 40px;
   text-transform: capitalize;
   transition:all .4s ease;
-}
+} 
 
 @media (max-width: 1199px) {
   .hero-style .slide-title h2 {
@@ -278,22 +288,22 @@ h2 {
 
 
 /*--------------------------------------------------------------
-  #button-style
+버튼 스타일
 --------------------------------------------------------------*/
 .theme-btn, .theme-btn-s2{
-    background-color: #ffffff;
+    background-color: #221919;
     font-size: 20px;
-  font-weight: 500;
-  line-height: 1.4;
-  text-align: center;
-  color:#2b3b95;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: center;
+    color:#10111a;
     padding: 9px 32px;
     border: 0; 
-  border-radius: 3px;
+    border-radius: 3px;
     text-transform: uppercase;
     display: inline-block;
     line-height: initial;
-  transition:all .4s ease;
+    transition:all .4s ease;
 }
 a {
     text-decoration: none;
@@ -305,46 +315,54 @@ a {
 }
 .theme-btn:hover, .theme-btn-s2:hover, .theme-btn:focus, .theme-btn-s2:focus, .theme-btn:active, .theme-btn-s2:active {
     background-color:#2b3b95 ;
-    color: #fff;
+    color: #141212;
 }
 .theme-btn-s3{
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5;
-  color: #ffffff;
-  text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #f0ebeb;
+    text-transform: uppercase;
 }
+.start-btn {
+  margin-top: 5vh;
+  margin-left: 25vw;
+}
+
 i.fa-chevron-circle-right{
-  height:22px;
-  width:22px;
+    height:22px;
+    width:22px;
 }
 a:hover {
     text-decoration: none;
 }
 @media (max-width: 991px){
-  .theme-btn, .theme-btn-s2, .theme-btn-s3 {
-    font-size: 13px;
-    padding: 15px 25px;
-  }
+    .theme-btn, .theme-btn-s2, .theme-btn-s3 {
+      font-size: 13px;
+      padding: 15px 25px;
+    }
 }
 @media (max-width: 767px){
-  .theme-btn, .theme-btn-s2{
-    padding: 13px 20px;
-    font-size: 13px;
-  }
+    .theme-btn, .theme-btn-s2{
+      padding: 13px 20px;
+      font-size: 13px;
+    }
 }
 
 .slide-bg-image1 {
-  background-image: url("./pickto.jpg");
-  /* background-color: red; */
+  /* background-image: url("./pickto.jpg"); */
+  background-color: rgb(91, 14, 110);
+
 }
 .slide-bg-image2 {
-  background-image: url("./bk.jpg");
-  /* background-color: red; */
+  /* background-image: url("./bk.jpg"); */
+  background-color: #2b3b95;
+
 }
 
 .slide-bg-image3 {
-  background-image: url("./ball.jpg");
-  /* background-color: red; */
+  /* background-image: url("./ball.jpg"); */
+  background-color: red;
+
 }
 

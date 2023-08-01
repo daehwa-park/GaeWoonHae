@@ -1,4 +1,4 @@
-import "./goLobby.css"
+import "./goLobbymodal.css"
 import {useNavigate} from "react-router-dom"
 import axios from "axios";
 
@@ -68,11 +68,11 @@ function GoLobbyModal({ setModalOpen, id, title, content, writer, value }) {
     return (
         <div>
             <div className="golobby">
-                <h3>{gamename()}</h3>
-                <button id='chatoutbutton' onClick={closeModal}>취소</button>
+                <div className="cancelbtn canceltext" onClick={closeModal}>취소</div>
+                <h1 className="gametitle">{gamename()}</h1>
                 <div className="selectlobby">
-                    <div className="Loobycreate" onClick={()=>createRoom()}> 방 생성</div>
-                    <div className="Loobyselect" onClick={()=>findRoom()}> 방 입장</div>
+                    <div className="Loobycreate roomtext" onClick={()=>createRoom()}> <p >방 생성</p></div>
+                    <div className="Loobyselect roomtext" onClick={()=>findRoom()}> <p >방 입장</p></div>
                 </div>
 
             </div>

@@ -1,5 +1,7 @@
 package com.threeracha.gaewoonhae.utils.oauth.service;
 
+import com.threeracha.gaewoonhae.db.domain.Emoji;
+import com.threeracha.gaewoonhae.db.repository.EmojiRepository;
 import com.threeracha.gaewoonhae.exception.CustomException;
 import com.threeracha.gaewoonhae.exception.CustomExceptionList;
 import com.threeracha.gaewoonhae.utils.oauth.request.OAuthLoginParams;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OAuthLoginService {
     private final UserRepository userRepository;
+    private final EmojiRepository emojiRepository;
     private final AuthTokensGenerator authTokensGenerator;
     private final RequestOAuthInfoService requestOAuthInfoService;
 
@@ -37,8 +40,8 @@ public class OAuthLoginService {
     }
 
     public Long logout(Long userId) {
-        User user = userRepository.findByUserId(userId)
-                .orElseThrow(() -> new CustomException(CustomExceptionList.MEMBER_NOT_FOUND_ERROR));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException("유저를 찾을 수 없습니다."));
 
         user.setRefreshToken(null);
         userRepository.save(user);
@@ -56,6 +59,7 @@ public class OAuthLoginService {
         User user = User.builder()
                 .email(oAuthInfoResponse.getEmail())
                 .nickname(oAuthInfoResponse.getNickname())
+                .emoji(emojiRepository.findById(1L).orElseThrow(() -> new CustomException("이모지가 존재하지 않습니다.")))
                 .oAuthProvider(oAuthInfoResponse.getOAuthProvider())
                 .build();
 

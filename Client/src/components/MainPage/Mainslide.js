@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // import React, {useState }  from "react";
 import React, { useEffect , useState }  from "react";
-import GoLobby from "./mainslide/goLobby"
+import GoLobby from "./mainslide/goLobbymodal"
 import 'swiper/swiper-bundle.min.css';
 
 // import Slidecomp from "../../roompage/Lobby/Lobby2"
@@ -15,18 +15,18 @@ import $ from 'jquery';
 
 
 function Mainslide() {
-
+    const [nowslideidx, setNowSlideIdx] = useState(0);
     const [LobbymodalOpen1, setLobbyModalOpen1] = useState(false);
-    const showLobbyModal1 = () => {
-        setLobbyModalOpen1(true);
-    };
     const [LobbymodalOpen2, setLobbyModalOpen2] = useState(false);
-    const showLobbyModal2 = () => {
-        setLobbyModalOpen2(true);
-    };
     const [LobbymodalOpen3, setLobbyModalOpen3] = useState(false);
-    const showLobbyModal3 = () => {
-        setLobbyModalOpen3(true);
+    const showLobbyModal = (game_idx) => {
+        if (game_idx ===0) {
+            setLobbyModalOpen2(true);
+        } else if (game_idx ===1) {
+            setLobbyModalOpen1(true);
+        } else {
+            setLobbyModalOpen3(true);
+        }
     };
 
     useEffect(() => {
@@ -37,7 +37,7 @@ function Mainslide() {
         });
         var interleaveOffset = 0.5;
         var swiperOptions = {
-          loop: true,
+          loop: false,
           speed: 1000,
           parallax: true,
           autoplay: {
@@ -56,22 +56,33 @@ function Mainslide() {
           },
     
           on: {
+            slideChange: function () {
+                console.log('Current Slide Number:', this.activeIndex + 1);
+    
+                setNowSlideIdx(this.activeIndex);
+                console.log(nowslideidx)
+              },
+
             progress: function () {
               var swiper = this;
               for (var i = 0; i < swiper.slides.length; i++) {
                 var slideProgress = swiper.slides[i].progress;
                 var innerOffset = swiper.width * interleaveOffset;
                 var innerTranslate = slideProgress * innerOffset;
+                
                 swiper.slides[i].querySelector(".slide-inner").style.transform =
                   "translate3d(" + innerTranslate + "px, 0, 0)";
               }
+              
             },
     
             touchStart: function () {
               var swiper = this;
               for (var i = 0; i < swiper.slides.length; i++) {
                 swiper.slides[i].style.transition = "";
+
               }
+
             },
     
             setTransition: function (speed) {
@@ -86,7 +97,8 @@ function Mainslide() {
         };
     
         var swiper = new Swiper(".swiper-container", swiperOptions);
-        console.log(swiper)
+        console.log(swiper.activeIndex);
+        // console.log(swiper)
         // DATA BACKGROUND IMAGE
         // var sliderBgSetting = $(".slide-bg-image");
         // sliderBgSetting.each(function (indx) {
@@ -100,27 +112,23 @@ function Mainslide() {
     return(
         <div className="editslide">
             <div className='slidebar'>
-                <section class="hero-slider hero-style">
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide" >
-                            <div class="slide-inner slide-bg-image1" data-background="https://images.unsplash.com/photo-1578934191836-ff5f608c2228?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1349&q=80">
-                                <div class="container">
-                                    <div data-swiper-parallax="300" class="slide-title">
+                <section className="hero-slider hero-style">
+                <div className="swiper-container">
+                    <div className="swiper-wrapper">
+                        <div className="swiper-slide" >
+                            <div className="slide-inner slide-bg-image1" data-background="https://images.unsplash.com/photo-1578934191836-ff5f608c2228?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1349&q=80">
+                                <div className="container">
+                                    <div data-swiper-parallax="300" className="slide-title">
                                          <h2>픽토그램</h2>
                                     </div>
-                                    <div data-swiper-parallax="400" class="slide-text">
+                                    <div data-swiper-parallax="400" className="slide-text">
                                         <p>Want to see your kid become more expressive?</p>
-                                    </div>
-                                    <div className="modaltag">
-                                        <button className="mainnav" onClick={showLobbyModal2}>픽토그램-게임선택</button>
-                                        {LobbymodalOpen2 && <GoLobby value={2} setModalOpen={setLobbyModalOpen2} />}
                                     </div>
                                     
                                     <div class="clearfix"></div>
                                     <div data-swiper-parallax="500" class="slide-btns">
-                                        {/* <a href="#" class="theme-btn-s2">Register now</a>
-                                        <a href="#" class="theme-btn-s3"><i class="fas fa-chevron-circle-right"></i> Get Info</a> */}
+                                        <a href="#" class="theme-btn-s2">튜토리얼</a>
+                                        <a href="#" class="theme-btn-s3"><i class="fas fa-chevron-circle-right"></i> Game Info</a>
                                     </div>
                                 </div>
                             </div>
@@ -136,13 +144,11 @@ function Mainslide() {
                                     <div data-swiper-parallax="400" class="slide-text">
                                         <p>Want to see your kid become more expressive?</p>
                                     </div>
-                                    <div>
-                                        <button className="mainnav" onClick={showLobbyModal1}>박터트리기-게임선택</button>
-                                        {LobbymodalOpen1 && <GoLobby value={1} setModalOpen={setLobbyModalOpen1} />}
-                                    </div>
+        
                                     <div class="clearfix"></div>
                                     <div data-swiper-parallax="500" class="slide-btns">
-                    
+                                        <a href="#" class="theme-btn-s2">튜토리얼</a>
+                                        <a href="#" class="theme-btn-s3"><i class="fas fa-chevron-circle-right"></i> Game Info</a>
                                     </div>
                                 </div>
                             </div>
@@ -156,13 +162,11 @@ function Mainslide() {
                                     <div data-swiper-parallax="400" class="slide-text">
                                         <p>Want to see your kid become more expressive?</p>
                                     </div>
-                                    <div>
-                                        <button className="mainnav" onClick={showLobbyModal3}>공피하기-게임선택</button>
-                                        {LobbymodalOpen3 && <GoLobby value={3} setModalOpen={setLobbyModalOpen3} />}
-                                    </div>
+            
                                     <div class="clearfix"></div>
                                     <div data-swiper-parallax="500" class="slide-btns">
-                
+                                        <a href="#" class="theme-btn-s2">튜토리얼</a>
+                                        <a href="#" class="theme-btn-s3"><i class="fas fa-chevron-circle-right"></i> Game Info</a>
                                     </div>
                 
                                 </div>
@@ -176,8 +180,10 @@ function Mainslide() {
                 </section>
             </div>
 
-            <button onClick={showLobbyModal1}>게임시작</button>
+            <button className="theme-btn-s2 start-btn" onClick={()=>showLobbyModal(nowslideidx)}>게임시작</button>
             {LobbymodalOpen1 && <GoLobby value={1} setModalOpen={setLobbyModalOpen1} />}                            
+            {LobbymodalOpen2 && <GoLobby value={2} setModalOpen={setLobbyModalOpen2} />}                            
+            {LobbymodalOpen3 && <GoLobby value={3} setModalOpen={setLobbyModalOpen3} />}                            
         </div>
     )
 }

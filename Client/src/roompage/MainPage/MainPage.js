@@ -1,6 +1,6 @@
 // import { useSelector } from 'react-redux';
 import React from 'react'
-import SideNavBox from "../../components/MainPage/SideNavBox"
+import SideNavBox from "../../components/MainPage/NavBox"
 import MainSlide from "../../components/MainPage/Mainslide"
 import './MainPage.css'
 
@@ -16,7 +16,6 @@ const Mainpage=(props)=> {
                 {/* 우측 게임입장 슬라이드 */}
                 <div className='maingame'><MainSlide/></div>
             </div>
-            {/* <h3>{num}</h3> */}
 
         </div>
     )

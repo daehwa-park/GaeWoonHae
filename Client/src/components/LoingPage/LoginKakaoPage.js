@@ -38,10 +38,18 @@ const LoginKakaoPage = () => {
     }
   }, [accessToken, userId]);
 
-  return <div>로그인 중입니다~</div>;
+  return (
+    <h2>로그인 중입니다~</h2>
+  );
 };
 
 export default LoginKakaoPage;
+
+
+
+
+
+
 
 // 아래는 응답과 요청을 인터셉트하여 성공 실패 유무를 확인하는 함수입니다.
 

@@ -1,10 +1,10 @@
 import {useNavigate} from "react-router-dom"
-import RecommendModal from "./sideNavBox/RecommendModal"
-import BgmModal from "./sideNavBox/bgmModal"
+import RecommendModal from "./NavBox/RecommendModal"
+import BgmModal from "./NavBox/bgmModal"
 import {useState} from "react" 
-import "./SideNavBox.css"
+import "./NavBox.css"
 // import mainlogo from '../../images/img/mainlogo.png'
-import Navbutton from "./sideNavBox/navbutton"
+import Navbutton from "./NavBox/navbutton"
 
 
 function Mainnav() {
