@@ -39,6 +39,7 @@ public class User {
     @JoinColumn(name = "emoji_id")
     private Emoji emoji;
 
+
     @Builder
     public User(String email, String nickname, OAuthProvider oAuthProvider) {
         this.email = email;

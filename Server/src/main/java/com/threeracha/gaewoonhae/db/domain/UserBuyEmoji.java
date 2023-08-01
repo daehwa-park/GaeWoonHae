@@ -33,10 +33,4 @@ public class UserBuyEmoji {
         this.emoji=emoji;
     }
 
-    public static UserBuyEmoji addEmoji(User user, Emoji emoji) {
-        return UserBuyEmoji.builder()
-                .user(user)
-                .emoji(emoji)
-                .build();
-    }
 }

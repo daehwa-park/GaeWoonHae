@@ -1,11 +1,9 @@
 package com.threeracha.gaewoonhae.api.service;
 
 import com.threeracha.gaewoonhae.db.domain.Emoji;
-import com.threeracha.gaewoonhae.db.domain.User;
 import com.threeracha.gaewoonhae.db.domain.UserBuyEmoji;
 import com.threeracha.gaewoonhae.db.repository.UserBuyRepository;
 import com.threeracha.gaewoonhae.db.repository.UserRepository;
-import com.threeracha.gaewoonhae.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
