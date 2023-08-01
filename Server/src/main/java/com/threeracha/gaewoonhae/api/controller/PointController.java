@@ -1,10 +1,8 @@
 package com.threeracha.gaewoonhae.api.controller;
 
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
-import com.threeracha.gaewoonhae.api.service.EmojiService;
 import com.threeracha.gaewoonhae.api.service.PointHistoryService;
 import com.threeracha.gaewoonhae.db.domain.PointHistory;
-import com.threeracha.gaewoonhae.db.dto.FindFitRoomDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 

@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,12 +19,11 @@ public class PointHistoryService {
 
     public List<PointHistory> getPointHistoryList(Long userId){
 
-        List<PointHistory> pointHistoryList = pointHistoryRepository.findByUserUserId(userId);
-        return pointHistoryList;
+        return pointHistoryRepository.findByUserUserId(userId);
 
     }
 
-    public PointHistory addPointHistory(Long userId, int emojiPrice) {
+    public void addPointHistory(Long userId, int emojiPrice) {
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new CustomException("멤버를 찾을 수 없습니다."));
 
@@ -36,16 +34,12 @@ public class PointHistoryService {
         pointHistory.setPointChange(emojiPrice*(-1));
 
         // [SQL 타임 스탬프 사용해 현재 및 날짜 데이터 변환 실시]
-        Long nowDate = System.currentTimeMillis();
+        long nowDate = System.currentTimeMillis();
         Timestamp timeStamp = new Timestamp(nowDate);
-        String strStamp = String.valueOf(timeStamp.getTime());
-        Date date = new Date(Long.parseLong(strStamp));
 
-        pointHistory.setChangeTime(date);
+        pointHistory.setChangeTime(timeStamp);
 
         pointHistoryRepository.save(pointHistory);
-
-        return pointHistory;
 
     }
 }
