@@ -1,47 +1,46 @@
 :after,
 :before,
-*{
+/* *{
     box-sizing: border-box;
-}
-/* 슬라이드 */
-.slidebar {
-  margin-top: 10vh;
-  margin-left: 4vw;
-  width: 50vw;
-  height: 70vh;
-  border: 2px solid rgb(84, 43, 89);
-  overflow: hidden;
-  border-radius: 30px;
-}
-
-body {
-  margin: 0;
-  font-family: 'Rajdhani', sans-serif;
+} */
+/* .container {
+  width:500px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+} */
+.swiper-wrapper {
+  width: 90vw;
+  height: 50vh;
 }
 h2 {
-      line-height:1.1;
+    line-height:1.1;
 }
 .hero-slider {
-  width: 50vw;
-  height: 70vh;
+  font-family: 'Rajdhani', sans-serif;
+  width: 80vw;
+  height: 50vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   position: relative;
   z-index: 0;
 }
-/* 
-@media (max-width: 991px) {
+
+/*  뷰포트 너비가 991px 이하일 때 적용 */
+@media (max-width: 991px) { 
   .hero-slider {
-    height: 100vh;
+    height: 600px;
   }
 }
 
+/*  뷰포트 너비가 767px 이하일 때 적용 */
 @media (max-width: 767px) {
   .hero-slider {
-    height: 100vh;
+    height: 500px;
   }
-} */
+}
 
 .hero-slider .swiper-slide {
   overflow: hidden;
@@ -49,17 +48,16 @@ h2 {
 }
 
 .hero-slider .swiper-container {
-  width: 50vw;
-  height: 70vh;
+  width: 60vw;
+  height: 50vh;
   position: absolute;
   left: 0;
   top: 0;
 }
 
-/* 슬라이드 크기 */
 .hero-slider .slide-inner {
-  width: 50vw;
-  height: 70vh;
+    width: 60vw;
+    height: 50vh;
   position: absolute;
   left: 0;
   top: 0;
@@ -71,12 +69,12 @@ h2 {
   align-items: center;
   text-align: left;
 }
-/* 버튼 css */
+
 .hero-slider .swiper-button-prev,
 .hero-slider .swiper-button-next {
   background: transparent;
-  width: 60px;
-  height: 60px;
+  width: 55px;
+  height: 55px;
   line-height: 53px;
   margin-top: -30px;
   text-align: center;
@@ -93,7 +91,6 @@ h2 {
   visibility:visible;
 }
 
-/* 버튼 유무 */
 @media (max-width: 767px) {
   .hero-slider .swiper-button-prev,
   .hero-slider .swiper-button-next {
@@ -155,49 +152,49 @@ h2 {
   bottom: 30px;
 }
 
-/* @media screen and (min-width: 992px) {
+@media screen and (min-width: 992px) {
   .hero-slider .swiper-container-horizontal > .swiper-pagination-bullets,
   .hero-slider .swiper-pagination-custom,
   .hero-slider .swiper-pagination-fraction {
-
+/*     display: none; */
   }
-} */
+}
 .swiper-pagination {
   text-align:left;
 }
 
 .hero-slider .swiper-container-horizontal > .swiper-pagination-bullets{
-    bottom:50px;
-    max-width: 1200px;
+  bottom:50px;
+    max-width: 60vw;
     padding: 0 15px;
     margin: 0 auto;
     left: 50%;
     transform: translateX(-50%);
 }
 
-/* @media (min-width: 767px) {
+@media (min-width: 767px) {
   .hero-slider .swiper-container-horizontal > .swiper-pagination-bullets{
   bottom:30px;
  
 }
-} */
+}
 /*--------------------------------------------------------------
   #hero-style
 --------------------------------------------------------------*/
 .hero-style {
-  height: 100vh;
+  height: 450px;
   transition:all .4s ease;
 }
 
-/* @media (max-width: 991px) {
+@media (max-width: 991px) {
   .hero-style {
-    height: 100vh;
+    height: 400px;
   }
 }
 
 @media (max-width: 767px) {
   .hero-style{
-    height: 100vh;
+    height: 500px;
   }
 }
 
@@ -205,16 +202,16 @@ h2 {
   .hero-style .container {
     padding-top: 95px;
   }
-} */
+}
 
 .hero-style .slide-title,
 .hero-style .slide-text,
 .hero-style .slide-btns {
-  max-width: 690px;
+  max-width: 400px;
 }
 
 .hero-style .slide-title h2 {
-  font-size: 40px;
+  font-size: 100px;
   font-weight: 600;
   line-height: 1;
   color: #ffffff;
@@ -225,20 +222,20 @@ h2 {
 
 @media (max-width: 1199px) {
   .hero-style .slide-title h2 {
-    font-size: 40px;
+    font-size: 75px;
   }
 }
 
 @media (max-width: 991px) {
   .hero-style .slide-title h2 {
-    font-size: 30px;
+    font-size: 50px;
     margin: 0 0 35px;
   }
 }
 
 @media (max-width: 767px) {
   .hero-style .slide-title h2 {
-    font-size: 25px;
+    font-size: 35px;
     margin: 0 0 30px;
   }
 }
@@ -246,7 +243,7 @@ h2 {
 .hero-style .slide-text p {
   opacity: 0.8;
   font-family: Rajdhani;
-  font-size: 25px;
+  font-size: 32px;
   font-weight: 500;
   line-height: 1.25;
   letter-spacing: normal;
@@ -326,3 +323,15 @@ a:hover {
   }
 }
 
+
+.slide-bg-image1{
+    background-color: #000;
+    background-size: cover;
+    background-position: center;
+}
+
+.slide-bg-image2{
+    background-color: red;
+    background-size: cover;
+    background-position: center;
+}

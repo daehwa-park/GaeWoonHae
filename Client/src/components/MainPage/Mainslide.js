@@ -1,20 +1,20 @@
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React, {useState}  from "react";
-import Slider from "react-slick";
+// import React, {useState }  from "react";
+import React, { useEffect , useState }  from "react";
 import GoLobby from "./mainslide/goLobby"
+import 'swiper/swiper-bundle.min.css';
+
+// import Slidecomp from "../../roompage/Lobby/Lobby2"
+import './Mainslide.css'
+
+import Swiper from 'swiper';
+import $ from 'jquery'; 
+
 
 
 function Mainslide() {
-
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1
-      };
 
     const [LobbymodalOpen1, setLobbyModalOpen1] = useState(false);
     const showLobbyModal1 = () => {
@@ -29,43 +29,155 @@ function Mainslide() {
         setLobbyModalOpen3(true);
     };
 
+    useEffect(() => {
+        // Swiper initialization code
+        var menu = [];
+        $('.swiper-slide').each(function (index) {
+          menu.push($(this).find('.slide-inner').attr("data-text"));
+        });
+        var interleaveOffset = 0.5;
+        var swiperOptions = {
+          loop: true,
+          speed: 1000,
+          parallax: true,
+          autoplay: {
+            delay: 6500,
+            disableOnInteraction: false,
+          },
+          watchSlidesProgress: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+    
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+    
+          on: {
+            progress: function () {
+              var swiper = this;
+              for (var i = 0; i < swiper.slides.length; i++) {
+                var slideProgress = swiper.slides[i].progress;
+                var innerOffset = swiper.width * interleaveOffset;
+                var innerTranslate = slideProgress * innerOffset;
+                swiper.slides[i].querySelector(".slide-inner").style.transform =
+                  "translate3d(" + innerTranslate + "px, 0, 0)";
+              }
+            },
+    
+            touchStart: function () {
+              var swiper = this;
+              for (var i = 0; i < swiper.slides.length; i++) {
+                swiper.slides[i].style.transition = "";
+              }
+            },
+    
+            setTransition: function (speed) {
+              var swiper = this;
+              for (var i = 0; i < swiper.slides.length; i++) {
+                swiper.slides[i].style.transition = speed + "ms";
+                swiper.slides[i].querySelector(".slide-inner").style.transition =
+                  speed + "ms";
+              }
+            }
+          }
+        };
+    
+        var swiper = new Swiper(".swiper-container", swiperOptions);
+        console.log(swiper)
+        // DATA BACKGROUND IMAGE
+        // var sliderBgSetting = $(".slide-bg-image");
+        // sliderBgSetting.each(function (indx) {
+        //   if ($(this).attr("data-background")) {
+        //     $(this).css("background-image", "url(" + $(this).data("background") + ")");
+        //   }
+        // });
+      }, []);
+    
+
     return(
-        <div>
-            <div>
-                <button className="mainnav" onClick={showLobbyModal1}>박터트리기-게임선택</button>
-                {LobbymodalOpen1 && <GoLobby value={1} setModalOpen={setLobbyModalOpen1} />}
-            </div>
-            <div>
-                <button className="mainnav" onClick={showLobbyModal2}>픽토그램-게임선택</button>
-                {LobbymodalOpen2 && <GoLobby value={2} setModalOpen={setLobbyModalOpen2} />}
-            </div>
-            <div>
-                <button className="mainnav" onClick={showLobbyModal3}>공피하기-게임선택</button>
-                {LobbymodalOpen3 && <GoLobby value={3} setModalOpen={setLobbyModalOpen3} />}
-            </div>
-                        {/* 슬라이드 작업 */}
-            {/* <Link to='/gamepage/1'><button>박터트리기-게임선택</button></Link>
-            <Link to='/'><button>게임선택</button></Link>
-            <Link to='/'><button>게임선택</button></Link> */}
+        <div className="editslide">
+            <div className='slidebar'>
+                <section class="hero-slider hero-style">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" >
+                            <div class="slide-inner slide-bg-image1" data-background="https://images.unsplash.com/photo-1578934191836-ff5f608c2228?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1349&q=80">
+                                <div class="container">
+                                    <div data-swiper-parallax="300" class="slide-title">
+                                         <h2>픽토그램</h2>
+                                    </div>
+                                    <div data-swiper-parallax="400" class="slide-text">
+                                        <p>Want to see your kid become more expressive?</p>
+                                    </div>
+                                    <div className="modaltag">
+                                        <button className="mainnav" onClick={showLobbyModal2}>픽토그램-게임선택</button>
+                                        {LobbymodalOpen2 && <GoLobby value={2} setModalOpen={setLobbyModalOpen2} />}
+                                    </div>
+                                    
+                                    <div class="clearfix"></div>
+                                    <div data-swiper-parallax="500" class="slide-btns">
+                                        {/* <a href="#" class="theme-btn-s2">Register now</a>
+                                        <a href="#" class="theme-btn-s3"><i class="fas fa-chevron-circle-right"></i> Get Info</a> */}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
 
-
-             <Slider {...settings}>
-
-                <div>
-                    {/* <button className="mainnav" onClick={showLobbyModal}>박터트리기-게임선택</button>
-                    {LobbymodalOpen && <GoLobby value={1} setModalOpen={setLobbyModalOpen} />}
+                        <div class="swiper-slide">
+                            <div class="slide-inner slide-bg-image2" data-background="https://images.unsplash.com/photo-1579003087287-997fd4d18771?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
+                                <div class="container">
+                                    <div data-swiper-parallax="300" class="slide-title">
+                                        <h2>박 터트리기</h2>
+                                    </div>
+                                    <div data-swiper-parallax="400" class="slide-text">
+                                        <p>Want to see your kid become more expressive?</p>
+                                    </div>
+                                    <div>
+                                        <button className="mainnav" onClick={showLobbyModal1}>박터트리기-게임선택</button>
+                                        {LobbymodalOpen1 && <GoLobby value={1} setModalOpen={setLobbyModalOpen1} />}
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div data-swiper-parallax="500" class="slide-btns">
+                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="slide-inner slide-bg-image3" data-background="https://images.unsplash.com/photo-1579003087287-997fd4d18771?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
+                                <div class="container">
+                                    <div data-swiper-parallax="300" class="slide-title">
+                                        <h2>공 피하기</h2>
+                                    </div>
+                                    <div data-swiper-parallax="400" class="slide-text">
+                                        <p>Want to see your kid become more expressive?</p>
+                                    </div>
+                                    <div>
+                                        <button className="mainnav" onClick={showLobbyModal3}>공피하기-게임선택</button>
+                                        {LobbymodalOpen3 && <GoLobby value={3} setModalOpen={setLobbyModalOpen3} />}
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div data-swiper-parallax="500" class="slide-btns">
+                
+                                    </div>
+                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
                 </div>
+                </section>
+            </div>
 
-                <div>
-                    <button className="mainnav" onClick={showLobbyModal}>픽토그램-게임선택</button>
-                    {LobbymodalOpen && <GoLobby value={2} setModalOpen={setLobbyModalOpen} />}
-                </div>
-                <div>
-                    <button className="mainnav" onClick={showLobbyModal}>공피하기-게임선택</button>
-                    {LobbymodalOpen && <GoLobby value={3} setModalOpen={setLobbyModalOpen} />} */}
-                </div>
-            </Slider>
-
+            <button onClick={showLobbyModal1}>게임시작</button>
+            {LobbymodalOpen1 && <GoLobby value={1} setModalOpen={setLobbyModalOpen1} />}                            
         </div>
     )
 }

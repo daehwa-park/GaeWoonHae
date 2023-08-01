@@ -1,13 +1,20 @@
 body {
+
     height: 100%;
-}
+
+} 
+
 
 .mainnav {
     margin-top: 10vh;
     margin-bottom: 10vh;
-    margin-left: 2vh;
-}
+    /* margin-left: 2vh; */
+    /* margin: 0 auto; */
+    /* text-align: center; */
+} 
+
 .main-hover {
+    margin-bottom: 5vh;
     width: 20vw;
     height: 13vh;
     --c: #d79e0d; /* the color */
