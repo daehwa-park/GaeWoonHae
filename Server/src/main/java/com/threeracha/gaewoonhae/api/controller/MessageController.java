@@ -2,6 +2,7 @@ package com.threeracha.gaewoonhae.api.controller;
 
 import com.threeracha.gaewoonhae.chat.Chat;
 import com.threeracha.gaewoonhae.chat.Message;
+import com.threeracha.gaewoonhae.chat.userInfo;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
@@ -10,13 +11,14 @@ import org.springframework.web.util.HtmlUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class MessageController {
     @MessageMapping("/chatroom/{roomNumber}/refresh")
     @SendTo("/topic/chatroom/{roomNumber}/refresh")
-    public Message userListRefresh(Chat message, StompHeaderAccessor session) throws Exception {
-        return new Message(message.getChat());
+    public List<userInfo> userListRefresh(List<userInfo> namelist, StompHeaderAccessor session) throws Exception {
+        return namelist;
     }
     @MessageMapping("/chatroom/{roomNumber}/join")
     @SendTo("/topic/chatroom/{roomNumber}/host")
