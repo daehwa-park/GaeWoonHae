@@ -1,10 +1,13 @@
 import {Link} from 'react-router-dom';
 import axios from "axios";
-// import {useNavigate} from "react-router-dom"
 import './Lobby1.css'
-const Lobby=()=> {
-    // const navigate = useNavigate();
 
+// 대기방 - 박 터트리기
+
+
+const Lobby=()=> {
+    
+    //axios요청 => room에 5명있때만 게임 실행
     const gamestart = async () => {
         try {
             const requestData = {

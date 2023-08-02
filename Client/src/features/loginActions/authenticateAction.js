@@ -1,3 +1,5 @@
+// 로그인 페이지에서 토큰, 유저정보 받기
+
 import axios from "axios";
 import { authActions } from "../../redux/reducer/authenticateReducer";
 // import { useNavigate } from "react-router-dom";

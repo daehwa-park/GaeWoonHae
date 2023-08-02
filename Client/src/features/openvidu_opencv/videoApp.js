@@ -1,3 +1,5 @@
+// openvidu + opencv 기능
+
 import { OpenVidu } from 'openvidu-browser';    // OpenVide 객체 생성
 
 import axios from 'axios';
