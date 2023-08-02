@@ -79,7 +79,7 @@ public class RecordController {
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
     })
     @Parameter(name = "userId", description = "조회할 사용자의 userId")
-    @GetMapping("/date/{userId}")
+    @PostMapping("/date/{userId}")
     public ResponseEntity<CommonResponse<List<RecordResponse>>> getExerciseRecordDate(
             @PathVariable("userId") Long userId,
             @RequestBody RecordDateRequest recordDateRequest
