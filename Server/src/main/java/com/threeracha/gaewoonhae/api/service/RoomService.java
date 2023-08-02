@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 public class RoomService {
     private final RoomRepository roomRepository;
     private final UserService userService;
+
     @Transactional
     public String makeNewRoom(NewRoomRequest newRoomRequest) {
         User findUser = userService.getUserInfo(newRoomRequest.getUserId());
