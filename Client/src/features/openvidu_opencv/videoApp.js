@@ -20,7 +20,7 @@ class videoApp extends Component {
         super(props);
 
         this.state = {
-            mySessionId: 'SessionA',    //방세션 id
+            mySessionId: 'qwert',    //방세션 id
             myUserName: 'Participant' + Math.floor(Math.random() * 100),
             session: undefined,
             mainStreamManager: undefined, 
@@ -215,7 +215,6 @@ class videoApp extends Component {
                                 currentVideoDevice: currentVideoDevice,
                                 mainStreamManager: publisher,
                                 publisher: publisher,
-                                subscribers: [], // 빈배열로 초기화
                             });
                             
                         })
@@ -336,7 +335,7 @@ class videoApp extends Component {
                 {this.state.session !== undefined ? (
                     <div id="session">
                         {/* 웹캠 라이브러리 화면. canvas1 요소 가져오기 위해 사용 */}
-                        <div style={{ width: "630px" ,visibility:"hidden" ,display:"flex", position:"absolute"}}>
+                        <div style={{ width: "400px" ,visibility:"hidden" ,display:"flex", position:"absolute"}}>
                             <Webcam
                                 ref={this.webcamRef}
                                 className="webcam"
