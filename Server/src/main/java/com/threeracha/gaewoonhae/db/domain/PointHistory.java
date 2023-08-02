@@ -35,6 +35,13 @@ public class PointHistory {
     @Column(name = "change_time", nullable = false)
     private Timestamp changeTime;
 
+    @Builder
+    public PointHistory(User user, int pointChange){
+        this.user=user;
+        this.pointChange= pointChange;
+
+    }
+
 //    @Temporal(TemporalType.TIMESTAMP)
 //    private Date changeTime;
 }
