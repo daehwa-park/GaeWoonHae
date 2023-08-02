@@ -26,7 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
 //    public void addInterceptors(InterceptorRegistry interceptorRegistry) {
 //
 //        interceptorRegistry.addInterceptor(authInterceptor)
-//                            .addPathPatterns("/**")
-//                            .excludePathPatterns("/api/oauth/login/**");
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/api/oauth/login/**", "/api/oauth/regen");
 //    }
 }
