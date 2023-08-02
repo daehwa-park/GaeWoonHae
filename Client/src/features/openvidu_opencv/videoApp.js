@@ -11,7 +11,7 @@ import cv from "@techstark/opencv-js";
 import {Link} from 'react-router-dom'
 import "./videoApp.css"
 
-const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? 'https://i9b303.p.ssafy.io/' : 'https://demos.openvidu.io/';
 
 class videoApp extends Component {
     constructor(props) {
