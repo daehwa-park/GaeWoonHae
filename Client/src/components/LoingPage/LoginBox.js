@@ -1,3 +1,6 @@
+// 로그인 페이지 구성
+
+
 import { Link } from "react-router-dom";
 import React from "react";
 import "./LoginBox.css";
