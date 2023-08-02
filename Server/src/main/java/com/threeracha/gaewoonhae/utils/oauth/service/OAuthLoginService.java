@@ -41,7 +41,7 @@ public class OAuthLoginService {
 
     public Long logout(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new CustomException("유저를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(CustomExceptionList.USER_NOT_FOUND_ERROR));
 
         user.setRefreshToken(null);
         userRepository.save(user);
@@ -59,7 +59,8 @@ public class OAuthLoginService {
         User user = User.builder()
                 .email(oAuthInfoResponse.getEmail())
                 .nickname(oAuthInfoResponse.getNickname())
-                .emoji(emojiRepository.findById(1L).orElseThrow(() -> new CustomException("이모지가 존재하지 않습니다.")))
+                .emoji(emojiRepository.findById(1L).orElseThrow(()
+                        -> new CustomException(CustomExceptionList.EMOJI_NOT_FOUND_ERROR)))
                 .oAuthProvider(oAuthInfoResponse.getOAuthProvider())
                 .build();
 

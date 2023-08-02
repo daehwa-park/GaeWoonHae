@@ -50,9 +50,9 @@ public class EmojiService {
     public UserBuyEmoji addEmoji(long userId, long emojiId) {
 
         User user = userRepository.findById(userId)
-                    .orElseThrow(()-> new CustomException("멤버를 찾을 수 없습니다."));
+                    .orElseThrow(()-> new CustomException(CustomExceptionList.USER_NOT_FOUND_ERROR));
         Emoji emoji = emojiRepository.findById(emojiId)
-                    .orElseThrow(()-> new CustomException("이모지를 찾을 수 없습니다."));
+                    .orElseThrow(()-> new CustomException(CustomExceptionList.EMOJI_NOT_FOUND_ERROR));
 
         UserBuyEmoji userBuyEmoji = new UserBuyEmoji();
 

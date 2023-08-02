@@ -30,7 +30,7 @@ public class RecordService {
     public List<RecordResponse> getAllRecord(Long userId) {
 
         List<Record> records = recordRepository.findRecordsByUserUserId(userId)
-                .orElseThrow(() -> new CustomException("운동 기록을 조회할 수 없습니다."));
+                .orElseThrow(() -> new CustomException(CustomExceptionList.EXERCISE_RECORD_NOT_EXIST));
 
         return records.stream()
                 .map(RecordResponse::new)
@@ -40,7 +40,7 @@ public class RecordService {
     public List<RecordResponse> getRecordsByGameType(Long userId, Integer gameTypeId) {
 
         List<Record> records = recordRepository.findRecordsByUserUserIdAndGameTypeGameType(userId, gameTypeId)
-                .orElseThrow(() -> new CustomException("운동 기록을 조회할 수 없습니다."));
+                .orElseThrow(() -> new CustomException(CustomExceptionList.EXERCISE_RECORD_NOT_EXIST));
 
         return records.stream()
                 .map(RecordResponse::new)
@@ -56,7 +56,7 @@ public class RecordService {
                 LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59)));
 
         List<Record> records = recordRepository.findRecordsByUserUserIdAndRecordDateTimeBetween(userId, startDatetime, endDatetime)
-                .orElseThrow(() -> new CustomException("운동 기록을 조회할 수 없습니다."));
+                .orElseThrow(() -> new CustomException(CustomExceptionList.EXERCISE_RECORD_NOT_EXIST));
 
         return records.stream()
                 .map(RecordResponse::new)
@@ -72,7 +72,7 @@ public class RecordService {
                 LocalTime.of(23,59,59)));
 
         List<Record> records = recordRepository.findRecordsByUserUserIdAndRecordDateTimeBetween(userId, startDatetime, endDatetime)
-                .orElseThrow(() -> new CustomException("운동 기록을 조회할 수 없습니다."));
+                .orElseThrow(() -> new CustomException(CustomExceptionList.EXERCISE_RECORD_NOT_EXIST));
 
         return records.stream()
                 .map(RecordResponse::new)
