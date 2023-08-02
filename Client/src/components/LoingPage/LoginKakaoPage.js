@@ -36,7 +36,8 @@ const LoginKakaoPage = () => {
       isToken(accessToken);
       getUserInfo();
     }
-  }, [accessToken, userId]);
+  });
+  // }, [accessToken, userId]);
 
   return <div>로그인 중입니다~</div>;
 };
