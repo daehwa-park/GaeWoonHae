@@ -8,10 +8,10 @@ import UserVideoComponent from './UserVideoComponent';
 import Webcam from "react-webcam";
 import { loadHaarFaceModels, detectHaarFace } from "./haarFaceDetection";  // 얼굴인식 컴포넌트
 import cv from "@techstark/opencv-js";
-
+import {Link} from 'react-router-dom'
 import "./videoApp.css"
 
-const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? 'https://i9b303.p.ssafy.io/' : 'https://demos.openvidu.io/';
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
 
 class videoApp extends Component {
     constructor(props) {
@@ -26,6 +26,9 @@ class videoApp extends Component {
             subscribers: [],
 
             modelLoaded: false,
+            leavethisSession: false,
+
+            renderingcount : [0,1,2,3],
         };
 
         this.joinSession = this.joinSession.bind(this);  // 세션 참여 함수
@@ -57,17 +60,21 @@ class videoApp extends Component {
     // 1번 함수
     nextTick() {
         const nextTick = () => {
-        this.handle = requestAnimationFrame(async () => {
-            this.detectFace(); // 2번함수 실행
-            nextTick(); // 반복
-            });
+            if (!this.state.leavethisSession) {
+                this.handle = requestAnimationFrame(async () => {
+                    // console.log(this.state.leavethisSession, "세션확인@@@@@@@@@@@@@@@@@")
+                    // console.log(this.state.mainStreamManager, '확인', this.state.mySessionId)
+                    this.detectFace(); // 2번함수 실행
+                    nextTick(); // 반복
+                    });
+            }
         };
         nextTick();
     }
 
     //2번함수
     async detectFace() { 
-        const imageSrc = this.webcamRef.current.getScreenshot();  // 웹캠 화면 캡쳐
+        const imageSrc = this.webcamRef.current.getScreenshot();  // 웹캠 화면 캡쳐 
         if (!imageSrc) return;
 
         this.emoji.current.src = "../../images/emoji/emoji2.png";  // 이모지
@@ -99,6 +106,7 @@ class videoApp extends Component {
     }
 
     onbeforeunload(event) {
+        this.setState({ leavethisSession:true })
         this.leaveSession();
     }
 
@@ -182,8 +190,8 @@ class videoApp extends Component {
                                 videoSource: canvas.captureStream().getVideoTracks()[0], 
                                 publishAudio: true, 
                                 publishVideo: true, 
-                                resolution: '640x480',                                               // 해상도
-                                frameRate: 30,                                                       // 프레임
+                                resolution: '320x240',                                               // 해상도
+                                frameRate: 20,                                                       // 프레임
                                 insertMode: 'APPEND', 
                                 mirror: false, 
                                 
@@ -222,7 +230,7 @@ class videoApp extends Component {
 
     // 세션방 나가기
     leaveSession() {
-
+        this.setState({ leavethisSession:true })
         const mySession = this.state.session;              // 세션 변수로 가져오기
 
         if (mySession) {                                   // 세션이 있다면 종료
@@ -321,12 +329,12 @@ class videoApp extends Component {
                         </div>
                     </div>
                 ) : null}
-
+                
                 {/* 세션 접속에 성공한 경우 */}
                 {this.state.session !== undefined ? (
                     <div id="session">
                         {/* 웹캠 라이브러리 화면. canvas1 요소 가져오기 위해 사용 */}
-                        <div style={{ width: "300px" ,visibility:"hidden" ,display:"flex", position:"absolute"}}>
+                        <div style={{ width: "630px" ,visibility:"hidden" ,display:"flex", position:"absolute"}}>
                             <Webcam
                                 ref={this.webcamRef}
                                 className="webcam"
@@ -338,59 +346,87 @@ class videoApp extends Component {
                             <img className="emoji" alt="input" ref={this.emoji} style={{display:'none'}}></img>
                         </div>
 
-                        {/* 기능 버튼 <세션 나가기, 화면 전환> */}
-                        <div id="session-header">
-                            {/* 세션명 */}
-                            {/* <h1 id="session-title">{mySessionId}</h1>    */}
-                            <input
-                                className="btn btn-large btn-danger"
-                                type="button"
-                                id="buttonLeaveSession"
-                                onClick={this.leaveSession}
-                                value="Leave session"
-                            />
-                            {/* <input
-                                className="btn btn-large btn-success"
-                                type="button"
-                                id="buttonSwitchCamera"
-                                onClick={this.switchCamera}
-                                value="Switch Camera"
-                            /> */}
-                        </div>
 
-                        <div id="video-container" style={{ display:"flex" ,width: "80vw"}}>
+                        <div id="video-container" style={{ display:"flex"}}>
                             {/* 내 화면 */}
-                            <div style={{ flex:"1 0 50%" }}>
+                            <div id="main-videos" style={{ flex:"1 0 60%" }}>
                                 {this.state.mainStreamManager !== undefined ? (
                                     <div id="main-video" >
                                         <UserVideoComponent streamManager={this.state.mainStreamManager} />
-                                        {/* {LenSubscribers} */}
                                     </div>
                                 ) : null}
                             </div>
 
                             {/* 참여자 화면 */}
-                            <div id="sub-videos" style={{ flex:"1 0 50%", display:"grid"}}> 
-                                {/* {this.state.publisher !== undefined ? (
-                                    <div id="sub-video" onClick={() => this.handleMainVideoStream(this.state.publisher)} >
-                                        <UserVideoComponent
-                                            streamManager={this.state.publisher} />
-                                    </div>
-                                ) : null} */}
+                            {/* <div id="emty-videos" style={{ flex:"1 0 5%", display:"grid"}}></div> */}
+                                {this.state.subscribers.length >= 4 ? (
 
-                                {this.state.subscribers.map((sub, i) => (
-                                        // <div id="sub-video2" key={sub.id} onClick={() => this.handleMainVideoStream(sub)} >
-                                        <div id="sub-video2" key={sub.id}>
-                                        {/* <span>{sub.id}</span> */}
-                                            <UserVideoComponent streamManager={sub} />
-                                            {/* {LenSubscribers} */}
-                                        </div>
-                                    ))
-                                }
-                         
-                            </div>
+                                    <div id="sub-videos" style={{ flex:"1 0 35%", display:"grid"}}> 
+                                        {/* {this.state.publisher !== undefined ? (
+                                            <div id="sub-video" onClick={() => this.handleMainVideoStream(this.state.publisher)} >
+                                                <UserVideoComponent
+                                                    streamManager={this.state.publisher} />
+                                            </div>
+                                        ) : null} */}
+
+                                        {this.state.subscribers.map((sub, i) => (
+                                                // <div id="sub-video2" key={sub.id} onClick={() => this.handleMainVideoStream(sub)} >
+                                                <div id="sub-video2" key={i}>
+                                                    <h2>{i+1}</h2>
+                                                {/* <span>{sub.id}</span> */}
+                                                    <UserVideoComponent streamManager={sub} />
+                                                    {/* {LenSubscribers} */}
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                ) :null}
+
+{/* <div>'참여자 :',{this.state.subscribers.length}</div> */}
+                                {this.state.subscribers.length <= 3 ? (
+                                    <div id="sub-videos" style={{ flex:"1 0 35%", display:"grid"}}> 
+                                        {this.state.subscribers.map((sub, i) => (
+                                                // <div id="sub-video2" key={sub.id} onClick={() => this.handleMainVideoStream(sub)} >
+                                                <div id="sub-video2" key={i}>
+                                                    {/* <h2>{i+1}</h2> */}
+                                                {/* <span>{sub.id}</span> */}
+                                                    <UserVideoComponent streamManager={sub} />
+                                                    {/* {LenSubscribers} */}
+                                                </div>
+                                            ))
+                                        } 
+
+
+                                        {this.state.renderingcount.map((count,i) => {
+                                            if (count <= 3-this.state.subscribers.length){
+                                                return (
+                                                    <div id="sub-video2" key={i}><img id="sub-video2" src="/images/img/emty.png" alt="dsa" /></div>
+                                                ); 
+                                            } else {
+                                                return null;
+                                            }
+                        
+                                        })}
+
+                                    </div>
+                                ) :null}
+
                         </div>
 
+                        {/* 기능 버튼 <세션 나가기, 화면 전환> */}
+                        <div id="session-header">
+                            {/* 세션명 */}
+                            {/* <h1 id="session-title">{mySessionId}</h1>    */}
+                            <Link to='/main'>
+                                <input
+                                    className="btn btn-large btn-danger"
+                                    type="button"
+                                    id="buttonLeaveSession"
+                                    onClick={this.leaveSession}
+                                    value="방 나가기"
+                                />
+                            </Link>
+                        </div>
                     </div>
                 ) : null}
             </div>
