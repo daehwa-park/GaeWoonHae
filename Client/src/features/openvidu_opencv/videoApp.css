@@ -1,0 +1,37 @@
+#main-videos {
+  width: 65vw;
+  border-radius: 30px;
+}
+
+#main-video {
+  margin-top: 6vh;
+  margin-left: 3vw;
+  width: 40vw;
+  height: 30vh;
+  /* border-radius: 30px; */
+}
+
+#sub-videos {
+  margin-top: 7vh;
+  width: 30vw;
+  border: 2px solid salmon;
+  flex: 1 0 50%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+#sub-video2 {
+  width: 13vw;
+  /* height: 20vh; */
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+#session-header {
+  margin-left: 60vw;
+  margin-top: 14vh;
+}
