@@ -1,5 +1,5 @@
 import styles from './ChatModal.css';
-import Chatting from '../../features/chatting/Chatting'
+import Chatting from './Chatting'
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { fachevronleft } from "@fortawesome/free-solid-svg-icons";
 
