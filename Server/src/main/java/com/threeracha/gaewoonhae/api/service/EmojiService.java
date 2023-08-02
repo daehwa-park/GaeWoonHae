@@ -1,5 +1,6 @@
 package com.threeracha.gaewoonhae.api.service;
 
+import com.threeracha.gaewoonhae.api.dto.response.EmojiResponse;
 import com.threeracha.gaewoonhae.db.domain.Emoji;
 import com.threeracha.gaewoonhae.db.domain.User;
 import com.threeracha.gaewoonhae.db.domain.UserBuyEmoji;
@@ -14,17 +15,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-//@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class EmojiService {
     private final EmojiRepository emojiRepository;
     private final UserRepository userRepository;
     private final UserBuyRepository userBuyRepository;
 
-    public List<Emoji> getEmojiList() {
-        return emojiRepository.findAll();
+    public List<EmojiResponse> getEmojiList() {
+        return emojiRepository.findAll()
+                .stream()
+                .map(EmojiResponse::new) // .map((emoji) -> new EmojiResponse(emoji))
+                .collect(Collectors.toList());
     }
 
 //    @Transactional

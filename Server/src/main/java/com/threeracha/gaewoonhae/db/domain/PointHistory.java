@@ -41,6 +41,7 @@ public class PointHistory {
         this.pointChange= pointChange;
 
     }
+
 //    @Temporal(TemporalType.TIMESTAMP)
 //    private Date changeTime;
 }

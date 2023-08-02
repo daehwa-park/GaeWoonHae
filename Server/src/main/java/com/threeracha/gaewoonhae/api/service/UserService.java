@@ -12,8 +12,8 @@ import com.threeracha.gaewoonhae.exception.CustomExceptionList;
 import com.threeracha.gaewoonhae.utils.oauth.enums.OAuthProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +27,7 @@ public class UserService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException("멤버를 찾을 수 없습니다."));
     }
-
+    @Transactional(readOnly = false)
     public String changeNickname(NicknameRequest nicknameReq) {
         User user = userRepository.findById(nicknameReq.getUserId())
                 .orElseThrow(()-> new CustomException("멤버를 찾을 수 없습니다."));
@@ -37,6 +37,8 @@ public class UserService {
 
         return user.getNickname();
     }
+
+    @Transactional(readOnly = false)
     public Long changeEmoji(BuyEmojiRequest emojiReq) {
         User user = userRepository.findById(emojiReq.getUserId())
                 .orElseThrow(()-> new CustomException("멤버를 찾을 수 없습니다."));
@@ -49,7 +51,7 @@ public class UserService {
         return user.getEmoji().getEmojiId();
     }
 
-
+    @Transactional(readOnly = false)
     public int updateUserPoint(Long userId, int changePoint) {
 
         User user = userRepository.findById(userId)

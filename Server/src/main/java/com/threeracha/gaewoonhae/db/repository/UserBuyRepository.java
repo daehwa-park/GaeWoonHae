@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserBuyRepository extends JpaRepository<UserBuyEmoji, Integer> {
+public interface UserBuyRepository extends JpaRepository<UserBuyEmoji, Long> {
     //Optional<UserBuyEmoji> findByBuyId(int buyId);
 
     List<UserBuyEmoji> findByUserUserId(long userId);

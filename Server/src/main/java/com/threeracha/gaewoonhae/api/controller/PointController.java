@@ -1,8 +1,16 @@
 package com.threeracha.gaewoonhae.api.controller;
 
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
+import com.threeracha.gaewoonhae.api.dto.response.EmojiResponse;
+import com.threeracha.gaewoonhae.api.dto.response.PointHistoryResponse;
 import com.threeracha.gaewoonhae.api.service.PointHistoryService;
 import com.threeracha.gaewoonhae.db.domain.PointHistory;
+import com.threeracha.gaewoonhae.exception.ExceptionResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -23,11 +31,15 @@ public class PointController {
     static final String SUCCESS = "success";
 
     final PointHistoryService pointHistoryService;
-    //포인트 히스토리 조회
+    @Operation(summary = "포인트 히스토리 조회", description = "사용자의 포인트 히스토리 목록을 조회하고 포인트와 추가된 날짜를 리턴.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = PointHistoryResponse.class))),
+            @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
+    })
     @GetMapping("/history/{userId}")
-    public ResponseEntity<CommonResponse<List<PointHistory>>> getPointHistory(@PathVariable("userId") Long userId) {
-        List<PointHistory> PointList = pointHistoryService.getPointHistoryList(userId);
-        return new ResponseEntity<>(makeCommonResponse(SUCCESS, PointList), HttpStatus.OK);
+    public ResponseEntity<CommonResponse<List<PointHistoryResponse>>> getPointHistory(@PathVariable("userId") Long userId) {
+        List<PointHistoryResponse> pointList = pointHistoryService.getPointHistoryList(userId);
+        return new ResponseEntity<>(makeCommonResponse(SUCCESS, pointList), HttpStatus.OK);
     }
 
     private <T> CommonResponse<T> makeCommonResponse(String message, T data) {

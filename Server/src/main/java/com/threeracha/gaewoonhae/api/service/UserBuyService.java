@@ -1,5 +1,6 @@
 package com.threeracha.gaewoonhae.api.service;
 
+import com.threeracha.gaewoonhae.api.dto.response.EmojiResponse;
 import com.threeracha.gaewoonhae.db.domain.Emoji;
 import com.threeracha.gaewoonhae.db.domain.UserBuyEmoji;
 import com.threeracha.gaewoonhae.db.repository.UserBuyRepository;
@@ -17,11 +18,11 @@ public class UserBuyService {
     private final UserBuyRepository userBuyRepository;
     private final UserRepository userRepository;
 
-    public List<Emoji> getList(Long userId) {
+    public List<EmojiResponse> getList(Long userId) {
 
         return userBuyRepository.findByUserUserId(userId)
                 .stream()
-                .map(UserBuyEmoji::getEmoji)
+                .map(userBuyEmoji -> new EmojiResponse(userBuyEmoji.getEmoji()))
                 .collect(Collectors.toList());
 
     }
