@@ -6,6 +6,7 @@ import com.threeracha.gaewoonhae.api.dto.response.RoomInfoResponse;
 import com.threeracha.gaewoonhae.api.service.RoomService;
 
 import com.threeracha.gaewoonhae.api.dto.request.NewRoomRequest;
+import com.threeracha.gaewoonhae.utils.RandomCodeGenerator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,6 +30,13 @@ public class RoomController {
 
 
     static final String SUCCESS = "success";
+
+    @GetMapping("/random")
+    public ResponseEntity<CommonResponse<String>> getRandomCode() {
+        return new ResponseEntity<>(makeCommonResponse(SUCCESS, RandomCodeGenerator.getRandomCode(8)),
+                HttpStatus.OK);
+    }
+
     @Operation(summary = "최선의 방 조회", description = "게임 타입에 적합한 방이 있는 경우 sessionId 반환, 아닐 경우 customException 반환")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class))),

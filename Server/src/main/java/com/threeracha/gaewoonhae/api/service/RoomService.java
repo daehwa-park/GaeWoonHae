@@ -8,6 +8,7 @@ import com.threeracha.gaewoonhae.db.domain.User;
 import com.threeracha.gaewoonhae.db.repository.RoomRepository;
 import com.threeracha.gaewoonhae.exception.CustomException;
 import com.threeracha.gaewoonhae.exception.CustomExceptionList;
+import com.threeracha.gaewoonhae.utils.RandomCodeGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,28 +42,13 @@ public class RoomService {
         User findUser = userService.getUserInfo(newRoomRequest.getUserId());
         GameType gameType = roomRepository.findGameType(newRoomRequest.getGameType());
         char isPublicRoom = newRoomRequest.getIsPublicRoom();
-        String makeSessionId = this.generateSessionId();
+        String makeSessionId = RandomCodeGenerator.getRandomCode(8);
         Room newRoom = new Room(makeSessionId, findUser, gameType, 1, 5,isPublicRoom,'R');
         String madeSessionId = roomRepository.makeNewRoom(newRoom);
         String nickname = findUser.getNickname();
 
         return new RoomInfoResponse(madeSessionId, nickname);
     }
-
-
-    public String generateSessionId() {
-        String passwordSource = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        int passwordSourceLength = passwordSource.length();
-
-        // 8자리 암호문 생성
-        StringBuilder sessionIdBuilder = new StringBuilder();
-        for (int i = 0; i < 8; i++) {
-            int randomIndex = (int) (Math.random() * passwordSourceLength);
-            sessionIdBuilder.append(passwordSource.charAt(randomIndex));
-        }
-        return sessionIdBuilder.toString();
-    }
-
 
     public Character startGame(String SessionId) {
         Room findRoom = roomRepository.findRoomBySessionId(SessionId)
