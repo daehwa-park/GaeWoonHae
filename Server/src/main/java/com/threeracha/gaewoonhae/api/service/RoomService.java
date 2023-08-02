@@ -1,10 +1,12 @@
 package com.threeracha.gaewoonhae.api.service;
 
 import com.threeracha.gaewoonhae.api.dto.request.NewRoomRequest;
+import com.threeracha.gaewoonhae.api.dto.request.SetRoomStatusRequest;
 import com.threeracha.gaewoonhae.api.dto.response.RoomInfoResponse;
 import com.threeracha.gaewoonhae.db.domain.GameType;
 import com.threeracha.gaewoonhae.db.domain.Room;
 import com.threeracha.gaewoonhae.db.domain.User;
+import com.threeracha.gaewoonhae.db.enums.RoomStatus;
 import com.threeracha.gaewoonhae.db.repository.RoomRepository;
 import com.threeracha.gaewoonhae.exception.CustomException;
 import com.threeracha.gaewoonhae.exception.CustomExceptionList;
@@ -25,6 +27,7 @@ public class RoomService {
         GameType gameType = roomRepository.findGameType(gameTypeId);
         Room roomByGameType = roomRepository.findRoomByGameType(gameType)
                 .orElseThrow(() -> new CustomException(CustomExceptionList.ROOM_NOT_FOUND_ERROR));
+
         int updateUserNum = roomByGameType.getCurrentUserNum()+1;
         roomByGameType.setCurrentUserNum(updateUserNum);
 
@@ -50,13 +53,44 @@ public class RoomService {
         return new RoomInfoResponse(madeSessionId, nickname);
     }
 
-    public Character startGame(String SessionId) {
-        Room findRoom = roomRepository.findRoomBySessionId(SessionId)
-                .orElseThrow(() -> new CustomException(CustomExceptionList.ROOM_NOT_FOUND_ERROR));;
-        if(findRoom.getRoomStatus()=='R' && findRoom.getCurrentUserNum()==5) {
-            findRoom.setRoomStatus('S');
-            return 'S';
+    public Character startRoom(SetRoomStatusRequest request) {
+        Room room = roomRepository.findRoomBySessionId(request.getSessionId())
+                .orElseThrow(() -> new CustomException(CustomExceptionList.ROOM_NOT_FOUND_ERROR));
+
+        if (request.getUserId().longValue() != room.getUser().getUserId().longValue()) {
+            throw new CustomException(CustomExceptionList.INVALID_HOST_ERROR);
         }
-        return 'R';
+
+        room.setRoomStatus(RoomStatus.START.code());
+
+        return RoomStatus.START.code();
+    }
+
+    public char finishRoom(SetRoomStatusRequest request) {
+        Room room = roomRepository.findRoomBySessionId(request.getSessionId())
+                .orElseThrow(() -> new CustomException(CustomExceptionList.ROOM_NOT_FOUND_ERROR));
+
+        if (request.getUserId().longValue() != room.getUser().getUserId().longValue()) {
+            throw new CustomException(CustomExceptionList.INVALID_HOST_ERROR);
+        }
+
+        room.setRoomStatus(RoomStatus.READY.code());
+
+        return RoomStatus.READY.code();
+
+    }
+
+    public char closeRoom(SetRoomStatusRequest request) {
+        Room room = roomRepository.findRoomBySessionId(request.getSessionId())
+                .orElseThrow(() -> new CustomException(CustomExceptionList.ROOM_NOT_FOUND_ERROR));
+
+        if (request.getUserId().longValue() != room.getUser().getUserId().longValue()) {
+            throw new CustomException(CustomExceptionList.INVALID_HOST_ERROR);
+        }
+
+        room.setRoomStatus(RoomStatus.CLOSED.code());
+
+        return RoomStatus.CLOSED.code();
+
     }
 }
