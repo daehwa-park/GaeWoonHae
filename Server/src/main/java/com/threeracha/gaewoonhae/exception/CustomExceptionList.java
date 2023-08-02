@@ -21,7 +21,7 @@ public enum CustomExceptionList {
     JOIN_INFO_NOT_EXIST(HttpStatus.NOT_FOUND, "E007", "가입정보가 유효하지 않습니다."),
     NO_AUTHENTICATION_ERROR(HttpStatus.FORBIDDEN, "E08", "접근 권한이 없습니다."),
     MEMBER_NOT_FOUND_ROOM(HttpStatus.NOT_FOUND,"E09", "운동방에 존재하지 않는 회원입니다."),
-    ROOM_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND,"E10","존재하지 않는 운동방 입니다."),
+    ROOM_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND,"E10","존재하지 않는 게임방 입니다."),
     EMOJI_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "E11", "존재하지 않는 이모지입니다.");
 
     private final HttpStatus status;

@@ -3,9 +3,14 @@ import ChatModal from "../../components/GamePage/ChatModal.js"
 import "./Game.css"
 import React, {useState} from 'react'
 
+// 게임페이지1 - 박터트리기
+// 사용 component : components폴더 => chatting modal
+//                  features폴더 => openvidu => videoApp(openvidu서버연결), uservideo,OvVideo(비디오생성)
+//                               => openCV   => videoApp(nextTick함수) => haarFaceDetection,cvDataFile(학습)
+
+
 
 function Game1(){
-    // const videoAppRef = useRef();  // videoapp 컴포넌트에 ref생성
     const [leavethisSession] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const showModal = () => {
@@ -15,7 +20,6 @@ function Game1(){
 
     return (
         <div className='gamepage'>
-            {/* <div><img className="timer" src="/images/img/timer.png" alt="dsa" /></div> */}
             <div className="head">
                 <span>l l l</span>
                 <span className='Logo1'>게운해 </span>

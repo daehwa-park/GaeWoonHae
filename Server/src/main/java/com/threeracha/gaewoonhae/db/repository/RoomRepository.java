@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -19,19 +19,13 @@ public class RoomRepository {
         return gameType;
     }
 
-    public String findFitRoom(GameType gameType) {
-        String findSessionId ="empty";
-        try {
-            Room Fitroom = em.createQuery("SELECT r FROM Room r WHERE r.gameType = :gameType AND r.isPublicRoom = 'Y' AND r.currentUserNum < 5", Room.class)
-                    .setParameter("gameType", gameType)
-                    .setMaxResults(1)
-                    .getSingleResult();
-            Fitroom.setCurrentUserNum(Fitroom.getCurrentUserNum()+1);
-            findSessionId = Fitroom.getSessionId();
-            return findSessionId;
-        } catch (NoResultException e) {
-            return findSessionId;
-        }
+    public Optional<Room> findRoomByGameType(GameType gameType) {
+        Room findRoom = em.createQuery("SELECT r FROM Room r WHERE r.gameType = :gameType AND r.isPublicRoom = 'Y' AND r.currentUserNum < 5", Room.class)
+                .setParameter("gameType", gameType)
+                .setMaxResults(1)
+                .getSingleResult();
+
+        return Optional.ofNullable(findRoom);
     }
 
     public String makeNewRoom(Room newRoom) {
@@ -39,23 +33,11 @@ public class RoomRepository {
         return newRoom.getSessionId();
     }
 
-    public Character gameStart(Room room) {
-        int currentUserNum = room.getCurrentUserNum();
-        System.out.println(currentUserNum);
-
-        if(room.getCurrentUserNum()==5 && room.getRoomStatus()=='R') {
-            room.setRoomStatus('S');
-            return 'S';
-        }
-        else {
-            return 'R';
-        }
-    }
-
-    public Room findRoomBySessionId(String SessionId) {
+    public Optional<Room> findRoomBySessionId(String SessionId) {
         Room  findRoom = em.find(Room.class, SessionId);
-        return findRoom;
+        return Optional.ofNullable(findRoom);
     }
 
 
 }
+

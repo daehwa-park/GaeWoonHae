@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor //기본 생성자 만들어줌
 @AllArgsConstructor //여기에 필드에 쓴 모든생성자만 만들어줌
-public class GameStartRequest {
+public class SessiondIdRequest {
     String sessionId;
 }

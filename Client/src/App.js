@@ -1,14 +1,14 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom'; 
-import LoginPage from './roompage/LoginPage/LoginPage';
-import MainPage from './roompage/MainPage/MainPage';
-import LobbyPage1 from './roompage/Lobby/Lobby1';
-import LobbyPage2 from './roompage/Lobby/Lobby2';
-import LobbyPage3 from './roompage/Lobby/Lobby3';
-import GamePage1 from './roompage/GamePage/Game1';
-import GamePage2 from './roompage/GamePage/Game2';
-import GamePage3 from './roompage/GamePage/Game3';
-import MyPage from './roompage/MyPage/MyPage';
+import LoginPage from './room/LoginPage/LoginPage';
+import MainPage from './room/MainPage/MainPage';
+import LobbyPage1 from './room/Lobby/Lobby1';
+import LobbyPage2 from './room/Lobby/Lobby2';
+import LobbyPage3 from './room/Lobby/Lobby3';
+import GamePage1 from './room/GamePage/Game1';
+import GamePage2 from './room/GamePage/Game2';
+import GamePage3 from './room/GamePage/Game3';
+import MyPage from './room/MyPage/MyPage';
 import LoginKakaoPage from './components/LoingPage/LoginKakaoPage'
 import "bootstrap/dist/css/bootstrap.min.css";
 function App() {

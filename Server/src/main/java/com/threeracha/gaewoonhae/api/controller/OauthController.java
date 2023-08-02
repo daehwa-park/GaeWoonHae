@@ -1,7 +1,6 @@
-package com.threeracha.gaewoonhae.utils.oauth;
+package com.threeracha.gaewoonhae.api.controller;
 
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
-import com.threeracha.gaewoonhae.api.dto.response.UserInfoResponse;
 import com.threeracha.gaewoonhae.exception.ExceptionResponse;
 import com.threeracha.gaewoonhae.utils.oauth.request.KakaoLoginParams;
 import com.threeracha.gaewoonhae.utils.oauth.request.NaverLoginParams;
@@ -26,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/oauth")
-public class OAuthController {
+public class OauthController {
     private final OAuthLoginService oAuthLoginService;
     private final String SUCCESS = "success";
 
@@ -50,6 +49,12 @@ public class OAuthController {
                 HttpStatus.OK);
     }
 
+    @Operation(summary = "로그아웃", description = "회원 탈퇴를 한다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = LoginResponse.class))),
+            @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
+    })
+    @Parameter(name = "userId", description = "탈퇴할 사용자의 userId")
     @DeleteMapping("/logout/{userId}")
     public ResponseEntity<CommonResponse<Long>> logout(@PathVariable("userId") Long userId) {
         return new ResponseEntity<>(
