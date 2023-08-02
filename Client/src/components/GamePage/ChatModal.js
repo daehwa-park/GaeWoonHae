@@ -1,3 +1,6 @@
+// 게임페이지의 채팅 모달   버튼 클릭시 모달 생성, features폴더의 Chatting 함수 호출해 websocket연동
+
+
 import styles from './ChatModal.css';
 import Chatting from '../../features/chatting/Chatting'
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

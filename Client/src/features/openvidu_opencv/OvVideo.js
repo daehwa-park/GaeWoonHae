@@ -1,3 +1,6 @@
+// openvidu 영상 송출  
+//  => videoRef 값을 받아서 출력
+
 import React, { Component } from 'react';
 
 export default class OpenViduVideoComponent extends Component {

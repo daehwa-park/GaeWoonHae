@@ -1,12 +1,11 @@
-// import { useSelector } from 'react-redux';
 import React from 'react'
 import SideNavBox from "../../components/MainPage/NavBox"
 import MainSlide from "../../components/MainPage/Mainslide"
 import './MainPage.css'
 
+// 메인페이지
 
 const Mainpage=(props)=> {
-    // const num = useSelector((state) => state.A);  //리덕스  연습
 
     return (
         <div>

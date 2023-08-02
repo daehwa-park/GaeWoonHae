@@ -1,3 +1,6 @@
+// 1. 얼굴인식 학습 파일 load, 
+// 2. canvas => 이모지 씌우기
+
 import cv from "@techstark/opencv-js";
 import { loadDataFile } from "./cvDataFile";
 
@@ -47,17 +50,17 @@ export function detectHaarFace(img, emo) {
   const faces = new cv.RectVector();
 
   
-
+  
   // detect faces
   faceCascade.detectMultiScale(gray, faces, 1.1, 3, 0, msize, msize);
   for (let i = 0; i < faces.size(); ++i) {
     let face = faces.get(i);
     let dsize = new cv.Size(face.width, face.height);
+    let maskInv = new cv.Mat();  //
+    let emogray = new cv.Mat();  //
     let emocopy = new cv.Mat();
-    let emogray = new cv.Mat();
     let rect = new cv.Rect(face.x, face.y, face.width, face.height);
     let roi = new cv.Mat();
-    let maskInv = new cv.Mat();
     let imgBg = new cv.Mat();
     let imgFg = new cv.Mat();
     let sum = new cv.Mat();
@@ -65,9 +68,10 @@ export function detectHaarFace(img, emo) {
     cv.resize(emoji, emocopy, dsize, 0, 0, cv.INTER_AREA);
 
     roi = dst.roi(rect);
-    cv.cvtColor(emocopy, emogray, cv.COLOR_RGBA2GRAY, 0);
-    cv.threshold(emogray, emogray, 254, 255, cv.THRESH_BINARY);
-    cv.bitwise_not(emogray,maskInv);
+
+    cv.cvtColor(emocopy, emogray, cv.COLOR_RGBA2GRAY, 0);  //
+    cv.threshold(emogray, emogray, 254, 255, cv.THRESH_BINARY);  //
+    cv.bitwise_not(emogray,maskInv);    //
 
     cv.bitwise_and(roi, roi, imgBg, emogray);
     cv.bitwise_and(emocopy, emocopy, imgFg, maskInv);
@@ -99,6 +103,48 @@ export function detectHaarFace(img, emo) {
 
   gray.delete();
   faces.delete();
+
+  // const emoGray = new cv.Mat();
+  // const maskInv = new cv.Mat();
+  // cv.cvtColor(emoji, emoGray, cv.COLOR_RGBA2GRAY, 0);
+  // cv.threshold(emoGray, emoGray, 254, 255, cv.THRESH_BINARY);
+  // cv.bitwise_not(emoGray, maskInv);
+
+  // const dsize = new cv.Size(emoji.cols, emoji.rows);
+
+  // for (let i = 0; i < faces.size(); ++i) {
+  //   const face = faces.get(i);
+  //   const rect = new cv.Rect(face.x, face.y, face.width, face.height);
+
+  //   const roi = dst.roi(rect);
+
+  //   const imgBg = new cv.Mat();
+  //   const imgFg = new cv.Mat();
+  //   const sum = new cv.Mat();
+
+  //   cv.resize(emoji, imgFg, dsize, 0, 0, cv.INTER_AREA);
+  //   cv.bitwise_and(roi, roi, imgBg, emoGray);
+  //   cv.bitwise_and(imgFg, imgFg, imgFg, maskInv);
+  //   cv.add(imgBg, imgFg, sum);
+
+  //   for (let i = 0; i < face.height; i++) {
+  //     for (let j = 0; j < face.width; j++) {
+  //       dst.ucharPtr(face.y + i, face.x + j)[0] = sum.ucharPtr(i, j)[0];
+  //       dst.ucharPtr(face.y + i, face.x + j)[1] = sum.ucharPtr(i, j)[1];
+  //       dst.ucharPtr(face.y + i, face.x + j)[2] = sum.ucharPtr(i, j)[2];
+  //     }
+  //   }
+
+  //   roi.delete();
+  //   imgBg.delete();
+  //   imgFg.delete();
+  //   sum.delete();
+  // }
+
+  // gray.delete();
+  // faces.delete();
+  // emoGray.delete();
+  // maskInv.delete();
 
   return dst;
 }
