@@ -25,44 +25,89 @@ function GoLobbyModal({ setModalOpen, id, title, content, writer, value }) {
         }
     }
     //방입장
-    const findRoom = async () => {
+    const lobbyapi = axios.create({
+        baseURL: process.env.REACT_APP_SPRING_URI,
+        headers: { "cotent-type": "application/json" },
+        timeout: 5000,
+    })
+
+    const findRoom = async(dispatch) => {
+        // dispatch(findRoomRequest());
+        console.log('asdfadsfs')
+        const requestData = {
+            gameType: 1,
+        };
         try {
-            const requestData = {
-                gameType: 1,
-            };
-            const response = await axios.get(
-                "http://localhost:5000/api/room/find", 
-                { 
-                    params: requestData,
-                }
-            );
-            console.log(response)
-            goTogame()
-        } catch (error) {
-            console.error("생성 실패",error)
+            const res = await lobbyapi.get("/api/room/find", {
+              params: requestData,
+            });
+            console.log(res);
+            // goTogame()
+          } catch (error) {
+            console.log(error, "요청실패");
+
         }
+    };
 
-    }
-    // 방생성
-    // 초대용방 확인 isPublicRoom = T (공용방), F (비공개방)
+    // const findRoom = async () => {
+    //     try {
+    //         const requestData = {
+    //             gameType: 1,
+    //         };
+    //         const response = await axios.get(
+    //             "http://localhost:5000/api/room/find", 
+    //             { 
+    //                 params: requestData,
+    //             }
+    //         );
+    //         console.log(response)
+    //         goTogame()
+    //     } catch (error) {
+    //         console.error("생성 실패",error)
+    //     }
 
-    const createRoom = async () => {
+    // }
+
+    const createRoom = async(dispatch) => {
+        // dispatch(findRoomRequest());
+        console.log('asdfadsfs')
         try {
             const requestData = {
                 isPublicRoom: "T",
                 userId: 1,
                 gameType: 1,
             };
-            const response = await axios.post(
-                "http://localhost:5000/api/room/make", 
+            const res = await lobbyapi.post("/api/room/make", 
                 requestData,
             );
-            console.log(response)
+            console.log(res);
             goTogame()
-        } catch (error) {
-            console.error("생성 실패", error);
+          } catch (error) {
+            console.log(error, "요청실패");
         }
     };
+
+
+    // 방생성
+    // 초대용방 확인 isPublicRoom = T (공용방), F (비공개방)
+
+    // const createRoom = async () => {
+    //     try {
+    //         const requestData = {
+    //             isPublicRoom: "T",
+    //             userId: 1,
+    //             gameType: 1,
+    //         };
+    //         const response = await axios.post(
+    //             "http://localhost:5000/api/room/make", 
+    //             requestData,
+    //         );
+    //         console.log(response)
+    //         goTogame()
+    //     } catch (error) {
+    //         console.error("생성 실패", error);
+    //     }
+    // };
 
 
     return (
