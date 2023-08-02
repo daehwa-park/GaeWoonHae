@@ -1,0 +1,25 @@
+.maintitle {
+    display: flex;
+}
+
+.mainnavber {
+    display: flex;
+    justify-content: center;
+    width: 30vw;
+    height: 100vh;
+    /* border: 2px solid blueviolet; */
+    background-color: #C5A8FC;
+    
+    /* background: linear-gradient(15deg, rgba(228,128,228,1) 30%, rgba(0,0,0,0) 30%), radial-gradient(farthest-corner at 0% 0%, rgba(128,28,128,1) 75%, rgba(168,64,168,1) 75%); */
+    /* background: linear-gradient(90deg, #6224d5 0%, #C5A8FC 35%, #8c7da7 100%); */
+    border-right: 5px solid rgb(159, 107, 159);
+    border-radius: 0 8px 8px 0;
+}
+
+.maingame {
+    display: flex;
+    justify-content: center;
+    width: 75vw;
+    height: 100vh;
+    /* border: 2px solid rosybrown; */
+}

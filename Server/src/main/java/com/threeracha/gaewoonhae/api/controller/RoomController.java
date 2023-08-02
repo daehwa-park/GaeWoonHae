@@ -83,6 +83,7 @@ public class RoomController {
 
     @PostMapping("/end")
     public void GameFinish(NewRoomRequest makeNewRoomDto) {
+
     }
 
     private <T> CommonResponse<T> makeCommonResponse(String message, T data) {

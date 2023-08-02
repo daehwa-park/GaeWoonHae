@@ -1,21 +1,22 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom'; 
-import LoginPage from './roompage/LoginPage/LoginPage';
-import MainPage from './roompage/MainPage/MainPage';
-import LobbyPage1 from './roompage/Lobby/Lobby1';
-import LobbyPage2 from './roompage/Lobby/Lobby2';
-import LobbyPage3 from './roompage/Lobby/Lobby3';
-import GamePage1 from './roompage/GamePage/Game1';
-import GamePage2 from './roompage/GamePage/Game2';
-import GamePage3 from './roompage/GamePage/Game3';
-import MyPage from './roompage/MyPage/MyPage';
-
+import LoginPage from './room/LoginPage/LoginPage';
+import MainPage from './room/MainPage/MainPage';
+import LobbyPage1 from './room/Lobby/Lobby1';
+import LobbyPage2 from './room/Lobby/Lobby2';
+import LobbyPage3 from './room/Lobby/Lobby3';
+import GamePage1 from './room/GamePage/Game1';
+import GamePage2 from './room/GamePage/Game2';
+import GamePage3 from './room/GamePage/Game3';
+import MyPage from './room/MyPage/MyPage';
+import LoginKakaoPage from './components/LoingPage/LoginKakaoPage'
 import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   return (
     <Routes>
       {/* 로그인페이지 */}
       <Route path='/' element={<LoginPage/>}/>
+      <Route path="/login/kakao/callback" element={<LoginKakaoPage />} />
       {/* 메인페이지 */}
       <Route path='/main' element={<MainPage/>}/>
       {/* 선택한 게임 로비페이지 */}
@@ -31,6 +32,12 @@ function App() {
       {/* 잘못된 경로로 들어갔을 경우 */}
       <Route path ="*" element = {<div>There's nothing here!</div>} />
     </Routes>
+
+    //1. 로비 /public /select_id/세션id
+    // 2. 로비 /시크릿 /select_id/세션id 
+    // game1 /세션id/
+    // game2 /세션id/
+    // game3 /세션id/
   );
 }
 
