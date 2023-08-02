@@ -1,5 +1,6 @@
 package com.threeracha.gaewoonhae.api.controller;
 
+import com.threeracha.gaewoonhae.api.dto.request.GameFinishRequest;
 import com.threeracha.gaewoonhae.api.dto.request.SessiondIdRequest;
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
 import com.threeracha.gaewoonhae.api.dto.response.RoomInfoResponse;
@@ -89,9 +90,10 @@ public class RoomController {
                 makeCommonResponse(SUCCESS, roomStatus), HttpStatus.OK);
     }
 
-    @PostMapping("/end")
-    public void GameFinish(NewRoomRequest makeNewRoomDto) {
+    @PostMapping("/finish")
+    public ResponseEntity<CommonResponse<Character>> GameFinish(@RequestBody GameFinishRequest gameFinishReq) {
 
+        return null;
     }
 
     private <T> CommonResponse<T> makeCommonResponse(String message, T data) {
