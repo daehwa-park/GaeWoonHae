@@ -5,6 +5,7 @@ import com.threeracha.gaewoonhae.db.repository.EmojiRepository;
 import com.threeracha.gaewoonhae.exception.CustomException;
 import com.threeracha.gaewoonhae.exception.CustomExceptionList;
 import com.threeracha.gaewoonhae.utils.oauth.request.OAuthLoginParams;
+import com.threeracha.gaewoonhae.utils.oauth.request.RegenTokenReq;
 import com.threeracha.gaewoonhae.utils.oauth.response.LoginResponse;
 import com.threeracha.gaewoonhae.utils.oauth.response.OAuthInfoResponse;
 import com.threeracha.gaewoonhae.db.domain.User;
@@ -65,4 +66,24 @@ public class OAuthLoginService {
 
         return userRepository.save(user);
     }
+
+    public LoginResponse regenToken(RegenTokenReq regenTokenReq) {
+
+        User user = userRepository.findById(regenTokenReq.getUserId())
+                .orElseThrow(()-> new CustomException("유저를 찾을 수 없습니다."));
+
+        String refreshToken = user.getRefreshToken();
+
+        if (authTokensGenerator.verifyToken(regenTokenReq.getRefreshToken()) &&
+                refreshToken.equals(regenTokenReq.getRefreshToken())) {
+
+            AuthTokens token = authTokensGenerator.generate(user.getUserId());
+
+            return new LoginResponse(token, user.getUserId());
+
+        } else {
+            throw new CustomException("리프레쉬 토큰 상태 오류, 로그인 페이지로 돌아가십시오");
+        }
+    }
+
 }

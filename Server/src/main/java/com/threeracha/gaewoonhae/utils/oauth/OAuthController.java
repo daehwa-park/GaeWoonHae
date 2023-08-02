@@ -5,6 +5,7 @@ import com.threeracha.gaewoonhae.api.dto.response.UserInfoResponse;
 import com.threeracha.gaewoonhae.exception.ExceptionResponse;
 import com.threeracha.gaewoonhae.utils.oauth.request.KakaoLoginParams;
 import com.threeracha.gaewoonhae.utils.oauth.request.NaverLoginParams;
+import com.threeracha.gaewoonhae.utils.oauth.request.RegenTokenReq;
 import com.threeracha.gaewoonhae.utils.oauth.response.LoginResponse;
 import com.threeracha.gaewoonhae.utils.oauth.service.OAuthLoginService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -47,6 +48,17 @@ public class OAuthController {
         return new ResponseEntity<>(
                 makeCommonResponse(SUCCESS, oAuthLoginService.login(params)),
                 HttpStatus.OK);
+    }
+
+    @Operation(summary = "refresh 토큰 재발급", description = "userId와 refresh 토큰을 입력받아 access 토큰과 refresh 토큰을 재발급한다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = LoginResponse.class))),
+            @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
+    })
+    @PostMapping("/regen")
+    public ResponseEntity<CommonResponse<LoginResponse>> regenerateTokens(@RequestBody RegenTokenReq regenTokenReq) {
+
+        return new ResponseEntity<>(makeCommonResponse(SUCCESS, oAuthLoginService.regenToken(regenTokenReq)), HttpStatus.OK);
     }
 
     @DeleteMapping("/logout/{userId}")

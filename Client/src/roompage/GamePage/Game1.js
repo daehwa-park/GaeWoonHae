@@ -1,8 +1,10 @@
-import VideoApp from '../../features/openvidu_opencv/videoApp.js'
-import ChatModal from "../../components/GamePage/ChatModal.js"
+// import {Link} from 'react-router-dom'
+import VideoApp from '../../features/gameroom/videoApp.js'
 import "./Game.css"
 import React, {useState} from 'react'
-
+// import {Link} from 'react-router-dom'
+import ChatModal from "../../components/modal/ChatModal.js"
+// import Timer from ""
 
 function Game1(){
     // const videoAppRef = useRef();  // videoapp 컴포넌트에 ref생성
