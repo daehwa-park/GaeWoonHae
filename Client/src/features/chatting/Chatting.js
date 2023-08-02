@@ -1,3 +1,5 @@
+// 채팅 기능
+
 import React, {useEffect} from "react";
 import $ from "jquery";
 import SockJS from "sockjs-client";
@@ -86,23 +88,6 @@ const Chatting = () => {
 
     return (
         <div>
-          {/* <form className="form-inline">
-            <div className="form-group">
-              <label htmlFor="connect">소켓을 연결하시오:</label>
-              <button id="connect" className="btn btn-default" type="submit">Connect</button>
-              <button id="disconnect" className="btn btn-default" type="submit" disabled="disabled">Disconnect</button>
-            </div>
-          </form> */}
-{/*     
-          <div className="form-group">
-            <label htmlFor="roomNumber">채팅방 이름 넣어라:</label>
-            <input type="text" id="roomNumber" className="form-control" placeholder="Chatroom number..." />
-          </div>
-          <div className="form-group">
-            <label htmlFor="name">이름 넣어라:</label>
-            <input type="text" id="name" className="form-control" placeholder="name .." />
-          </div>
-     */}
           <div className="rowchat">
             <div className="conversation">
               <table className="table table-striped">

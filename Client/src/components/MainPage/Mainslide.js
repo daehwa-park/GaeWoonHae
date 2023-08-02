@@ -1,3 +1,6 @@
+// 메인페이지 우측 슬라이드바
+// 구성 - 동작함수 , 슬라이드, 방 생성/입장 모달창 (goLobbymodal)
+
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -57,10 +60,8 @@ function Mainslide() {
     
           on: {
             slideChange: function () {
-                console.log('Current Slide Number:', this.activeIndex + 1);
-    
+                // console.log('Current Slide Number:', this.activeIndex + 1);
                 setNowSlideIdx(this.activeIndex);
-                console.log(nowslideidx)
               },
 
             progress: function () {
@@ -97,8 +98,8 @@ function Mainslide() {
         };
     
         var swiper = new Swiper(".swiper-container", swiperOptions);
-        console.log(swiper.activeIndex);
-        // console.log(swiper)
+        // console.log(swiper.activeIndex);
+        console.log(swiper)
         // DATA BACKGROUND IMAGE
         // var sliderBgSetting = $(".slide-bg-image");
         // sliderBgSetting.each(function (indx) {
@@ -125,56 +126,58 @@ function Mainslide() {
                                         <p>Want to see your kid become more expressive?</p>
                                     </div>
                                     
-                                    <div class="clearfix"></div>
-                                    <div data-swiper-parallax="500" class="slide-btns">
-                                        <a href="#" class="theme-btn-s2">튜토리얼</a>
-                                        <a href="#" class="theme-btn-s3"><i class="fas fa-chevron-circle-right"></i> Game Info</a>
+                                    <div className="clearfix"></div>
+                                    <div data-swiper-parallax="500" className="slide-btns">
+                                        <a href="/main" className="theme-btn-s2">튜토리얼</a>
+                                        <a href="/main" className="theme-btn-s3"><i className="fas fa-chevron-circle-right"></i> Game Info</a>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
 
-                        <div class="swiper-slide">
-                            <div class="slide-inner slide-bg-image2" data-background="https://images.unsplash.com/photo-1579003087287-997fd4d18771?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
-                                <div class="container">
-                                    <div data-swiper-parallax="300" class="slide-title">
+                        <div className="swiper-slide">
+                            <div className="slide-inner slide-bg-image2" data-background="https://images.unsplash.com/photo-1579003087287-997fd4d18771?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
+                                <div className="container">
+                                    <div data-swiper-parallax="300" className="slide-title">
                                         <h2>박 터트리기</h2>
                                     </div>
-                                    <div data-swiper-parallax="400" class="slide-text">
+                                    <div data-swiper-parallax="400" className="slide-text">
                                         <p>Want to see your kid become more expressive?</p>
                                     </div>
         
-                                    <div class="clearfix"></div>
-                                    <div data-swiper-parallax="500" class="slide-btns">
-                                        <a href="#" class="theme-btn-s2">튜토리얼</a>
-                                        <a href="#" class="theme-btn-s3"><i class="fas fa-chevron-circle-right"></i> Game Info</a>
+                                    <div className="clearfix"></div>
+                                    <div data-swiper-parallax="500" className="slide-btns">
+                                        <a href="/main" className="theme-btn-s2">튜토리얼</a>
+                                        <a href="/main" className="theme-btn-s3"><i className="fas fa-chevron-circle-right"></i> Game Info</a>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="swiper-slide">
-                            <div class="slide-inner slide-bg-image3" data-background="https://images.unsplash.com/photo-1579003087287-997fd4d18771?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
-                                <div class="container">
-                                    <div data-swiper-parallax="300" class="slide-title">
+                        <div className="swiper-slide">
+                            <div className="slide-inner slide-bg-image3" data-background="https://images.unsplash.com/photo-1579003087287-997fd4d18771?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
+                                <div className="container">
+                                    <div data-swiper-parallax="300" className="slide-title">
                                         <h2>공 피하기</h2>
                                     </div>
-                                    <div data-swiper-parallax="400" class="slide-text">
+                                    <div data-swiper-parallax="400" className="slide-text">
                                         <p>Want to see your kid become more expressive?</p>
                                     </div>
             
-                                    <div class="clearfix"></div>
-                                    <div data-swiper-parallax="500" class="slide-btns">
-                                        <a href="#" class="theme-btn-s2">튜토리얼</a>
-                                        <a href="#" class="theme-btn-s3"><i class="fas fa-chevron-circle-right"></i> Game Info</a>
+                                    <div className="clearfix"></div>
+                                    <div data-swiper-parallax="500" className="slide-btns">
+                                        <a href="/main" className="theme-btn-s2">튜토리얼</a>
+                                        <a href="/main" className="theme-btn-s3"><i className="fas fa-chevron-circle-right"></i> Game Info</a>
                                     </div>
                 
                                 </div>
                             </div>
                         </div>
-                        <div class="swiper-pagination"></div>
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
+                        <div className="swiper-pagination"></div>
+                        <div className="swiper-button-next"></div>
+                        <div className="swiper-button-prev"></div>
                     </div>
                 </div>
                 </section>
