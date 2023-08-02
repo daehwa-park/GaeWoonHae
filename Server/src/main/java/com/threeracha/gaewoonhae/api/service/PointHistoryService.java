@@ -7,6 +7,7 @@ import com.threeracha.gaewoonhae.db.domain.User;
 import com.threeracha.gaewoonhae.db.repository.PointHistoryRepository;
 import com.threeracha.gaewoonhae.db.repository.UserRepository;
 import com.threeracha.gaewoonhae.exception.CustomException;
+import com.threeracha.gaewoonhae.exception.CustomExceptionList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +33,7 @@ public class PointHistoryService {
     @Transactional(readOnly = false)
     public void addPointHistory(Long userId, int emojiPrice) {
         User user = userRepository.findById(userId)
-                .orElseThrow(()-> new CustomException("멤버를 찾을 수 없습니다."));
+                .orElseThrow(()-> new CustomException(CustomExceptionList.USER_NOT_FOUND_ERROR));
 
         PointHistory pointHistory = new PointHistory();
 
