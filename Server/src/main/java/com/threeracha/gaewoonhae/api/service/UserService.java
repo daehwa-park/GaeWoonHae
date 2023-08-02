@@ -25,12 +25,12 @@ public class UserService {
 
     public User getUserInfo(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new CustomException("멤버를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(CustomExceptionList.USER_NOT_FOUND_ERROR));
     }
     @Transactional(readOnly = false)
     public String changeNickname(NicknameRequest nicknameReq) {
         User user = userRepository.findById(nicknameReq.getUserId())
-                .orElseThrow(()-> new CustomException("멤버를 찾을 수 없습니다."));
+                .orElseThrow(()-> new CustomException(CustomExceptionList.USER_NOT_FOUND_ERROR));
 
         user.setNickname(nicknameReq.getNickname());
         userRepository.save(user);
@@ -41,9 +41,9 @@ public class UserService {
     @Transactional(readOnly = false)
     public Long changeEmoji(BuyEmojiRequest emojiReq) {
         User user = userRepository.findById(emojiReq.getUserId())
-                .orElseThrow(()-> new CustomException("멤버를 찾을 수 없습니다."));
+                .orElseThrow(()-> new CustomException(CustomExceptionList.USER_NOT_FOUND_ERROR));
         Emoji newEmoji = emojiRepository.findById(emojiReq.getEmojiId())
-                .orElseThrow(()-> new CustomException("이모지를 찾을 수 없습니다."));
+                    .orElseThrow(()-> new CustomException(CustomExceptionList.EMOJI_NOT_FOUND_ERROR));
 
         user.setEmoji(newEmoji);
         userRepository.save(user);
@@ -55,7 +55,7 @@ public class UserService {
     public int updateUserPoint(Long userId, int changePoint) {
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new CustomException("유저를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(CustomExceptionList.USER_NOT_FOUND_ERROR));
 
         int currentUserPoint = user.getPoint();
         user.setPoint(currentUserPoint + changePoint);
@@ -68,7 +68,7 @@ public class UserService {
     public String removeUser(ResignUserRequest resignUserReq) {
 
         User user = userRepository.findByUserIdAndNickname(resignUserReq.getUserId(), resignUserReq.getNickname())
-                .orElseThrow(() -> new CustomException("아이디와 닉네임이 일치하는 정보가 없습니다."));
+                .orElseThrow(() -> new CustomException(CustomExceptionList.USER_NOT_FOUND_ERROR));
 
         /*
             refreshToken이 일치하는지 검증하는 로직 작성 요망 (Redis 설치 후)

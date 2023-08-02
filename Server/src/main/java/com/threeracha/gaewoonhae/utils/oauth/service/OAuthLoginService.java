@@ -5,6 +5,7 @@ import com.threeracha.gaewoonhae.db.repository.EmojiRepository;
 import com.threeracha.gaewoonhae.exception.CustomException;
 import com.threeracha.gaewoonhae.exception.CustomExceptionList;
 import com.threeracha.gaewoonhae.utils.oauth.request.OAuthLoginParams;
+import com.threeracha.gaewoonhae.utils.oauth.request.RegenTokenReq;
 import com.threeracha.gaewoonhae.utils.oauth.response.LoginResponse;
 import com.threeracha.gaewoonhae.utils.oauth.response.OAuthInfoResponse;
 import com.threeracha.gaewoonhae.db.domain.User;
@@ -41,7 +42,7 @@ public class OAuthLoginService {
 
     public Long logout(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new CustomException("유저를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(CustomExceptionList.USER_NOT_FOUND_ERROR));
 
         user.setRefreshToken(null);
         userRepository.save(user);
@@ -59,10 +60,30 @@ public class OAuthLoginService {
         User user = User.builder()
                 .email(oAuthInfoResponse.getEmail())
                 .nickname(oAuthInfoResponse.getNickname())
-                .emoji(emojiRepository.findById(1L).orElseThrow(() -> new CustomException("이모지가 존재하지 않습니다.")))
+                .emoji(emojiRepository.findById(1L).orElseThrow(()
+                        -> new CustomException(CustomExceptionList.EMOJI_NOT_FOUND_ERROR)))
                 .oAuthProvider(oAuthInfoResponse.getOAuthProvider())
                 .build();
 
         return userRepository.save(user);
+    }
+
+    public LoginResponse regenToken(RegenTokenReq regenTokenReq) {
+
+        User user = userRepository.findById(regenTokenReq.getUserId())
+                .orElseThrow(()-> new CustomException(CustomExceptionList.USER_NOT_FOUND_ERROR));
+
+        String refreshToken = user.getRefreshToken();
+
+        if (authTokensGenerator.verifyToken(regenTokenReq.getRefreshToken()) &&
+                refreshToken.equals(regenTokenReq.getRefreshToken())) {
+
+            AuthTokens token = authTokensGenerator.generate(user.getUserId());
+
+            return new LoginResponse(token, user.getUserId());
+
+        } else {
+            throw new CustomException(CustomExceptionList.REFRESH_TOKEN_ERROR);
+        }
     }
 }
