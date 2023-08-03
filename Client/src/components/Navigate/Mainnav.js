@@ -1,14 +1,14 @@
 import { useState} from "react"
 import './Mainnav.css'
 import {useNavigate} from "react-router-dom"
-import RecommendModal from "../MainPage/NavBox/RecommendModal"
+import RecommendModal from "../modal/RecommendModal"
 import { useDispatch,useSelector} from "react-redux";
 import { authenticateAction } from "../../features/Actions/authenticateAction";
 import mypageicon from "../../assets/img/mypage_icon.png"
 
 // 메인페이지 네비게이션바 메뉴버튼
 
-const NavBoxTag = ( { pagenum } ) => {
+const NavBoxTag = ( ) => {
     const dispatch = useDispatch();
     const userId = useSelector((state) => state.auth.user.userId);
 

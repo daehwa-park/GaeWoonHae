@@ -1,10 +1,6 @@
-.editslide {
-    width: 60vw;
-    height: 50vh;
-}
-
 :after,
 :before,
+
 *{
     box-sizing: border-box;
 }
@@ -14,13 +10,17 @@
 --------------------------------------------------------------*/
 
 .slidebar {
-  margin-top: 10vh;
-  margin-left: 4vw;
-  width: 50vw;
-  height: 70vh;
-  border: 2px solid rgb(84, 43, 89);
+  margin-top: 11vh;
+  margin-left: 1vw;
+  width: 60vw;
+  height: 58vh;
+  /* border: 2px solid rgb(84, 43, 89); */
   overflow: hidden;
-  border-radius: 30px;
+  /* border-radius: 30px; */
+  border: 2px solid rgb(235, 230, 230);
+  /* background-color: white; */
+  border-radius: 20px;
+  box-shadow: 2px 2px 1px 1px rgb(58, 57, 57);
 }
 
 .modaltag {
@@ -37,8 +37,8 @@ h2 {
 }
 
 .hero-slider {
-  width: 50vw;
-  height: 70vh;
+  width: 60vw;
+  height: 62vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -64,8 +64,8 @@ h2 {
 }
 
 .hero-slider .swiper-container {
-  width: 50vw;
-  height: 70vh;
+  width: 60vw;
+  height: 62vh;
   position: absolute;
   left: 0;
   top: 0;
@@ -73,8 +73,8 @@ h2 {
 
 /* 슬라이드 크기 */
 .hero-slider .slide-inner {
-  width: 50vw;
-  height: 70vh;
+  width: 60vw;
+  height: 62vh;
   position: absolute;
   left: 0;
   top: 0;
@@ -325,8 +325,13 @@ a {
     text-transform: uppercase;
 }
 .start-btn {
-  margin-top: 5vh;
-  margin-left: 25vw;
+  margin: 4vh 18vw;
+  width: 23vw;
+  height: 7vh;
+  border: 2px solid rgb(235, 230, 230);
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 2px 2px 1px 1px rgb(192, 189, 189);
 }
 
 i.fa-chevron-circle-right{
@@ -351,7 +356,7 @@ a:hover {
 
 .slide-bg-image1 {
   /* background-image: url("./pickto.jpg"); */
-  background-color: rgb(86, 62, 92);
+  background-color: rgb(98, 96, 99);
 
 }
 .slide-bg-image2 {
@@ -366,3 +371,16 @@ a:hover {
 
 }
 
+.btncom {
+  display: flex;
+}
+
+.left-btn {
+  height: 5vh;
+  margin-top: 4vh;
+}
+
+.right-btn {
+  height: 5vh;
+  margin-top: 4vh;
+}

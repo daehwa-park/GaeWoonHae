@@ -16,7 +16,7 @@ const Mainpage=()=> {
                 <div className='mainnavbar2'><NavTitle/></div>
                 <div className='mainbody'>
                     {/* 게임 설명 */}
-                    <div className='mainlog'>게임 설명</div>
+                    <div className='mainlog'><p className='gametext'>게임 설명</p></div>
 
                     {/* 게임입장 슬라이드 */}
                     <div className='maingame'><MainSlide/></div>

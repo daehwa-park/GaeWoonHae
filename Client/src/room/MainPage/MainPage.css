@@ -10,6 +10,12 @@
     height: 70vh;
     border: 2px solid rgb(235, 230, 230);
     background-color: white;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 2px 2px 1px 1px rgb(192, 189, 189);
+}
+
+.gametext {
+    margin: 20px 0 0 20px;
+    font-size: 25px;
+    font-weight: 700;
 }

@@ -1,7 +1,7 @@
 import "./goLobbymodal.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { enterRoomAction } from "../../../features/Actions/enterRoomAction";
+import { enterRoomAction } from "../../features/Actions/enterRoomAction";
 import { useDispatch } from "react-redux";
 
 function GoLobbyModal({ setModalOpen, id, title, content, writer, value }) {
