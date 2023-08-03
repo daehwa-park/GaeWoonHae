@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { authenticateAction } from "../../features/loginActions/authenticateAction";
+import { authenticateAction } from "../../features/Actions/authenticateAction";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../redux/reducer/authenticateReducer";
 
@@ -20,10 +20,12 @@ const LoginKakaoPage = () => {
   };
   // 토큰이 있으면 로그인, 없으면 로그아웃 상태를 store에 저장하자.
   const isToken = (accessToken) => {
+    console.log("이스토큰 실행");
     dispatch(authActions.loginJudgement({ accessToken }));
   };
 
   const getUserInfo = async () => {
+    console.log("유저인포 실행");
     await dispatch(authenticateAction.getUserInfo(userId));
     await navigate("/main");
   };
