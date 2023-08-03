@@ -1,14 +1,14 @@
 // openvidu + opencv 기능
 
-import { OpenVidu } from 'openvidu-browser';    // OpenVide 객체 생성
+import { OpenVidu } from 'openvidu-browser';    // OpenVidu 객체 생성
 
 import axios from 'axios';
 import React, { Component } from 'react';
-import UserVideoComponent from './UserVideoComponent';
+import UserVideoComponent from './openvidu/UserVideoComponent';
 
 // opencv+canvas
 import Webcam from "react-webcam";
-import { loadHaarFaceModels, detectHaarFace } from "./haarFaceDetection";  // 얼굴인식 컴포넌트
+import { loadHaarFaceModels, detectHaarFace } from "./opencv/haarFaceDetection";  // 얼굴인식 컴포넌트
 import cv from "@techstark/opencv-js";
 import {Link} from 'react-router-dom'
 import "./videoApp.css"
@@ -193,7 +193,7 @@ class videoApp extends Component {
                                 publishAudio: true, 
                                 publishVideo: true, 
                                 resolution: '320x240',                                               // 해상도
-                                frameRate: 20,                                                       // 프레임
+                                frameRate: 30,                                                       // 프레임
                                 insertMode: 'APPEND', 
                                 mirror: false, 
                                 
@@ -336,7 +336,7 @@ class videoApp extends Component {
                 {this.state.session !== undefined ? (
                     <div id="session">
                         {/* 웹캠 라이브러리 화면. canvas1 요소 가져오기 위해 사용 */}
-                        <div style={{ width: "630px" ,visibility:"hidden" ,display:"flex", position:"absolute"}}>
+                        <div style={{ width: "400px" ,visibility:"hidden" ,display:"flex", position:"absolute"}}>
                             <Webcam
                                 ref={this.webcamRef}
                                 className="webcam"

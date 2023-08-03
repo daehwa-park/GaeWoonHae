@@ -8,7 +8,7 @@ const BgmModal = ({ setModalOpen2, id, title, content, writer }) => {
     };
 
     return (
-        <div id='Recommendmodals'>
+        <div id='BGMmodals'>
             <h3>bgm 설정</h3>
             
             <button id='chatoutbutton' onClick={closeModal}>취소</button>

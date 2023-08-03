@@ -25,27 +25,30 @@ function Mainnav() {
     };
 
     const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpen2, setModalOpen2] = useState(false);
+
     const showModal = () => {
-        console.log('@확인')
+        console.log('@확인', modalOpen)
         setModalOpen(true);
+        console.log(modalOpen)
     };
 
-    const [modalOpen2, setModalOpen2] = useState(false);
     const showModal2 = () => {
         setModalOpen2(true);
     };
 
 
+
     return(
         <div>
             <img className="main-hover" src={`${process.env.PUBLIC_URL}/images/img/mainlogo.png`} alt=""/>
+            {modalOpen && <RecommendModal setModalOpen={setModalOpen} />}
             <div className="left-nav">
                 <div className="mainnav">
                      <Navbutton className="mainnav" onClick={goTomypage} message="Profile"></Navbutton>
                 </div>
                 <div className="mainnav">
                     <Navbutton  onClick={showModal} message="Enter code(친구초대)"></Navbutton>
-                    {modalOpen && <RecommendModal setModalOpen={setModalOpen} />}
                 </div>
                 <div className="mainnav">
                     <Navbutton onClick={showModal2} message="BGM"></Navbutton>
