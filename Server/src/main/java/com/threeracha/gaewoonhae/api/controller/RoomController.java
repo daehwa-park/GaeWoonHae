@@ -1,6 +1,6 @@
 package com.threeracha.gaewoonhae.api.controller;
 
-import com.threeracha.gaewoonhae.api.dto.request.SessiondIdRequest;
+import com.threeracha.gaewoonhae.api.dto.request.SetRoomStatusRequest;
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
 import com.threeracha.gaewoonhae.api.dto.response.RoomInfoResponse;
 import com.threeracha.gaewoonhae.api.service.RoomService;
@@ -83,16 +83,20 @@ public class RoomController {
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = Character.class)))
     })
     @PostMapping("/start")
-    public ResponseEntity<CommonResponse<Character>> GameStart(@RequestBody SessiondIdRequest gameStartRequest) {
-        String sessionId = gameStartRequest.getSessionId();
-        Character roomStatus = roomService.startGame(sessionId);
-        return new ResponseEntity<>(
-                makeCommonResponse(SUCCESS, roomStatus), HttpStatus.OK);
+    public ResponseEntity<CommonResponse<Character>> GameStart(@RequestBody SetRoomStatusRequest request) {
+        return new ResponseEntity<>(makeCommonResponse(SUCCESS, roomService.startRoom(request)), HttpStatus.OK);
     }
 
-    @PostMapping("/end")
-    public void GameFinish(NewRoomRequest makeNewRoomDto) {
+    @PostMapping("/finish")
+    public ResponseEntity<CommonResponse<Character>> GameFinish(@RequestBody SetRoomStatusRequest request) {
 
+        return new ResponseEntity<>(makeCommonResponse(SUCCESS, roomService.finishRoom(request)), HttpStatus.OK);
+    }
+
+    @PostMapping("/close")
+    public ResponseEntity<CommonResponse<Character>> CloseRoom(@RequestBody SetRoomStatusRequest request) {
+
+        return new ResponseEntity<>(makeCommonResponse(SUCCESS, roomService.closeRoom(request)), HttpStatus.OK);
     }
 
     private <T> CommonResponse<T> makeCommonResponse(String message, T data) {

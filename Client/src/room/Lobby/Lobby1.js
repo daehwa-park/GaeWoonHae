@@ -1,27 +1,40 @@
 import {Link} from 'react-router-dom';
 import axios from "axios";
 import './Lobby1.css'
+import { useNavigate } from "react-router-dom";
 
 // 대기방 - 박 터트리기
 
 
 const Lobby=()=> {
+
+    const navigate = useNavigate();  
     
+    const goTogame = () => {
+        navigate(`/gamepage/1`);
+    };
     //axios요청 => room에 5명있때만 게임 실행
-    const gamestart = async () => {
+    
+
+    const lobbyapi = axios.create({
+        baseURL: process.env.REACT_APP_SPRING_URI,
+        headers: { "cotent-type": "application/json" },
+    
+      })
+
+    const gamestart = async(dispatch) => {
+        // dispatch(findRoomRequest());
         try {
             const requestData = {
                 sessionId : "session_id_asd",
             };
-            const response = await axios.post(
-                "http://localhost:5000/api/room/start", 
+            const res = await lobbyapi.post("/api/room/start", 
                 requestData,
             );
-            console.log(response)
-            // navigate(`/lobby/${value}`)
-            
-        } catch (error) {
-            console.error("생성 실패", error);
+            console.log(res);
+            goTogame()
+          } catch (error) {
+            console.log(error, "요청실패");
         }
     };
 
@@ -50,8 +63,8 @@ const Lobby=()=> {
                 <div className='select-type'>
                     <h1>현재 인원수</h1>
                     <h1>이모지 선택</h1>
-                    <button onClick={gamestart}>+</button>
-                    <Link to='/gamepage/1'><button>게임시작</button></Link>
+                    <button onClick={gamestart}>게임시작</button>
+                    {/* <Link to='/gamepage/1'><button>게임시작</button></Link> */}
                     <Link to='/main'><button>방나가기</button></Link>
                 </div>
             </div>
