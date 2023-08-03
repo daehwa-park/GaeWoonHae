@@ -75,6 +75,9 @@ public class OAuthLoginService {
 
         String refreshToken = user.getRefreshToken();
 
+        System.out.println(refreshToken);
+        System.out.println(regenTokenReq.getRefreshToken());
+
         if (authTokensGenerator.verifyToken(regenTokenReq.getRefreshToken()) &&
                 refreshToken.equals(regenTokenReq.getRefreshToken())) {
 

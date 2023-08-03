@@ -1,11 +1,12 @@
 package com.threeracha.gaewoonhae.api.controller;
 
-import com.threeracha.gaewoonhae.api.dto.request.SessiondIdRequest;
+import com.threeracha.gaewoonhae.api.dto.request.SetRoomStatusRequest;
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
 import com.threeracha.gaewoonhae.api.dto.response.RoomInfoResponse;
 import com.threeracha.gaewoonhae.api.service.RoomService;
 
 import com.threeracha.gaewoonhae.api.dto.request.NewRoomRequest;
+import com.threeracha.gaewoonhae.utils.RandomCodeGenerator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,6 +30,13 @@ public class RoomController {
 
 
     static final String SUCCESS = "success";
+
+    @GetMapping("/random")
+    public ResponseEntity<CommonResponse<String>> getRandomCode() {
+        return new ResponseEntity<>(makeCommonResponse(SUCCESS, RandomCodeGenerator.getRandomCode(8)),
+                HttpStatus.OK);
+    }
+
     @Operation(summary = "최선의 방 조회", description = "게임 타입에 적합한 방이 있는 경우 sessionId 반환, 아닐 경우 customException 반환")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class))),
@@ -47,8 +55,8 @@ public class RoomController {
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = String.class)))
     })
     @PostMapping("/find")
-    public ResponseEntity<CommonResponse<String>> findRoomBySessionId(@RequestBody SessiondIdRequest sessiondIdRequest) {
-        String sessionId = sessiondIdRequest.getSessionId();
+    public ResponseEntity<CommonResponse<String>> findRoomBySessionId(@RequestBody SetRoomStatusRequest setRoomStatusRequest) {
+        String sessionId = setRoomStatusRequest.getSessionId();
         String roomBySessionId = roomService.findRoomBySessionId(sessionId);
 
         return new ResponseEntity<>(
@@ -74,16 +82,20 @@ public class RoomController {
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = Character.class)))
     })
     @PostMapping("/start")
-    public ResponseEntity<CommonResponse<Character>> GameStart(@RequestBody SessiondIdRequest gameStartRequest) {
-        String sessionId = gameStartRequest.getSessionId();
-        Character roomStatus = roomService.startGame(sessionId);
-        return new ResponseEntity<>(
-                makeCommonResponse(SUCCESS, roomStatus), HttpStatus.OK);
+    public ResponseEntity<CommonResponse<Character>> GameStart(@RequestBody SetRoomStatusRequest request) {
+        return new ResponseEntity<>(makeCommonResponse(SUCCESS, roomService.startRoom(request)), HttpStatus.OK);
     }
 
-    @PostMapping("/end")
-    public void GameFinish(NewRoomRequest makeNewRoomDto) {
+    @PostMapping("/finish")
+    public ResponseEntity<CommonResponse<Character>> GameFinish(@RequestBody SetRoomStatusRequest request) {
 
+        return new ResponseEntity<>(makeCommonResponse(SUCCESS, roomService.finishRoom(request)), HttpStatus.OK);
+    }
+
+    @PostMapping("/close")
+    public ResponseEntity<CommonResponse<Character>> CloseRoom(@RequestBody SetRoomStatusRequest request) {
+
+        return new ResponseEntity<>(makeCommonResponse(SUCCESS, roomService.closeRoom(request)), HttpStatus.OK);
     }
 
     private <T> CommonResponse<T> makeCommonResponse(String message, T data) {
