@@ -1,25 +1,21 @@
-// 메인페이지 우측 슬라이드바
+// 메인페이지 슬라이드바
 // 구성 - 동작함수 , 슬라이드, 방 생성/입장 모달창 (goLobbymodal)
-
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-// import React, {useState }  from "react";
 import React, { useEffect , useState }  from "react";
-import GoLobby from "./mainslide/goLobbymodal"
+import GoLobby from "../modal/goLobbymodal"
 import 'swiper/swiper-bundle.min.css';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // 폰트어썸 아이콘
+// import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+// import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-// import Slidecomp from "../../roompage/Lobby/Lobby2"
 import './Mainslide.css'
 
 import Swiper from 'swiper';
 import $ from 'jquery'; 
 
-
-
-function Mainslide() {
-    
-    
+const Mainslide=() => {
     const [nowslideidx, setNowSlideIdx] = useState(0);
     const [LobbymodalOpen1, setLobbyModalOpen1] = useState(false);
     const [LobbymodalOpen2, setLobbyModalOpen2] = useState(false);
@@ -35,7 +31,6 @@ function Mainslide() {
     };
     
     useEffect(() => {
-        // Swiper initialization code
         var menu = [];
         $('.swiper-slide').each(function (index) {
           menu.push($(this).find('.slide-inner').attr("data-text"));
@@ -100,7 +95,6 @@ function Mainslide() {
         };
     
         var swiper = new Swiper(".swiper-container", swiperOptions);
-        // console.log(swiper.activeIndex);
         console.log(swiper)
         // DATA BACKGROUND IMAGE
         // var sliderBgSetting = $(".slide-bg-image");
@@ -184,8 +178,12 @@ function Mainslide() {
                 </div>
                 </section>
             </div>
-
-            <button className="theme-btn-s2 start-btn" onClick={()=>showLobbyModal(nowslideidx)}>게임시작</button>
+            <div className="btncom">
+                {/* <FontAwesomeIcon className="left-btn" icon={faChevronLeft} style={{color: "#f37f20",}}/> */}
+                <button className="theme-btn-s2 start-btn" onClick={()=>showLobbyModal(nowslideidx)}>게임 선택</button>
+                {/* <FontAwesomeIcon className="right-btn" icon={faChevronRight} style={{color: "#f37f20",}}/> */}
+    
+            </div>
             {LobbymodalOpen1 && <GoLobby value={1} setModalOpen={setLobbyModalOpen1} />}                            
             {LobbymodalOpen2 && <GoLobby value={2} setModalOpen={setLobbyModalOpen2} />}                            
             {LobbymodalOpen3 && <GoLobby value={3} setModalOpen={setLobbyModalOpen3} />}                            

@@ -1,5 +1,6 @@
 // 픽토그램
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+// import React, { useEffect, useState } from "react";
 import $ from "jquery";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
@@ -18,7 +19,7 @@ const Lobby = () => {
     "피해봐요, 오늘의 X!",
   ];
 
-  const hostName = useSelector((state) => state.roomInfo.hostName);
+  // const hostName = useSelector((state) => state.roomInfo.hostName);
   const myName = useSelector((state) => state.auth.user.nickname);
   const sessionId = useSelector((state) => state.roomInfo.sessionId);
   const gameType = useSelector((state) => state.roomInfo.gameType);
@@ -41,9 +42,9 @@ const Lobby = () => {
   //     }
   //   };
   useEffect(() => {
-    console.log("채팅 실행중", hostName);
-    console.log("세션채팅", sessionId);
-    console.log("채팅 내 닉넴", myName);
+    // console.log("채팅 실행중", hostName);
+    // console.log("세션채팅", sessionId);
+    // console.log("채팅 내 닉넴", myName);
     var stompClient = null;
     var userList = [];
     // redux에서 가져오는 hostName
@@ -172,7 +173,7 @@ const Lobby = () => {
     });
 
     connect();
-  }, []);
+  }, [myName,sessionId]);
 
   return (
     <div>

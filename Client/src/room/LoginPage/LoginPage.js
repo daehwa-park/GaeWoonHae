@@ -8,8 +8,6 @@ const LoginPage = () => {
     <div className="login-bg">
        <LoginBox/>
     </div>
-    
-  
   );
 };
 

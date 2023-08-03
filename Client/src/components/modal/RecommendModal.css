@@ -1,0 +1,48 @@
+#Recommendmodals {
+    position: absolute;
+    top: 37%;
+    left: 37%;
+    width: 350px;
+    height: 210px;
+    border: 2px solid rgb(204, 200, 200);
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 2px 2px rgb(133, 132, 132);
+    z-index: 1;
+    text-align: center;
+}
+#codetxt {
+    margin-top: 20px;
+}
+
+#modalcom {
+    display: flex;
+    justify-content: center;
+}
+
+#codeinput {
+    margin: 8px 0 12px;
+    width: 250px;
+    height: 40px;
+    border: 2px solid rgb(204, 200, 200);
+    border-radius: 6px;
+    background-color: white;
+    box-shadow: 2px 2px rgb(133, 132, 132);
+}
+#chatoutbutton {
+    width: 250px;
+    height: 40px;
+    border: 2px solid rgb(204, 200, 200);
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 2px 2px rgb(133, 132, 132);
+    text-transform: uppercase;
+    transition:all .2s ease;
+    font-size: 15px;
+}
+
+#chatoutbutton:hover, #chatoutbutton:focus, #chatoutbutton:active {
+    background-color:#a5c8e9 ;
+    color: #282a2b;
+
+}
