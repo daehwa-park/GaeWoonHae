@@ -1,0 +1,122 @@
+.mypage-body2 {
+  width: 90%;
+  height: 93%;
+  margin: auto;
+  border: 2px solid rgb(235, 230, 230);
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 2px 2px 1px 1px rgb(192, 189, 189);
+}
+
+.emoji-shop {
+  margin-top: 5vh;
+  display: flex;
+  /* justify-content: space-around; */
+}
+
+.emoji-title1 {
+  margin-left: 4vw;
+  font-size: 25px;
+  font-weight: 550;
+}
+
+.emoji-title2 {
+  margin-top: 1vh;
+  margin-left: 49vw;
+  font-size: 22px;
+  font-weight: 550;
+  text-decoration-style: double;
+  text-decoration-line: underline;
+}
+
+.emoji-body {
+  margin-top: 2vh;
+  display: flex;
+}
+
+.emoji-left {
+  margin-left: 3vw;
+  width: 26vw;
+  height: 55vh;
+  border: 2px solid black;
+
+}
+.emoji-right {
+  margin-left: 2vw;
+  display: flex;
+  width: 54vw;
+  height: 55vh;
+  border: 2px solid black;
+  
+}
+
+.emoji-video {
+  margin: auto;
+  margin-top: 5vh;
+  width: 22vw;
+  height: 23vh;
+  border: 2px solid black;
+}
+
+.emoji-img {
+  margin-top: 5vh;
+  margin-left: 3vw;
+  width: 7vw;
+  height: 8vh;
+  /* border: 2px solid rgb(214, 133, 10); */
+}
+
+.emoji-id {
+  margin-top: 5vh;
+  margin-left: 2vw;
+}
+
+.emoji-price {
+  margin-top: 1vh;
+  margin-left: 2vw;
+}
+
+.emojicomp {
+  margin: 5vh 0 0 4vw;
+}
+.select-emoji {
+  display: flex;
+}
+.select-button{
+  display: flex;
+}
+.selected-emoji {
+  margin-left: 1vw;
+  width: 5vw;
+  height: 5vw;
+}
+
+.emoji-size {
+  margin-right: 1vw;
+  width: 8vw;
+  height: 8vw;
+}
+
+.sellect-btn {
+  margin-top: 4vh;
+  margin-left: 2vw;
+  text-align: center;
+  width: 9vw;
+  height: 5vh;
+  border: 2px solid rgb(235, 230, 230);
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgb(192, 189, 189);
+  text-transform: uppercase;
+  transition:all .2s ease;
+  font-weight: 700;
+}
+
+.btnpos {
+  margin-left: 63vw;
+}
+
+.sellect-btn:hover, .sellect-btn:focus, .sellect-btn:active {
+  background-color:#e6ecf1 ;
+  color: #282a2b;
+}

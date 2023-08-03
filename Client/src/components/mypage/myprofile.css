@@ -1,0 +1,117 @@
+
+.mypage-body1 {
+  display: flex;
+  width: 95%;
+  height: 92%;
+
+}
+
+.mypageleft {
+  margin-left: 5vw;
+  margin-top: 3.5vh;
+  width: 35%;
+  height: 100%;
+  border: 2px solid rgb(235, 230, 230);
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgb(226, 223, 223);
+}
+
+.mypageright {
+  margin-left: 2vw;
+  margin-top: 3.5vh;
+  width: 95%;
+  height: 100%;
+  border: 2px solid rgb(235, 230, 230);
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgb(226, 223, 223);
+}
+.chart-nick {
+  margin: 3vh 0 0 4vw;
+  color: #dbbbeb;
+  font-size: 20px;
+}
+
+.mypage-body2 {
+  margin-left: 3vw;
+}
+.profile-img {
+  margin: 3vh auto;
+  width: 17vw;
+  height: 17vw;
+  border: 2px solid black;
+  border-radius: 4vw;
+}
+.changebtn {
+  margin-left: 1vw;
+  text-align: center;
+  width: 6vw;
+  height: 3vh;
+  border: 2px solid rgb(235, 230, 230);
+  background-color: rgb(228, 225, 225);
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgb(192, 189, 189);
+  text-transform: uppercase;
+  transition:all .2s ease;
+  font-weight: 700;
+}
+.nickname {
+  display: flex;
+  margin: 6vh 0 0 4vw;
+  font-size: 14px;
+  font-weight: 550;
+}
+.setemoji {
+  margin: 5vh 0 0 4vw;
+  font-size: 14px;
+  font-weight: 550;
+}
+.savepoint {
+  margin: 5vh 0 0 4vw;
+  font-size: 14px;
+  font-weight: 550;
+}
+.secession {
+  margin: 5vh 0 0 4vw;
+  font-size: 14px;
+  font-weight: 550;
+}
+
+.helth-chart {
+  margin: 3vh 0 0 4vw;
+  width: 50vw;
+  height: 28vh;
+  border: 2px solid black;
+}
+
+.image1 {
+  margin: 2vh 0 0 5vw;
+  width: 20vw;
+  height: 20vh;
+  border: 2px solid black;
+}
+
+.Calendar-tag {
+  margin: 5vh 0 0 4vw;
+  font-size: 20px;
+  font-weight: 550;
+  color: #8959a8;
+}
+
+.Calendar {
+  display: flex;
+}
+
+.image2 {
+  margin-left: 5vw;
+  width: 25vw;
+  height: 20vh;
+  border: 2px solid black;
+  font-size: 17px;
+  font-weight: 550;
+}
+
+.kcal {
+  margin: 1vh 0 0 1vw;
+}

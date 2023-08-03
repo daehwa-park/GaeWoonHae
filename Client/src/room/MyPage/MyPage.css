@@ -1,6 +1,18 @@
 .mypages {
     width: 100%;
     height: 100%;
+    
+}
+
+.mypage-header {
+    height: 10vh;
+}
+.mypage-body {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    border: 2px solid rgb(169, 39, 39);
+    background-color: #FFFBF6;
 }
 
 .navbox {
@@ -8,102 +20,4 @@
     width: 100%;
     height: 10vh;
     border: 2px solid black;
-}
-
-.mypage-body {
-    width: 100%;
-    height: 90vh;
-    display: flex;
-    border: 2px solid rgb(169, 39, 39);
-}
-
-.mypage-body1 {
-    display: flex;
-}
-
-.mypageleft {
-    margin-left: 3vw;
-    margin-top: 5vh;
-    width: 30vw;
-    height: 70vh;
-    border: 2px solid rgb(90, 121, 107);
-}
-.mypageright {
-    margin-left: 3vw;
-    margin-top: 5vh;
-    width: 55vw;
-    height: 70vh;
-    border: 2px solid rgb(90, 121, 107);
-}
-
-.mypage-body2 {
-    margin-left: 3vw;
-}
-.profile-img {
-    width: 8vw;
-    height: 8vw;
-    border: 2px solid black;
-    border-radius: 4vw;
-}
-
-.helth-chart {
-    width: 30vw;
-    height: 10vh;
-    border: 2px solid black;
-}
-
-.image1 {
-    width: 20vw;
-    height: 20vh;
-    border: 2px solid black;
-}
-
-.Calendar {
-    display: flex;
-}
-
-.image2 {
-    width: 20vw;
-    height: 20vh;
-    border: 2px solid black;
-    
-}
-
-.emoji-body {
-    display: flex;
-}
-
-.emoji-shop {
-    margin-top: 3vh;
-    display: flex;
-    justify-content: space-around;
-}
-.emoji-left {
-    width: 30vw;
-    height: 50vh;
-    border: 2px solid black;
-
-}
-.emoji-right {
-    display: flex;
-    width: 60vw;
-    height: 50vh;
-    border: 2px solid black;
-    
-}
-
-.emoji-video {
-    margin-left: 3vw;
-    width: 20vw;
-    height: 20vh;
-    border: 2px solid black;
-}
-
-.select-button{
-    display: flex;
-}
-
-.emoji-size {
-    width: 8vw;
-    height: 8vw;
 }
