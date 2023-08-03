@@ -1,10 +1,8 @@
 
-body {
 
-  height: 100%;
-
-} 
-
+.navbar-header{
+  display: flex;
+}
 
 .mainnav {
   margin-top: 8vh;
