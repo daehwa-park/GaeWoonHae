@@ -13,7 +13,6 @@ const authenticateSlice = createSlice({
       point: null,
       emojiId: null,
       oauthProvider: "",
-      sessionId: "",
     },
   },
 
@@ -38,9 +37,6 @@ const authenticateSlice = createSlice({
       state.user.point = action.payload.userInfo.point;
       state.user.emojiId = action.payload.userInfo.emojiId;
       state.user.oauthProvider = action.payload.userInfo.oauthProvider;
-    },
-    getSessionId(state, action) {
-      state.user.sessionId = action.payload.sessionId;
     },
   },
 });

@@ -18,6 +18,8 @@ import $ from 'jquery';
 
 
 function Mainslide() {
+    
+    
     const [nowslideidx, setNowSlideIdx] = useState(0);
     const [LobbymodalOpen1, setLobbyModalOpen1] = useState(false);
     const [LobbymodalOpen2, setLobbyModalOpen2] = useState(false);
@@ -31,7 +33,7 @@ function Mainslide() {
             setLobbyModalOpen3(true);
         }
     };
-
+    
     useEffect(() => {
         // Swiper initialization code
         var menu = [];

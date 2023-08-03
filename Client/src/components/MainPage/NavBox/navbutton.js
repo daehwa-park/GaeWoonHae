@@ -1,5 +1,5 @@
 import React from 'react';
-import './navbutton.scss';
+// import './navbutton.scss';
 
 export default function MyButton({ message, onClick }) {
   const handleClick = (event) => {

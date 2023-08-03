@@ -1,13 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
 
 img{
     cursor:pointer
 }
 .login-bg {
     display: flex;
-    background-image: url("../../components/LoingPage/bg.png");
-    background-size: cover;
+    /* background-image: url("../../components/LoingPage/bg.png"); */
+    background-image: url("../../assets/background/gaewonhae_logo.png");
+    background-size: cover; 
     background-position: center;
     height: 100vh;
     /* 이하 원하는 배경 스타일을 추가적으로 설정할 수 있습니다. */
-  }
+    background-repeat: no-repeat;
+}
