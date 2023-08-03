@@ -43,7 +43,7 @@ public class RoomService {
         char isPublicRoom = newRoomRequest.getIsPublicRoom();
         String makeSessionId = RandomCodeGenerator.getRandomCode(8);
         Room newRoom = new Room(makeSessionId, findUser, gameType, 1, 5,isPublicRoom,'R');
-
+        roomRepository.makeNewRoom(newRoom);
         return new RoomInfoResponse(newRoom);
     }
 
