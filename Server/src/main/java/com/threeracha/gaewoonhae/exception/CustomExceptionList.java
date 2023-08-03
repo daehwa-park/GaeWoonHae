@@ -22,7 +22,8 @@ public enum CustomExceptionList {
     NO_AUTHENTICATION_ERROR(HttpStatus.FORBIDDEN, "E08", "접근 권한이 없습니다."),
     MEMBER_NOT_FOUND_ROOM(HttpStatus.NOT_FOUND,"E09", "운동방에 존재하지 않는 회원입니다."),
     ROOM_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND,"E10","존재하지 않는 게임방 입니다."),
-    EMOJI_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "E11", "존재하지 않는 이모지입니다.");
+    EMOJI_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "E11", "존재하지 않는 이모지입니다."),
+    INVALID_HOST_ERROR(HttpStatus.UNAUTHORIZED, "E12", "호스트 권한이 없습니다." );
 
     private final HttpStatus status;
     private final String code;
