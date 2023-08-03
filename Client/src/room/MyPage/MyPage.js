@@ -13,8 +13,14 @@ const Mypage = () => {
 
     // const {A1} = useSelector((state) => state.Mypage)  // reducer 
     return (
-        <div>
-            <h1>마이페이지</h1>
+        <div className='mypages'>
+            <div className='navbox'>
+                <h1>마이페이지</h1>
+            </div>
+            <div className='mypage-body'>
+                <div className='mypageleft'></div>
+                <div className='mypageright'></div>
+            </div>
             {/* <h2>{A1} dd</h2>
             <button onClick={handleClick}>Update A1</button> */}
             <Link to='/main'><button>메인으로 돌아가기</button></Link>
