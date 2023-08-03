@@ -2,11 +2,11 @@ import {Link} from 'react-router-dom'
 import './MyPage.css'
 import { useState } from 'react'
 // import axios from "axios";
-import emoji1 from './emoji_1.png'
-import emoji2 from './emoji_2.png'
-import emoji3 from './emoji_3.png'
+import emoji1 from '../../assets/emoji/emoji_1.png'
+import emoji2 from '../../assets/emoji/emoji_2.png'
+import emoji3 from '../../assets/emoji/emoji_3.png'
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import SideNavBox from "../../components/MainPage/NavBox"
+import NavBox from "../../components/Navigate/NavBox"
 // import { useSelector, useDispatch} from "react-redux"  //Store에서 state값 가져오기
 // import {updateA} from '../../redux/reducer/MyPageReducer'
 // import { useEffect } from 'react'
@@ -109,7 +109,7 @@ const Mypage = () => {
     return (
         <div className='mypages'>
             {/* 상단 네비바 */}
-            <div className='mainnavber'><SideNavBox pagenum={pagenum} /></div>
+            <div className='mainnavber'><NavBox pagenum={pagenum} /></div>
 
             <div className='mypage-body'>
                 {Page === 1 ? (
