@@ -1,5 +1,3 @@
-// 로그인 페이지에서 토큰, 유저정보 받기
-
 import axios from "axios";
 import { authActions } from "../../redux/reducer/authenticateReducer";
 // import { useNavigate } from "react-router-dom";
@@ -38,8 +36,9 @@ function getUserInfo(userId) {
     await loginApi
       .get("/api/user/userinfo/" + userId)
       .then((res) => {
-        console.log("유저정보", res);
-        console.log(userId);
+        console.log(res);
+        const userInfo = res.data.data;
+        dispatch(authActions.getUserInfo({ userInfo }));
       })
       .catch((err) => {
         console.log(userId);
