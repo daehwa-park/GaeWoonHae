@@ -1,0 +1,31 @@
+.navboxheader {
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.navbox-tag {
+    display: flex;
+    height: 10vh;
+    margin-left: auto;
+    align-items: center;
+}
+
+.menu {
+    font-size: 2.5vh;
+    font-weight: 800;
+    margin-right: 3vw;
+    color: white;
+    text-transform: uppercase;
+    transition:all .2s ease;
+    
+}
+
+.menu:hover, .menu:focus, .menu:active {
+/* background-color:#a5c8e9 ; */
+    color: #282a2b;
+}
+
+.mypageicon {
+    height: 6vh;
+    margin-right: 2vw;
+}
