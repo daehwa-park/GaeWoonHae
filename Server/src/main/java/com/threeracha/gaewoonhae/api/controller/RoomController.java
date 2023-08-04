@@ -1,5 +1,6 @@
 package com.threeracha.gaewoonhae.api.controller;
 
+import com.threeracha.gaewoonhae.api.dto.request.SessionIdRequest;
 import com.threeracha.gaewoonhae.api.dto.request.SetRoomStatusRequest;
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
 import com.threeracha.gaewoonhae.api.dto.response.RoomInfoResponse;
@@ -56,8 +57,8 @@ public class RoomController {
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = String.class)))
     })
     @PostMapping("/find")
-    public ResponseEntity<CommonResponse<RoomInfoResponse>> findRoomBySessionId(@RequestBody SessiondIdRequest sessiondIdRequest) {
-        String sessionId = sessiondIdRequest.getSessionId();
+    public ResponseEntity<CommonResponse<RoomInfoResponse>> findRoomBySessionId(@RequestBody SessionIdRequest sessionIdRequest) {
+        String sessionId = sessionIdRequest.getSessionId();
         RoomInfoResponse roomBySessionId = roomService.findRoomBySessionId(sessionId);
 
         return new ResponseEntity<>(
