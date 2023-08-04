@@ -8,8 +8,9 @@ const minsize = new cv.Size(30, 30);
 const maxsize = new cv.Size(130, 130);
 
 let faceCascade;
+let faceCascade2;
 
-export async function loadHaarFaceModels() {
+export async function loadHaarFaceModel1() {
   console.log("=======start downloading Haar-cascade models=======");
   return loadDataFile(
     "haarcascade_frontalface_alt2.xml",
@@ -22,6 +23,31 @@ export async function loadHaarFaceModels() {
             // load pre-trained classifiers
             faceCascade = new cv.CascadeClassifier();
             faceCascade.load("haarcascade_frontalface_alt2.xml");
+            resolve();
+          }, 2000);
+        })
+    )
+    .then(() => {
+      console.log("=======downloaded Haar-cascade models=======");
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+export async function loadHaarFaceModel2() {
+  console.log("=======start downloading Haar-cascade models=======");
+  return loadDataFile(
+    "haarcascade_profileface.xml",
+    "../../models/haarcascade_profileface.xml"
+  )
+    .then(
+      () =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            // load pre-trained classifiers
+            faceCascade2 = new cv.CascadeClassifier();
+            faceCascade2.load("haarcascade_profileface.xml");
             resolve();
           }, 2000);
         })
@@ -53,6 +79,10 @@ export function detectHaarFace(img, emo) {
   
   // detect faces
   faceCascade.detectMultiScale(gray, faces, 1.12, 4, 0, minsize, maxsize);
+  if(faces.size() == 0 ) {
+    faceCascade2.detectMultiScale(gray, faces, 1.1, 3, 0, minsize, maxsize);
+  }
+
   for (let i = 0; i < faces.size(); ++i) {
     let face = faces.get(i);
     let dsize = new cv.Size(face.width, face.height);
