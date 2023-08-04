@@ -1,22 +1,22 @@
 # 공지사항(FE, BE 실행이 안될 때 조치) 
 ### FE : Client 폴더 내 .env 파일 추가하고 아래 내용 삽입
-REACT_APP_KAKAO_JS_KEY=395621b2f6ec048404dcf426884426a1
-REACT_APP_KAKAO_REDIRECT_URI=http://localhost:3000/login/kakao/callback
+REACT_APP_KAKAO_JS_KEY=395621b2f6ec048404dcf426884426a1<br/>
+REACT_APP_KAKAO_REDIRECT_URI=http://localhost:3000/login/kakao/callback<br/>
 REACT_APP_SPRING_URI=http://localhost:5000
 
 - 그래도 작동하지 않는다면, package.json 파일 내 "proxy": "http://localhost:5000" 확인
 
 ### BE : src/main/resources/application.yaml 파일 내에 아래 내용 수정(active: prod -> local)
-spring:
-  profiles:
+spring:<br/>
+  profiles:<br/>
     active: local 
 
 - 그래도 작동하지 않는다면, application-local.yaml 파일 내 username, password 수정(본인 mysql에 맞게)
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/GWHDB?serverTimezone=Asia/Seoul
-    username: root
+spring:<br/>
+  datasource:<br/>
+    driver-class-name: com.mysql.cj.jdbc.Driver<br/>
+    url: jdbc:mysql://localhost:3306/GWHDB?serverTimezone=Asia/Seoul<br/>
+    username: root<br/>
     password: ssafy
 
 
