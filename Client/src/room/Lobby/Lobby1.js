@@ -1,14 +1,12 @@
 // 픽토그램
-import React, { useEffect } from "react";
-// import React, { useEffect, useState } from "react";
-import $ from "jquery";
-import SockJS from "sockjs-client";
-import Stomp from "stompjs";
-// import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 import "./Lobby1.css";
-import { Container, Row, Col, Form, Button } from "react-bootstrap/";
+import { Container, Row, Col } from "react-bootstrap/";
 import { useSelector } from "react-redux/es/hooks/useSelector";
+
+import Chatting from "../../features/chatting/Chatting";
+import GameRoomInfoStart from "../../components/GamePage/GameRoomInfoStart";
 
 // 대기방 - 박 터트리기
 
@@ -19,9 +17,13 @@ const Lobby = () => {
     "피해봐요, 오늘의 X!",
   ];
 
+  const [userList, setUserList] = useState([]);
+
+  // const [loading, setLoading] = useState(true);
+
   // const hostName = useSelector((state) => state.roomInfo.hostName);
-  const myName = useSelector((state) => state.auth.user.nickname);
-  const sessionId = useSelector((state) => state.roomInfo.sessionId);
+  // const myName = useSelector((state) => state.auth.user.nickname);
+  // const sessionId = useSelector((state) => state.roomInfo.sessionId);
   const gameType = useSelector((state) => state.roomInfo.gameType);
   const gameName = gameNameList[gameType - 1];
   //axios요청 => room에 5명있때만 게임 실행
@@ -41,139 +43,6 @@ const Lobby = () => {
   //       console.error("생성 실패", error);
   //     }
   //   };
-  useEffect(() => {
-    // console.log("채팅 실행중", hostName);
-    // console.log("세션채팅", sessionId);
-    // console.log("채팅 내 닉넴", myName);
-    var stompClient = null;
-    var userList = [];
-    // redux에서 가져오는 hostName
-
-    function connect() {
-      var socket = new SockJS("/gwh-websocket");
-      stompClient = Stomp.over(socket);
-      var headers = {
-        name: myName,
-        roomNumber: sessionId,
-      };
-      stompClient.connect(headers, function (frame) {
-        // 서버연결시도
-        // setConnected(true);
-        stompClient.subscribe(
-          // 채팅방 채널 구독
-          "/topic/chatroom/" + sessionId + "/messages",
-          function (message) {
-            showMessage(JSON.parse(message.body).content);
-          } // 구독한 곳으로 메세지가 오면 펑션 메세지가 실행 된다.
-        );
-
-        // 구독하지 않은 채널은 아예 메시지 전달이 안되므로 모든 클라이언트가 /host 와 /refresh를 구독해야함
-        stompClient.subscribe(
-          "/topic/chatroom/" + sessionId + "/host",
-          function (message) {
-            // 방장이라면 nameList를 갱신하고 /refresh 채널로 보낸다. 여기에 if(방장)
-            if (myName === "양준영") {
-              userList.push({
-                username: JSON.parse(message.body).content,
-                count: 0,
-              });
-              stompClient.send(
-                "/app/chatroom/" + sessionId + "/refresh",
-                {},
-                JSON.stringify(userList)
-              );
-              console.log(JSON.stringify(userList, null, 2));
-            }
-          }
-        );
-
-        stompClient.subscribe(
-          "/topic/chatroom/" + sessionId + "/refresh",
-          function (message) {
-            // 방장이 아니라면 갱신해버림
-            if (myName !== "ㅂㅈㄷ") {
-              userList = JSON.parse(message.body);
-
-              console.log(
-                JSON.stringify(userList, null, 2) + "이건 갱신된 요청입니다."
-              );
-            }
-            showUserInfo(userList);
-          }
-        );
-
-        stompClient.send(
-          "/app/chatroom/" + sessionId + "/enter",
-          {},
-          JSON.stringify({})
-        );
-        stompClient.send(
-          "/app/chatroom/" + sessionId + "/join",
-          {},
-          JSON.stringify({})
-        );
-      });
-    }
-
-    function disconnect() {
-      if (stompClient !== null) {
-        exit();
-        stompClient.disconnect();
-      }
-      //   setConnected(false);
-      console.log("Disconnected");
-    }
-
-    function sendChat() {
-      stompClient.send(
-        "/app/chatroom/" + sessionId + "/chat",
-        {},
-        JSON.stringify({ chat: $("#chat").val() })
-      );
-    }
-
-    function exit() {
-      stompClient.send(
-        "/app/chatroom/" + sessionId + "/exit",
-        {},
-        JSON.stringify({})
-      );
-    }
-
-    function showMessage(message) {
-      $("#messages").append("<tr><td>" + message + "</td></tr>");
-    }
-
-    function showUserInfo(namelist) {
-      var resultDiv = document.getElementById("result");
-      resultDiv.innerHTML = "";
-
-      // namelist 배열을 반복하여 결과를 <div> 태그에 출력
-      namelist.forEach(function (item) {
-        var div = document.createElement("div");
-        div.textContent =
-          "사용자 이름: " + item.username + ", 카운트: " + item.count;
-        resultDiv.appendChild(div);
-      });
-    }
-
-    $(function () {
-      $("form").on("submit", function (e) {
-        e.preventDefault();
-      });
-      $("#connect").click(function () {
-        connect();
-      });
-      $("#disconnect").click(function () {
-        disconnect();
-      });
-      $("#send").click(function () {
-        sendChat();
-      });
-    });
-
-    connect();
-  }, [myName,sessionId]);
 
   return (
     <div>
@@ -185,28 +54,7 @@ const Lobby = () => {
         </Row>
         <Row>
           <Col md={3} className="chat-col">
-            <div className="chat-box">
-              <table className="table">
-                <tbody id="messages"></tbody>
-              </table>
-            </div>
-            <Form className="chat-input-form">
-              <Form.Control
-                type="text"
-                id="chat"
-                className="chat-input"
-                placeholder="채팅 입력"
-              />
-              <Button
-                id="send"
-                className="send-btn"
-                variant="primary"
-                type="submit"
-              >
-                Send
-              </Button>
-            </Form>
-            <div className="user-info" id="result"></div>
+            <Chatting setUserList={setUserList} />
           </Col>
           <Col md={6} className="video-col">
             <Row>비디오</Row>
@@ -216,10 +64,17 @@ const Lobby = () => {
             </Row>
           </Col>
           <Col md={3} className="game-col">
-            게임 정보 및 gamestart
+            <GameRoomInfoStart userList={userList} />
           </Col>
         </Row>
       </Container>
+      <button
+        onClick={() => {
+          console.log(userList);
+        }}
+      >
+        확인용
+      </button>
     </div>
   );
 };

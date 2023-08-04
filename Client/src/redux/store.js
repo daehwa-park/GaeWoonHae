@@ -10,16 +10,18 @@ import storage from "redux-persist/lib/storage";
 
 import authenticateReducer from "./reducer/authenticateReducer";
 import roomInfoReducer from "./reducer/roomInfoReducer";
+import emojiInfoReducer from "./reducer/emojishopReducer";
 
 const rootReducer = combineReducers({
   auth: authenticateReducer,
   roomInfo: roomInfoReducer,
+  emoji: emojiInfoReducer,
   // 다른 리듀서들 추가하기
 });
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "roomInfo"],
+  whitelist: ["auth", "roomInfo","emoji"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

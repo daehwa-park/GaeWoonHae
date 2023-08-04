@@ -4,7 +4,7 @@ import { roomActions } from "../../redux/reducer/roomInfoReducer";
 const roomApi = axios.create({
   baseURL: process.env.REACT_APP_SPRING_URI,
   headers: { "cotent-type": "application/json" },
-  timeout: 5000,
+  timeout: 3000,
 });
 
 function getRoomInfo(requestData) {
