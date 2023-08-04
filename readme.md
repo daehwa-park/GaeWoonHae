@@ -11,7 +11,7 @@ spring:<br/>
   profiles:<br/>
     active: local 
 
-- 그래도 작동하지 않는다면, application-local.yaml 파일 내 username, password 수정(본인 mysql에 맞게)
+- 그래도 작동하지 않는다면, application-local.yaml 파일 내 username, password 수정(본인 mysql에 맞게)<br/>
 spring:<br/>
   datasource:<br/>
     driver-class-name: com.mysql.cj.jdbc.Driver<br/>
