@@ -4,14 +4,16 @@
 import cv from "@techstark/opencv-js";
 import { loadDataFile } from "./cvDataFile";
 
-const msize = new cv.Size(0, 0);
+const minsize = new cv.Size(30, 30);
+const maxsize = new cv.Size(130, 130);
+
 let faceCascade;
 
 export async function loadHaarFaceModels() {
   console.log("=======start downloading Haar-cascade models=======");
   return loadDataFile(
-    "haarcascade_frontalface_default.xml",
-    "../../models/haarcascade_frontalface_default.xml"
+    "haarcascade_frontalface_alt2.xml",
+    "../../models/haarcascade_frontalface_alt2.xml"
   )
     .then(
       () =>
@@ -19,7 +21,7 @@ export async function loadHaarFaceModels() {
           setTimeout(() => {
             // load pre-trained classifiers
             faceCascade = new cv.CascadeClassifier();
-            faceCascade.load("haarcascade_frontalface_default.xml");
+            faceCascade.load("haarcascade_frontalface_alt2.xml");
             resolve();
           }, 2000);
         })
@@ -48,11 +50,9 @@ export function detectHaarFace(img, emo) {
   cv.cvtColor(dst, gray, cv.COLOR_RGBA2GRAY, 0);
 
   const faces = new cv.RectVector();
-
-  
   
   // detect faces
-  faceCascade.detectMultiScale(gray, faces, 1.1, 3, 0, msize, msize);
+  faceCascade.detectMultiScale(gray, faces, 1.12, 4, 0, minsize, maxsize);
   for (let i = 0; i < faces.size(); ++i) {
     let face = faces.get(i);
     let dsize = new cv.Size(face.width, face.height);
@@ -78,12 +78,12 @@ export function detectHaarFace(img, emo) {
 
     cv.add(imgBg, imgFg, sum );
 
-    for (let i = face.y, k = 0; i < face.y + face.height; i++, k++) {
-        for (let j = face.x, l = 0; j < face.x + face.width; j++, l++) {
-            dst.ucharPtr(i, j)[0] = sum.ucharPtr(k, l)[0];
-            dst.ucharPtr(i, j)[1] = sum.ucharPtr(k, l)[1];
-            dst.ucharPtr(i, j)[2] = sum.ucharPtr(k, l)[2];
-        }
+    for (let i = 0; i < face.height; i++) {
+      for (let j = 0; j < face.width; j++) {
+        dst.ucharPtr(face.y + i, face.x + j)[0] = sum.ucharPtr(i, j)[0];
+        dst.ucharPtr(face.y + i, face.x + j)[1] = sum.ucharPtr(i, j)[1];
+        dst.ucharPtr(face.y + i, face.x + j)[2] = sum.ucharPtr(i, j)[2];
+      }
     }
 
     emocopy.delete();
@@ -93,58 +93,10 @@ export function detectHaarFace(img, emo) {
     imgBg.delete();
     imgFg.delete();
     sum.delete();
-    // const point1 = new cv.Point(faces.get(i).x, faces.get(i).y);
-    // const point2 = new cv.Point(
-    //   faces.get(i).x + faces.get(i).width,
-    //   faces.get(i).y + faces.get(i).height
-    // );
-    // cv.rectangle(newImg, point1, point2, [255, 0, 0, 255]);
   }
 
   gray.delete();
   faces.delete();
-
-  // const emoGray = new cv.Mat();
-  // const maskInv = new cv.Mat();
-  // cv.cvtColor(emoji, emoGray, cv.COLOR_RGBA2GRAY, 0);
-  // cv.threshold(emoGray, emoGray, 254, 255, cv.THRESH_BINARY);
-  // cv.bitwise_not(emoGray, maskInv);
-
-  // const dsize = new cv.Size(emoji.cols, emoji.rows);
-
-  // for (let i = 0; i < faces.size(); ++i) {
-  //   const face = faces.get(i);
-  //   const rect = new cv.Rect(face.x, face.y, face.width, face.height);
-
-  //   const roi = dst.roi(rect);
-
-  //   const imgBg = new cv.Mat();
-  //   const imgFg = new cv.Mat();
-  //   const sum = new cv.Mat();
-
-  //   cv.resize(emoji, imgFg, dsize, 0, 0, cv.INTER_AREA);
-  //   cv.bitwise_and(roi, roi, imgBg, emoGray);
-  //   cv.bitwise_and(imgFg, imgFg, imgFg, maskInv);
-  //   cv.add(imgBg, imgFg, sum);
-
-  //   for (let i = 0; i < face.height; i++) {
-  //     for (let j = 0; j < face.width; j++) {
-  //       dst.ucharPtr(face.y + i, face.x + j)[0] = sum.ucharPtr(i, j)[0];
-  //       dst.ucharPtr(face.y + i, face.x + j)[1] = sum.ucharPtr(i, j)[1];
-  //       dst.ucharPtr(face.y + i, face.x + j)[2] = sum.ucharPtr(i, j)[2];
-  //     }
-  //   }
-
-  //   roi.delete();
-  //   imgBg.delete();
-  //   imgFg.delete();
-  //   sum.delete();
-  // }
-
-  // gray.delete();
-  // faces.delete();
-  // emoGray.delete();
-  // maskInv.delete();
 
   return dst;
 }
