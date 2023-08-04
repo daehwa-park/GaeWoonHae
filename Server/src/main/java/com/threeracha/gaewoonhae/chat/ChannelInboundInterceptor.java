@@ -6,7 +6,9 @@ import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MimeTypeUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @Component
@@ -20,6 +22,10 @@ public class ChannelInboundInterceptor implements ChannelInterceptor {
             attributes.put("name", header.getFirstNativeHeader("name"));
             attributes.put("roomNumber", header.getFirstNativeHeader("roomNumber"));
             header.setSessionAttributes(attributes);
+
+//          혹시 한글 안나오면 이거 주석 해제  하세요
+//            header.setNativeHeader("Content-Type", MimeTypeUtils.APPLICATION_JSON_VALUE);
+//            header.setNativeHeader("charset", StandardCharsets.UTF_8.name());
         }
         return message;
     }

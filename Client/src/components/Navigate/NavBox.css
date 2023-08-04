@@ -1,25 +1,16 @@
-
-body {
-
-  height: 100%;
-
-} 
-
-
-.mainnav {
-  margin-top: 8vh;
-  margin-bottom: 8vh;
-  /* margin-left: 2vh; */
-  /* margin: 0 auto; */
-  /* text-align: center; */
-
-} 
+.navbar-header {
+  position: absolute;
+  width: 100%;
+  height: 10vh;
+  background-color: #C5A8FC;
+  z-index: -1;
+}
 
 .main-hover {
-  margin-bottom: 1vh;
+  margin-left: 3vh;
   width: 20vw;
-  height: 13vh;
-  --c: #d79e0d; /* the color */
+  height: 10vh;
+  --c: #d79e0d; 
   --s: .35em;
   
   line-height:.1em;

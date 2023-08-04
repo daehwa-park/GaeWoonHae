@@ -1,7 +1,7 @@
 import "./goLobbymodal.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { enterRoomAction } from "../../../features/Actions/enterRoomAction";
+import { enterRoomAction } from "../../features/Actions/enterRoomAction";
 import { useDispatch } from "react-redux";
 
 function GoLobbyModal({ setModalOpen, id, title, content, writer, value }) {
@@ -16,7 +16,7 @@ function GoLobbyModal({ setModalOpen, id, title, content, writer, value }) {
   const navigate = useNavigate();
   // 2. 함수로직 작성
   const goTogame = () => {
-    navigate(`/lobby/${value}`);
+    navigate(`/lobby/1`);
   };
 
   const gamename = () => {
@@ -28,34 +28,43 @@ function GoLobbyModal({ setModalOpen, id, title, content, writer, value }) {
       return "공피하기 방생성";
     }
   };
+
+
   //방입장
+  const lobbyapi = axios.create({
+    baseURL: process.env.REACT_APP_SPRING_URI,
+    headers: { "cotent-type": "application/json" },
+
+  })
+
   const findRoom = async () => {
     const requestData = {
       gameType: 1,
     };
-    await dispatch(enterRoomAction.getRoomInfo(requestData));
+    await dispatch(enterRoomAction.getSessionId(requestData));
     await goTogame();
   };
   // 방생성a
   // 초대용방 확인 isPublicRoom = T (공용방), F (비공개방)
 
-  const createRoom = async () => {
+  const createRoom = async(dispatch) => {
+    // dispatch(findRoomRequest());
     try {
-      const requestData = {
-        isPublicRoom: "T",
-        userId: 1,
-        gameType: 1,
-      };
-      const response = await axios.post(
-        "http://localhost:5000/api/room/make",
-        requestData
-      );
-      console.log(response);
-      goTogame();
-    } catch (error) {
-      console.error("생성 실패", error);
+        const requestData = {
+            isPublicRoom: "T",
+            userId: 1,
+            gameType: 1,
+        };
+        const res = await lobbyapi.post("/api/room/make", 
+            requestData,
+        );
+        console.log(res);
+        goTogame()
+      } catch (error) {
+        console.log(error, "요청실패");
     }
-  };
+};
+
 
   return (
     <div>

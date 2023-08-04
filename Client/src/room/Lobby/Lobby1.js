@@ -1,19 +1,29 @@
 // 픽토그램
 import React, { useEffect } from "react";
+// import React, { useEffect, useState } from "react";
 import $ from "jquery";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 // import { Link } from "react-router-dom";
-import axios from "axios";
+
 import "./Lobby1.css";
-import { Container, Row, Col } from "react-bootstrap/";
+import { Container, Row, Col, Form, Button } from "react-bootstrap/";
 import { useSelector } from "react-redux/es/hooks/useSelector";
+
 // 대기방 - 박 터트리기
 
 const Lobby = () => {
-  const hostName = useSelector((state) => state.roomInfo.hostName);
+  const gameNameList = [
+    "터트려요 추억의 박!",
+    "따라해요 픽토그램!",
+    "피해봐요, 오늘의 X!",
+  ];
+
+  // const hostName = useSelector((state) => state.roomInfo.hostName);
   const myName = useSelector((state) => state.auth.user.nickname);
   const sessionId = useSelector((state) => state.roomInfo.sessionId);
+  const gameType = useSelector((state) => state.roomInfo.gameType);
+  const gameName = gameNameList[gameType - 1];
   //axios요청 => room에 5명있때만 게임 실행
 
   //   const gamestart = async () => {
@@ -32,23 +42,12 @@ const Lobby = () => {
   //     }
   //   };
   useEffect(() => {
-    console.log("채팅 실행중", hostName);
-    console.log("세션채팅", sessionId);
-    console.log("채팅 내 닉넴", myName);
+    // console.log("채팅 실행중", hostName);
+    // console.log("세션채팅", sessionId);
+    // console.log("채팅 내 닉넴", myName);
     var stompClient = null;
     var userList = [];
     // redux에서 가져오는 hostName
-
-    function setConnected(connected) {
-      $("#connect").prop("disabled", connected);
-      $("#disconnect").prop("disabled", !connected);
-      if (connected) {
-        // $("#conversation").show();
-      } else {
-        // $("#conversation").hide();
-      }
-      //   $("#messages").html("");
-    }
 
     function connect() {
       var socket = new SockJS("/gwh-websocket");
@@ -59,7 +58,7 @@ const Lobby = () => {
       };
       stompClient.connect(headers, function (frame) {
         // 서버연결시도
-        setConnected(true);
+        // setConnected(true);
         stompClient.subscribe(
           // 채팅방 채널 구독
           "/topic/chatroom/" + sessionId + "/messages",
@@ -73,7 +72,7 @@ const Lobby = () => {
           "/topic/chatroom/" + sessionId + "/host",
           function (message) {
             // 방장이라면 nameList를 갱신하고 /refresh 채널로 보낸다. 여기에 if(방장)
-            if (myName === hostName) {
+            if (myName === "양준영") {
               userList.push({
                 username: JSON.parse(message.body).content,
                 count: 0,
@@ -92,7 +91,7 @@ const Lobby = () => {
           "/topic/chatroom/" + sessionId + "/refresh",
           function (message) {
             // 방장이 아니라면 갱신해버림
-            if (myName !== hostName) {
+            if (myName !== "ㅂㅈㄷ") {
               userList = JSON.parse(message.body);
 
               console.log(
@@ -121,7 +120,7 @@ const Lobby = () => {
         exit();
         stompClient.disconnect();
       }
-      setConnected(false);
+      //   setConnected(false);
       console.log("Disconnected");
     }
 
@@ -174,47 +173,53 @@ const Lobby = () => {
     });
 
     connect();
-  }, []);
+  }, [myName,sessionId]);
 
   return (
     <div>
       <Container>
-        <Row>
-          <Col>제목</Col>
-        </Row>
-
-        <Row>
-          <Col>
-            <div>
-              <tbody id="messages"></tbody>
-              <form className="form-inline">
-                <div className="chat-button" style={{ borderRadius: "5px" }}>
-                  {/* <label htmlFor="chat">chat 쳐라</label> */}
-                  <input
-                    type="text"
-                    id="chat"
-                    className="form-control"
-                    placeholder="채팅 입력"
-                  />
-                  <button id="send" className="btn btn-default" type="submit">
-                    Send
-                  </button>
-                </div>
-                <div id="result"></div>
-              </form>
-            </div>
+        <Row className="title-row">
+          <Col className="title-box">
+            <h1>{gameName}</h1>
           </Col>
-          <Col>
+        </Row>
+        <Row>
+          <Col md={3} className="chat-col">
+            <div className="chat-box">
+              <table className="table">
+                <tbody id="messages"></tbody>
+              </table>
+            </div>
+            <Form className="chat-input-form">
+              <Form.Control
+                type="text"
+                id="chat"
+                className="chat-input"
+                placeholder="채팅 입력"
+              />
+              <Button
+                id="send"
+                className="send-btn"
+                variant="primary"
+                type="submit"
+              >
+                Send
+              </Button>
+            </Form>
+            <div className="user-info" id="result"></div>
+          </Col>
+          <Col md={6} className="video-col">
             <Row>비디오</Row>
             <Row>
               <Col>초대 코드</Col>
               <Col>제한 시간</Col>
             </Row>
           </Col>
-          <Col>게임 정보 및 gamestart</Col>
+          <Col md={3} className="game-col">
+            게임 정보 및 gamestart
+          </Col>
         </Row>
       </Container>
-      <div></div>
     </div>
   );
 };

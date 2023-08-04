@@ -1,3 +1,5 @@
+// 로그인 페이지에서 토큰, 유저정보 받기
+
 import axios from "axios";
 import { authActions } from "../../redux/reducer/authenticateReducer";
 // import { useNavigate } from "react-router-dom";
@@ -6,7 +8,12 @@ import { authActions } from "../../redux/reducer/authenticateReducer";
 const loginApi = axios.create({
   baseURL: process.env.REACT_APP_SPRING_URI,
   headers: { "cotent-type": "application/json" },
-  timeout: 5000,
+  timeout: 3000,
+});
+
+const logoutApi = axios.create({
+  baseURL: process.env.REACT_APP_SPRING_URI,
+  headers: { "cotent-type": "application/json" },
 });
 
 function getTokensUserId(authorizationCode) {
@@ -32,13 +39,14 @@ function getTokensUserId(authorizationCode) {
 }
 
 function getUserInfo(userId) {
+  console.log("로그인id :"+ userId);
+
   return async (dispatch, getState) => {
     await loginApi
-      .get("/api/user/userinfo/" + userId)
+      .get("/api/user/userinfo/" + userId )
       .then((res) => {
-        console.log(res);
-        const userInfo = res.data.data;
-        dispatch(authActions.getUserInfo({ userInfo }));
+        console.log("유저정보", res.data.data);
+        dispatch(authActions.getUserInfo( res.data.data ));
       })
       .catch((err) => {
         console.log(userId);
@@ -47,4 +55,17 @@ function getUserInfo(userId) {
   };
 }
 
-export const authenticateAction = { getTokensUserId, getUserInfo };
+function userLogout(userId){
+  return async () =>{
+    await logoutApi
+    .delete("/api/oauth/logout/" + userId)
+    .then(
+          console.log("로그아웃 완료!!")
+      )
+      .catch((err)=>{
+        console.log("err메세지:"+err);
+      });
+  };
+}
+
+export const authenticateAction = { getTokensUserId, getUserInfo, userLogout };

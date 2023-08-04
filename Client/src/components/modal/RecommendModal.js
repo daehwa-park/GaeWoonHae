@@ -8,9 +8,12 @@ function RecommendModal({ setModalOpen, id, title, content, writer }) {
 
     return (
         <div id='Recommendmodals'>
-            <h3>친구초대</h3>
-            <input type="text"></input>
-            <button id='chatoutbutton' onClick={closeModal}>취소</button>
+            <h3 id='codetxt'>초대코드 입력</h3>
+            <input id='codeinput' type="text"></input>
+            <div id='modalcom'>
+                <p id='chatoutbutton' >입장</p>
+                <p id='chatoutbutton' onClick={closeModal}>취소</p>
+            </div>
         </div>
     );
 }
