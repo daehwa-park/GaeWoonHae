@@ -10,7 +10,7 @@ const authenticateSlice = createSlice({
     user: {
       userId: null,
       nickname: "",
-      point: null,
+      point: 0,
       emojiId: null,
       oauthProvider: "",
     },

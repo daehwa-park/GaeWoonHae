@@ -7,6 +7,8 @@ const roomInfoSlice = createSlice({
     sessionId: "",
     hostName: "",
     gameType: null,
+
+    userList: [],
   },
 
   reducers: {
@@ -15,6 +17,10 @@ const roomInfoSlice = createSlice({
       state.sessionId = action.payload.sessionId;
       state.hostName = action.payload.hostName;
       state.gameType = action.payload.gameType;
+    },
+    // 스톰프 클라이언트를 저장하는 리듀서입니다.
+    getGameUserList(state, action) {
+      state.userList = action.payload.userList;
     },
   },
 });
