@@ -1,5 +1,7 @@
 import React, { Component, useEffect, useState } from 'react';
 import { useSelector } from "react-redux/es/hooks/useSelector";
+import { tmPose } from "@teachablemachine/image"
+
 
 const JumpingJack = (props) => {
 
@@ -13,6 +15,8 @@ const JumpingJack = (props) => {
     const jumpingJackCheck = () => {
         // 티처블머신으로 자세에 따라 카운트 증가
     }
+
+    console.log(tmPose);
 
 
     useEffect(() => {
