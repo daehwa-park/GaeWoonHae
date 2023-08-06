@@ -8,7 +8,7 @@ import UserVideoComponent from './openvidu/UserVideoComponent';
 
 // opencv+canvas
 import Webcam from "react-webcam";
-import { loadHaarFaceModel1, loadHaarFaceModel2, detectHaarFace } from "./opencv/haarFaceDetection";  // 얼굴인식 컴포넌트
+import { loadHaarFaceModels, detectHaarFace } from "./opencv/haarFaceDetection";  // 얼굴인식 컴포넌트
 import cv from "@techstark/opencv-js";
 import {Link} from 'react-router-dom'
 import "./videoApp.css"
@@ -224,8 +224,7 @@ class videoApp extends Component {
                 });
             },
         );
-        await loadHaarFaceModel1();   //opencv : 학습 데이터 import
-        await loadHaarFaceModel2();   //opencv : 학습 데이터 import
+        await loadHaarFaceModels();   //opencv : 학습 데이터 import
         this.nextTick();    //   1번함수 실행
     }
 
