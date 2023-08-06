@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import { useSelector } from "react-redux/es/hooks/useSelector"
 
 // components
-// import JumpingJack from '../../components/GamePage/games/jumpingjack/JumpingJack';
+// import MyGameScreen from '../../components/GamePage/games/MyGameScreen';
 import UserVideoComponent from '../../features/openvidu_opencv/openvidu/UserVideoComponent';
 
 // opencv+canvas
@@ -23,12 +23,11 @@ const GamePage = () => {
 
     const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? 'https://i9b303.p.ssafy.io/' : 'https://demos.openvidu.io/';
     const hostName = useSelector((state) => state.roomInfo.hostName);
-    // const myName = useSelector((state) => state.auth.user.nickname);
-    const myName = "김철수";
-    // const sessionId = useSelector((state) => state.roomInfo.sessionId);
-    const sessionId = "randomSessionA";
+    const myName = useSelector((state) => state.auth.user.nickname);
+    const sessionId = useSelector((state) => state.roomInfo.sessionId);
     const gameType = useSelector((state) => state.roomInfo.gameType);
     const limitTime = useSelector((state) => state.roomInfo.limitTime);
+    const emoji = useSelector((state) => state.user.emoji);
 
     const [session, setSession] = useState();
     const [mainStreamManager, setMainStreamManager] = useState();
@@ -38,70 +37,67 @@ const GamePage = () => {
     const [count, setCount] = useState(0);
     const [started, setStarted] = useState(false);
     const [finished, setFinished] = useState(false);
+    const [openViduLoad, setOpenViduLoad] = useState(false);
+    const [stompLoad, setStompLoad] = useState(false);
+    const [gameLoad, setGameLoad] = useState(false);
 
     const webcamRef = useRef();
 
     let OV;
+    let emojiImage;
+
     const gameProps ={
         count,
         setCount,
-        limitTime,
         started,
         setStarted,
         finished,
-        setFinished
+        setFinished,
+        limitTime,
+        gameType
     }
 
-    useEffect(async () => {
-
-        // music.currentTime = 0;
-
-        if (sessionId === '') {
-            // send page to error
-        }
-        await startVideo();
-        joinSession();
-    },[])
-
-    async function startVideo() {
-        const video = document.getElementById('video1');
-        console.log(video);
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-          video.srcObject = stream;
-        } catch (err) {
-          console.error('비디오 스트림을 가져오는데 실패하였습니다.', err);
-        }
-      }
-
-    // OpenVidu, Stomp 커넥션 하세요
-    
-    // 게임 종료 신호
-    useEffect(() => {
-        if (finished) {
-            // 결과 전송 및 게임 결산
-        }
-    },[finished])
-
-    // 게임 카운트 갱신
-    useEffect(()=> {
-        // 소켓으로 자신의 카운트가 바뀐것을 다른사람에게 알림
-    },[count])
-
-    const subscriberLeave = (streamManager) => {
-        let remainSubscriber = subscriber;
-        let index = remainSubscriber.indexOf(streamManager, 0);
-        if (index >= 0) {
-            remainSubscriber.splice(index, 1);
-            setSubscriber(remainSubscriber);
-        }
+    // openCV and Camera Settings
+    const updateEmoji = async () => {
+        detectFace();
+        requestAnimationFrame(updateEmoji());
     }
+
+    const detectFace = () => {
+
+        const imageSrc = webcamRef.current.getScreenshot();
+
+        if (!imageSrc) return;
+
+        return new Promise((resolve) => {
+            imgRef.current.src = imageSrc;
+            imgRef.current.onload = async () => {
+                try {
+                    const img = cv.imread(imgRef.current);
+                    const emo = cv.imread(emoji)
+                    detectHaarFace(img,emo);    // opencv : loadHaarFaceModels()로 화면인식을 학습 => 포인트에 이모지 씌우기
+
+                    cv.imshow(this.faceImgRef.current, img);
+                    img.delete();  // 이미지 초기화
+                    resolve();
+                } catch (error) {
+                    console.log(error, 'detectFace() 에러');
+                    resolve();
+                }
+            }
+        })
+
+    }
+
+
+    // OpenVidu Settings
 
     const joinSession = () => {
         OV = new OpenVidu();
         setSession(OV.initSession());
     }
 
+    // 세션 설정 후 콜백
     useEffect(() => {
         console.log("session useEffect occured");
         console.log(session);
@@ -158,7 +154,6 @@ const GamePage = () => {
         }
     },[session])
 
-
     const leaveSession = () => {
         const mySession = session;
 
@@ -204,7 +199,6 @@ const GamePage = () => {
         }
     }
 
-    // 토큰 생성+ 세션생성+ 토큰 획득
     async function getToken() {
         const apiSessionId = await createSession(sessionId);
         return await createToken(apiSessionId);
@@ -224,6 +218,55 @@ const GamePage = () => {
         return response.data; 
     }
 
+    // Stomp Settings
+
+
+
+    // useEffects
+
+    useEffect(async () => {
+
+        // music.currentTime = 0;
+
+        if (sessionId === '') {
+            // send page to error
+        }
+
+
+        emojiImage = new Image();
+        emojiImage.src = `../../images/emoji/emoji${emoji}.png`
+
+        await startVideo();
+        joinSession();
+    },[])
+
+
+    // 게임 종료 신호
+    useEffect(() => {
+        if (finished) {
+            // 결과 전송 및 게임 결산
+        }
+    },[finished])
+
+    // 게임 카운트 갱신
+    useEffect(()=> {
+        // 소켓으로 자신의 카운트가 바뀐것을 다른사람에게 알림
+    },[count])
+
+    const subscriberLeave = (streamManager) => {
+        let remainSubscriber = subscriber;
+        let index = remainSubscriber.indexOf(streamManager, 0);
+        if (index >= 0) {
+            remainSubscriber.splice(index, 1);
+            setSubscriber(remainSubscriber);
+        }
+    }
+
+
+
+
+
+
     return (
         // <div>
         //     {/* 네비 */}
@@ -238,8 +281,7 @@ const GamePage = () => {
             <div id="main-videos" style={{ flex:"1 0 60%" }}>
                 {mainStreamManager !== undefined ? (
                     <div id="main-video" >
-                        <video id='video1' autoPlay />
-                        {/* <JumpingJack {...gameProps} /> */}
+                        <video id='video' autoPlay />
                     </div>
                 ) : null}
             </div>

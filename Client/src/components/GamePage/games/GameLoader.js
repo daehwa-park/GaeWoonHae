@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState } from 'react';
 import { useSelector } from "react-redux/es/hooks/useSelector";
 
 
-const JumpingJack = (props) => {
+const GameLoader = (props) => {
 
     // Props
     const count = props.count;
@@ -12,6 +12,7 @@ const JumpingJack = (props) => {
     const setStarted = props.setStarted;
     const finshed = props.finished;
     const setFinished = props.setFinished;
+    const gameType = props.gameType;
 
     // states
     const [objectHP, setObjectHP] = useState(5);
@@ -22,32 +23,11 @@ const JumpingJack = (props) => {
     let ready;
     let done;
 
-    useEffect(() => {
-
-        setTmModel();
- 
-    },[])
-
-
-    // 5초 카운터 (시각적 타이머도 함꼐)
-    useEffect(() => {
-        const startTimer = () => {
-
-        }
-
-        if (started) {
-            setTimeout(()=> {
-                startTimer();
-            }, 5000)
-        }
-    },[started]);
-
     
     /*
     * Teachable Machine Settings
     */
-    const setTmModel = async() => {
-        const URL = "https://teachablemachine.withgoogle.com/models/M-BMZ7bbw/";
+    const setTmModel = async(URL) => {
         const modelURL = `${URL}model.json`;
         const metadataURL = `${URL}metadata.json`;
         // load the model and metadata
@@ -76,7 +56,7 @@ const JumpingJack = (props) => {
         window.requestAnimationFrame(loop);
     };
 
-    const predict = async () => {
+    const predictJumpingJack = async () => {
         if (model && webcam) {
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
     
@@ -99,6 +79,36 @@ const JumpingJack = (props) => {
         }
     }
 
+    
+    useEffect(() => {
+
+        let URL;
+
+        switch(gameType) {
+            case 1:
+                break;
+            default:
+                break;
+        }
+
+        setTmModel(URL);
+ 
+    },[])
+
+
+    // 5초 카운터 (시각적 타이머도 함꼐)
+    useEffect(() => {
+        const startTimer = () => {
+
+        }
+
+        if (started) {
+            setTimeout(()=> {
+                startTimer();
+            }, 5000)
+        }
+    },[started]);
+
     return(
         <div>
 
@@ -106,4 +116,4 @@ const JumpingJack = (props) => {
     )
 }
 
-export default JumpingJack;
+export default GameLoader;
