@@ -15,16 +15,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // css import
 
 //차트
-import LineChart from '../mypage/recordChart';
-
-// import {
-//   Chart,
-//   LineController,
-//   CategoryScale,
-//   LinearScale,
-//   PointElement,
-//   LineElement,
-// } from "chart.js";
+import Rechart from "./recordChart";
 
 
 const Myprofilepage = () => {
@@ -40,15 +31,18 @@ const Myprofilepage = () => {
   const [todayKcal, setTodayKcal] = useState(0); // useState를 이용하여 상태로 관리
   const [totalKcal, setTotalKcal] = useState(0); // useState를 이용하여 상태로 관리
   const [dateKcal, setDateKcal] = useState(0); // useState를 이용하여 상태로 관리
+  const [selectKcal, setSelectedKcal] = useState(0); // useState를 이용하여 상태로 관리
+
 
   const [selectedDate, setSelectedDate] = useState(new Date()); // 선택된 날짜를 상태로 관리
 
+  const data=[];
 
   // 달력에서 날짜가 선택될 때 호출되는 이벤트 핸들러
   const onCalendarChange = (selectedDate) => {
     setSelectedDate(selectedDate); // 선택된 날짜를 상태에 반영
 
-    getDateGameHistory(selectedDate);
+    getDateGameHistory(  formatDate(selectedDate));
 
     console.log('선택된 날짜:', formatDate(selectedDate));
   };
@@ -101,19 +95,9 @@ const Myprofilepage = () => {
               const count = res.data.data[i].count;
               const gameTypeId = res.data.data[i].gameTypeId;  
               calculatedKcal += calKcal(gameTypeId, count);
-              //console.log("계산식")
-              //console.log(calculatedKcal)
           }
-          //totalKcal = temp;
+
           setTodayKcal(calculatedKcal); // 상태 업데이트
-
-          //console.log("총운동: "+ temp);
-            // const count =res.data.data[0].count;
-            // const gameTypeId = res.data.data[0].gameTypeId;
-
-            // const calculatedKcal = calKcal(gameTypeId, count);
-            // setTodayKcal(calculatedKcal); // 상태 업데이트
-
             
         })
         .catch((err) => {
@@ -133,12 +117,9 @@ const Myprofilepage = () => {
                 const count = res.data.data[i].count;
                 const gameTypeId = res.data.data[i].gameTypeId;  
                 calculatedKcal += calKcal(gameTypeId, count);
-                //console.log("계산식")
-                //console.log(calculatedKcal)
             }
-            //totalKcal = temp;
+
             setTotalKcal(calculatedKcal); // 상태 업데이트
-            //console.log("총운동: "+ temp);
             
         })
         .catch((err) => {
@@ -169,6 +150,30 @@ const Myprofilepage = () => {
           }); 
   }
 
+  function getDateRecord(thisDate){
+    const date ={
+      date: formatDate(thisDate)
+    }
+    kcalApi
+        .post("/api/record/date/"+userId, date)
+        .then((res)=>{
+          console.log("선택 기간 운동")
+          console.log(res)
+          var calculatedKcal =0;
+            for(var i=0 ; i<res.data.data.length; i++){
+                const count = res.data.data[i].count;
+                const gameTypeId = res.data.data[i].gameTypeId;  
+                calculatedKcal += calKcal(gameTypeId, count);
+            }
+                  setSelectedKcal(calculatedKcal);
+                  
+        })
+        .catch((err) => {
+           console.log("선택 날짜 오류id"+userId);
+           console.log(err);
+          }); 
+  }
+
 
   useEffect(()=>{
     console.log("게임 히스토리 함수 실행");
@@ -179,6 +184,14 @@ const Myprofilepage = () => {
     console.log("현재 : ", formatDate(now));
     var yesterday = new Date(now.setDate(now.getDate() - 1));	// 어제
     console.log("어제 : ", formatDate(yesterday));
+
+    for(var i=0;i<7;i++){
+      //getDateRecord(formatDate(yesterday));
+      // console(formatDate(yesterday));
+      //data.push({ name: formatDate(yesterday), kcal: selectKcal });
+    }
+
+    
 
   },[]);
 
@@ -218,37 +231,38 @@ const Myprofilepage = () => {
         {LobbymodalOpen2 && <ChangeEmo  setModalOpen={setLobbyModalOpen2} />}    
         <div className='mypageleft'>
           <div className='profile-img'>
-          <img className='emoji-size' src={getEmoji(useremoji)}  alt=""/>
+            <img className='main-emoji' onClick={()=>showLobbyModal2()} src={getEmoji(useremoji)}  alt=""/>
      
+          </div>
+          
+          <div className='nickname'>
+              닉네임: <span>{nickname}</span>  <br/>  
+              <button className='changebtn' onClick={()=>showLobbyModal1()}>변경하기</button>
           </div>
 
           <div className='setemoji'>
-              기본이모지: <span>{useremoji}</span>    
+              기본이모지: 
+              {/* <span>{useremoji}</span>     */}
               <button className='changebtn' onClick={()=>showLobbyModal2()}>변경하기</button>
           </div>
 
-          <div className='nickname'>
-              닉네임: <span>{nickname}</span>    
-              <button className='changebtn' onClick={()=>showLobbyModal1()}>변경하기</button>
-  
-          </div>
    
           <div className='savepoint'>
-              보유 포인트: <span>{userpoint}c</span>    
+              보유 포인트: <span className='points'>{userpoint}c</span>    
           </div>
-          <div className='secession'>탈퇴하기</div>
+          <div className='leavesecession' >탈퇴하기</div>
         </div>
         <div className='mypageright'>
             <div className='chart-nick'>{nickname}님의 주간 운동량 차트</div>
             <div className='helth-chart'>
-            {/* <LineChart /> */}
+            <Rechart/>
             </div>
 
             
             <div className='Calendar'>
                 <div className='image2'>
                     {/* 달력 */}
-                    <Calendar style={{ height:"20vh"}} onChange={onCalendarChange} value={value} />         
+                    <Calendar onChange={onCalendarChange} value={value} />         
                 </div>
 
                 <div className='image2'>
@@ -270,5 +284,10 @@ const Myprofilepage = () => {
 
   )
 }
+
+
+// export const getData = () => {
+//   return data;
+// };
 
 export default Myprofilepage

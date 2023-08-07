@@ -64,7 +64,7 @@ function ChangeEmojiModal({ setModalOpen }) {
     return (
         <div id='Buymodals'>
             <h3 id='codetxt2'>이모지 변경하기 {saveEmoji}</h3>
-            <div className='emoji-img' >{selectedEmoji ? <img className='selected-emoji' src={selectedEmoji} alt='' /> : '선택된 이모지 없음'}</div>
+            <div className='emoji-img' >{selectedEmoji ? <img className='selected-emoji' src={selectedEmoji} alt='' /> : '구입한 이모지가 없습니다.'}</div>
             <div className='emojicomp'>
                 {saveEmoji.map((emojiId)=>(
                     <img className='emoji-size' src={getEmoji(emojiId)} onClick={() => handleEmojiClick(getEmoji(emojiId),emojiId)} alt=""/>

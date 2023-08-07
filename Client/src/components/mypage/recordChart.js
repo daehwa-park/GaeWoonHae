@@ -1,75 +1,85 @@
-// import { useEffect, useRef } from "react";
-// import Chart from "chart.js/auto";
+import React, { PureComponent } from "react";
+import {
+    LineChart,
+    Line,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+    ResponsiveContainer,
+} from "recharts";
 
-// const LineChart = () => {
-//   const chartRef = useRef(null);
-//   const chartInstanceRef = useRef(null);
+import { getData } from "./myprofile"; // 데이터 가져오기
 
-//   useEffect(() => {
-//     const ctx = chartRef.current.getContext("2d");
+// const data = getData(); // 데이터 가져오기
+const data = [
+    {
+        name: "월",
+        kcal: 2400,
+    },
+    {
+        name: "화",
+        kcal: 1398,
 
-//     const createChart = () => {
-//       Chart.register(
-//         Chart.LineController,
-//         Chart.CategoryScale,
-//         Chart.LinearScale,
-//         Chart.PointElement,
-//         Chart.LineElement
-//       );
-//       chartInstanceRef.current = new Chart(ctx, {
-//         type: "line",
-//         data: {
-//           labels: ["1", "2", "3", "4", "5", "6"],
-//           datasets: [
-//             {
-//               label: "Data 1",
-//               data: [0, 20, 30, 40, 50, 60],
-//               borderColor: "rgba(255, 99, 132, 1)",
-//               backgroundColor: "rgba(255, 99, 132, 0.2)",
-//               pointRadius: 5,
-//               pointBackgroundColor: "rgba(255, 99, 132, 1)",
-//               pointBorderColor: "rgba(255, 255, 255, 1)",
-//               pointHoverRadius: 7,
-//               pointHoverBackgroundColor: "rgba(255, 99, 132, 1)",
-//               pointHoverBorderColor: "rgba(255, 255, 255, 1)",
-//               fill: false,
-//             },
-//           ],
-//         },
-//         options: {
-//           scales: {
-//             x: {
-//               display: true,
-//             },
-//             y: {
-//               beginAtZero: true,
-//               max: 100,
-//             },
-//           },
-//         },
-//       });
-//     };
+    },
+    {
+        name: "수",
+        kcal: 9800,
+        amt: 2290,
+    },
+    {
+        name: "목",
+        kcal: 3908,
+        amt: 2000,
+    },
+    {
+        name: "금",
+        kcal: 4800,
+        amt: 2181,
+    },
+    {
+        name: "토",
+        kcal: 3800,
+        amt: 2500,
+    },
+    {
+        name: "일",
+        kcal: 4300,
+        amt: 2100,
+    },
+];
+export default class Example extends PureComponent {
+    // static demoUrl = "https://codesandbox.io/s/simple-line-chart-kec3v";
 
-//     const destroyChart = () => {
-//       if (chartInstanceRef.current) {
-//         chartInstanceRef.current.destroy();
-//         chartInstanceRef.current = null;
-//       }
-//     };
-
-//     const initializeChart = () => {
-//       destroyChart();
-//       createChart();
-//     };
-
-//     initializeChart();
-
-//     return () => {
-//       destroyChart();
-//     };
-//   }, []);
-
-// //   return <canvas ref={chartRef} />;
-// };
-
-// export default LineChart;
+    render() {
+        return (
+            <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                    width={500}
+                    height={300}
+                    data={data}
+                    margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5,
+                    }}
+                >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line
+                        type="monotone"
+                        dataKey="kcal"
+                        stroke="#8884d8"
+                        activeDot={{ r: 8 }}
+                    />
+                    {/* <Line type="monotone" dataKey="uv" stroke="#82ca9d" /> */}
+                </LineChart>
+            </ResponsiveContainer>
+        );
+    }
+}
