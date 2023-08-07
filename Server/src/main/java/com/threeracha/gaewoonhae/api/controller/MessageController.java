@@ -2,7 +2,7 @@ package com.threeracha.gaewoonhae.api.controller;
 
 import com.threeracha.gaewoonhae.chat.Chat;
 import com.threeracha.gaewoonhae.chat.Message;
-import com.threeracha.gaewoonhae.chat.userInfo;
+import com.threeracha.gaewoonhae.chat.UserInfo;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
@@ -15,9 +15,15 @@ import java.util.List;
 
 @Controller
 public class MessageController {
+
+    @MessageMapping("/gameroom/{roomNumber}/gameInfo")
+    @SendTo("/topic/gameroom/{roomNumber}/gameInfo")
+    public UserInfo userListRefresh(UserInfo userInfo, StompHeaderAccessor session) throws Exception {
+        return userInfo;
+    }
     @MessageMapping("/chatroom/{roomNumber}/refresh")
     @SendTo("/topic/chatroom/{roomNumber}/refresh")
-    public List<userInfo> userListRefresh(List<userInfo> namelist, StompHeaderAccessor session) throws Exception {
+    public List<UserInfo> userListRefresh(List<UserInfo> namelist, StompHeaderAccessor session) throws Exception {
         return namelist;
     }
     @MessageMapping("/chatroom/{roomNumber}/join")

@@ -23,12 +23,12 @@ const LoginBox = () => {
       <div>
         <img
           className="login-logo"
-          src="/images/img/gaewoon-logo.png"
+          src="/images/img/gaewonhae_logo.png"
           alt="logoImg"
         />
       </div>
 
-      <div className="login-font">게임으로 운동하자!!</div>
+      <div className="login-font">게임으로 운동하자!</div>
       <div className="mb-2">
         <img
           onClick={getKakaoAuthURL} // onClick 핸들러에서 함수 참조만 할 것
@@ -37,7 +37,7 @@ const LoginBox = () => {
         />
       </div>
       <div>
-        <Link className="login-link">비회원으로 로그인 하기</Link>
+        <Link className="login-link">비회원 로그인</Link>
       </div>
     </div>
   );

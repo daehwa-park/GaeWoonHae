@@ -10,11 +10,12 @@ const authenticateSlice = createSlice({
     user: {
       userId: null,
       nickname: "",
-      point: null,
+      point: 0,
       emojiId: null,
       oauthProvider: "",
     },
   },
+
   reducers: {
     //payload의 토큰들과 유저id를 state에 저장하는 리듀서 함수입니다.
     getTokensUserId(state, action) {

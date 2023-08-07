@@ -1,0 +1,23 @@
+.mypages {
+    width: 100%;
+    height: 100%;
+    
+}
+
+.mypage-header {
+    height: 10vh;
+}
+.mypage-body {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    border: 2px solid rgb(169, 39, 39);
+    background-color: #FFFBF6;
+}
+
+.navbox {
+    display: flex;
+    width: 100%;
+    height: 10vh;
+    border: 2px solid black;
+}
