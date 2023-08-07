@@ -16,7 +16,7 @@ function GoLobbyModal({ setModalOpen, id, title, content, writer, value }) {
   const navigate = useNavigate();
   // 2. 함수로직 작성
   const goTogame = () => {
-    navigate(`/lobby/1`);
+    navigate(`/gamepage`);
   };
 
   const gamename = () => {

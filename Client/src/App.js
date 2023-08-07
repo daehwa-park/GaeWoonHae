@@ -5,13 +5,14 @@ import MainPage from './room/MainPage/MainPage';
 import LobbyPage1 from './room/Lobby/Lobby1';
 import LobbyPage2 from './room/Lobby/Lobby2';
 import LobbyPage3 from './room/Lobby/Lobby3';
-import GamePage from './room/GamePage/Game1';
+import GamePage from './room/GamePage/Game';
 import MyPage from './room/MyPage/MyPage';
 import Profile from './components/mypage/myprofile';
 import EmojiShop from './components/mypage/emojishop';
 import LoginKakaoPage from './components/LoingPage/LoginKakaoPage'
 import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
+
   return (
     <Routes>
       {/* 로그인페이지 */}
@@ -33,7 +34,6 @@ function App() {
       {/* 잘못된 경로로 들어갔을 경우 */}
       <Route path ="*" element = {<div>There's nothing here!</div>} />
     </Routes>
-
     //1. 로비 /public /select_id/세션id
     // 2. 로비 /시크릿 /select_id/세션id 
     // game1 /세션id/

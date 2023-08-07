@@ -70,10 +70,9 @@ const GamePage = () => {
         if (!imageSrc) return;
 
         return new Promise((resolve) => {
-            imgRef.current.src = imageSrc;
-            imgRef.current.onload = async () => {
+            imageSrc.onload = async () => {
                 try {
-                    const img = cv.imread(imgRef.current);
+                    const img = cv.imread(imageSrc);
                     const emo = cv.imread(emoji)
                     detectHaarFace(img,emo);    // opencv : loadHaarFaceModels()로 화면인식을 학습 => 포인트에 이모지 씌우기
 
@@ -281,7 +280,11 @@ const GamePage = () => {
             <div id="main-videos" style={{ flex:"1 0 60%" }}>
                 {mainStreamManager !== undefined ? (
                     <div id="main-video" >
-                        <video id='video' autoPlay />
+                        <Webcam 
+                            ref={webcamRef}
+                            className="webcam"
+                            mirrored
+                            screenshotFormat='image/jpeg' />
                     </div>
                 ) : null}
             </div>

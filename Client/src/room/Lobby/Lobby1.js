@@ -19,6 +19,7 @@ const Lobby = () => {
     "피해봐요, 오늘의 X!",
   ];
 
+
   // const hostName = useSelector((state) => state.roomInfo.hostName);
   const myName = useSelector((state) => state.auth.user.nickname);
   const sessionId = useSelector((state) => state.roomInfo.sessionId);
