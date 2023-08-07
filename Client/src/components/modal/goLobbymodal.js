@@ -41,7 +41,7 @@ function GoLobbyModal({ setModalOpen, id, title, content, writer, value }) {
     const requestData = {
       gameType: 1,
     };
-    await dispatch(enterRoomAction.getSessionId(requestData));
+    await dispatch(enterRoomAction.getRoomInfo(requestData));
     await goTogame();
   };
   // 방생성a
@@ -55,6 +55,7 @@ function GoLobbyModal({ setModalOpen, id, title, content, writer, value }) {
             userId: 1,
             gameType: 1,
         };
+        
         const res = await lobbyapi.post("/api/room/make", 
             requestData,
         );
