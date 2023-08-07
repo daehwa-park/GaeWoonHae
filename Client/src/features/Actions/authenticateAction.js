@@ -45,7 +45,7 @@ function getUserInfo(userId) {
     await loginApi
       .get("/api/user/userinfo/" + userId )
       .then((res) => {
-        console.log("유저정보", res.data.data);
+        console.log("유저정보 받아옴 :", res.data.data);
         dispatch(authActions.getUserInfo( res.data.data ));
       })
       .catch((err) => {
