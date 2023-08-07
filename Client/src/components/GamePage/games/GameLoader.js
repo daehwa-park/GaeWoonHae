@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState } from 'react';
 import { useSelector } from "react-redux/es/hooks/useSelector";
 
 
-const GameLoader = (props) => {
+const GameLoader = ({props}) => {
 
     // Props
     const count = props.count;
@@ -10,108 +10,144 @@ const GameLoader = (props) => {
     const limitTime = props.limitTime;
     const started = props.started;
     const setStarted = props.setStarted;
-    const finshed = props.finished;
+    const finished = props.finished;
     const setFinished = props.setFinished;
     const gameType = props.gameType;
+    const setGameLoad = props.setGameLoad;
 
     // states
-    const [objectHP, setObjectHP] = useState(5);
     const [model, setModel] = useState();
     const [webcam, setWebcam] = useState();
-    const [timer, setTimer] = useState();
 
-    let ready;
-    let done;
+    let URL;
+    let loopId;
 
+    var ready = false;
+    var set = false;
+    var go = false;
     
     /*
     * Teachable Machine Settings
     */
-    const setTmModel = async(URL) => {
-        const modelURL = `${URL}model.json`;
-        const metadataURL = `${URL}metadata.json`;
-        // load the model and metadata
-        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-        // Note: the pose library adds a tmPose object to your window (window.tmPose)
-        setModel(await window.tmPose.load(modelURL, metadataURL));
-    }
 
-    const init = async () => {
+    const initModel = async () => {
+
+        switch(1) {
+            case 1: 
+                URL = 'https://teachablemachine.withgoogle.com/models/ZWOxIpSRc/';
+                break;
+            case 2: 
+                URL = 'https://teachablemachine.withgoogle.com/models/ZWOxIpSRc/';
+                break;
+            case 3: 
+                URL = 'https://teachablemachine.withgoogle.com/models/4lQr_1IZz/';
+                break;
+            default:
+                URL = 'https://teachablemachine.withgoogle.com/models/M-BMZ7bbw/';
+        }
+
+        await setTmModel(URL);
+
         // Convenience function to setup a webcam
         const size = 200;
         const flip = true; // whether to flip the webcam
-        setWebcam(new window.tmPose.Webcam(size, size, flip)); // width, height, flip
-        webcam.setup()
+        let webcam = new window.tmPose.Webcam(size, size, flip); // width, height, flip
+        await webcam.setup()
         .then(() => {
             console.log("play");
             webcam.play();
-            window.requestAnimationFrame(loop);
+            setWebcam(webcam);
         })
         .catch((err) => console.error('Error accessing the webcam:', err));
     }
 
-    const loop = async (timestamp) => {
-        webcam.update();
-        await predict();
-        window.requestAnimationFrame(loop);
-    };
+    const setTmModel = async(URL) => {
+        const modelURL = `${URL}model.json`;
+        const metadataURL = `${URL}metadata.json`;
 
+        setModel(await window.tmPose.load(modelURL, metadataURL));
+    }
+    
     const predictJumpingJack = async () => {
         if (model && webcam) {
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
     
             const prediction = await model.predict(posenetOutput);
-    
+
             if (!ready && prediction[0].probability > 0.85) {
-                console.log(ready);
                 ready = true;
                 console.log("ready -> true");
             }
-            else if (ready && !done && prediction[1].probability > 0.85) {
-                done = true;
-                console.log("done -> true");
+            else if (ready && !set && prediction[1].probability > 0.85) {
+                set = true;
+                console.log("set -> true");
             }
-            else if (done) {
+            else if (ready && set  && !go && prediction[0].probability > 0.85) {
+                go = true;
+                console.log("go -> true");
+            }
+            else if (go) {
                 setCount(prev => prev + 1);
-                ready = false;
-                done = false;
+                ready = set = go = false;
+                console.log("complete", ready, set, go);
             }
         }
     }
 
+    const setTimer = () => {
+        setTimeout(()=> {
+            setFinished(true);
+        }, limitTime * 1000)
+    }
+
     
     useEffect(() => {
-
-        let URL;
-
-        switch(gameType) {
-            case 1:
-                break;
-            default:
-                break;
+        
+        const init = async () => {
+            await initModel();
+            setGameLoad(true);
+            console.log("GAME LOADED!!!!!!!!!!!!!");
         }
 
-        setTmModel(URL);
- 
+        init();
     },[])
 
 
-    // 5초 카운터 (시각적 타이머도 함꼐)
     useEffect(() => {
-        const startTimer = () => {
 
+        const loop = async (started) => {
+            webcam.update();
+
+            switch(1) {
+                case 1:
+                    await predictJumpingJack();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
+            }
+            loopId = requestAnimationFrame(loop);
+        };
+
+        if (started)  {
+            setTimer();
+            loop();
+            console.log("TIMER START!!!!!!!!!!!!!!")
         }
 
-        if (started) {
-            setTimeout(()=> {
-                startTimer();
-            }, 5000)
-        }
     },[started]);
+
+    useEffect(() => {
+
+        cancelAnimationFrame(loopId);
+
+    }, [finished])
 
     return(
         <div>
-
         </div>
     )
 }
