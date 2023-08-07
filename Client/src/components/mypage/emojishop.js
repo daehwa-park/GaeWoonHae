@@ -2,10 +2,13 @@ import './emojishop.css'
 import emoji1 from '../../assets/emoji/emoji_1.png'
 import emoji2 from '../../assets/emoji/emoji_2.png'
 import emoji3 from '../../assets/emoji/emoji_3.png'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { emojiShopAction } from '../../features/Actions/emojiprocessing'
 import { useDispatch,useSelector } from "react-redux";
 import BuyBtn from '../modal/Buymodal'
+import Webcam from "react-webcam";
+import { loadHaarFaceModels, detectHaarFace } from "../../features/openvidu_opencv/opencv/haarFaceDetection";  // 얼굴인식 컴포넌트
+import cv from "@techstark/opencv-js";
 
 
 const Myemojipage = () => {
@@ -21,9 +24,15 @@ const Myemojipage = () => {
   const nickname = useSelector((state) => state.auth.user.nickname);
   // 구입한 이모지 리스트
   const saveEmoji = useSelector((state) => state.auth.user.saveEmoji) ?? [1];
+
+  const webcamRef = useRef();
+  const imgRef = useRef();
+  const faceImgRef = useRef();
+  const emoji = useRef();
+  
     
   //선택된 이모지 이미지정보
-  const [selectedEmoji, setSelectedEmoji] = useState(null);
+  const [selectedEmoji, setSelectedEmoji] = useState(emoji1);
   //선택된 이모지 id값 - 실행시 유저의 이모지 id값을 가져온다.
   const [selectEmojiId, setSelectEmojiId] = useState(userEmojiId);
   // 선택된 이모지 가격정보
@@ -31,6 +40,7 @@ const Myemojipage = () => {
 
   // 이모지 선택시 정보 변경
   const handleEmojiClick = (emoji,num) => {
+    // faceImgRef.current.src = emoji;
     setSelectedEmoji(emoji);
     setSelectEmojiId(num);
     setSelectPrice(emojiPriceList[num-1])
@@ -49,7 +59,47 @@ const Myemojipage = () => {
     emojiShopdata();
     console.log('유저정보:',userId,userPoint,userEmojiId,nickname )
     // console.log('구입한 이모지:',name )
+    init();
   },[]);
+
+  const init = async () => {
+    await loadHaarFaceModels();   //opencv : 학습 데이터 import
+    nextTick(); 
+  }
+
+  const nextTick = () => {
+    detectFace(); // 2번함수 실행
+    requestAnimationFrame(async () => {
+      nextTick(); // 반복
+    });
+  };
+
+
+  const detectFace = () => { 
+    const imageSrc = webcamRef.current.getScreenshot();  // 웹캠 화면 캡쳐 
+    if (!imageSrc) return;
+
+    emoji.current.src = emoji1;  // 이모지
+
+    return new Promise((resolve) => {
+      imgRef.current.src = imageSrc;
+      imgRef.current.onload = async () => {
+        try {
+          const img = cv.imread(imgRef.current);
+          const emo = cv.imread(emoji.current);
+
+          detectHaarFace(img,emo);    // opencv : loadHaarFaceModels()로 화면인식을 학습 => 포인트에 이모지 씌우기
+
+          cv.imshow(faceImgRef.current, img);
+          img.delete();  // 이미지 초기화
+          resolve();
+        } catch (error) {
+          console.log(error, 'detectFace() 에러');
+          resolve();
+        }
+      };
+    });
+}
   
   const dispatch = useDispatch();
   const emojiShopdata = async() => {
@@ -75,7 +125,18 @@ const Myemojipage = () => {
       </div>
       <div className='emoji-body'>
           <div className='emoji-left'>
-              <div className='emoji-video'>영상</div>
+              <div className='emoji-video'>
+                <Webcam
+                  ref={webcamRef}
+                  className="webcam"
+                  mirrored
+                  screenshotFormat="image/jpeg"
+                  style={{visibility:"hidden"}}
+                />
+                <img className="inputImage" alt="input" ref={imgRef} style={{display:'none' }}/>
+                <canvas id="canvas1" className="outputImage" ref={faceImgRef} style={{width : '200px'}} />
+                <img className="emoji" alt="input" ref={emoji} style={{display:'none'}}></img>
+              </div>
               <div className='select-emoji'>
                 <div className='emoji-img' >{selectedEmoji ? <img className='selected-emoji' src={selectedEmoji} alt='' /> : '선택된 이모지 없음'}</div>
                 <div>
