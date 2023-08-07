@@ -5,10 +5,10 @@ import MainPage from './room/MainPage/MainPage';
 import LobbyPage1 from './room/Lobby/Lobby1';
 import LobbyPage2 from './room/Lobby/Lobby2';
 import LobbyPage3 from './room/Lobby/Lobby3';
-import GamePage1 from './room/GamePage/Game1';
-import GamePage2 from './room/GamePage/Game2';
-import GamePage3 from './room/GamePage/Game3';
+import GamePage from './room/GamePage/Game1';
 import MyPage from './room/MyPage/MyPage';
+import Profile from './components/mypage/myprofile';
+import EmojiShop from './components/mypage/emojishop';
 import LoginKakaoPage from './components/LoingPage/LoginKakaoPage'
 import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
@@ -24,11 +24,12 @@ function App() {
       <Route path='/lobby/2' element={<LobbyPage2/>}/>
       <Route path='/lobby/3' element={<LobbyPage3/>}/>
       {/* 게임페이지 Switch방식 */}
-      <Route path='/gamepage/1' element={<GamePage1/>}/>
-      <Route path='/gamepage/2' element={<GamePage2/>}/>
-      <Route path='/gamepage/3' element={<GamePage3/>}/>
+      <Route path='/gamepage/' element={<GamePage/>}/>
       {/* 마이페이지 */}
-      <Route path='/mypage' element={<MyPage/>}/>
+      <Route path='/mypage/' element={<MyPage/>}>
+        <Route path='profile' element={<Profile/>}/>
+        <Route path='emojishop' element={<EmojiShop/>}/>
+      </Route>
       {/* 잘못된 경로로 들어갔을 경우 */}
       <Route path ="*" element = {<div>There's nothing here!</div>} />
     </Routes>

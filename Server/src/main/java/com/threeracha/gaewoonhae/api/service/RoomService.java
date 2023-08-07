@@ -23,22 +23,21 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private final UserService userService;
 
-    public String findRoomByGameType(int gameTypeId) {
+    public RoomInfoResponse findRoomByGameType(int gameTypeId) {
         GameType gameType = roomRepository.findGameType(gameTypeId);
         Room roomByGameType = roomRepository.findRoomByGameType(gameType)
                 .orElseThrow(() -> new CustomException(CustomExceptionList.ROOM_NOT_FOUND_ERROR));
 
         int updateUserNum = roomByGameType.getCurrentUserNum()+1;
         roomByGameType.setCurrentUserNum(updateUserNum);
-
-        return roomByGameType.getSessionId();
+        return new RoomInfoResponse(roomByGameType);
     }
 
-    public String findRoomBySessionId(String sessionId) {
+    public RoomInfoResponse findRoomBySessionId(String sessionId) {
         Room roomBySessionId = roomRepository.findRoomBySessionId(sessionId)
                 .orElseThrow(() -> new CustomException(CustomExceptionList.ROOM_NOT_FOUND_ERROR));
 
-        return roomBySessionId.getSessionId();
+        return new RoomInfoResponse(roomBySessionId);
     }
 
     public RoomInfoResponse makeNewRoom(NewRoomRequest newRoomRequest) {
@@ -47,10 +46,8 @@ public class RoomService {
         char isPublicRoom = newRoomRequest.getIsPublicRoom();
         String makeSessionId = RandomCodeGenerator.getRandomCode(8);
         Room newRoom = new Room(makeSessionId, findUser, gameType, 1, 5,isPublicRoom,'R');
-        String madeSessionId = roomRepository.makeNewRoom(newRoom);
-        String nickname = findUser.getNickname();
-
-        return new RoomInfoResponse(madeSessionId, nickname);
+        roomRepository.makeNewRoom(newRoom);
+        return new RoomInfoResponse(newRoom);
     }
 
     public Character startRoom(SetRoomStatusRequest request) {

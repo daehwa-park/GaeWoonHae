@@ -1,5 +1,6 @@
 package com.threeracha.gaewoonhae.api.controller;
 
+import com.threeracha.gaewoonhae.api.dto.request.SessionIdRequest;
 import com.threeracha.gaewoonhae.api.dto.request.SetRoomStatusRequest;
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
 import com.threeracha.gaewoonhae.api.dto.response.RoomInfoResponse;
@@ -43,10 +44,11 @@ public class RoomController {
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = String.class)))
     })
     @GetMapping("/find")
-    public ResponseEntity<CommonResponse<String>> findRoomByGameType(int gameType) {
-        String findSessionId = roomService.findRoomByGameType(gameType);
+    public ResponseEntity<CommonResponse<RoomInfoResponse>> findRoomByGameType(int gameType) {
+        RoomInfoResponse roomByGameType = roomService.findRoomByGameType(gameType);
+
         return new ResponseEntity<>(
-                makeCommonResponse(SUCCESS, findSessionId), HttpStatus.OK);
+                makeCommonResponse(SUCCESS, roomByGameType), HttpStatus.OK);
     }
 
     @Operation(summary = "초대코드로 방 조회", description = "초대코드에 해당하는 방이 있는 경우 sessionId 반환, 아닐 경우 customException 반환")
@@ -55,9 +57,9 @@ public class RoomController {
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = String.class)))
     })
     @PostMapping("/find")
-    public ResponseEntity<CommonResponse<String>> findRoomBySessionId(@RequestBody SetRoomStatusRequest setRoomStatusRequest) {
-        String sessionId = setRoomStatusRequest.getSessionId();
-        String roomBySessionId = roomService.findRoomBySessionId(sessionId);
+    public ResponseEntity<CommonResponse<RoomInfoResponse>> findRoomBySessionId(@RequestBody SessionIdRequest sessionIdRequest) {
+        String sessionId = sessionIdRequest.getSessionId();
+        RoomInfoResponse roomBySessionId = roomService.findRoomBySessionId(sessionId);
 
         return new ResponseEntity<>(
                 makeCommonResponse(SUCCESS, roomBySessionId), HttpStatus.OK);

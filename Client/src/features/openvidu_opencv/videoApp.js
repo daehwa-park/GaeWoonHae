@@ -20,7 +20,7 @@ class videoApp extends Component {
         super(props);
 
         this.state = {
-            mySessionId: 'SessionA',    //방세션 id
+            mySessionId: 'qwert',    //방세션 id
             myUserName: 'Participant' + Math.floor(Math.random() * 100),
             session: undefined,
             mainStreamManager: undefined, 
@@ -215,7 +215,6 @@ class videoApp extends Component {
                                 currentVideoDevice: currentVideoDevice,
                                 mainStreamManager: publisher,
                                 publisher: publisher,
-                                subscribers: [], // 빈배열로 초기화
                             });
                             
                         })

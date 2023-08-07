@@ -6,7 +6,7 @@ import "./LoginPage.css";
 const LoginPage = () => {
   return (
     <div className="login-bg">
-      <LoginBox />
+       <LoginBox/>
     </div>
   );
 };

@@ -9,15 +9,19 @@ import storage from "redux-persist/lib/storage";
 //room에 위치한 state정리파일(Reducer) 가져오기
 
 import authenticateReducer from "./reducer/authenticateReducer";
+import roomInfoReducer from "./reducer/roomInfoReducer";
+import emojiInfoReducer from "./reducer/emojishopReducer";
 
 const rootReducer = combineReducers({
   auth: authenticateReducer,
+  roomInfo: roomInfoReducer,
+  emoji: emojiInfoReducer,
   // 다른 리듀서들 추가하기
 });
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth"],
+  whitelist: ["auth", "roomInfo","emoji"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
