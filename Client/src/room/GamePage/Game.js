@@ -58,38 +58,51 @@ const GamePage = () => {
     }
 
     // openCV and Camera Settings
-    const updateEmoji = async () => {
-        detectFace();
-        requestAnimationFrame(updateEmoji());
-    }
+    // const updateEmoji = async () => {
+    //     detectFace();
+    //     requestAnimationFrame(updateEmoji());
+    // }
 
-    const detectFace = () => {
+    // const detectFace = () => {
 
-        const imageSrc = webcamRef.current.getScreenshot();
+    //     const imageSrc = webcamRef.current.getScreenShot();
 
-        if (!imageSrc) return;
+    //     if (!imageSrc) return;
 
-        return new Promise((resolve) => {
-            imageSrc.onload = async () => {
-                try {
-                    const img = cv.imread(imageSrc);
-                    const emo = cv.imread(emoji)
-                    detectHaarFace(img,emo);    // opencv : loadHaarFaceModels()로 화면인식을 학습 => 포인트에 이모지 씌우기
+    //     return new Promise((resolve) => {
+    //         async () => {
+    //             try {
+    //                 const img = cv.imread(imageSrc);
+    //                 const emo = cv.imread(emoji)
+    //                 detectHaarFace(img,emo);    // opencv : loadHaarFaceModels()로 화면인식을 학습 => 포인트에 이모지 씌우기
 
-                    cv.imshow(this.faceImgRef.current, img);
-                    img.delete();  // 이미지 초기화
-                    resolve();
-                } catch (error) {
-                    console.log(error, 'detectFace() 에러');
-                    resolve();
-                }
-            }
-        })
+    //                 cv.imshow(this.faceImgRef.current, img);
+    //                 img.delete();  // 이미지 초기화
+    //                 resolve();
+    //             } catch (error) {
+    //                 console.log(error, 'detectFace() 에러');
+    //                 resolve();
+    //             }
+    //         }
+    //     })
 
-    }
+    // }
 
 
     // OpenVidu Settings
+
+    
+
+    async function startVideo() {
+        const video = document.getElementById('video');
+
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          video.srcObject = stream;
+        } catch (err) {
+          console.error('비디오 스트림을 가져오는데 실패하였습니다.', err);
+        }
+      }
 
     const joinSession = () => {
         OV = new OpenVidu();
@@ -280,11 +293,7 @@ const GamePage = () => {
             <div id="main-videos" style={{ flex:"1 0 60%" }}>
                 {mainStreamManager !== undefined ? (
                     <div id="main-video" >
-                        <Webcam 
-                            ref={webcamRef}
-                            className="webcam"
-                            mirrored
-                            screenshotFormat='image/jpeg' />
+                        <video id='video' />
                     </div>
                 ) : null}
             </div>
