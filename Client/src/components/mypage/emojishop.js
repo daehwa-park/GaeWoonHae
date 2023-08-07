@@ -18,7 +18,10 @@ const Myemojipage = () => {
   const userEmojiId = useSelector((state) => state.auth.user.emojiId);
   // 이모지 가격 리스트
   const emojiPriceList = useSelector((state) => state.emoji.emoji.emojiPrice);
-  
+  const nickname = useSelector((state) => state.auth.user.nickname);
+  // 구입한 이모지 리스트
+  const saveEmoji = useSelector((state) => state.auth.user.saveEmoji) ?? [1];
+    
   //선택된 이모지 이미지정보
   const [selectedEmoji, setSelectedEmoji] = useState(null);
   //선택된 이모지 id값 - 실행시 유저의 이모지 id값을 가져온다.
@@ -26,7 +29,6 @@ const Myemojipage = () => {
   // 선택된 이모지 가격정보
   const [selectPrice, setSelectPrice] = useState(0)
 
-  
   // 이모지 선택시 정보 변경
   const handleEmojiClick = (emoji,num) => {
     setSelectedEmoji(emoji);
@@ -43,9 +45,10 @@ const Myemojipage = () => {
 
   // 이모지 리스트 서버에 요청
   // const emojiIdList = useSelector((state) => state.emoji.emoji.emojiId);
-  useEffect(()=>{
+  useEffect(()=>{ 
     emojiShopdata();
-    console.log('유저정보',userId,userPoint,userEmojiId )
+    console.log('유저정보:',userId,userPoint,userEmojiId,nickname )
+    // console.log('구입한 이모지:',name )
   },[]);
   
   const dispatch = useDispatch();
@@ -67,7 +70,7 @@ const Myemojipage = () => {
   return (
     <div className='mypage-body2'>
       <div className='emoji-shop'>
-          <h3 className='emoji-title1'>이모지 상점</h3>
+          <h3 className='emoji-title1'>이모지 상점 {saveEmoji}</h3>
           <h3 className='emoji-title2'>보유 포인트: <span>{userPoint}</span><span>C</span></h3>
       </div>
       <div className='emoji-body'>
@@ -93,7 +96,7 @@ const Myemojipage = () => {
           <div className='sellect-btn btnpos' onClick={emojiCancel}>취소</div>
           <div className='sellect-btn' onClick={()=>showLobbyModal()}>구입</div>
       </div>    
-      {LobbymodalOpen && <BuyBtn userPoint={userPoint} userId={userId} selectEmojiId={selectEmojiId}  setModalOpen={setLobbyModalOpen} />}    
+      {LobbymodalOpen && <BuyBtn userPoint={userPoint} userId={userId} selectEmojiId={selectEmojiId}  setModalOpen={setLobbyModalOpen} selectPrice={selectPrice} EmojiList={saveEmoji} />}    
     </div>
   )
 }

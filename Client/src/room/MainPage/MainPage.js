@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavBox from "../../components/Navigate/NavBox"
 import NavTitle from "../../components/Navigate/Mainnav"
 import MainSlide from "../../components/MainPage/Mainslide"
 import './MainPage.css'
+import { useDispatch, useSelector } from "react-redux";
+import { authenticateAction } from "../../features/Actions/authenticateAction";
+
 
 // 메인페이지
 
 const Mainpage=()=> {
+    const userId = useSelector((state) => state.auth.user.userId);
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        //유저 정보 받아오기
+        dispatch(authenticateAction.getUserInfo(userId));
+    })
 
     return (
         <div>

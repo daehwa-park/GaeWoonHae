@@ -29,5 +29,56 @@ function getTokensUserId(authorizationCode) {
   };
 }
 
+function getEmojiList(userId) {
+  return async (dispatch, getState) => {
 
-export const authenticateAction = { getTokensUserId };
+    await emojiapi
+      .get("/api/emoji/store/buy/"+userId, {
+        userId:userId,
+      })
+      .then((res) => {
+        // const tokens = res.data.data.tokens;
+        const emojiList = []
+        console.log('리스트 불러오기 성공',res.data.data);
+        for (let i=0; i<res.data.data.length ; i++) {
+          emojiList.push(res.data.data[i].emojiId)
+        }
+        console.log(emojiList,"@@@@@@@@@@@")
+        // const userId = res.data.data.userId;
+        dispatch(authActions.emojiList({ emojiList }));
+      })
+
+      .catch((err) => {
+        console.log('리스트 불러오지 못함',err);
+      });
+  };
+}
+
+function changeUserNick(nickname, userId) {
+  const data = {
+    userId: userId,
+    nickname: nickname
+  }
+  return async (dispatch, getState) => {
+
+    await emojiapi
+      .put("/api/user/nickname", 
+        data,
+      )
+      .then((res) => {
+
+        console.log('정상');
+        console.log(res);
+        const userNick = res.data.data;
+        dispatch(authActions.changeNickname(userNick));
+      })
+
+      .catch((err) => {
+        console.log('오류',nickname,userId);
+        console.log(err);
+      });
+  };
+}
+
+
+export const edituserinfo = { getTokensUserId,changeUserNick,getEmojiList };

@@ -1,5 +1,5 @@
 // 픽토그램
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import "./Lobby1.css";
 import { Container, Row, Col } from "react-bootstrap/";

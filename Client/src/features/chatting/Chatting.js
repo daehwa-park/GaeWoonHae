@@ -20,9 +20,8 @@ const Chatting = ({ setUserList }) => {
   };
 
   useEffect(() => {
-    console.log("dldk", hostName);
     saveStompClient();
-  }, []);
+  });  // 수정
 
   return (
     <div>

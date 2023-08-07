@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { emojiActions } from "../../redux/reducer/emojishopReducer";
-
+import {authActions} from "../../redux/reducer/authenticateReducer"
 
 const emojiapi = axios.create({
   baseURL: process.env.REACT_APP_SPRING_URI,
@@ -51,6 +51,7 @@ function emojiBuy(userPoint, userId , selectEmojiId) {
     )
     .then((res) => {
       // 받아온 정보 => 리덕스에 저장
+      console.log('구매성공')
       let mypoint = res.data.data.point
       const getemoji = res.data.data.emojiId;
       if (mypoint <= 0) {
@@ -59,11 +60,36 @@ function emojiBuy(userPoint, userId , selectEmojiId) {
       // const userPoint = userPoint;
       console.log(mypoint, getemoji);
       
-      dispatch(emojiActions.emojiBuy({ mypoint, getemoji })); // 리덕스파일에 함수,변수 생성해 저장
+      dispatch(authActions.emojiBuy({ mypoint, getemoji })); // 리덕스파일에 함수,변수 생성해 저장
     })
 
     .catch((err) => {
-      console.log('asdf',userId , selectEmojiId)
+      console.log('구매 오류발생',userId , selectEmojiId)
+      console.log(err);
+    });
+  }
+};
+
+function applyEmoji(userId , emojiId) {
+
+  return async (dispatch, getState) => {
+    const data = {
+      userId : userId,  
+      emojiId : emojiId,
+    }
+  // 전체 이모지 정보
+    await emojiapi
+    .post("/api/emoji/change", 
+      data
+    )
+    .then((res) => {
+      // 받아온 정보 => 리덕스에 저장
+      console.log('이모지적용 성공')   
+      dispatch(authActions.applyEmoji({ emojiId })); // 리덕스파일에 함수,변수 생성해 저장
+    })
+
+    .catch((err) => {
+      console.log('이모지 적용 오류발생')
       console.log(err);
     });
   }
@@ -91,4 +117,4 @@ function emojiBuy(userPoint, userId , selectEmojiId) {
 // }
 
 
-export const emojiShopAction = { emojiShopdata,emojiBuy };
+export const emojiShopAction = { emojiShopdata,emojiBuy,applyEmoji };
