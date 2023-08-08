@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import axios from "axios";
 import './Lobby3.css'
+import Canlender from '../../components/calender/calendar'
 // import {useNavigate} from "react-router-dom"
 
 // 대기방 - 공피하기
@@ -33,6 +34,7 @@ const Lobby=()=> {
             <button onClick={gamestart}>+</button>
             <Link to='/gamepage/1'><button>게임시작</button></Link>
             <Link to='/main'><button>방나가기</button></Link>
+            <Canlender></Canlender>
         </div>
     )
 }

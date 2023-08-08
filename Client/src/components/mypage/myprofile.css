@@ -30,7 +30,7 @@
 .chart-nick {
   margin: 3vh 0 0 4vw;
   color: #dbbbeb;
-  font-size: 20px;
+  font-size: 23px;
 }
 
 .mypage-body2 {
@@ -38,10 +38,10 @@
 }
 .profile-img {
   margin: 3vh auto;
-  width: 17vw;
-  height: 17vw;
-  border: 2px solid black;
-  border-radius: 4vw;
+  width: 15vw;
+  height: 15vw;
+  /* border: 2px solid black; */
+  border-radius: 5vw;
 }
 
 .main-emoji {
@@ -50,7 +50,7 @@
   height: 17vw;
 }
 .changebtn {
-  margin-left: 1vw;
+  margin-left: 1.3vw;
   text-align: center;
   width: 7vw;
   height: 3vh;
@@ -63,30 +63,59 @@
   font-weight: 700;
 }
 
+.changebtn:hover, .changebtn:focus, .changebtn:active {
+background-color:#edeeef ;
+color: #282a2b;
+
+}
+
 .points {
+  margin-left: 1.5vw;
   color: rgb(80, 80, 239);
   font-size: 3vh;
 }
 
 .leavesecession {
+  margin: 5vh 0 0 4vw;
+  font-size: 2.5vh;
   color: rgb(138, 136, 136);
+  text-transform: uppercase;
+  transition:all .2s ease;
 }
+
+.leavesecession:hover, .leavesecession:focus, .leavesecession:active {
+  color: #282a2b;
+  font-weight: 600;
+  }
+
 .nickname {
+  align-items: center;
   display: flex;
   margin: 6vh 0 0 4vw;
-  font-size: 14px;
+  font-size: 2vh;
   font-weight: 550;
+}
+
+.nickname2 {
+  align-items: center;
+  margin-left: 1.5vw;
+  font-size: 2.5vh;
+  font-weight: 600;
 }
 .setemoji {
+  align-items: center;
   margin: 5vh 0 0 4vw;
-  font-size: 14px;
+  font-size: 2vh;
   font-weight: 550;
+
 }
 .savepoint {
+  align-items: center;
   margin: 5vh 0 0 4vw;
-  font-size: 14px;
+  font-size: 2vh;
   font-weight: 550;
 }
+
 .secession {
   margin: 5vh 0 0 4vw;
   font-size: 14px;
@@ -94,10 +123,22 @@
 }
 
 .helth-chart {
-  margin: 3vh 0 0 4vw;
-  width: 50vw;
-  height: 28vh;
-  border: 2px solid black;
+  margin: 3vh 0 0 1vw;
+  width: 60vw;
+  height: 30vh;
+  /* border: 2px solid black; */
+}
+
+.nametag {
+  font-size: 25px;
+  font-weight: 550;
+  color: #c0a0d5;
+}
+
+@media (max-width: 1420px) {
+  .changebtn {
+    display: none;
+  }
 }
 
 .image1 {
@@ -115,15 +156,25 @@
 }
 
 .Calendar {
+  margin-top: 1.2vh;
   display: flex;
 }
 
 .image2 {
   margin-left: 5vw;
-  width: 25vw;
-  height: 20vh;
-  border: 2px solid black;
+  width: 20vw;
+  height: 30vh;
+  /* border: 2px solid black; */
   font-size: 17px;
+  font-weight: 550;
+}
+
+.image3 {
+  margin-left: 5vw;
+  width: 25vw;
+  height: 30vh;
+  /* border: 2px solid black; */
+  font-size: 20px;
   font-weight: 550;
 }
 

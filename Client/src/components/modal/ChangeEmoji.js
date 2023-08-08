@@ -68,19 +68,21 @@ function ChangeEmojiModal({ setModalOpen }) {
           }
         };
     return (
-        <div id='Buymodals'>
+        <div id='changemodals'>
             <h3 id='codetxt2'>이모지 변경하기 {saveEmoji}</h3>
-            <div className='emoji-img' >{selectedEmoji ? <img className='selected-emoji' src={selectedEmoji} alt='' /> : '구입한 이모지가 없습니다.'}</div>
-            <div className='emojicomp'>
-                {saveEmoji.map((emojiId)=>(
-                    <img className='emoji-size' src={getEmoji(emojiId)} onClick={() => handleEmojiClick(getEmoji(emojiId),emojiId)} alt=""/>
-                ))}
-              {/* <img className='emoji-size' src={emoji2} onClick={() => handleEmojiClick(emoji2,2)} alt=""/>
-              <img className='emoji-size' src={emoji3} onClick={() => handleEmojiClick(emoji3,3)} alt=""/> */}
+            <div className='emoji-box2'>
+                <div className='emoji-img2' >{selectedEmoji ? <img className='selected-emoji' src={selectedEmoji} alt='' /> : '구입한 이모지가 없습니다.'}</div>
+                <div className='emojicomp2'>
+                    {saveEmoji.map((emojiId)=>(
+                        <img className='emoji-size' src={getEmoji(emojiId)} onClick={() => handleEmojiClick(getEmoji(emojiId),emojiId)} alt=""/>
+                    ))}
+                {/* <img className='emoji-size' src={emoji2} onClick={() => handleEmojiClick(emoji2,2)} alt=""/>
+                <img className='emoji-size' src={emoji3} onClick={() => handleEmojiClick(emoji3,3)} alt=""/> */}
+                </div>
             </div>
-            <div id='Buymodal'>
-                <p id='buybutton' onClick={emojiSellect} >적용하기</p>
-                <p id='buybutton' onClick={closeModal}>취소</p>
+            <div id='changemodal'>
+                <p id='changebutton' onClick={emojiSellect} >적용하기</p>
+                <p id='changebutton' onClick={closeModal}>취소</p>
             </div>
         </div>
     );
