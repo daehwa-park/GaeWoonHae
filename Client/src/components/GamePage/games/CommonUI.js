@@ -12,3 +12,5 @@ const CommonUI = ({props}) => {
     );
 
 }
+
+export default CommonUI
