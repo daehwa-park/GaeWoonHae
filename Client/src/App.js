@@ -5,7 +5,7 @@ import MainPage from './room/MainPage/MainPage';
 import LobbyPage1 from './room/Lobby/Lobby1';
 import LobbyPage2 from './room/Lobby/Lobby2';
 import LobbyPage3 from './room/Lobby/Lobby3';
-import GamePage from './room/GamePage/Game';
+import GamePage from './room/GamePage/GamePage';
 import MyPage from './room/MyPage/MyPage';
 import Profile from './components/mypage/myprofile';
 import EmojiShop from './components/mypage/emojishop';
