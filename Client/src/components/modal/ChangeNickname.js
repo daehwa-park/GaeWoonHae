@@ -1,10 +1,12 @@
+// 닉네임 변경 모달
+// 사용처 : 마이페이지
+
 import "./ChangeNickname.css"
 import { useDispatch } from "react-redux";
-// import { emojiShopAction } from '../../features/Actions/emojiprocessing'
 import { useState } from "react";
 import {edituserinfo} from "../../features/Actions/edituserinfo"
 
-function RecommendModal({ setModalOpen, userId }) {
+function ChangeNickModal({ setModalOpen, userId }) {
 
     const [nickname, setName] = useState("");
     // 모달 끄기 
@@ -16,11 +18,8 @@ function RecommendModal({ setModalOpen, userId }) {
     const changename = async() => {
         console.log('닉네임 변경 시도')
         dispatch(edituserinfo.changeUserNick(nickname,userId));
-        // dispatch(authActions.changeNickname(name));
     }
   
-
-
     return (
         <div id='Buymodals'>
             <h3 id='codetxt2'>닉네임 변경하기</h3>
@@ -32,4 +31,5 @@ function RecommendModal({ setModalOpen, userId }) {
         </div>
     );
 }
-export default RecommendModal;
+
+export default ChangeNickModal;

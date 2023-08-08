@@ -1,3 +1,7 @@
+
+// 사용할 이모지 변경 모달 
+// 사용처 : 마이페이지
+
 import "./ChangeEmoji.css"
 import { useDispatch } from "react-redux";
 import { emojiShopAction } from '../../features/Actions/emojiprocessing'
@@ -7,6 +11,7 @@ import emoji2 from '../../assets/emoji/emoji_2.png'
 import emoji3 from '../../assets/emoji/emoji_3.png'
 import { useEffect, useState } from "react";
 import {edituserinfo} from '../../features/Actions/edituserinfo'
+
 
 function ChangeEmojiModal({ setModalOpen }) {
     // 구입한 이모지 리스트
@@ -35,6 +40,7 @@ function ChangeEmojiModal({ setModalOpen }) {
             console.log(saveEmoji,'@@@@@@@@@')
         }
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     //선택된 이모지 이미지정보
     const [selectedEmoji, setSelectedEmoji] = useState(null);
@@ -64,7 +70,7 @@ function ChangeEmojiModal({ setModalOpen }) {
     return (
         <div id='Buymodals'>
             <h3 id='codetxt2'>이모지 변경하기 {saveEmoji}</h3>
-            <div className='emoji-img' >{selectedEmoji ? <img className='selected-emoji' src={selectedEmoji} alt='' /> : '선택된 이모지 없음'}</div>
+            <div className='emoji-img' >{selectedEmoji ? <img className='selected-emoji' src={selectedEmoji} alt='' /> : '구입한 이모지가 없습니다.'}</div>
             <div className='emojicomp'>
                 {saveEmoji.map((emojiId)=>(
                     <img className='emoji-size' src={getEmoji(emojiId)} onClick={() => handleEmojiClick(getEmoji(emojiId),emojiId)} alt=""/>
