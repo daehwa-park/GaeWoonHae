@@ -193,6 +193,7 @@ const GameLoader = ({props}) => {
                     }, 5000);
                     break;
                 case 3:
+                    await predictSquat();
                     break;
                 default:
                     break;
