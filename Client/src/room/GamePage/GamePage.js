@@ -68,6 +68,7 @@ const GamePage = () => {
     // openVidu Object
     let OV;
 
+
     // commonProps
     const gameProps ={
         count,
@@ -82,7 +83,7 @@ const GamePage = () => {
     }
 
     // timer
-
+    let timerId;
 
 
     // openCV Settings
@@ -306,10 +307,9 @@ const GamePage = () => {
     useEffect(() => {
         const startTimer = () => {
             if (timer < limitTime) {
-                setInterval(() => {
+                timerId = setInterval(() => {
                     setTimer(prev => prev + 1);
-                    startTimer();
-                }, )
+                }, 1000)
             } else {
                 setFinished(true);
             }
@@ -322,7 +322,7 @@ const GamePage = () => {
 
     useEffect(() => {
         if (finished) {
-            
+            clearInterval(timerId);
         }
 
     },[finished])
