@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useEffect, useRef, useState } from 'react';
 import { useSelector } from "react-redux/es/hooks/useSelector";
 
 
@@ -15,10 +15,12 @@ const GameLoader = ({props}) => {
     const [model, setModel] = useState();
     const [webcam, setWebcam] = useState();
 
+    const poseList = useRef([0,1,2,3,4]);
+
     let URL;
     let loopId;
     let timerId;
-    let poseList = [0,1,2,3];
+    // let poseList = [0,1,2,3,4];
     let poseIndex = 0;
 
     var ready = false;
@@ -36,7 +38,7 @@ const GameLoader = ({props}) => {
                 URL = 'https://teachablemachine.withgoogle.com/models/ZWOxIpSRc/';
                 break;
             case 2: 
-                URL = 'https://teachablemachine.withgoogle.com/models/ZWOxIpSRc/';
+                URL = 'https://teachablemachine.withgoogle.com/models/99dOWJKg2/';
                 break;
             case 3: 
                 URL = 'https://teachablemachine.withgoogle.com/models/4lQr_1IZz/';
@@ -99,10 +101,10 @@ const GameLoader = ({props}) => {
     
             const prediction = await model.predict(posenetOutput);
 
-            if (prediction[poseList[poseIndex]].probability > 0.85) {
+            if (prediction[poseList.current[poseIndex]].probability > 0.85) {
                 setCount(prev => prev + 1);
-                console.log("ready -> true");
                 poseIndex++;
+                
                 if(poseIndex == poseList.length){
                     poseIndex = 0;
                 }
@@ -157,8 +159,8 @@ const GameLoader = ({props}) => {
             }
         }
 
-        shuffle(poseList);
-        console.log(poseList);
+        shuffle(poseList.current);
+        console.log(poseList.current);
         init();
     },[])
 
@@ -180,9 +182,15 @@ const GameLoader = ({props}) => {
                     break;
                 case 2:
                     timerId = setInterval(() => {
-                        predictPictogram();
                         console.log("interval");
-                    }, 2000);
+                        console.log("nextpose", poseList.current[poseIndex]);
+                        setTimeout(() => {
+                            console.log("ready");
+                            setTimeout(()=> {
+                                predictPictogram();
+                            },3000);
+                        }, 2000);
+                    }, 5000);
                     break;
                 case 3:
                     break;
