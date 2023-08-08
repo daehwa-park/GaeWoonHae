@@ -89,9 +89,14 @@ function getStompClient(
         stompClient.subscribe(
           // 채팅방 채널 구독
           "/topic/gameroom/" + sessionId + "/gamestart",
-          function (message) {
+          async function (message) {
+            await dispatch(
+              roomActions.getGameUserList({
+                userList,
+              })
+            )
             console.log("다음 페이지로 넘아감");
-            navigate(`/gamepage`);
+            await navigate(`/gamepage`);
             // 게임 시작 페이지로 이동함.
           } // 구독한 곳으로 메세지가 오면 펑션 메세지가 실행 된다.
         );
@@ -174,11 +179,7 @@ function getStompClient(
 
     function gameStart() {
       if(userList.length>=1) {
-        dispatch(
-          roomActions.getGameUserList({
-            userList,
-          })
-        )
+        
 
       stompClient.send(
         "/app/gameroom/" + sessionId + "/gamestart",

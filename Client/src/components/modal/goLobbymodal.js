@@ -42,7 +42,7 @@ function GoLobbyModal({ setModalOpen, id, title, content, writer, value }) {
 
   const createRoom = async () => {
     const requestData = {
-      isPublicRoom: "T",
+      isPublicRoom: "Y",
       userId,
       gameType: 1,
     };
