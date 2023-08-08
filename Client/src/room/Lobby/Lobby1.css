@@ -4,10 +4,14 @@
   height: 100%;
   width: 100%;
 }
-
-.lobbylogo {
-  height: 5vh;
+.invite-time-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  flex-direction: column;
 }
+
 
 .lobbyheader {
   display: flex;
@@ -21,13 +25,9 @@
   margin-left: 5vw;
 }
 
-.lobbybody {
-  display: flex;
-  align-items: center;
-  height: 70vh;
-  width: 90vw;
-  border: 2px solid rgb(169, 133, 202);
-  margin-left: 5vw;
+.lobby-body {
+  background-color: #FFFBF6;
+  height: 100vh;
 }
 
 .title1 {
@@ -66,20 +66,10 @@
   color: #6f42c1; /* 글자색 설정 */
 }
 
-@media (min-width: 992px) {
-  .chat-col {
-    order: 1;
-  }
-  .video-col {
-    order: 2;
-  }
-  .game-col {
-    order: 3;
-  }
-}
+
 
 /* 전체 화면 크기가 일정 값 미만일 때, 1:1:1 레이아웃 */
-@media (max-width: 991px) {
+@media (max-width: 768px) {
   .chat-col {
     order: 3;
   }
@@ -91,11 +81,12 @@
   }
 }
 .chat-box {
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 5px;
   padding: 10px;
-  height: 300px;
+  height: 60vh;
   overflow-y: auto;
+  background-color: #f2ebf8;
 }
 
 /* 채팅 입력창 스타일 */
@@ -104,6 +95,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 5px;
+  background-color: #f3e8ff;
 }
 
 /* 채팅 입력창 전송 버튼 스타일 */

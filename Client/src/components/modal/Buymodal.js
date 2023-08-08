@@ -1,3 +1,6 @@
+// 이모지 구입 확인 모달
+// 사용처 : 이모지 상점
+
 import "./Buymodal.css"
 import { useDispatch } from "react-redux";
 import { emojiShopAction } from '../../features/Actions/emojiprocessing'
@@ -6,7 +9,7 @@ import { useEffect, useState } from "react";
 import {edituserinfo} from '../../features/Actions/edituserinfo'
 
 
-function RecommendModal({ setModalOpen, userPoint,userId,selectEmojiId, selectPrice, EmojiList }) {
+function BuyModal({ setModalOpen, userPoint,userId,selectEmojiId, selectPrice, EmojiList }) {
     // 유저 포인트
     // 구입한 이모지 리스트
     const saveEmoji = useSelector((state) => state.auth.user.saveEmoji);
@@ -43,6 +46,8 @@ function RecommendModal({ setModalOpen, userPoint,userId,selectEmojiId, selectPr
             console.log(saveEmoji,'@@@@@@@@@')
         }
         fetchData();
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     return (
@@ -89,4 +94,4 @@ function RecommendModal({ setModalOpen, userPoint,userId,selectEmojiId, selectPr
         </div>
     );
 }
-export default RecommendModal;
+export default BuyModal;

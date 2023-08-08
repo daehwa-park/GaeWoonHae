@@ -43,10 +43,16 @@
   border: 2px solid black;
   border-radius: 4vw;
 }
+
+.main-emoji {
+  margin: auto;
+  width: 17vw;
+  height: 17vw;
+}
 .changebtn {
   margin-left: 1vw;
   text-align: center;
-  width: 6vw;
+  width: 7vw;
   height: 3vh;
   border: 2px solid rgb(235, 230, 230);
   background-color: rgb(228, 225, 225);
@@ -55,6 +61,15 @@
   text-transform: uppercase;
   transition:all .2s ease;
   font-weight: 700;
+}
+
+.points {
+  color: rgb(80, 80, 239);
+  font-size: 3vh;
+}
+
+.leavesecession {
+  color: rgb(138, 136, 136);
 }
 .nickname {
   display: flex;

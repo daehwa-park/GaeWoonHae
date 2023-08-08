@@ -1,5 +1,4 @@
-// 메인페이지 좌측 네비게이션바
-// 구성 - 버튼css (Navbutton) , 친구초대 모달창(RecommendModal), BGM 모달창 (BgmModal)
+// 네비게이션바 기본틀
 
 import {useNavigate} from "react-router-dom"
 import logo from '../../assets/img/mainlogo.png'

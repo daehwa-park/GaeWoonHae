@@ -383,7 +383,7 @@ class videoApp extends Component {
                                     </div>
                                 ) :null}
 
-{/* <div>'참여자 :',{this.state.subscribers.length}</div> */}
+                                {/* <div>'참여자 :',{this.state.subscribers.length}</div> */}
                                 {this.state.subscribers.length <= 3 ? (
                                     <div id="sub-videos" style={{ flex:"1 0 35%", display:"grid"}}> 
                                         {this.state.subscribers.map((sub, i) => (

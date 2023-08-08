@@ -55,7 +55,7 @@ const authenticateSlice = createSlice({
       // const sortedEmojiList = action.payload.emojiList.sort((a, b) => b - a);
       // state.user.saveEmoji = [...sortedEmojiList];
       // console.log(action.payload.emojiList,'체크@@@')
-      state.user.saveEmoji = action.payload.emojiList.sort((a, b) => a-b);
+      state.user.saveEmoji = action.payload.emojiList.sort((a, b) => a-b) ?? [1];
       // console.log(state.user.saveEmoji)
     },
   },

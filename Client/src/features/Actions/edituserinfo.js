@@ -1,4 +1,7 @@
-// 마이 페이지에서 유저정보를 받아 수정요청
+// 유저정보 수정요청
+
+// Api요청 =>  서버 토큰발급,     구입한 이모지리스트 갱신,     유저 닉네임 변경
+//           (getTokensUserId)       (getEmojiList)         (changeUserNick)
 
 import axios from "axios";
 import { authActions } from "../../redux/reducer/authenticateReducer";
@@ -8,7 +11,7 @@ const emojiapi = axios.create({
   headers: { "cotent-type": "application/json" },
 })
 
-
+// 서버 토큰발급
 function getTokensUserId(authorizationCode) {
   return async (dispatch, getState) => {
 
@@ -29,6 +32,7 @@ function getTokensUserId(authorizationCode) {
   };
 }
 
+// 구입한 이모지리스트 갱신
 function getEmojiList(userId) {
   return async (dispatch, getState) => {
 
@@ -54,6 +58,7 @@ function getEmojiList(userId) {
   };
 }
 
+// 유저 닉네임 변경
 function changeUserNick(nickname, userId) {
   const data = {
     userId: userId,

@@ -1,3 +1,6 @@
+// 대기방 입장 모달
+// 사용처 : 메인페이지
+
 import "./goLobbymodal.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
