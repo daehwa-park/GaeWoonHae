@@ -5,13 +5,9 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 const GameLoader = ({props}) => {
 
     // Props
-    const count = props.count;
     const setCount = props.setCount;
-    const limitTime = props.limitTime;
     const started = props.started;
-    const setStarted = props.setStarted;
     const finished = props.finished;
-    const setFinished = props.setFinished;
     const gameType = props.gameType;
     const setGameLoad = props.setGameLoad;
 

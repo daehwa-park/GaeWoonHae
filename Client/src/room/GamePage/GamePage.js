@@ -5,6 +5,8 @@ import { useSelector } from "react-redux/es/hooks/useSelector"
 
 // components
 import UserVideoComponent from '../../features/openvidu_opencv/openvidu/UserVideoComponent';
+import CommonUI from '../../components/GamePage/games/CommonUI';
+import GameLoader from '../../components/GamePage/games/GameLoader';
 
 // opencv+canvas
 import Webcam from "react-webcam";
@@ -17,7 +19,7 @@ import { OpenVidu } from 'openvidu-browser';
 // stomp
 import SockJS from "sockjs-client"
 import Stomp from "stompjs"
-import GameLoader from '../../components/GamePage/games/GameLoader';
+
 
 
 // 게임페이지
@@ -43,7 +45,6 @@ const GamePage = () => {
     // stomp state
     const [stompClient, setStompClient] = useState();
     const [stompLoad, setStompLoad] = useState(false);
-
     // game states
     const [count, setCount] = useState(0);
     const [timer, setTimer] = useState(0);
@@ -347,9 +348,9 @@ const GamePage = () => {
                 <img className="inputImage" alt="input" ref={imgRef} style={{display:'none' }}/>
                 <img className="emoji" alt="input" ref={emojiRef} style={{display:'none'}} />
             </div>
-            <GameLoader props={gameProps} />
+            <GameLoader props={{setCount, started, finished, gameType, setGameLoad}} />
             <UserVideoComponent streamManager={mainStreamManager} style={{width:"640px", height:"480px"}}/>
-            <h2>성공한 횟수 : {count}</h2>
+            <CommonUI props={{count, timer, userList}} />
         </div>
     )
 }
