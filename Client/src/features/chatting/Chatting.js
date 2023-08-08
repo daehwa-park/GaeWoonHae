@@ -8,7 +8,7 @@ import { chattingAction } from "../Actions/chattingAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Chatting = ({ setUserList, isStart }) => {
+const Chatting = ({ setUserList }) => {
   const gameType = useSelector((state) => state.roomInfo.gameType);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,7 +31,6 @@ const Chatting = ({ setUserList, isStart }) => {
         setUserList,
         navigate,
         gameType,
-        isStart
       )
     );
   };
@@ -43,10 +42,9 @@ const Chatting = ({ setUserList, isStart }) => {
   };
 
   useEffect(() => {
-    console.log("dldk", hostName);
     saveStompClient();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isStart]);
+  }, []);
 
   return (
     <div>
@@ -73,6 +71,7 @@ const Chatting = ({ setUserList, isStart }) => {
         >
           Send
         </Button>
+        {hostName === myName && (
         <Button
           id="gameStart"
           className="gamestart-btn"
@@ -80,7 +79,7 @@ const Chatting = ({ setUserList, isStart }) => {
           type="submit"
         >
           gameStart
-        </Button> 
+        </Button> )}
       </Form>
       <div className="user-info" id="result"></div>
     </div>

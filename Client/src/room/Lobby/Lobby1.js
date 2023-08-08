@@ -16,36 +16,14 @@ const Lobby = () => {
     "따라해요 픽토그램!",
     "피해봐요, 오늘의 X!",
   ];
-  const [isStart, setIsStart] = useState(false);
   const [userList, setUserList] = useState([]);
   useEffect(() => {
     console.log("나 유저리스트야", userList);
   }, [userList]);
-  // const [loading, setLoading] = useState(true);
-
-  // const hostName = useSelector((state) => state.roomInfo.hostName);
-  // const myName = useSelector((state) => state.auth.user.nickname);
-  // const sessionId = useSelector((state) => state.roomInfo.sessionId);
+  
   const gameType = useSelector((state) => state.roomInfo.gameType);
   const sessionId = useSelector((state) => state.roomInfo.sessionId);
   const gameName = gameNameList[gameType - 1];
-  //axios요청 => room에 5명있때만 게임 실행
-
-  //   const gamestart = async () => {
-  //     try {
-  //       const requestData = {
-  //         sessionId: "session_id_asd",
-  //       };
-  //       const response = await axios.post(
-  //         "http://localhost:5000/api/room/start",
-  //         requestData
-  //       );
-  //       console.log(response);
-  //       // navigate(`/lobby/${value}`)
-  //     } catch (error) {
-  //       console.error("생성 실패", error);
-  //     }
-  //   };
 
   return (
     <div className="lobby-body">
@@ -57,7 +35,7 @@ const Lobby = () => {
         </Row>
         <Row>
           <Col md={3} className="chat-col">
-            <Chatting setUserList={setUserList} isStart={isStart} />
+            <Chatting setUserList={setUserList} />
           </Col>
           <Col md={6} className="video-col">
             <Row>
@@ -93,7 +71,6 @@ const Lobby = () => {
             <GameRoomInfoStart
               userList={userList}
               gameType={gameType}
-              setIsStart={setIsStart}
             />
           </Col>
         </Row>

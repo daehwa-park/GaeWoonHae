@@ -31,6 +31,7 @@ const GamePage = () => {
     const gameType = useSelector((state) => state.roomInfo.gameType);
     const limitTime = useSelector((state) => state.roomInfo.limitTime);
     // const emoji = useSelector((state) => state.user.emoji);
+    const firstUserList = useSelector((state) => state.roomInfo.userList);
 
     // openvidu states
     const [session, setSession] = useState();
@@ -51,13 +52,7 @@ const GamePage = () => {
     const [finished, setFinished] = useState(false);
     const [gameLoad, setGameLoad] = useState(false);
     const [assetLoad, setAssetLoad] = useState(true);
-    const [userList, setUserList] = useState([
-        {username: "정원", count: 0}, 
-        {username: "김두현", count: 0}, 
-        {username: "수빈", count: 0}, 
-        {username: "우승빈", count: 0}, 
-        {username: "양준영", count: 0}
-    ]);
+    const [userList, setUserList] = useState(firstUserList);
 
     // refs for openCV
     const webcamRef = useRef();
@@ -236,7 +231,7 @@ const GamePage = () => {
         stompClient.connect(headers, function (frame){ 
             stompClient.subscribe(
                 // 게임정보 주고 받는 채널 구독
-                "/topic/gameroom/" + sessionId + "/gameInfo",
+                "/topic/gameroom/" + sessionId + "/gameinfo",
                 function (message) {
                     // {username: ? count: ?} 으로 변경된 정보가 날라옴. 받아온 정보로 표시되는 게임 정보 업데이트해야함
                     updateGameInfo(JSON.parse(message.body));
@@ -255,11 +250,13 @@ const GamePage = () => {
         );
 
         setUserList(updateUserList);
+        console.log(updateUserList);
     }
 
     const gameInfoChange = () => {
+        console.log("gameInfoChange 실행")
         stompClient.send(
-            "/app/gameroom/" + sessionId + "/gameInfo",{},
+            "/app/gameroom/" + sessionId + "/gameinfo",{},
             // 내 정보를 해당 채널로 보내면 됨
             JSON.stringify({ username: myName, count: count})
         );
