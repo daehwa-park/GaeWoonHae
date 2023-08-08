@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 import { useSelector } from "react-redux/es/hooks/useSelector"
 
 // components
-// import MyGameScreen from '../../components/GamePage/games/MyGameScreen';
 import UserVideoComponent from '../../features/openvidu_opencv/openvidu/UserVideoComponent';
 
 // opencv+canvas
@@ -47,6 +46,7 @@ const GamePage = () => {
 
     // game states
     const [count, setCount] = useState(0);
+    const [timer, setTimer] = useState(0);
     const [started, setStarted] = useState(false);
     const [finished, setFinished] = useState(false);
     const [gameLoad, setGameLoad] = useState(false);
@@ -80,6 +80,9 @@ const GamePage = () => {
         setGameLoad,
         gameType
     }
+
+    // timer
+
 
 
     // openCV Settings
@@ -300,22 +303,36 @@ const GamePage = () => {
 
     },[stompLoad, openViduLoad, gameLoad, assetLoad])
 
+    useEffect(() => {
+        const startTimer = () => {
+            if (timer < limitTime) {
+                setInterval(() => {
+                    setTimer(prev => prev + 1);
+                    startTimer();
+                }, )
+            } else {
+                setFinished(true);
+            }
+        }
+
+        if (started) {
+            startTimer();
+        }
+    }, [started])
+
+    useEffect(() => {
+        if (finished) {
+            
+        }
+
+    },[finished])
+
     // 게임 카운트 갱신
     useEffect(()=> {
         if (count != 0) {
             gameInfoChange();
         }
-
     },[count])
-
-
-    // 게임 종료 신호
-    // useEffect(() => {
-    //     if (finished) {
-    //         // 결과 전송 및 게임 결산
-    //     }
-    // },[finished])
-
 
 
     return (
