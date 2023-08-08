@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
 
-const JumpingJack = () => {
+const Squat = () => {
     return (
         <div>
 
@@ -8,4 +8,4 @@ const JumpingJack = () => {
     );
 };
 
-export default JumpingJack;
+export default Squat;
