@@ -1,25 +1,29 @@
-// 로그인 페이지에서 토큰, 유저정보 받기
+// 로그인,유저정보 관리
+
+// Api요청 => 카카오토큰발급,      유저정보 받기,         로그아웃
+//           (getTokensUserId)   (getUserInfo)       (userLogout)
 
 import axios from "axios";
 import { authActions } from "../../redux/reducer/authenticateReducer";
-// import { useNavigate } from "react-router-dom";
 
-// axios create로 axios를 커스터 마이징한 인스턴스 생성
+
+// 로그인요청 주소
 const loginApi = axios.create({
   baseURL: process.env.REACT_APP_SPRING_URI,
   headers: { "cotent-type": "application/json" },
   timeout: 3000,
 });
 
+// 로아웃요청 주소
 const logoutApi = axios.create({
   baseURL: process.env.REACT_APP_SPRING_URI,
   headers: { "cotent-type": "application/json" },
 });
 
+
+// 토큰 발급
 function getTokensUserId(authorizationCode) {
   return async (dispatch, getState) => {
-    // const navigate = useNavigate();
-
     await loginApi
       .post("/api/oauth/login/kakao", {
         authorizationCode,
@@ -33,11 +37,11 @@ function getTokensUserId(authorizationCode) {
 
       .catch((err) => {
         console.log(err);
-        // navigate("/");
       });
   };
 }
 
+// 유저 정보 받기
 function getUserInfo(userId) {
   console.log("로그인id :"+ userId);
 
@@ -55,6 +59,7 @@ function getUserInfo(userId) {
   };
 }
 
+// 유저 로그아웃 요청
 function userLogout(userId){
   return async () =>{
     await logoutApi

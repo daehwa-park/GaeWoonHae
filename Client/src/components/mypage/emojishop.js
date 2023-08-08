@@ -1,3 +1,5 @@
+// 이모지 상점 컴포넌트
+
 import './emojishop.css'
 import emoji1 from '../../assets/emoji/emoji_1.png'
 import emoji2 from '../../assets/emoji/emoji_2.png'
@@ -48,9 +50,11 @@ const Myemojipage = () => {
   useEffect(()=>{ 
     emojiShopdata();
     console.log('유저정보:',userId,userPoint,userEmojiId,nickname )
-    // console.log('구입한 이모지:',name )
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
   
+  // 이모지 상점 데이터 요청
   const dispatch = useDispatch();
   const emojiShopdata = async() => {
     dispatch(emojiShopAction.emojiShopdata());

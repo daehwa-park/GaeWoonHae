@@ -1,10 +1,11 @@
+// 마이페이지 네비게이션바
+
 import { useState} from "react"
 import './Mypagenav.css'
 import {useNavigate} from "react-router-dom"
 import RecommendModal from "../modal/RecommendModal"
 import logo from '../../assets/img/mainlogo.png'
 
-// 마이페이지 네비게이션바 메뉴버튼
 
 const NavBoxTag = () => {
 

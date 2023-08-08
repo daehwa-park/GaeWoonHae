@@ -1,6 +1,9 @@
+// 마이페이지 컴포넌트
+
 import './myprofile.css'
 import axios from "axios";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import ChangeNick from '../../components/modal/ChangeNickname'
 import ChangeEmo from '../../components/modal/ChangeEmoji'
@@ -18,25 +21,27 @@ import 'react-calendar/dist/Calendar.css'; // css import
 import Rechart from "./recordChart";
 
 
+
 const Myprofilepage = () => {
-  // store에서 유저Id,닉네임, 보유포인트, 이모지id 가져오기
+  // 유저 이모지Id
   const useremoji = useSelector(state=> state.auth.user.emojiId) 
+  // 유저 포인트
   const userpoint = useSelector(state=> state.auth.user.point) 
+  // 유저 닉네임
   const nickname = useSelector(state=> state.auth.user.nickname)
+  // 유저 Id
   const userId = useSelector(state=> state.auth.user.userId)
 
 
-  //var todayKcal = 0;
-  // var dateKcal = 0;
+  // 칼로리
   const [todayKcal, setTodayKcal] = useState(0); // useState를 이용하여 상태로 관리
   const [totalKcal, setTotalKcal] = useState(0); // useState를 이용하여 상태로 관리
   const [dateKcal, setDateKcal] = useState(0); // useState를 이용하여 상태로 관리
   const [selectKcal, setSelectedKcal] = useState(0); // useState를 이용하여 상태로 관리
 
-
   const [selectedDate, setSelectedDate] = useState(new Date()); // 선택된 날짜를 상태로 관리
 
-  const data=[];
+ 
 
   // 달력에서 날짜가 선택될 때 호출되는 이벤트 핸들러
   const onCalendarChange = (selectedDate) => {
@@ -150,29 +155,29 @@ const Myprofilepage = () => {
           }); 
   }
 
-  function getDateRecord(thisDate){
-    const date ={
-      date: formatDate(thisDate)
-    }
-    kcalApi
-        .post("/api/record/date/"+userId, date)
-        .then((res)=>{
-          console.log("선택 기간 운동")
-          console.log(res)
-          var calculatedKcal =0;
-            for(var i=0 ; i<res.data.data.length; i++){
-                const count = res.data.data[i].count;
-                const gameTypeId = res.data.data[i].gameTypeId;  
-                calculatedKcal += calKcal(gameTypeId, count);
-            }
-                  setSelectedKcal(calculatedKcal);
+  // function getDateRecord(thisDate){
+  //   const date ={
+  //     date: formatDate(thisDate)
+  //   }
+  //   kcalApi
+  //       .post("/api/record/date/"+userId, date)
+  //       .then((res)=>{
+  //         console.log("선택 기간 운동")
+  //         console.log(res)
+  //         var calculatedKcal =0;
+  //           for(var i=0 ; i<res.data.data.length; i++){
+  //               const count = res.data.data[i].count;
+  //               const gameTypeId = res.data.data[i].gameTypeId;  
+  //               calculatedKcal += calKcal(gameTypeId, count);
+  //           }
+  //                 setSelectedKcal(calculatedKcal);
                   
-        })
-        .catch((err) => {
-           console.log("선택 날짜 오류id"+userId);
-           console.log(err);
-          }); 
-  }
+  //       })
+  //       .catch((err) => {
+  //          console.log("선택 날짜 오류id"+userId);
+  //          console.log(err);
+  //         }); 
+  // }
 
 
   useEffect(()=>{
@@ -180,21 +185,29 @@ const Myprofilepage = () => {
     getTodayGameHistory();
     getTotalGameHistory();
 
-    var now = new Date();	// 현재 날짜 및 시간
-    console.log("현재 : ", formatDate(now));
-    var yesterday = new Date(now.setDate(now.getDate() - 1));	// 어제
-    console.log("어제 : ", formatDate(yesterday));
-
-    for(var i=0;i<7;i++){
-      //getDateRecord(formatDate(yesterday));
-      // console(formatDate(yesterday));
-      //data.push({ name: formatDate(yesterday), kcal: selectKcal });
-    }
-
+    // var now = new Date();	// 현재 날짜 및 시간
     
+    // console.log("현재 : ", formatDate(now));
+    // var yesterday = new Date(now.setDate(now.getDate() - 1));	// 어제
+    // console.log("어제 : ", formatDate(yesterday));
 
+    // for(var i=0;i<7;i++){
+    //   //getDateRecord(formatDate(yesterday));
+    //   // console(formatDate(yesterday));
+    //   //data.push({ name: formatDate(yesterday), kcal: selectKcal });
+    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
+    var now = new Date();	// 현재 날짜 및 시간
+    for(var i=0;i<7;i++){
+      var day = new Date(now.setDate(now.getDate() - i));	// 어제
+      data.push({ name: formatDate(day), kcal: 1398 });
+
+    }
   },[]);
 
+
+  // 모달창 관리
   const [LobbymodalOpen1, setLobbyModalOpen1] = useState(false);
   const [LobbymodalOpen2, setLobbyModalOpen2] = useState(false);
 
@@ -204,6 +217,8 @@ const Myprofilepage = () => {
   const showLobbyModal2 = () => {
     setLobbyModalOpen2(true);
   };
+  
+  // 이모지 선택 관리
   const getEmoji = (emojiId) => {
     switch (emojiId) {
         case 1:
@@ -216,12 +231,6 @@ const Myprofilepage = () => {
           return ""; 
       }
     };
-
-
-
-
-
-
 
 
 
@@ -251,6 +260,8 @@ const Myprofilepage = () => {
               보유 포인트: <span className='points'>{userpoint}c</span>    
           </div>
           <div className='leavesecession' >탈퇴하기</div>
+          {/* 제거 예정 */}
+          {/* <div onclick={getDateRecord()}>{selectKcal}</div>    */}
         </div>
         <div className='mypageright'>
             <div className='chart-nick'>{nickname}님의 주간 운동량 차트</div>
@@ -285,9 +296,17 @@ const Myprofilepage = () => {
   )
 }
 
+//const data=[];
 
-// export const getData = () => {
-//   return data;
-// };
+
+const data = [
+    {
+        name: "월",
+        kcal: 2400,
+    },
+  ];
+export const getData = () => {
+  return data;
+};
 
 export default Myprofilepage

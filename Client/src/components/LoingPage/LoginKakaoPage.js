@@ -1,3 +1,5 @@
+// 카카오 로그인 이후 대기방 정보
+
 import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { authenticateAction } from "../../features/Actions/authenticateAction";

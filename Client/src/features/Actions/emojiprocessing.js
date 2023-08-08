@@ -1,5 +1,8 @@
 // 마이 페이지에서 이모지 정보를 수정, 관리
 
+// Api요청 =>  이모지상점 데이터 가져오기,     이모지 구매 요청,     사용자가 적용한 이모지Id 갱신
+//                (emojiShopdata)               (emojiBuy)              (applyEmoji)
+
 import axios from "axios";
 import { emojiActions } from "../../redux/reducer/emojishopReducer";
 import {authActions} from "../../redux/reducer/authenticateReducer"
@@ -9,6 +12,7 @@ const emojiapi = axios.create({
   headers: { "cotent-type": "application/json" },
 })
 
+// 이모지 상점 데이터 가져오기
 function emojiShopdata() {
   return async (dispatch, getState) => {
   // 전체 이모지 정보
@@ -36,6 +40,7 @@ function emojiShopdata() {
   }
 };
 
+// 이모지 구매 요청
 function emojiBuy(userPoint, userId , selectEmojiId) {
 
   return async (dispatch, getState) => {
@@ -70,6 +75,7 @@ function emojiBuy(userPoint, userId , selectEmojiId) {
   }
 };
 
+// 사용자가 적용한 이모지Id 갱신
 function applyEmoji(userId , emojiId) {
 
   return async (dispatch, getState) => {
