@@ -19,6 +19,9 @@ import { OpenVidu } from 'openvidu-browser';
 // stomp
 import SockJS from "sockjs-client"
 import Stomp from "stompjs"
+import JumpingJack from '../../components/GamePage/games/ui/JumpingJack';
+import Pictogram from '../../components/GamePage/games/ui/Pictogram';
+import Squat from '../../components/GamePage/games/ui/Squat';
 
 
 
@@ -314,7 +317,7 @@ const GamePage = () => {
 
     // 게임 카운트 갱신
     useEffect(()=> {
-        if (count != 0) {
+        if (count !== 0) {
             gameInfoChange();
         }
     },[count])
@@ -322,6 +325,7 @@ const GamePage = () => {
 
     return (
         <div>
+            {/* OpenCV용 Canvas (전부 invisible 시켜놓으면 됨) */}
             <div style={{ width: "400px" ,visibility:"hidden" ,display:"flex", position:"absolute"}}>
                 <Webcam
                         ref={webcamRef}
@@ -332,9 +336,35 @@ const GamePage = () => {
                 <img className="inputImage" alt="input" ref={imgRef} style={{display:'none' }}/>
                 <img className="emoji" alt="input" ref={emojiRef} style={{display:'none'}} />
             </div>
+            {/* 게임 로직 컴포넌트 (아무 배치요소 없음) */}
             <GameLoader props={{setCount, started, finished, gameType, setGameLoad}} />
-            <UserVideoComponent streamManager={mainStreamManager} style={{width:"640px", height:"480px"}}/>
-            <CommonUI props={{count, timer, userList}} />
+            {/* 내 화면 */}
+            <div>
+                <UserVideoComponent streamManager={mainStreamManager}/>
+                {/* 위에 공통 UI */}
+                <CommonUI props={{count, timer, userList}} />
+                {/* 위에 게임별 이미지 UI */}
+                {gameType === 1 && <JumpingJack />}
+                {gameType === 2 && <Pictogram />}
+                {gameType === 3 && <Squat />}
+            </div>
+            
+            {console.log("구독자 수!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" , subscriber.length)}
+
+            {/* 상대방 화면 */}
+            <div id="sub-videos" style={{ flex:"1 0 35%", display:"grid"}}> 
+                {subscriber.map((sub, idx) => {
+                    if (JSON.parse(sub.stream.connection.data).clientData !== myName) {
+                        return(
+                            <div id="sub-video2" key={idx}>
+                                <UserVideoComponent streamManager={sub} />
+                            </div>
+                        )
+                    } else {
+                        return null;
+                    }
+                })}
+            </div>
         </div>
     )
 }

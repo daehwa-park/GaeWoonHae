@@ -33,6 +33,7 @@ const CommonUI = ({props}) => {
             </div>
             {userList.map((user, idx) => (
                 <div key={idx}>
+                    <div>Rank : {idx}</div>
                     <div>NickName : {user.username}</div>
                     <div>count : {user.count}</div>
                 </div>
