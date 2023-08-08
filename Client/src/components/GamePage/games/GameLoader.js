@@ -19,21 +19,30 @@ const GameLoader = ({props}) => {
 
     let URL;
     let loopId;
-    let timerId;
+    let picTimerId;
+    let squatTimerId;
     // let poseList = [0,1,2,3,4];
     let poseIndex = 0;
 
-    var ready = false;
-    var set = false;
-    var go = false;
+    let ready = false;
+    let set = false;
+    let go = false;
     
+    let rightReady = false;
+    let rightGo = false;
+    let leftReady = false;
+    let leftGo = false;
+
+    let ballPos = 0;
+    let startTime;
+
     /*
     * Teachable Machine Settings
     */
 
     const initModel = async () => {
 
-        switch(gameType) {
+        switch(3) {
             case 1: 
                 URL = 'https://teachablemachine.withgoogle.com/models/ZWOxIpSRc/';
                 break;
@@ -41,7 +50,7 @@ const GameLoader = ({props}) => {
                 URL = 'https://teachablemachine.withgoogle.com/models/99dOWJKg2/';
                 break;
             case 3: 
-                URL = 'https://teachablemachine.withgoogle.com/models/4lQr_1IZz/';
+                URL = 'https://teachablemachine.withgoogle.com/models/PP6A_2GsN/';
                 break;
             default:
                 URL = 'https://teachablemachine.withgoogle.com/models/M-BMZ7bbw/';
@@ -123,22 +132,26 @@ const GameLoader = ({props}) => {
     
             const prediction = await model.predict(posenetOutput);
 
-            if (!ready && prediction[0].probability > 0.85) {
-                ready = true;
-                console.log("ready -> true");
+            console.log(ballPos, "squat!!");
+            
+
+            if (ballPos == 0 && !rightReady && prediction[1].probability > 0.85) {
+                rightReady = true;
+                console.log("Rready -> true");
             }
-            else if (ready && !set && prediction[1].probability > 0.85) {
-                set = true;
-                console.log("set -> true");
-            }
-            else if (ready && set  && !go && prediction[0].probability > 0.85) {
-                go = true;
-                console.log("go -> true");
-            }
-            else if (go) {
+            else if (ballPos == 0 && rightReady && prediction[0].probability > 0.85) {
                 setCount(prev => prev + 1);
-                ready = set = go = false;
-                console.log("complete", ready, set, go);
+                rightReady = false;
+                console.log("complete 0");
+            }
+            else if (ballPos == 1 && !leftReady && prediction[3].probability > 0.85) {
+                leftReady = true;
+                console.log("Lready -> true");
+            }
+            else if (ballPos == 1 && leftReady && prediction[2].probability > 0.85) {
+                setCount(prev => prev + 1);
+                leftReady = false;
+                console.log("complete 1");
             }
         }
     }
@@ -173,15 +186,15 @@ const GameLoader = ({props}) => {
             loopId = requestAnimationFrame(loop);
         };
 
-        const predictLoop = async () => {
+        const predictLoop = async (timestamp) => {
             
-            switch(gameType) {
+            switch(3) {
                 case 1:
                     await predictJumpingJack();
                     requestAnimationFrame(predictLoop);
                     break;
                 case 2:
-                    timerId = setInterval(() => {
+                    picTimerId = setInterval(() => {
                         console.log("interval");
                         console.log("nextpose", poseList.current[poseIndex]);
                         setTimeout(() => {
@@ -193,7 +206,28 @@ const GameLoader = ({props}) => {
                     }, 5000);
                     break;
                 case 3:
+                    if(!startTime) {
+                        startTime = timestamp;
+                    }
+
+                    let currentTime = timestamp - startTime;
+                    currentTime = Math.floor(currentTime);
+                    console.log(currentTime);
+                    if(currentTime > 5000) {
+                        startTime = timestamp;
+                        ballPos = Math.floor(Math.random() * 2);
+                        console.log(timestamp - startTime, ballPos);
+                    }
+                    // squatTimerId = setInterval(() => {
+                    //     ballPos = Math.floor(Math.random() * 2);
+                    //     console.log(ballPos);
+                    //     setTimeout(() => {
+                    //         predictSquat();
+                    //         console.log("squat");
+                    //     }, 2000);
+                    // }, 5000);
                     await predictSquat();
+                    requestAnimationFrame(predictLoop);
                     break;
                 default:
                     break;
@@ -211,7 +245,8 @@ const GameLoader = ({props}) => {
     useEffect(() => {
 
         cancelAnimationFrame(loopId);
-        clearInterval(timerId);
+        clearInterval(picTimerId);
+        // clearInterval(squatTimerId);
 
     }, [finished])
 
