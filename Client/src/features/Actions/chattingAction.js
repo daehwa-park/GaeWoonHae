@@ -6,6 +6,7 @@
 import $ from "jquery";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
+import { roomActions } from "../../redux/reducer/roomInfoReducer";
 
 function getStompClient(
   hostName,
@@ -14,11 +15,8 @@ function getStompClient(
   setUserList,
   navigate,
   gameType,
-  isStart
 ) {
   return async (dispatch, getState) => {
-    // const navigate = useNavigate();
-    // const gameType = useSelector((state) => state.roomInfo.gameType);
     console.log("호스트명", hostName);
     console.log("세션ID", sessionId);
     console.log("내이름", myName);
@@ -91,9 +89,14 @@ function getStompClient(
         stompClient.subscribe(
           // 채팅방 채널 구독
           "/topic/gameroom/" + sessionId + "/gamestart",
-          function (message) {
-            console.log("넘억자ㅏ");
-            navigate(`/gamepage/${gameType}`);
+          async function (message) {
+            await dispatch(
+              roomActions.getGameUserList({
+                userList,
+              })
+            )
+            console.log("다음 페이지로 넘아감");
+            await navigate(`/gamepage`);
             // 게임 시작 페이지로 이동함.
           } // 구독한 곳으로 메세지가 오면 펑션 메세지가 실행 된다.
         );
@@ -122,6 +125,7 @@ function getStompClient(
                 JSON.stringify(userList)
               );
               console.log(JSON.stringify(userList, null, 2));
+              
             }
           }
         );
@@ -130,14 +134,14 @@ function getStompClient(
           "/topic/chatroom/" + sessionId + "/refresh",
           function (message) {
             // 방장이 아니라면 갱신해버림
-            if (myName !== "hostName") {
+            if (myName !== hostName) {
               userList = JSON.parse(message.body);
 
               console.log(
                 JSON.stringify(userList, null, 2) + "이건 갱신된 요청입니다."
               );
             }
-
+            setUserList(userList);
             showUserInfo(userList);
           }
         );
@@ -174,13 +178,17 @@ function getStompClient(
     }
 
     function gameStart() {
-      var socket = new SockJS("/gwh-websocket");
-      stompClient = Stomp.over(socket);
+      if(userList.length>=1) {
+        
+
       stompClient.send(
         "/app/gameroom/" + sessionId + "/gamestart",
         {},
         JSON.stringify({})
-      );
+      );}
+      else {
+        console.log("방에 사람이 다 안찼어요");
+      }
     }
 
     function showMessage(message) {
@@ -213,16 +221,13 @@ function getStompClient(
       $("#send").click(function () {
         sendChat();
       });
+      $("#gameStart").click(function () {
+        gameStart();
+      });
     });
 
-    if (!isStart) {
       await connect();
       await setUserList(userList);
-      console.log("@@@@@@@@@@@@@@@@@@@@@@");
-    } else {
-      console.log("@@@@@@@@@@@@@@@@@@@@@@222222222");
-      gameStart();
-    }
   };
 }
 

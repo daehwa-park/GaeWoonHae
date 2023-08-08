@@ -5,6 +5,8 @@ import { useSelector } from "react-redux/es/hooks/useSelector"
 
 // components
 import UserVideoComponent from '../../features/openvidu_opencv/openvidu/UserVideoComponent';
+import CommonUI from '../../components/GamePage/games/CommonUI';
+import GameLoader from '../../components/GamePage/games/GameLoader';
 
 // opencv+canvas
 import Webcam from "react-webcam";
@@ -17,7 +19,7 @@ import { OpenVidu } from 'openvidu-browser';
 // stomp
 import SockJS from "sockjs-client"
 import Stomp from "stompjs"
-import GameLoader from '../../components/GamePage/games/GameLoader';
+
 
 
 // 게임페이지
@@ -31,6 +33,7 @@ const GamePage = () => {
     const gameType = useSelector((state) => state.roomInfo.gameType);
     const limitTime = useSelector((state) => state.roomInfo.limitTime);
     // const emoji = useSelector((state) => state.user.emoji);
+    const firstUserList = useSelector((state) => state.roomInfo.userList);
 
     // openvidu states
     const [session, setSession] = useState();
@@ -51,13 +54,7 @@ const GamePage = () => {
     const [finished, setFinished] = useState(false);
     const [gameLoad, setGameLoad] = useState(false);
     const [assetLoad, setAssetLoad] = useState(true);
-    const [userList, setUserList] = useState([
-        {username: "정원", count: 0}, 
-        {username: "김두현", count: 0}, 
-        {username: "수빈", count: 0}, 
-        {username: "우승빈", count: 0}, 
-        {username: "양준영", count: 0}
-    ]);
+    const [userList, setUserList] = useState(firstUserList);
 
     // refs for openCV
     const webcamRef = useRef();
@@ -68,21 +65,8 @@ const GamePage = () => {
     // openVidu Object
     let OV;
 
-    // commonProps
-    const gameProps ={
-        count,
-        setCount,
-        started,
-        setStarted,
-        finished,
-        setFinished,
-        limitTime,
-        setGameLoad,
-        gameType
-    }
-
     // timer
-
+    let timerId;
 
 
     // openCV Settings
@@ -167,6 +151,8 @@ const GamePage = () => {
                     setMainStreamManager(publisher);
                     setPublisher(publisher);
 
+                    setOpenViduLoad(true);
+                    console.log("OPENVIDU CONNECTED!!!!!!!!!!!!")
 
                 })
                 .catch((error) => {
@@ -236,14 +222,19 @@ const GamePage = () => {
         stompClient.connect(headers, function (frame){ 
             stompClient.subscribe(
                 // 게임정보 주고 받는 채널 구독
-                "/topic/gameroom/" + sessionId + "/gameInfo",
-                function (message) {
+                "/topic/gameroom/" + sessionId + "/gameinfo",
+                (message) => {
                     // {username: ? count: ?} 으로 변경된 정보가 날라옴. 받아온 정보로 표시되는 게임 정보 업데이트해야함
                     updateGameInfo(JSON.parse(message.body));
-                } 
+
+
+                }
             );
+            setStompClient(stompClient);
+            setStompLoad(true);
+            console.log("STOMP CONNECTED!!!!!!!!!!!!!!")
         });
-        setStompClient(stompClient);
+
     }
 
     const updateGameInfo = (gameInfo) => {
@@ -259,7 +250,7 @@ const GamePage = () => {
 
     const gameInfoChange = () => {
         stompClient.send(
-            "/app/gameroom/" + sessionId + "/gameInfo",{},
+            "/app/gameroom/" + sessionId + "/gameinfo",{},
             // 내 정보를 해당 채널로 보내면 됨
             JSON.stringify({ username: myName, count: count})
         );
@@ -282,13 +273,8 @@ const GamePage = () => {
             console.log("MODEL LOADED!!!!!!!!!!!!!!!!!!!!")
 
             joinSession();
-            setOpenViduLoad(true);
-            console.log("OPENVIDU CONNECTED!!!!!!!!!!!!")
 
             connectStomp();
-            setStompLoad(true);
-            console.log("STOMP CONNECTED!!!!!!!!!!!!!!")
-
         }
 
         init();
@@ -306,10 +292,9 @@ const GamePage = () => {
     useEffect(() => {
         const startTimer = () => {
             if (timer < limitTime) {
-                setInterval(() => {
+                timerId = setInterval(() => {
                     setTimer(prev => prev + 1);
-                    startTimer();
-                }, )
+                }, 1000)
             } else {
                 setFinished(true);
             }
@@ -322,7 +307,7 @@ const GamePage = () => {
 
     useEffect(() => {
         if (finished) {
-            
+            clearInterval(timerId);
         }
 
     },[finished])
@@ -347,9 +332,9 @@ const GamePage = () => {
                 <img className="inputImage" alt="input" ref={imgRef} style={{display:'none' }}/>
                 <img className="emoji" alt="input" ref={emojiRef} style={{display:'none'}} />
             </div>
-            <GameLoader props={gameProps} />
+            <GameLoader props={{setCount, started, finished, gameType, setGameLoad}} />
             <UserVideoComponent streamManager={mainStreamManager} style={{width:"640px", height:"480px"}}/>
-            <h2>성공한 횟수 : {count}</h2>
+            <CommonUI props={{count, timer, userList}} />
         </div>
     )
 }

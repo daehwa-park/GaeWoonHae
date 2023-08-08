@@ -27,7 +27,7 @@ public class GlobalExceptioonAdvice {
 
     }
 
-    private ResponseEntity makeResponseEntity(CustomExceptionList exceptionType) {
+    private ResponseEntity<ExceptionResponse> makeResponseEntity(CustomExceptionList exceptionType) {
         return ResponseEntity
                 .status(exceptionType.getStatus())
                 .body(ExceptionResponse.builder()
