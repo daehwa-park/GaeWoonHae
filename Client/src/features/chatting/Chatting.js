@@ -73,6 +73,14 @@ const Chatting = ({ setUserList, isStart }) => {
         >
           Send
         </Button>
+        <Button
+          id="gameStart"
+          className="gamestart-btn"
+          variant="primary"
+          type="submit"
+        >
+          gameStart
+        </Button> 
       </Form>
       <div className="user-info" id="result"></div>
     </div>
