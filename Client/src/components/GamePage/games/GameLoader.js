@@ -17,6 +17,7 @@ const GameLoader = ({props}) => {
 
     let URL;
     let loopId;
+    let timerId;
 
     var ready = false;
     var set = false;
@@ -90,6 +91,19 @@ const GameLoader = ({props}) => {
         }
     }
 
+    const predictPictogram = async () => {
+        if (model && webcam) {
+            const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
+    
+            const prediction = await model.predict(posenetOutput);
+
+            if (prediction[0].probability > 0.85) {
+                setCount(prev => prev + 1);
+                console.log("ready -> true");
+            }
+        }
+    }
+
     useEffect(() => {
         
         const init = async () => {
@@ -107,22 +121,32 @@ const GameLoader = ({props}) => {
         const loop = async () => {
             webcam.update();
 
-            switch(gameType) {
+            loopId = requestAnimationFrame(loop);
+        };
+
+        const predictLoop = async () => {
+            
+            switch(2) {
                 case 1:
                     await predictJumpingJack();
+                    requestAnimationFrame(predictLoop);
                     break;
                 case 2:
+                    timerId = setInterval(() => {
+                        predictPictogram();
+                        console.log("interval");
+                    }, 2000);
                     break;
                 case 3:
                     break;
                 default:
                     break;
             }
-            loopId = requestAnimationFrame(loop);
-        };
+        }
 
         if (started)  {
             loop();
+            predictLoop();
             console.log("TIMER START!!!!!!!!!!!!!!")
         }
 
@@ -131,6 +155,7 @@ const GameLoader = ({props}) => {
     useEffect(() => {
 
         cancelAnimationFrame(loopId);
+        clearInterval(timerId);
 
     }, [finished])
 

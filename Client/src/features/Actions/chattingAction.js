@@ -17,8 +17,6 @@ function getStompClient(
   isStart
 ) {
   return async (dispatch, getState) => {
-    // const navigate = useNavigate();
-    // const gameType = useSelector((state) => state.roomInfo.gameType);
     console.log("호스트명", hostName);
     console.log("세션ID", sessionId);
     console.log("내이름", myName);
@@ -174,8 +172,6 @@ function getStompClient(
     }
 
     function gameStart() {
-      var socket = new SockJS("/gwh-websocket");
-      stompClient = Stomp.over(socket);
       stompClient.send(
         "/app/gameroom/" + sessionId + "/gamestart",
         {},
@@ -212,6 +208,9 @@ function getStompClient(
       });
       $("#send").click(function () {
         sendChat();
+      });
+      $("#gameStart").click(function () {
+        gameStart();
       });
     });
 
