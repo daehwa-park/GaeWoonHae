@@ -300,10 +300,10 @@ const Myprofilepage = () => {
 
 
 const data = [
-    {
-        name: "월",
-        kcal: 2400,
-    },
+    // {
+    //     name: "월",
+    //     kcal: 2400,
+    // },
   ];
 export const getData = () => {
   return data;
