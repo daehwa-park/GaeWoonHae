@@ -12,13 +12,13 @@ import {
     ResponsiveContainer,
 } from "recharts";
 
-import { getData } from "./myprofile"; // 데이터 가져오기
+// import { getData } from "./myprofile"; // 데이터 가져오기
 
 export default class Example extends PureComponent {
     // static demoUrl = "https://codesandbox.io/s/simple-line-chart-kec3v";
 
     render() {
-        const data = getData(); 
+        const data = this.props.data; 
         return (
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart

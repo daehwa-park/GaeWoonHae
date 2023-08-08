@@ -22,10 +22,10 @@
 
 .emoji-title2 {
   margin-top: 1vh;
-  margin-left: 49vw;
+  margin-left: 55vw;
   font-size: 22px;
   font-weight: 550;
-  text-decoration-style: double;
+  /* text-decoration-style: double; */
   text-decoration-line: underline;
 }
 
@@ -54,47 +54,72 @@
   margin: auto;
   margin-top: 5vh;
   width: 22vw;
-  height: 23vh;
-  border: 2px solid black;
+  /* height: 23vh; */
+  /* border: 2px solid black; */
 }
 
 .emoji-img {
-  margin-top: 5vh;
-  margin-left: 3vw;
+  margin-top: 2vh;
+  margin-left: 1vw;
   width: 7vw;
   height: 8vh;
   /* border: 2px solid rgb(214, 133, 10); */
 }
 
 .emoji-id {
-  margin-top: 5vh;
-  margin-left: 2vw;
+  margin-top: 2vh;
+  margin-left: 1vw;
 }
 
 .emoji-price {
-  margin-top: 1vh;
-  margin-left: 2vw;
+  margin-top: 2vh;
+  margin-left: 1vw;
 }
 
 .emojicomp {
   margin: 5vh 0 0 4vw;
 }
+
 .select-emoji {
-  display: flex;
+  /* display: flex; */
+  width: 23vw;
+  height: 12vh;
+  /* border: 5px solid rgb(123, 122, 122); */
 }
+
+.pick-emoji {
+  display: flex;
+  margin: 3vh 0 0 1vw;
+  width: 23vw;
+  height: 12vh;
+  border: 3px solid rgb(123, 122, 122);
+}
+
+
 .select-button{
   display: flex;
 }
 .selected-emoji {
+  text-align: center;
+  font-size: 15px;
   margin-left: 1vw;
   width: 5vw;
   height: 5vw;
+  border: 5px solid rgb(183, 183, 177);
 }
 
 .emoji-size {
   margin-right: 1vw;
   width: 8vw;
   height: 8vw;
+  text-transform: uppercase;
+  transition: all 0.4s ease;
+  transform-origin: center; /* 중심을 기준으로 크기를 조절 */
+}
+
+
+.emoji-size:hover, .emoji-size:focus, .emoji-size:active {
+  transform: scale(1.1); /* 크기를 90%로 축소 */
 }
 
 .sellect-btn {

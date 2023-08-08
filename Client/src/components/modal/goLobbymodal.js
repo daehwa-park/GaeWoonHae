@@ -1,6 +1,3 @@
-// 대기방 입장 모달
-// 사용처 : 메인페이지
-
 import "./goLobbymodal.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -19,7 +16,7 @@ function GoLobbyModal({ setModalOpen, id, title, content, writer, value }) {
   const navigate = useNavigate();
   // 2. 함수로직 작성
   const goTogame = () => {
-    navigate(`/gamepage`);
+    navigate(`/lobby/1`);
   };
 
   const gamename = () => {

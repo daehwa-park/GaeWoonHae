@@ -43,7 +43,6 @@ function BuyModal({ setModalOpen, userPoint,userId,selectEmojiId, selectPrice, E
     useEffect(()=> {
         const fetchData = async () => {
             await emojiList(userId)
-            console.log(saveEmoji,'@@@@@@@@@')
         }
         fetchData();
         
@@ -54,7 +53,7 @@ function BuyModal({ setModalOpen, userPoint,userId,selectEmojiId, selectPrice, E
         <div id='Buymodals'>
             {changeBuyMD === 0 && (
                 <div>
-                    <h3 id='codetxt2'>구매하시겠습니까? {saveEmoji}</h3>
+                    <h3 id='codetxt2'>구매하시겠습니까?</h3>
                     <div id='Buymodal'>
                         <p id='buybutton' onClick={emojiBuy} >확인</p>
                         <p id='buybutton' onClick={closeModal}>취소</p>

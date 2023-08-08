@@ -6,20 +6,9 @@
   justify-content: center;
   align-items: center;
   flex-direction: column ;
-  background-color: whitesmoke;
+  background-color: #FEFCF5;
+  background-position: left;
 
-}
-/* 화면 크기가 480px 이하로 작아지면 로그인 박스가 전체 화면을 차지하도록 설정 */
-@media screen and (max-width: 800px) {
-.login-box {
-  width: 100%;
-  height: 100vh;
-}
-
-/* 로그인 페이지의 배경 이미지를 숨김 */
-.login-bg {
-  background-image: none;
-}
 }
 @media (max-width: 991.98px) {
   .login-bg .d-none.d-lg-block {
@@ -33,12 +22,13 @@
 }
 
 .login-font {
-  font-family: 'Bagel Fat One', cursive;
+font-family: 'Noto Sans KR', sans-serif;
+  /* font-family: 'Bagel Fat One', cursive; */
   font-size: 30px;
   margin-bottom: 25px;
 }
 .login-link {
-font-family: 'Bagel Fat One', cursive;
+font-family: 'Noto Sans KR', sans-serif;
 color: #c1aaaa; /* 원하는 색상으로 변경 */
 text-decoration: none;
 border-bottom: 2px solid #b4a7a7; /* 밑줄 효과 추가 */
@@ -46,5 +36,5 @@ border-bottom: 2px solid #b4a7a7; /* 밑줄 효과 추가 */
 }
 
 .login-link:hover {
-color: #ff0000; /* 마우스를 올렸을 때의 색상 변경 */
+color: black; /* 마우스를 올렸을 때의 색상 변경 */
 }
