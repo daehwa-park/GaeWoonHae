@@ -33,7 +33,7 @@ const GameLoader = ({props}) => {
 
     const initModel = async () => {
 
-        switch(2) {
+        switch(gameType) {
             case 1: 
                 URL = 'https://teachablemachine.withgoogle.com/models/ZWOxIpSRc/';
                 break;
@@ -175,7 +175,7 @@ const GameLoader = ({props}) => {
 
         const predictLoop = async () => {
             
-            switch(2) {
+            switch(gameType) {
                 case 1:
                     await predictJumpingJack();
                     requestAnimationFrame(predictLoop);
