@@ -1,0 +1,56 @@
+#changemodals {
+    position: absolute;
+    top: 21%;
+    left: 23%;
+    width: 700px;
+    height: 500px;
+    border: 2px solid rgb(204, 200, 200);
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 2px 2px rgb(133, 132, 132);
+    z-index: 1;
+    text-align: center;
+}
+.emoji-box2 {
+    display:flex;
+}
+.emoji-img2 {
+    /* margin: 20vh 0 0 1vw; */
+    margin-top: 20vh;
+    width: 20vw;
+    border: 2px solid black;
+}
+.emojicomp2 {
+    width: 36vw;
+    height: 35vh;
+    border: 2px solid black;
+}
+
+#codetxt2 {
+    margin-top: 30px;
+}
+
+#changemodal {
+    display: flex;
+    justify-content: center;
+}
+
+#changebutton {
+    margin-top: 40px;
+    margin-left: 20px;
+    width: 110px;
+    height: 40px;
+    border: 2px solid rgb(204, 200, 200);
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 2px 2px rgb(133, 132, 132);
+    text-transform: uppercase;
+    transition:all .2s ease;
+    font-size: 15px;
+}
+
+#changebutton:hover, #changebutton:focus, #changebutton:active {
+    background-color:#a5c8e9 ;
+    color: #282a2b;
+
+}
