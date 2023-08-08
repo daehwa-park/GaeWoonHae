@@ -31,8 +31,8 @@ const CommonUI = ({props}) => {
             <div>
                 timer : {timer}
             </div>
-            {userList.map((user) => (
-                <div>
+            {userList.map((user, idx) => (
+                <div key={idx}>
                     <div>NickName : {user.username}</div>
                     <div>count : {user.count}</div>
                 </div>

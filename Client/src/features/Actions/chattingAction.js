@@ -91,7 +91,7 @@ function getStompClient(
           "/topic/gameroom/" + sessionId + "/gamestart",
           function (message) {
             console.log("넘억자ㅏ");
-            navigate(`/gamepage/${gameType}`);
+            navigate(`/gamepage`);
             // 게임 시작 페이지로 이동함.
           } // 구독한 곳으로 메세지가 오면 펑션 메세지가 실행 된다.
         );
