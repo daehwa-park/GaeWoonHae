@@ -18,6 +18,8 @@ const GameLoader = ({props}) => {
     let URL;
     let loopId;
     let timerId;
+    let poseList = [0,1,2,3];
+    let poseIndex = 0;
 
     var ready = false;
     var set = false;
@@ -97,9 +99,44 @@ const GameLoader = ({props}) => {
     
             const prediction = await model.predict(posenetOutput);
 
-            if (prediction[0].probability > 0.85) {
+            if (prediction[poseList[poseIndex]].probability > 0.85) {
                 setCount(prev => prev + 1);
                 console.log("ready -> true");
+                poseIndex++;
+                if(poseIndex == poseList.length){
+                    poseIndex = 0;
+                }
+                console.log(poseIndex);
+            }
+            else {
+                poseIndex = 0;
+                console.log(poseIndex);
+            }
+        }
+    }
+
+    const predictSquat = async () => {
+        if (model && webcam) {
+            const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
+    
+            const prediction = await model.predict(posenetOutput);
+
+            if (!ready && prediction[0].probability > 0.85) {
+                ready = true;
+                console.log("ready -> true");
+            }
+            else if (ready && !set && prediction[1].probability > 0.85) {
+                set = true;
+                console.log("set -> true");
+            }
+            else if (ready && set  && !go && prediction[0].probability > 0.85) {
+                go = true;
+                console.log("go -> true");
+            }
+            else if (go) {
+                setCount(prev => prev + 1);
+                ready = set = go = false;
+                console.log("complete", ready, set, go);
             }
         }
     }
@@ -112,6 +149,16 @@ const GameLoader = ({props}) => {
             console.log("GAME LOADED!!!!!!!!!!!!!");
         }
 
+        const shuffle = (array) => {
+            for (let i = array.length - 1; i > 0; i--) {
+                  // 무작위로 index 값 생성 (0 이상 i 미만)
+              let j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        shuffle(poseList);
+        console.log(poseList);
         init();
     },[])
 
