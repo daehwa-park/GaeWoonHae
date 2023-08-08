@@ -33,6 +33,7 @@ const GamePage = () => {
     const gameType = useSelector((state) => state.roomInfo.gameType);
     const limitTime = useSelector((state) => state.roomInfo.limitTime);
     // const emoji = useSelector((state) => state.user.emoji);
+    const firstUserList = useSelector((state) => state.roomInfo.userList);
 
     // openvidu states
     const [session, setSession] = useState();
@@ -45,6 +46,7 @@ const GamePage = () => {
     // stomp state
     const [stompClient, setStompClient] = useState();
     const [stompLoad, setStompLoad] = useState(false);
+
     // game states
     const [count, setCount] = useState(0);
     const [timer, setTimer] = useState(0);
@@ -52,13 +54,7 @@ const GamePage = () => {
     const [finished, setFinished] = useState(false);
     const [gameLoad, setGameLoad] = useState(false);
     const [assetLoad, setAssetLoad] = useState(true);
-    const [userList, setUserList] = useState([
-        {username: "정원", count: 0}, 
-        {username: "김두현", count: 0}, 
-        {username: "수빈", count: 0}, 
-        {username: "우승빈", count: 0}, 
-        {username: "양준영", count: 0}
-    ]);
+    const [userList, setUserList] = useState(firstUserList);
 
     // refs for openCV
     const webcamRef = useRef();
@@ -231,14 +227,14 @@ const GamePage = () => {
                     // {username: ? count: ?} 으로 변경된 정보가 날라옴. 받아온 정보로 표시되는 게임 정보 업데이트해야함
                     updateGameInfo(JSON.parse(message.body));
 
-                    
-                } 
+
+                }
             );
             setStompClient(stompClient);
             setStompLoad(true);
             console.log("STOMP CONNECTED!!!!!!!!!!!!!!")
         });
-        
+
     }
 
     const updateGameInfo = (gameInfo) => {
