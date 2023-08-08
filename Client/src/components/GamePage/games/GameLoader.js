@@ -94,13 +94,6 @@ const GameLoader = ({props}) => {
         }
     }
 
-    const setTimer = () => {
-        setTimeout(()=> {
-            setFinished(true);
-        }, limitTime * 1000)
-    }
-
-    
     useEffect(() => {
         
         const init = async () => {
@@ -115,10 +108,10 @@ const GameLoader = ({props}) => {
 
     useEffect(() => {
 
-        const loop = async (started) => {
+        const loop = async () => {
             webcam.update();
 
-            switch(1) {
+            switch(gameType) {
                 case 1:
                     await predictJumpingJack();
                     break;
@@ -133,7 +126,6 @@ const GameLoader = ({props}) => {
         };
 
         if (started)  {
-            setTimer();
             loop();
             console.log("TIMER START!!!!!!!!!!!!!!")
         }
