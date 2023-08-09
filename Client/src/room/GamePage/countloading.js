@@ -31,7 +31,7 @@ const CountLoading =({countdown}) => {
     return (
         <div className="count-loader">
             <div className={`count-time ${animate ? 'count-animate' : ''}`}>
-                {time !== 0 ? time : '게임시작!'}
+                {time !== -1 ? time : '게임시작!'}
             </div>
             <div style={{ textAlign: 'center', fontWeight: 'bold' }}>
                 {time ? time : <div>카운트 다운 종료</div>}
