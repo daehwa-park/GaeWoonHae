@@ -29,9 +29,7 @@ const GameLoader = ({props}) => {
     let go = false;
     
     let rightReady = false;
-    let rightGo = false;
     let leftReady = false;
-    let leftGo = false;
 
     let ballPos = 0;
     let startTime;
@@ -42,7 +40,7 @@ const GameLoader = ({props}) => {
 
     const initModel = async () => {
 
-        switch(3) {
+        switch(gameType) {
             case 1: 
                 URL = 'https://teachablemachine.withgoogle.com/models/ZWOxIpSRc/';
                 break;
@@ -188,7 +186,7 @@ const GameLoader = ({props}) => {
 
         const predictLoop = async (timestamp) => {
             
-            switch(3) {
+            switch(gameType) {
                 case 1:
                     await predictJumpingJack();
                     requestAnimationFrame(predictLoop);
@@ -218,14 +216,7 @@ const GameLoader = ({props}) => {
                         ballPos = Math.floor(Math.random() * 2);
                         console.log(timestamp - startTime, ballPos);
                     }
-                    // squatTimerId = setInterval(() => {
-                    //     ballPos = Math.floor(Math.random() * 2);
-                    //     console.log(ballPos);
-                    //     setTimeout(() => {
-                    //         predictSquat();
-                    //         console.log("squat");
-                    //     }, 2000);
-                    // }, 5000);
+                    
                     await predictSquat();
                     requestAnimationFrame(predictLoop);
                     break;
