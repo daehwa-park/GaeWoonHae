@@ -23,15 +23,24 @@ import Stomp from "stompjs"
 import JumpingJack from '../../components/GamePage/games/ui/JumpingJack';
 import Pictogram from '../../components/GamePage/games/ui/Pictogram';
 import Squat from '../../components/GamePage/games/ui/Squat';
-
-
+// 로딩창
+import CountLoading from './countloading'
+import Loading from './loading'
 
 // 게임페이지
 
 const GamePage = () => {
 
+    // 로딩 애니메이션
+    const loadingtime = 3000;  // 로딩시간 설정
+    const [loading,setLoading] =useState(true);
+    // 로딩이 끝났을떄 카운트 다운
+    const countdown = 5000;
+    const [counting,setCounting] = useState(false);
+    const loadcomplete = useRef(false);
+
     const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? 'https://i9b303.p.ssafy.io/' : 'https://demos.openvidu.io/';
-    const hostName = useSelector((state) => state.roomInfo.hostName);
+    // const hostName = useSelector((state) => state.roomInfo.hostName);
     const myName = useSelector((state) => state.auth.user.nickname);
     const sessionId = useSelector((state) => state.roomInfo.sessionId);
     const gameType = useSelector((state) => state.roomInfo.gameType);
@@ -44,7 +53,7 @@ const GamePage = () => {
     const [mainStreamManager, setMainStreamManager] = useState();
     const [publisher, setPublisher] = useState();
     const [subscriber, setSubscriber] = useState([]);
-    const [currentVideoDevice, setCurrentVideoDevice] = useState();
+    // const [currentVideoDevice, setCurrentVideoDevice] = useState();
     const [openViduLoad, setOpenViduLoad] = useState(false);
 
     // stomp state
@@ -67,29 +76,31 @@ const GamePage = () => {
     const faceImgRef = useRef();
     const emojiRef = useRef();
 
+    // 비디오 종료 조건
+    const stopVideo = useRef(false);
 
 
     // openVidu Object
     let OV;
 
     // timer
-    let timerId;
+    const timerIdRef = useRef(null);
+    // let timerId;
 
-
-
+    
     // openCV Settings
-
+    
     const updateEmoji = async () => {
         detectFace();
         requestAnimationFrame(updateEmoji);
     }
 
     const detectFace = () => {
-
+        
         const imageSrc = webcamRef.current.getScreenshot();
-
+        
         if (!imageSrc) return;
-
+        
         return new Promise((resolve) => {
             imgRef.current.src = imageSrc;
             imgRef.current.onload = async () => {
@@ -97,7 +108,7 @@ const GamePage = () => {
                     const img = cv.imread(imgRef.current);
                     const emo = cv.imread(emojiRef.current)
                     detectHaarFace(img,emo);    // opencv : loadHaarFaceModels()로 화면인식을 학습 => 포인트에 이모지 씌우기
-
+                    
                     cv.imshow(faceImgRef.current, img);
                     img.delete();  // 이미지 초기화
                     resolve();
@@ -108,13 +119,13 @@ const GamePage = () => {
             }
         })
     }
-
-
+    
+    
     // OpenVidu Settings
-
+    
     const joinSession = () => {
         OV = new OpenVidu();
-
+        
         let session = OV.initSession();
 
         if (session) {
@@ -125,19 +136,19 @@ const GamePage = () => {
                 newSubscriber.push(sessionSubscriber);
                 setSubscriber(newSubscriber);
             });
-
+            
             session.on('streamDestoryed', (event) => {
                 subscriberLeave(event.stream.streamManager);
             });
-
+            
             session.on('exception', (e) => {
                 console.warn(e); 
             })
 
             getToken()
-                .then(async (token) => {
-                    await session.connect(token, {clientData: myName});
-                })
+            .then(async (token) => {
+                await session.connect(token, {clientData: myName});
+            })
                 .then(async () => {
 
                     const canvas = document.getElementById("canvas1")
@@ -152,9 +163,9 @@ const GamePage = () => {
                         insertMode : 'APPEND', 
                         mirror : false, 
                     })
-
+                    
                     session.publish(publisher);
-
+                    
                     setSession(session);
                     setMainStreamManager(publisher);
                     setPublisher(publisher);
@@ -166,16 +177,16 @@ const GamePage = () => {
                 .catch((error) => {
                     console.log('There was an error connecting to the session:', error);
                 });
+            }
         }
-    }
-
-    const leaveSession = () => {
-        const mySession = session;
-
-        if (mySession) {
+        
+        const leaveSession = () => {
+            const mySession = session;
+            
+            if (mySession) {
             mySession.disconnect();
         }
-
+        
         OV = null;
         setSession(undefined);
         setSubscriber([]);
@@ -183,6 +194,8 @@ const GamePage = () => {
         setPublisher(undefined);
 
     }
+    //임시 사용
+    console.log(publisher,setAssetLoad,setRenderingcount,leaveSession)
     
     const subscriberLeave = (streamManager) => {
         let remainSubscriber = subscriber;
@@ -234,8 +247,6 @@ const GamePage = () => {
                 (message) => {
                     // {username: ? count: ?} 으로 변경된 정보가 날라옴. 받아온 정보로 표시되는 게임 정보 업데이트해야함
                     updateGameInfo(JSON.parse(message.body));
-
-
                 }
             );
             setStompClient(stompClient);
@@ -264,6 +275,12 @@ const GamePage = () => {
         );
     }
 
+    // 언마운트시에 비디오 종료
+    const onUnmount = () => {
+        stopVideo.current = true
+        console.log('언마운트 성공')
+    }
+
     // useEffects
 
     useEffect(() => {
@@ -283,9 +300,13 @@ const GamePage = () => {
             joinSession();
 
             connectStomp();
+        
+ 
         }
 
         init();
+        return onUnmount  
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     useEffect(() => {
@@ -297,27 +318,39 @@ const GamePage = () => {
 
     },[stompLoad, openViduLoad, gameLoad, assetLoad])
 
+
+
     useEffect(() => {
         const startTimer = () => {
             if (timer < limitTime) {
-                timerId = setInterval(() => {
+                timerIdRef.current = setInterval(() => {
                     setTimer(prev => prev + 1);
                 }, 1000)
             } else {
                 setFinished(true);
             }
         }
-
+        console.log(loadcomplete.current, '로딩중@@@@@@@@@@@@@@@@@@@@@@@@@')
+        //로딩 조건
         if (started) {
             startTimer();
+            setLoading(false);
+            setCounting(true);
+            loadcomplete.current=true
+            console.log(loadcomplete.current, '로딩완료@@@@@@@@@@@@@@@@@@@@@@@@@')
+            setTimeout(()=> {
+                setCounting(false);
+            }, countdown);
+
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [started])
 
     useEffect(() => {
         if (finished) {
-            clearInterval(timerId);
+            clearInterval(timerIdRef.current);
         }
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[finished])
 
     // 게임 카운트 갱신
@@ -325,7 +358,10 @@ const GamePage = () => {
         if (count !== 0) {
             gameInfoChange();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[count])
+
+
 
 
     return (
@@ -336,6 +372,9 @@ const GamePage = () => {
                 <span className='Logo2'>GAEWOONHAE</span>
             </div>
             <div className="mainscreen">
+                {/* 로딩 애니메이션 */}
+                {loading ? <Loading />:null }
+                {counting ? <CountLoading countdown={countdown} /> : null}
                 <div className='gametitle'>
                     <h1 className='titlename'>박 터트리기!!</h1>
                     <p >빠르고 정확한 동작으로 더 많이 박을 터트리세요!</p>
@@ -368,7 +407,7 @@ const GamePage = () => {
                                     <div id="main-video" >
                                         <UserVideoComponent streamManager={mainStreamManager}/>
                                         {/* 위에 공통 UI */}
-                                        <CommonUI props={{count, timer, userList}} />
+                                        <CommonUI props={{count, timer, userList,loadingtime, countdown,loadcomplete}} />
                                         {/* 위에 게임별 이미지 UI */}
                                         {gameType === 1 && <JumpingJack />}
                                         {gameType === 2 && <Pictogram />}
@@ -443,6 +482,8 @@ const GamePage = () => {
                     <hr />
                 </div>
             </div>
+
+
             <div className="footer"></div>
             {/* <button type="button" onClick={init}>Start</button>
             <h4>횟수 : {myCount}</h4> */}

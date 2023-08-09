@@ -40,7 +40,7 @@ const Myprofilepage = () => {
   const [todayKcal, setTodayKcal] = useState(0); // useState를 이용하여 상태로 관리
   const [totalKcal, setTotalKcal] = useState(0); // useState를 이용하여 상태로 관리
   const [dateKcal, setDateKcal] = useState(0); // useState를 이용하여 상태로 관리
-  const [selectKcal, setSelectedKcal] = useState(0); // useState를 이용하여 상태로 관리
+  // const [selectKcal, setSelectedKcal] = useState(0); // useState를 이용하여 상태로 관리
 
   const [selectedDate, setSelectedDate] = useState(new Date()); // 선택된 날짜를 상태로 관리
 
@@ -267,10 +267,10 @@ const Myprofilepage = () => {
       <div className='mypage-body1'>
         {LobbymodalOpen1 && <ChangeNick  setModalOpen={setLobbyModalOpen1} userId={userId} />}    
         {LobbymodalOpen2 && <ChangeEmo  setModalOpen={setLobbyModalOpen2} />}    
+        
         <div className='mypageleft'>
           <div className='profile-img'>
             <img className='main-emoji' onClick={()=>showLobbyModal2()} src={getEmoji(useremoji)}  alt=""/>
-     
           </div>
           
           <div className='nickname'>
@@ -285,7 +285,8 @@ const Myprofilepage = () => {
 
    
           <div className='savepoint'>
-              보유 포인트 : <span className='points'>{userpoint}c</span>    
+              보유 포인트 : <span className='points'>{userpoint}c</span>
+              <button className='changebtn' onClick={()=>showLobbyModal1()}>목록 조회</button> 
           </div>
 
           <div className='leavesecession' onClick={()=>withdrawal()} >탈퇴하기</div>
