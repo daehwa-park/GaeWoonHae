@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState, useRef } from 'react';
-import {Link} from 'react-router-dom'
 import { useSelector } from "react-redux/es/hooks/useSelector"
+import './GamePage.css'
+
 
 // components
 import UserVideoComponent from '../../features/openvidu_opencv/openvidu/UserVideoComponent';
@@ -19,6 +20,9 @@ import { OpenVidu } from 'openvidu-browser';
 // stomp
 import SockJS from "sockjs-client"
 import Stomp from "stompjs"
+import JumpingJack from '../../components/GamePage/games/ui/JumpingJack';
+import Pictogram from '../../components/GamePage/games/ui/Pictogram';
+import Squat from '../../components/GamePage/games/ui/Squat';
 
 
 
@@ -55,6 +59,7 @@ const GamePage = () => {
     const [gameLoad, setGameLoad] = useState(false);
     const [assetLoad, setAssetLoad] = useState(true);
     const [userList, setUserList] = useState(firstUserList);
+    const [renderingcount,setRenderingcount] = useState([0,1,2,3])
 
     // refs for openCV
     const webcamRef = useRef();
@@ -62,11 +67,14 @@ const GamePage = () => {
     const faceImgRef = useRef();
     const emojiRef = useRef();
 
+
+
     // openVidu Object
     let OV;
 
     // timer
     let timerId;
+
 
 
     // openCV Settings
@@ -314,27 +322,132 @@ const GamePage = () => {
 
     // 게임 카운트 갱신
     useEffect(()=> {
-        if (count != 0) {
+        if (count !== 0) {
             gameInfoChange();
         }
     },[count])
 
 
     return (
-        <div>
-            <div style={{ width: "400px" ,visibility:"hidden" ,display:"flex", position:"absolute"}}>
-                <Webcam
-                        ref={webcamRef}
-                        className="webcam"
-                        mirrored
-                        screenshotFormat="image/jpeg" />
-                <canvas id="canvas1" className="outputImage" ref={faceImgRef} style={{gdisplay:'none'}}/>
-                <img className="inputImage" alt="input" ref={imgRef} style={{display:'none' }}/>
-                <img className="emoji" alt="input" ref={emojiRef} style={{display:'none'}} />
+        <div className='gamepage'>
+            <div className="head">
+                <span>l l l</span>
+                <span className='Logo1'>게운해 </span>
+                <span className='Logo2'>GAEWOONHAE</span>
             </div>
-            <GameLoader props={{setCount, started, finished, gameType, setGameLoad}} />
-            <UserVideoComponent streamManager={mainStreamManager} style={{width:"640px", height:"480px"}}/>
-            <CommonUI props={{count, timer, userList}} />
+            <div className="mainscreen">
+                <div className='gametitle'>
+                    <h1 className='titlename'>박 터트리기!!</h1>
+                    <p >빠르고 정확한 동작으로 더 많이 박을 터트리세요!</p>
+                    <hr />
+                </div>
+                <div className="gamescreen">
+                    <div className='messagebtntag'>
+                        {/* 채팅 모달창 */}
+                            {/* <button className='messagebtn' onClick={showModal}>버튼</button>
+                            {modalOpen && <ChatModal className='chatmodal' setModalOpen={setModalOpen} />} */}
+                    </div>
+                    <div className="mainvideo">
+                        <div id="session">
+                            {/* OpenCV용 Canvas (전부 invisible 시켜놓으면 됨) */}
+                            <div style={{ width: "400px" ,visibility:"hidden" ,display:"flex", position:"absolute"}}>
+                                <Webcam
+                                        ref={webcamRef}
+                                        className="webcam"
+                                        mirrored
+                                        screenshotFormat="image/jpeg" />
+                                <canvas id="canvas1" className="outputImage" ref={faceImgRef} style={{visibility:"hidden"}}/>
+                                <img className="inputImage" alt="input" ref={imgRef} style={{display:'none' }}/>
+                                <img className="emoji" alt="input" ref={emojiRef} style={{display:'none'}} />
+                            </div>
+                            {/* 게임 로직 컴포넌트 (아무 배치요소 없음) */}
+                            <GameLoader props={{setCount, started, finished, gameType, setGameLoad}} />
+                            <div id="video-container" style={{ display:"flex"}}>
+                                {/* 내 화면 */}
+                                <div id="main-videos" style={{ flex:"1 0 60%" }}>
+                                    <div id="main-video" >
+                                        <UserVideoComponent streamManager={mainStreamManager}/>
+                                        {/* 위에 공통 UI */}
+                                        <CommonUI props={{count, timer, userList}} />
+                                        {/* 위에 게임별 이미지 UI */}
+                                        {gameType === 1 && <JumpingJack />}
+                                        {gameType === 2 && <Pictogram />}
+                                        {gameType === 3 && <Squat />}
+
+                                    </div>
+                                </div>
+                                
+                                {console.log("구독자 수!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" , subscriber.length)}
+                                {/* 참여자가 4명이상일떄 */}
+                                {subscriber.length >= 4 ? (
+
+                                    <div id="sub-videos" style={{ flex:"1 0 35%", display:"grid"}}> 
+                                        {subscriber.map((sub, i) => (
+            
+                                                <div id="sub-video2" key={i}>
+                                                    <h2>{i+1}</h2>
+                                                {/* <span>{sub.id}</span> */}
+                                                    <UserVideoComponent streamManager={sub} />
+                                                    {/* {LenSubscribers} */}
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                    ) :null}
+
+                                {/* 참여자가 3명 이하일때 빈자리 표기 */}
+                                {subscriber.length <= 3 ? (
+                                <div id="sub-videos" style={{ flex:"1 0 35%", display:"grid"}}> 
+                                    {subscriber.map((sub, i) => (
+                                            // <div id="sub-video2" key={sub.id} onClick={() => this.handleMainVideoStream(sub)} >
+                                            <div id="sub-video2" key={i}>
+                                                {/* <h2>{i+1}</h2> */}
+                                            {/* <span>{sub.id}</span> */}
+                                                <UserVideoComponent streamManager={sub} />
+                                                {/* {LenSubscribers} */}
+                                            </div>
+                                        ))
+                                    } 
+
+                                    {renderingcount.map((count,i) => {
+                                        if (count <= 3-subscriber.length){
+                                            return (
+                                                <div id="sub-video2" key={i}><img id="sub-video2" src="/images/img/emty.png" alt="dsa" /></div>
+                                            ); 
+                                        } else {
+                                            return null;
+                                        }
+                                    })}
+                                    </div>
+                                    ) :null}
+                                {/* 상대방 화면 */}
+                                {/* <div id="sub-videos" style={{ flex:"1 0 35%", display:"grid"}}> 
+                                    {subscriber.map((sub, idx) => {
+                                        if (JSON.parse(sub.stream.connection.data).clientData !== myName) {
+                                            return(
+                                                <div id="sub-video2" key={idx}>
+                                                    <UserVideoComponent streamManager={sub} />
+                                                </div>
+                                            )
+                                        } else {
+                                            return null;
+                                        }
+                                    })}
+                                </div> */}
+                            </div>
+                        </div>
+                        {/* <VideoApp leavethisSession={leavethisSession}/> */}
+                    </div>
+                </div>
+                <div className="linehr">
+                    <hr />
+                </div>
+            </div>
+            <div className="footer"></div>
+            {/* <button type="button" onClick={init}>Start</button>
+            <h4>횟수 : {myCount}</h4> */}
+            {/* <button onClick={handleLeaveSession}> 방 나가기 </button> */}
+            {/* <Link to='/main'><button>게임나가기</button></Link> */}
         </div>
     )
 }
