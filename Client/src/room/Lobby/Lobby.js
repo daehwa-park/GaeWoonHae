@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 import "./Lobby1.css";
-import { Container, Row, Col } from "react-bootstrap/";
+import { Container, Row, Col, Card } from "react-bootstrap/";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 
 import Chatting from "../../features/chatting/Chatting";
@@ -16,36 +16,17 @@ const Lobby = () => {
     "따라해요 픽토그램!",
     "피해봐요, 오늘의 X!",
   ];
-
   const [userList, setUserList] = useState([]);
-
-  // const [loading, setLoading] = useState(true);
-
-  // const hostName = useSelector((state) => state.roomInfo.hostName);
-  // const myName = useSelector((state) => state.auth.user.nickname);
-  // const sessionId = useSelector((state) => state.roomInfo.sessionId);
+  useEffect(() => {
+    console.log("나 유저리스트야", userList);
+  }, [userList]);
+  
   const gameType = useSelector((state) => state.roomInfo.gameType);
+  const sessionId = useSelector((state) => state.roomInfo.sessionId);
   const gameName = gameNameList[gameType - 1];
-  //axios요청 => room에 5명있때만 게임 실행
-
-  //   const gamestart = async () => {
-  //     try {
-  //       const requestData = {
-  //         sessionId: "session_id_asd",
-  //       };
-  //       const response = await axios.post(
-  //         "http://localhost:5000/api/room/start",
-  //         requestData
-  //       );
-  //       console.log(response);
-  //       // navigate(`/lobby/${value}`)
-  //     } catch (error) {
-  //       console.error("생성 실패", error);
-  //     }
-  //   };
 
   return (
-    <div>
+    <div className="lobby-body">
       <Container>
         <Row className="title-row">
           <Col className="title-box">
@@ -57,14 +38,40 @@ const Lobby = () => {
             <Chatting setUserList={setUserList} />
           </Col>
           <Col md={6} className="video-col">
-            <Row>비디오</Row>
             <Row>
-              <Col>초대 코드</Col>
-              <Col>제한 시간</Col>
+              <video
+                id="videoElement"
+                width="640"
+                height="480"
+                autoPlay
+                style={{ display: "none" }}
+              ></video>
+              <canvas id="canvas"></canvas>
+            </Row>
+            <Row>
+              <Col className="invite-time-container">
+                <Card bg="light" style={{ width: "18rem" }}>
+                  <Card.Header>초대코드</Card.Header>
+                  <Card.Body>
+                    <Card.Title>{sessionId}</Card.Title>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col className="invite-time-container">
+                <Card bg="light" style={{ width: "18rem" }}>
+                  <Card.Header>제한 시간</Card.Header>
+                  <Card.Body>
+                    <Card.Title>시간을 입력하세요</Card.Title>
+                  </Card.Body>
+                </Card>
+              </Col>
             </Row>
           </Col>
           <Col md={3} className="game-col">
-            <GameRoomInfoStart userList={userList} />
+            <GameRoomInfoStart
+              userList={userList}
+              gameType={gameType}
+            />
           </Col>
         </Row>
       </Container>

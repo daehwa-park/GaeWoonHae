@@ -23,7 +23,8 @@ const LoginBox = () => {
       <div>
         <img
           className="login-logo"
-          src="/images/img/gaewonhae_logo.png"
+          // src="/images/img/gaewonhae_logo.png"
+           src="/images/img/Logo_animation.gif"
           alt="logoImg"
         />
       </div>

@@ -13,6 +13,7 @@ const authenticateSlice = createSlice({
       point: 0,
       emojiId: null,
       oauthProvider: "",
+      saveEmoji:[1]
     },
   },
 
@@ -33,10 +34,29 @@ const authenticateSlice = createSlice({
     },
     // payload의 유저 id를 바탕으로 유저 정보를 저장하는 리듀서 함수입니다.
     getUserInfo(state, action) {
-      state.user.nickname = action.payload.userInfo.nickname;
-      state.user.point = action.payload.userInfo.point;
-      state.user.emojiId = action.payload.userInfo.emojiId;
-      state.user.oauthProvider = action.payload.userInfo.oauthProvider;
+      state.user.nickname = action.payload.nickname;
+      state.user.point = action.payload.point;
+      state.user.emojiId = action.payload.emojiId;
+      state.user.oauthProvider = action.payload.oauthProvider;
+    },
+    changeNickname(state,action) {
+      state.user.nickname = action.payload;
+    },
+
+    applyEmoji(state,action) {
+      state.user.emojiId = action.payload.emojiId;
+    },
+
+    emojiBuy(state, action) {
+      // state.user.saveEmoji.push(action.payload.getemoji);
+      state.user.point = action.payload.mypoint;
+    },
+    emojiList(state, action) {
+      // const sortedEmojiList = action.payload.emojiList.sort((a, b) => b - a);
+      // state.user.saveEmoji = [...sortedEmojiList];
+      // console.log(action.payload.emojiList,'체크@@@')
+      state.user.saveEmoji = action.payload.emojiList.sort((a, b) => a-b) ?? [1];
+      // console.log(state.user.saveEmoji)
     },
   },
 });

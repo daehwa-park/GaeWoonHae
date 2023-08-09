@@ -1,3 +1,6 @@
+// 초대코드 입장 모달
+// 사용처: 메인페이지, 마이페이지
+
 import "./RecommendModal.css"
 
 function RecommendModal({ setModalOpen, id, title, content, writer }) {

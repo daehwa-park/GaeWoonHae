@@ -1,23 +1,31 @@
 import "./goLobbymodal.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { enterRoomAction } from "../../features/Actions/enterRoomAction";
-import { useDispatch } from "react-redux";
 
-function GoLobbyModal({ setModalOpen, id, title, content, writer, value }) {
+import { enterRoomAction } from "../../features/Actions/enterRoomAction";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+
+function GoLobbyModal({ setModalOpen, value }) {
   const dispatch = useDispatch();
 
+  const userId = useSelector((state) => state.auth.user.userId);
+  const sessionId = useSelector((state) => state.roomInfo.sessionId);
   // 모달 끄기
   const closeModal = () => {
     setModalOpen(false);
   };
+  const [shouldNavigate, setShouldNavigate] = useState(false); // shouldNavigate 상태 추가
 
+  const goToLobby = () => {
+    if (shouldNavigate) {
+      // shouldNavigate가 true일 때만 navigate 실행
+      navigate(`/lobby/${value}/${sessionId}`);
+      setShouldNavigate(false); // navigate 후 shouldNavigate를 다시 false로 설정
+    }
+  };
   // 1. navigate 선언
   const navigate = useNavigate();
   // 2. 함수로직 작성
-  const goTogame = () => {
-    navigate(`/lobby/1`);
-  };
 
   const gamename = () => {
     if (value === 1) {
@@ -28,44 +36,32 @@ function GoLobbyModal({ setModalOpen, id, title, content, writer, value }) {
       return "공피하기 방생성";
     }
   };
-
-
   //방입장
-  const lobbyapi = axios.create({
-    baseURL: process.env.REACT_APP_SPRING_URI,
-    headers: { "cotent-type": "application/json" },
-
-  })
-
   const findRoom = async () => {
     const requestData = {
-      gameType: 1,
+      gameType: value,
     };
     await dispatch(enterRoomAction.getRoomInfo(requestData));
-    await goTogame();
+    setShouldNavigate(true); // 방 입장 클릭 후 shouldNavigate를 true로 설정
   };
+
   // 방생성a
   // 초대용방 확인 isPublicRoom = T (공용방), F (비공개방)
 
-  const createRoom = async(dispatch) => {
-    // dispatch(findRoomRequest());
-    try {
-        const requestData = {
-            isPublicRoom: "T",
-            userId: 1,
-            gameType: 1,
-        };
-        
-        const res = await lobbyapi.post("/api/room/make", 
-            requestData,
-        );
-        console.log(res);
-        goTogame()
-      } catch (error) {
-        console.log(error, "요청실패");
+  const createRoom = async () => {
+    const requestData = {
+      isPublicRoom: "Y",
+      userId,
+      gameType: 1,
+    };
+    await dispatch(enterRoomAction.makeRoomInfo(requestData));
+    setShouldNavigate(true); // 방 생성 클릭 후 shouldNavigate를 true로 설정
+  };
+  useEffect(() => {
+    if (sessionId) {
+      goToLobby();
     }
-};
-
+  }, [shouldNavigate]);
 
   return (
     <div>
@@ -78,6 +74,10 @@ function GoLobbyModal({ setModalOpen, id, title, content, writer, value }) {
           <div className="Loobycreate roomtext" onClick={() => createRoom()}>
             {" "}
             <p>방 생성</p>
+            <br />
+            <div>
+              <input type="radio"></input>
+            </div>
           </div>
           <div className="Loobyselect roomtext" onClick={() => findRoom()}>
             {" "}
