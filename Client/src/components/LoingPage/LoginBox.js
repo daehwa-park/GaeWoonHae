@@ -23,13 +23,17 @@ const LoginBox = () => {
       <div>
         <img
           className="login-logo"
-          // src="/images/img/gaewonhae_logo.png"
-           src="/images/img/Logo_animation.gif"
-          alt="logoImg"
+           src="/images/img/gif_logo.gif"
+          alt="logoImg" 
         />
       </div>
 
-      <div className="login-font">게임으로 운동하자!</div>
+      <div>
+      <img
+           src="/images/img/gamement.png"
+          alt="logoImg"
+        />
+      </div>
       <div className="mb-2">
         <img
           onClick={getKakaoAuthURL} // onClick 핸들러에서 함수 참조만 할 것

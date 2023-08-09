@@ -7,7 +7,7 @@ import RecommendModal from "../modal/RecommendModal"
 import { useDispatch,useSelector} from "react-redux";
 import { authenticateAction } from "../../features/Actions/authenticateAction";
 import mypageicon from "../../assets/img/mypage_icon.png"
-import logo from '../../assets/img/logo_.png'
+import logo from '../../assets/img/purple_logo.png'
 
 
 const NavBoxTag = ( ) => {

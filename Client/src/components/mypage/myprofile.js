@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux/es/hooks/useSelector'
 import ChangeNick from '../../components/modal/ChangeNickname'
 import ChangeEmo from '../../components/modal/ChangeEmoji'
+import ShowPointHistory from '../../components/modal/ShowPointHistory'
 import { authenticateAction } from "../../features/Actions/authenticateAction";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"
@@ -215,6 +216,7 @@ const Myprofilepage = () => {
   // 모달창 관리
   const [LobbymodalOpen1, setLobbyModalOpen1] = useState(false);
   const [LobbymodalOpen2, setLobbyModalOpen2] = useState(false);
+  const [LobbymodalOpen3, setLobbyModalOpen3] = useState(false);
 
   const showLobbyModal1 = () => {
     setLobbyModalOpen1(true);
@@ -222,6 +224,11 @@ const Myprofilepage = () => {
   const showLobbyModal2 = () => {
     setLobbyModalOpen2(true);
   };
+
+  const showLobbyModal3 = () => {
+    setLobbyModalOpen3(true);
+  };
+  
   
   // 이모지 선택 관리
   const getEmoji = (emojiId) => {
@@ -267,6 +274,7 @@ const Myprofilepage = () => {
       <div className='mypage-body1'>
         {LobbymodalOpen1 && <ChangeNick  setModalOpen={setLobbyModalOpen1} userId={userId} />}    
         {LobbymodalOpen2 && <ChangeEmo  setModalOpen={setLobbyModalOpen2} />}    
+        {LobbymodalOpen3 && <ShowPointHistory  setModalOpen={setLobbyModalOpen3}  userId={userId} />}    
         
         <div className='mypageleft'>
           <div className='profile-img'>
@@ -286,7 +294,7 @@ const Myprofilepage = () => {
    
           <div className='savepoint'>
               보유 포인트 : <span className='points'>{userpoint}c</span>
-              <button className='changebtn' onClick={()=>showLobbyModal1()}>목록 조회</button> 
+              <button className='changebtn' onClick={()=>showLobbyModal3()}>목록 조회</button> 
           </div>
 
           <div className='leavesecession' onClick={()=>withdrawal()} >탈퇴하기</div>

@@ -64,26 +64,30 @@ h2 {
 } */
 .centered-image-container {
   position: relative; /* 위치 설정을 위해 */
-  height: 60%; /* 컨테이너의 높이를 60%로 설정 */
+  height: 45vh; /* 컨테이너의 높이를 60%로 설정 */
   display: flex;
   align-items: center;
   justify-content: center;
+  /* border: 2px solid red; */
 }
 
 .centered-image {
   max-height: 100%; /* 이미지의 최대 높이를 100%로 설정 */
   max-width: 100%; /* 이미지의 최대 너비를 100%로 설정 */
 }
+.slide-title {
+  /* border: 2px solid rgb(64, 62, 183); */
+  height: 5vh;
+}
 
 .slide-text {
-  position: absolute; /* 절대 위치 설정을 위해 */
-  bottom: 0; /* 아래에 배치 */
-  left: 0; /* 왼쪽에 배치 */
+  height: 6vh;
   width: 100%; /* 전체 너비를 차지하도록 설정 */
   text-align: center; /* 가운데 정렬 */
   /* background-color: rgba(0, 0, 0, 0.6); 배경 색상 설정 */
   color: black; /* 글자 색상 설정 */
   padding: 10px; /* 여백 설정 */
+  /* border: 2px solid rgb(64, 62, 183); */
 }
 
 .hero-slider .swiper-slide {
@@ -156,7 +160,7 @@ h2 {
   font-family: "Font Awesome 5 Free";
   content: "\f060";
   font-size: 15px;
-  color: #d4d3d3;
+  color: #f0ebeb;
   font-style: normal;
   display: inline-block;
   vertical-align: middle;
