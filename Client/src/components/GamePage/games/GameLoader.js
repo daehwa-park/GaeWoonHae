@@ -1,6 +1,8 @@
 import React, {  useEffect, useRef, useState } from 'react';
 // import { useSelector } from "react-redux/es/hooks/useSelector";
-
+import JumpingJack from './ui/JumpingJack';
+import Pictogram from './ui/Pictogram';
+import Squat from './ui/Squat';
 
 const GameLoader = ({props}) => {
 
@@ -132,20 +134,20 @@ const GameLoader = ({props}) => {
             console.log(ballPos, "squat!!");
             
 
-            if (ballPos == 0 && !rightReady && prediction[1].probability > 0.85) {
+            if (ballPos === 0 && !rightReady && prediction[1].probability > 0.85) {
                 rightReady = true;
                 console.log("Rready -> true");
             }
-            else if (ballPos == 0 && rightReady && prediction[0].probability > 0.85) {
+            else if (ballPos === 0 && rightReady && prediction[0].probability > 0.85) {
                 setCount(prev => prev + 1);
                 rightReady = false;
                 console.log("complete 0");
             }
-            else if (ballPos == 1 && !leftReady && prediction[3].probability > 0.85) {
+            else if (ballPos === 1 && !leftReady && prediction[3].probability > 0.85) {
                 leftReady = true;
                 console.log("Lready -> true");
             }
-            else if (ballPos == 1 && leftReady && prediction[2].probability > 0.85) {
+            else if (ballPos === 1 && leftReady && prediction[2].probability > 0.85) {
                 setCount(prev => prev + 1);
                 leftReady = false;
                 console.log("complete 1");
@@ -244,6 +246,10 @@ const GameLoader = ({props}) => {
 
     return(
         <div>
+            {/* 위에 게임별 이미지 UI */}
+            {gameType === 1 && <JumpingJack />}
+            {gameType === 2 && <Pictogram />}
+            {gameType === 3 && <Squat />}
         </div>
     )
 }

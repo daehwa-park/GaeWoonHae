@@ -1,0 +1,41 @@
+#Endmodals {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80vw;
+    height: 80vh;
+    border: 2px solid rgb(204, 200, 200);
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 2px 2px rgb(133, 132, 132);
+    z-index: 1;
+    text-align: center;
+}
+#codetxt3 {
+    margin-top: 30px;
+}
+
+#Endmodal {
+    display: flex;
+    justify-content: center;
+}
+
+#Endbutton {
+    margin-top: 40px;
+    margin-left: 20px;
+    width: 110px;
+    height: 40px;
+    border: 2px solid rgb(204, 200, 200);
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 2px 2px rgb(133, 132, 132);
+    text-transform: uppercase;
+    transition:all .2s ease;
+    font-size: 15px;
+}
+
+#Endbutton:hover, #Endbutton:focus, #Endbutton:active {
+    background-color:#a5c8e9 ;
+    color: #282a2b;
+
+}
