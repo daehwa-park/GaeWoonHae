@@ -8,7 +8,7 @@ OPENVIDU_SECRET: openb303
 
 spring:
   profiles:
-    active: prod
+    active: local
 
 
 
