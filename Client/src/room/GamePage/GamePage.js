@@ -328,7 +328,7 @@ const GamePage = () => {
                         className="webcam"
                         mirrored
                         screenshotFormat="image/jpeg" />
-                <canvas id="canvas1" className="outputImage" ref={faceImgRef} style={{display:'none'}}/>
+                <canvas id="canvas1" className="outputImage" ref={faceImgRef} style={{gdisplay:'none'}}/>
                 <img className="inputImage" alt="input" ref={imgRef} style={{display:'none' }}/>
                 <img className="emoji" alt="input" ref={emojiRef} style={{display:'none'}} />
             </div>
