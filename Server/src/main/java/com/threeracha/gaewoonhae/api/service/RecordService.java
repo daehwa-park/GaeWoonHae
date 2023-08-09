@@ -1,5 +1,6 @@
 package com.threeracha.gaewoonhae.api.service;
 
+import com.threeracha.gaewoonhae.api.dto.request.SaveRecordRequest;
 import com.threeracha.gaewoonhae.api.dto.response.RecordResponse;
 import com.threeracha.gaewoonhae.db.domain.Record;
 import com.threeracha.gaewoonhae.db.repository.RecordRepository;
@@ -79,4 +80,7 @@ public class RecordService {
                 .collect(Collectors.toList());
     }
 
+    public String saveRecord(SaveRecordRequest saveRecordReq) {
+        return null;
+    }
 }
