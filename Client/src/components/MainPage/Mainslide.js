@@ -112,60 +112,53 @@ const Mainslide=() => {
                 <section className="hero-slider hero-style">
                 <div className="swiper-container">
                     <div className="swiper-wrapper">
+
                         <div className="swiper-slide" >
-                            <div className="slide-inner slide-bg-image1" data-background="https://images.unsplash.com/photo-1578934191836-ff5f608c2228?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1349&q=80">
+                            <div className="slide-inner slide-bg-image1">
                                 <div className="container">
+                                    <div className="centered-image-container">
+                                        <img src="/images/img/pick.gif" alt="튜토리얼 GIF" className="centered-image" />
+                                    </div>
                                     <div data-swiper-parallax="300" className="slide-title">
                                          <h2>픽토그램</h2>
                                     </div>
                                     <div data-swiper-parallax="400" className="slide-text">
-                                        <p>Want to see your kid become more expressive?</p>
+                                        <p>랜덤하게 생성되는 픽토그램의 자세를 따라해보세요</p>
                                     </div>
                                     
-                                    <div className="clearfix"></div>
-                                    <div data-swiper-parallax="500" className="slide-btns">
-                                        <a href="/main" className="theme-btn-s2">튜토리얼</a>
-                                        <a href="/main" className="theme-btn-s3"><i className="fas fa-chevron-circle-right"></i> Game Info</a>
-
-                                    </div>
+                                    {/* <div className="clearfix"></div> */}
                                 </div>
                             </div>
                         </div>
                         
 
                         <div className="swiper-slide">
-                            <div className="slide-inner slide-bg-image2" data-background="https://images.unsplash.com/photo-1579003087287-997fd4d18771?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
+                            <div className="slide-inner slide-bg-image2" >
                                 <div className="container">
+                                    <div className="centered-image-container">
+                                        <img src="/images/img/jumping-jacks.gif" alt="튜토리얼 GIF" className="centered-image" />
+                                    </div>
                                     <div data-swiper-parallax="300" className="slide-title">
                                         <h2>박 터트리기</h2>
                                     </div>
                                     <div data-swiper-parallax="400" className="slide-text">
-                                        <p>Want to see your kid become more expressive?</p>
+                                        <p>박을 터트려라</p>
                                     </div>
         
-                                    <div className="clearfix"></div>
-                                    <div data-swiper-parallax="500" className="slide-btns">
-                                        <a href="/main" className="theme-btn-s2">튜토리얼</a>
-                                        <a href="/main" className="theme-btn-s3"><i className="fas fa-chevron-circle-right"></i> Game Info</a>
-
-                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="swiper-slide">
-                            <div className="slide-inner slide-bg-image3" data-background="https://images.unsplash.com/photo-1579003087287-997fd4d18771?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
+                            <div className="slide-inner slide-bg-image3">
                                 <div className="container">
+                                    <div className="centered-image-container">
+                                        <img src="/images/img/squat.gif" alt="튜토리얼 GIF" className="centered-image" />
+                                    </div>
                                     <div data-swiper-parallax="300" className="slide-title">
                                         <h2>공 피하기</h2>
                                     </div>
                                     <div data-swiper-parallax="400" className="slide-text">
-                                        <p>Want to see your kid become more expressive?</p>
-                                    </div>
-            
-                                    <div className="clearfix"></div>
-                                    <div data-swiper-parallax="500" className="slide-btns">
-                                        <a href="/main" className="theme-btn-s2">튜토리얼</a>
-                                        <a href="/main" className="theme-btn-s3"><i className="fas fa-chevron-circle-right"></i> Game Info</a>
+                                        <p>공 피하슈</p>
                                     </div>
                 
                                 </div>

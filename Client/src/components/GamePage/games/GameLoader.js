@@ -1,5 +1,5 @@
-import React, { Component, useEffect, useRef, useState } from 'react';
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import React, {  useEffect, useRef, useState } from 'react';
+// import { useSelector } from "react-redux/es/hooks/useSelector";
 
 
 const GameLoader = ({props}) => {
@@ -19,8 +19,7 @@ const GameLoader = ({props}) => {
 
     let URL;
     let loopId;
-    let picTimerId;
-    let squatTimerId;
+    // let timerId;
     // let poseList = [0,1,2,3,4];
     let poseIndex = 0;
 
@@ -79,7 +78,7 @@ const GameLoader = ({props}) => {
     const predictJumpingJack = async () => {
         if (model && webcam) {
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
-    
+            console.log(pose)
             const prediction = await model.predict(posenetOutput);
 
             if (!ready && prediction[0].probability > 0.85) {
@@ -105,14 +104,14 @@ const GameLoader = ({props}) => {
     const predictPictogram = async () => {
         if (model && webcam) {
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
-    
+            console.log(pose)
             const prediction = await model.predict(posenetOutput);
 
             if (prediction[poseList.current[poseIndex]].probability > 0.85) {
                 setCount(prev => prev + 1);
                 poseIndex++;
                 
-                if(poseIndex == poseList.length){
+                if(poseIndex === poseList.length){
                     poseIndex = 0;
                 }
                 console.log(poseIndex);
@@ -127,7 +126,7 @@ const GameLoader = ({props}) => {
     const predictSquat = async () => {
         if (model && webcam) {
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
-    
+            console.log(pose)
             const prediction = await model.predict(posenetOutput);
 
             console.log(ballPos, "squat!!");
@@ -153,7 +152,7 @@ const GameLoader = ({props}) => {
             }
         }
     }
-
+    console.log(predictSquat)
     useEffect(() => {
         
         const init = async () => {
@@ -173,15 +172,18 @@ const GameLoader = ({props}) => {
         shuffle(poseList.current);
         console.log(poseList.current);
         init();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
+    const loopIdRef = useRef(null);
+    const timerIdRef = useRef(null);
 
     useEffect(() => {
 
         const loop = async () => {
             webcam.update();
-
-            loopId = requestAnimationFrame(loop);
+            
+            loopIdRef.current = requestAnimationFrame(loop);
         };
 
         const predictLoop = async (timestamp) => {
@@ -192,7 +194,7 @@ const GameLoader = ({props}) => {
                     requestAnimationFrame(predictLoop);
                     break;
                 case 2:
-                    picTimerId = setInterval(() => {
+                    timerIdRef.current = setInterval(() => {
                         console.log("interval");
                         console.log("nextpose", poseList.current[poseIndex]);
                         setTimeout(() => {
@@ -230,15 +232,14 @@ const GameLoader = ({props}) => {
             predictLoop();
             console.log("TIMER START!!!!!!!!!!!!!!")
         }
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[started]);
 
     useEffect(() => {
 
         cancelAnimationFrame(loopId);
-        clearInterval(picTimerId);
-        // clearInterval(squatTimerId);
-
+        clearInterval(timerIdRef.current);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [finished])
 
     return(
