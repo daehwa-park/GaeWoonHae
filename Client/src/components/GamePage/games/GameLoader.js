@@ -15,55 +15,45 @@ const GameLoader = ({props}) => {
     // states
     const [model, setModel] = useState();
     const [webcam, setWebcam] = useState();
-    const [poseList, setPoseList] = useState([]);
-    const [targetList, setTargetList] = useState([]);
 
-    let step = 0;
-    let isPosing = false;
+    const poseList = useRef([]);
+    const currentPose = useRef();
+
+    const checkPosing = useRef(false);
+
+    const URL = useRef("");
+    const loopWebcamId = useRef(null);
+    const loopPredId = useRef(null);
 
     // catch mosquito
-    let ready = false;
-    let set = false;
+    const ready1 = useRef(false);
+    const set = useRef(false);
+    const ready2 = useRef(false);
 
 
     // const poseList = useRef([0,1,2,3,4]);
 
-    let URL;
-    let loopWebcamId;
-    let loopPredId;
-    let squatTimerId;
-    let poseIndex = 0;
+
+    // let squatTimerId;
+    // let poseIndex = 0;
 
     
-    let rightReady = false;
-    let leftReady = false;
+    // let rightReady = false;
+    // let leftReady = false;
 
-    let ballPos = 0;
-    let startTime;
+    // let ballPos = 0;
+    // let startTime;
 
 
 
-    const randomNumbers = () => {
-        let arr = [];
-        let num;
-
-        if (gameType === 1) {
-            while (arr.length <= limitTime/2) {
-                num = Math.floor(Math.random()*4);
-                if (!arr || arr[-1] !== num) {
-                    arr.push(num);
-                }
-            }
-
-        } else if (gameType === 2) {
-            while (arr.length <= limitTime/5) {
-                num = Math.floor(Math.random()*10);
-                if (!arr || arr[-1] !== num) {
-                    arr.push(num);
-                }
-            }
+    const getNextPose = () => {
+        let num = currentPose.current;
+        
+        while(num === currentPose.current) {
+            num = poseList.current[Math.floor(Math.random() * poseList.current.length)];
         }
-        return arr;
+
+        return num;
     }
 
 
@@ -75,23 +65,24 @@ const GameLoader = ({props}) => {
 
         switch(gameType) {
             case 1: 
-                URL = 'https://teachablemachine.withgoogle.com/models/ZWOxIpSRc/';
-                setPoseList([0, 1, 2, 3]);
-                setTargetList(randomNumbers());
+                URL.current = 'https://teachablemachine.withgoogle.com/models/ZWOxIpSRc/';
+                poseList.current = [0, 1, 2, 3];
+                currentPose.current = getNextPose(poseList.current);
                 break;
             case 2: 
-                URL = 'https://teachablemachine.withgoogle.com/models/99dOWJKg2/';
-                setPoseList([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-                setTargetList(randomNumbers());
+                URL.current = 'https://teachablemachine.withgoogle.com/models/99dOWJKg2/';
+                poseList.current = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+                currentPose.current = getNextPose(poseList.current);
                 break;
             case 3: 
-                URL = 'https://teachablemachine.withgoogle.com/models/PP6A_2GsN/';
+                URL.current = 'https://teachablemachine.withgoogle.com/models/PP6A_2GsN/';
                 break;
             default:
-                URL = 'https://teachablemachine.withgoogle.com/models/M-BMZ7bbw/';
+                URL.current = 'https://teachablemachine.withgoogle.com/models/M-BMZ7bbw/';
+                break;
         }
 
-        await setTmModel(URL);
+        await setTmModel();
 
         // Convenience function to setup a webcam
         const size = 200;
@@ -106,9 +97,9 @@ const GameLoader = ({props}) => {
         .catch((err) => console.error('Error accessing the webcam:', err));
     }
 
-    const setTmModel = async(URL) => {
-        const modelURL = `${URL}model.json`;
-        const metadataURL = `${URL}metadata.json`;
+    const setTmModel = async() => {
+        const modelURL = `${URL.current}model.json`;
+        const metadataURL = `${URL.current}metadata.json`;
 
         setModel(await window.tmPose.load(modelURL, metadataURL));
     }
@@ -119,29 +110,54 @@ const GameLoader = ({props}) => {
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
             const prediction = await model.predict(posenetOutput);
 
-            if (!set &&  prediction[0].probability > 0.85) {
-                set = true;
+            if (!ready1.current &&  prediction[4].probability > 0.85) {
+                ready1.current = true;
+                console.log("ready -> true");
+            }
+            
+            else if (ready1.current && !set.current && prediction[5] > 0.85) {
+                set.current = true;
                 console.log("set -> true");
             }
-            
-            else if (set && !ready2 && prediction[1] > 0.85) {
-                ready2 = true;
-                console.log("ready2 -> true");
-            }
 
             
+            if (checkPosing.current && ready1.current && set.current) {
+                switch(currentPose.current) {
+                    case 0:
+                        if (prediction[0] > 0.85) {
+                            setCount(prev => prev + 1);
+                            getNextPose();
+                        }
+                        break;
 
+                    case 1:
+                        if (prediction[1] > 0.85) {
+                            setCount(prev => prev + 1);
+                            getNextPose();
+                            }
+                        break;
 
-            else if (set && ready2 && !go && prediction[2].probability > 0.85) {
-                go = true;
-                console.log("go -> true");
-            }
-            else if (go) {
-                setCount(prev => prev + 1);
-                ready2 = set = go = false;
-                console.log("complete", set, ready2, go);
+                    case 2:
+                        if (prediction[2] > 0.85) {
+                            setCount(prev => prev + 1);
+                            getNextPose();
+                        }
+                        break;
+
+                    case 3:
+                        if (prediction[3] > 0.85) {
+                            setCount(prev => prev + 1);
+                            getNextPose();
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
             }
         }
+
+        loopPredId.current = requestAnimationFrame(predictJumpingJack);
     }
 
     // const predictPictogram = async () => {
@@ -213,24 +229,24 @@ const GameLoader = ({props}) => {
         const loopWebcam = async () => {
             webcam.update();
 
-            loopWebcamId = requestAnimationFrame(loopWebcam);
+            loopWebcamId.current = requestAnimationFrame(loopWebcam);
         };
 
         const loopPredict = async () => {
             switch(gameType) {
                 case 1:
-                    loopPredId = setTimeout(() => {
-
-
-
-
-                    })
+                    predictJumpingJack();
                     break;
                 case 2:
 
+                    break;
+
                 case 3:
 
+                    break;
+
                 default:
+                    break;
 
             }
         }
@@ -286,8 +302,8 @@ const GameLoader = ({props}) => {
 
     useEffect(() => {
 
-        cancelAnimationFrame(loopWebcamId);
-        clearInterval(loopPredId);
+        cancelAnimationFrame(loopWebcamId.current);
+        clearInterval(loopPredId.current);
         // clearInterval(squatTimerId);
 
     }, [finished])
