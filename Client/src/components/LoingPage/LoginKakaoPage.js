@@ -28,20 +28,22 @@ const LoginKakaoPage = () => {
 
   const getUserInfo = async () => {
     console.log("유저인포 실행");
-    await dispatch(authenticateAction.getUserInfo(userId));
-    await navigate("/main");
+    dispatch(authenticateAction.getUserInfo(userId));
+    navigate("/main");
   };
 
   // 토큰이 없으면 getLoginToken 함수를 있으면 토큰이 있으면 로그인 여부 처리 함수를 실행한다.
   useEffect(() => {
-    if (accessToken === "") {
-      getLoginTokens();
-    } else {
-      isToken(accessToken);
-      getUserInfo();
-    }
-  });
-  // }, [accessToken, userId]);
+    console.log("로그인 실행");
+    getLoginTokens();
+  },[])
+
+  useEffect(() => {
+      if (accessToken !== "") {
+        isToken(accessToken);
+        getUserInfo();
+      }
+  }, [accessToken]);
 
   return <div>로그인 중입니다~</div>;
 };

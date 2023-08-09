@@ -23,10 +23,16 @@ const GameLoader = ({props}) => {
     // let poseList = [0,1,2,3,4];
     let poseIndex = 0;
 
-    var ready = false;
-    var set = false;
-    var go = false;
+    let ready = false;
+    let set = false;
+    let go = false;
     
+    let rightReady = false;
+    let leftReady = false;
+
+    let ballPos = 0;
+    let startTime;
+
     /*
     * Teachable Machine Settings
     */
@@ -41,7 +47,7 @@ const GameLoader = ({props}) => {
                 URL = 'https://teachablemachine.withgoogle.com/models/99dOWJKg2/';
                 break;
             case 3: 
-                URL = 'https://teachablemachine.withgoogle.com/models/4lQr_1IZz/';
+                URL = 'https://teachablemachine.withgoogle.com/models/PP6A_2GsN/';
                 break;
             default:
                 URL = 'https://teachablemachine.withgoogle.com/models/M-BMZ7bbw/';
@@ -123,22 +129,26 @@ const GameLoader = ({props}) => {
             console.log(pose)
             const prediction = await model.predict(posenetOutput);
 
-            if (!ready && prediction[0].probability > 0.85) {
-                ready = true;
-                console.log("ready -> true");
+            console.log(ballPos, "squat!!");
+            
+
+            if (ballPos == 0 && !rightReady && prediction[1].probability > 0.85) {
+                rightReady = true;
+                console.log("Rready -> true");
             }
-            else if (ready && !set && prediction[1].probability > 0.85) {
-                set = true;
-                console.log("set -> true");
-            }
-            else if (ready && set  && !go && prediction[0].probability > 0.85) {
-                go = true;
-                console.log("go -> true");
-            }
-            else if (go) {
+            else if (ballPos == 0 && rightReady && prediction[0].probability > 0.85) {
                 setCount(prev => prev + 1);
-                ready = set = go = false;
-                console.log("complete", ready, set, go);
+                rightReady = false;
+                console.log("complete 0");
+            }
+            else if (ballPos == 1 && !leftReady && prediction[3].probability > 0.85) {
+                leftReady = true;
+                console.log("Lready -> true");
+            }
+            else if (ballPos == 1 && leftReady && prediction[2].probability > 0.85) {
+                setCount(prev => prev + 1);
+                leftReady = false;
+                console.log("complete 1");
             }
         }
     }
@@ -176,7 +186,7 @@ const GameLoader = ({props}) => {
             loopIdRef.current = requestAnimationFrame(loop);
         };
 
-        const predictLoop = async () => {
+        const predictLoop = async (timestamp) => {
             
             switch(gameType) {
                 case 1:
@@ -196,6 +206,21 @@ const GameLoader = ({props}) => {
                     }, 5000);
                     break;
                 case 3:
+                    if(!startTime) {
+                        startTime = timestamp;
+                    }
+
+                    let currentTime = timestamp - startTime;
+                    currentTime = Math.floor(currentTime);
+                    console.log(currentTime);
+                    if(currentTime > 5000) {
+                        startTime = timestamp;
+                        ballPos = Math.floor(Math.random() * 2);
+                        console.log(timestamp - startTime, ballPos);
+                    }
+                    
+                    await predictSquat();
+                    requestAnimationFrame(predictLoop);
                     break;
                 default:
                     break;
