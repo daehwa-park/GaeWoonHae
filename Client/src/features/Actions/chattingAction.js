@@ -1,17 +1,81 @@
+// 채팅기능
+
+// Api요청 => 채팅(stomp)클라이언트 요청,         
+//                (getStompClient)   
+
 import $ from "jquery";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { roomActions } from "../../redux/reducer/roomInfoReducer";
 
-function getStompClient(hostName, sessionId, myName, setUserList) {
+function getStompClient(
+  hostName,
+  sessionId,
+  myName,
+  setUserList,
+  navigate,
+  gameType,
+) {
   return async (dispatch, getState) => {
-    console.log("채팅 실행중", hostName);
-    console.log("세션채팅", sessionId);
-    console.log("채팅 내 닉넴", myName);
+    console.log("호스트명", hostName);
+    console.log("세션ID", sessionId);
+    console.log("내이름", myName);
     var stompClient = null;
     var userList = [];
     // redux에서 가져오는 hostName
+    // 카메라 시작
+    const video = document.getElementById("videoElement");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
 
+    // 비디오 스트림 가져오기
+    async function startVideo() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
+
+        video.srcObject = stream;
+      } catch (err) {
+        console.error("비디오 스트림을 가져오는데 실패하였습니다.", err);
+      }
+    }
+
+    // 비디오 스트림에서 프레임을 캔버스에 렌더링하는 함수
+    function drawCanvas() {
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // 웹캠 필터 - 그레이스케일 필터 적용
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+
+      for (let i = 0; i < data.length; i += 4) {
+        const red = data[i];
+        const green = data[i + 1];
+        const blue = data[i + 2];
+
+        const average = (red + green + blue) / 3;
+
+        data[i] = data[i + 1] = data[i + 2] = average;
+      }
+
+      ctx.putImageData(imageData, 0, 0);
+
+      requestAnimationFrame(drawCanvas);
+    }
+    function wait(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    (async () => {
+      await startVideo();
+      await wait(10);
+    })();
+
+    // 비디오 캡처 후 실시간 렌더링
+    video.addEventListener("play", drawCanvas);
+
+    // 카메라 끝
     async function connect() {
       var socket = new SockJS("/gwh-websocket");
       stompClient = Stomp.over(socket);
@@ -22,6 +86,20 @@ function getStompClient(hostName, sessionId, myName, setUserList) {
       stompClient.connect(headers, function (frame) {
         // 서버연결시도
         // setConnected(true);
+        stompClient.subscribe(
+          // 채팅방 채널 구독
+          "/topic/gameroom/" + sessionId + "/gamestart",
+          async function (message) {
+            await dispatch(
+              roomActions.getGameUserList({
+                userList,
+              })
+            )
+            console.log("다음 페이지로 넘아감");
+            await navigate(`/gamepage`);
+            // 게임 시작 페이지로 이동함.
+          } // 구독한 곳으로 메세지가 오면 펑션 메세지가 실행 된다.
+        );
         stompClient.subscribe(
           // 채팅방 채널 구독
           "/topic/chatroom/" + sessionId + "/messages",
@@ -35,7 +113,7 @@ function getStompClient(hostName, sessionId, myName, setUserList) {
           "/topic/chatroom/" + sessionId + "/host",
           function (message) {
             // 방장이라면 nameList를 갱신하고 /refresh 채널로 보낸다. 여기에 if(방장)
-            if (myName !== hostName) {
+            if (myName === hostName) {
               userList.push({
                 username: JSON.parse(message.body).content,
                 count: 0,
@@ -47,6 +125,7 @@ function getStompClient(hostName, sessionId, myName, setUserList) {
                 JSON.stringify(userList)
               );
               console.log(JSON.stringify(userList, null, 2));
+              
             }
           }
         );
@@ -55,14 +134,14 @@ function getStompClient(hostName, sessionId, myName, setUserList) {
           "/topic/chatroom/" + sessionId + "/refresh",
           function (message) {
             // 방장이 아니라면 갱신해버림
-            if (myName !== "hostName") {
+            if (myName !== hostName) {
               userList = JSON.parse(message.body);
 
               console.log(
                 JSON.stringify(userList, null, 2) + "이건 갱신된 요청입니다."
               );
             }
-
+            setUserList(userList);
             showUserInfo(userList);
           }
         );
@@ -82,10 +161,10 @@ function getStompClient(hostName, sessionId, myName, setUserList) {
 
     function disconnect() {
       if (stompClient !== null) {
-        exit();
+        // exit();
         stompClient.disconnect();
       }
-      //   setConnected(false);
+
       console.log("Disconnected");
     }
 
@@ -96,15 +175,20 @@ function getStompClient(hostName, sessionId, myName, setUserList) {
         {},
         JSON.stringify({ chat: $("#chat").val() })
       );
-      dispatch(roomActions.getGameInfo({ stompClient }));
     }
 
-    function exit() {
+    function gameStart() {
+      if(userList.length>=1) {
+        
+
       stompClient.send(
-        "/app/chatroom/" + sessionId + "/exit",
+        "/app/gameroom/" + sessionId + "/gamestart",
         {},
         JSON.stringify({})
-      );
+      );}
+      else {
+        console.log("방에 사람이 다 안찼어요");
+      }
     }
 
     function showMessage(message) {
@@ -137,10 +221,13 @@ function getStompClient(hostName, sessionId, myName, setUserList) {
       $("#send").click(function () {
         sendChat();
       });
+      $("#gameStart").click(function () {
+        gameStart();
+      });
     });
 
-    await connect();
-    await setUserList(userList);
+      await connect();
+      await setUserList(userList);
   };
 }
 

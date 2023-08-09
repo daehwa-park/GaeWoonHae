@@ -7,7 +7,7 @@ const roomInfoSlice = createSlice({
     sessionId: "",
     hostName: "",
     gameType: null,
-
+    limitTime: 1,
     userList: [],
   },
 
@@ -21,6 +21,7 @@ const roomInfoSlice = createSlice({
     // 스톰프 클라이언트를 저장하는 리듀서입니다.
     getGameUserList(state, action) {
       state.userList = action.payload.userList;
+      state.limitTime = action.payload.limitTime;
     },
   },
 });

@@ -21,11 +21,6 @@ const emojishopSlice = createSlice({
       state.emoji.emojiPrice = action.payload.emojiPoint;
     },
 
-    emojiBuy(state, action) {
-      state.accessToken = action.payload.tokens.accessToken;
-      state.refreshToken = action.payload.tokens.refreshToken;
-      state.user.userId = action.payload.userId;
-    },
 
   },
 });

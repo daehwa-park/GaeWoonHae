@@ -16,11 +16,18 @@ import java.util.List;
 @Controller
 public class MessageController {
 
-    @MessageMapping("/gameroom/{roomNumber}/gameInfo")
-    @SendTo("/topic/gameroom/{roomNumber}/gameInfo")
-    public UserInfo userListRefresh(UserInfo userInfo, StompHeaderAccessor session) throws Exception {
+    @MessageMapping("/gameroom/{roomNumber}/gameinfo")
+    @SendTo("/topic/gameroom/{roomNumber}/gameinfo")
+    public UserInfo gameInfoUpdate(UserInfo userInfo, StompHeaderAccessor session) throws Exception {
         return userInfo;
     }
+
+    @MessageMapping("/gameroom/{roomNumber}/gamestart")
+    @SendTo("/topic/gameroom/{roomNumber}/gamestart")
+    public Message gameStart(Chat message, StompHeaderAccessor session) throws Exception {
+        return new Message("게임을 시작합니다.");
+    }
+
     @MessageMapping("/chatroom/{roomNumber}/refresh")
     @SendTo("/topic/chatroom/{roomNumber}/refresh")
     public List<UserInfo> userListRefresh(List<UserInfo> namelist, StompHeaderAccessor session) throws Exception {
@@ -34,7 +41,6 @@ public class MessageController {
     @MessageMapping("/chatroom/{roomNumber}/enter")
     @SendTo("/topic/chatroom/{roomNumber}/messages")
     public Message enter(Chat message, StompHeaderAccessor session) throws Exception {
-        System.out.println("누가 들어왔음");
         return new Message(HtmlUtils.htmlEscape(session.getSessionAttributes().get("name") + "님께서 입장하셨습니다!"));
     }
     @MessageMapping("/chatroom/{roomNumber}/exit")
@@ -45,12 +51,8 @@ public class MessageController {
     @MessageMapping("/chatroom/{roomNumber}/chat")
     @SendTo("/topic/chatroom/{roomNumber}/messages")
     public Message chat(Chat message, StompHeaderAccessor session) throws Exception {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date now = new Date();
-        String currentTime = format.format(now);
-        String roomNumber = session.getSessionAttributes().get("roomNumber").toString();
         String senderName = session.getSessionAttributes().get("name").toString();
-        return new Message(HtmlUtils.htmlEscape("[" + roomNumber + "] " + senderName + " : " + message.getChat() + " [" + currentTime + "]"));
+        return new Message(HtmlUtils.htmlEscape(senderName + " : " + message.getChat()));
     }
 
 }
