@@ -1,6 +1,7 @@
 package com.threeracha.gaewoonhae.api.controller;
 
 import com.threeracha.gaewoonhae.api.dto.request.RecordDateRequest;
+import com.threeracha.gaewoonhae.api.dto.request.SaveRecordRequest;
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
 import com.threeracha.gaewoonhae.api.dto.response.RecordResponse;
 import com.threeracha.gaewoonhae.api.dto.response.UserInfoResponse;
@@ -30,6 +31,17 @@ public class RecordController {
 
     final RecordService recordService;
     final String SUCCESS = "success";
+
+    @Operation(summary = "게임 기록 저장", description = "게임 정보를 저장함")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = RecordResponse.class))),
+            @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
+    })
+    @PostMapping("/save")
+    public ResponseEntity<CommonResponse<String>> saveRecord(@RequestBody SaveRecordRequest saveRecordReq) {
+
+        return new ResponseEntity<>(makeCommonResponse(SUCCESS, recordService.saveRecord(saveRecordReq)), HttpStatus.OK);
+    }
 
     @Operation(summary = "게임 기록 전체 조회", description = "파라미터로 받은 userId와 일치하는 게임 기록 전체를 전달.")
     @ApiResponses(value = {

@@ -11,11 +11,13 @@ const CommonUI = ({props}) => {
 
 
     useEffect(() => {
-        if (userList) {
+        if (userList.length > 1) {
 
             let users = userList.sort((a, b) => (b.count - a.count));
 
             setSortedUserList(users);
+        } else {
+            setSortedUserList(userList);
         }
     }, [userList])
 
