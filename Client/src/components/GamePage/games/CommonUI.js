@@ -10,9 +10,7 @@ const CommonUI = ({props}) => {
     // const timer = props.timer;
     const timer = 20;
     const userList = props.userList;
-    let loadcomplete = props.loadcomplete
-    // 로딩시간 뒤 타이머 실행
-    // const loadingtime = props.loadingtime+props.countdown+1000;
+    let loadcomplete = props.loadcomplete.current;
     const [timerstart,setTimerstart] =useState(false)
 
     
@@ -20,7 +18,7 @@ const CommonUI = ({props}) => {
     console.log(sortedUserList)
 
     useEffect(() => {
-        console.log(loadcomplete.current, '로딩확인@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        console.log(loadcomplete, '로딩확인@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
         if (userList) {
             
             let users = userList.sort((a, b) => (b.count - a.count));
@@ -32,14 +30,14 @@ const CommonUI = ({props}) => {
     }, [userList])
 
     useEffect(() => {
-        console.log(loadcomplete.current, '로딩확인222@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-        if (loadcomplete.current) {
-            console.log(loadcomplete.current, '로딩확인333@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        console.log(loadcomplete, '로딩확인222@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        if (loadcomplete) {
+            console.log(loadcomplete, '로딩확인333@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
             console.log(" 타이머 시작 : @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
             setTimerstart(true)
 
         }
-    }, [loadcomplete.current])
+    }, [loadcomplete])
 
     return(
         <div>

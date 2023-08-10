@@ -32,7 +32,6 @@ import Loading from './loading'
 const GamePage = () => {
 
     // 로딩 애니메이션
-    const loadingtime = 3000;  // 로딩시간 설정
     const [loading,setLoading] =useState(true);
     // 로딩이 끝났을떄 카운트 다운
     const countdown = 5000;
@@ -377,7 +376,7 @@ const GamePage = () => {
             <div className="mainscreen">
                 {/* 로딩 애니메이션 */}
                 {loading ? <Loading />:null }
-                {counting ? <CountLoading countdown={countdown} updateLoadingComplete={updateLoadingComplete} /> : null}
+                {counting ? <CountLoading updateLoadingComplete={updateLoadingComplete} /> : null}
                 <div className='gametitle'>
                     <h1 className='titlename'>박 터트리기!!</h1>
                     <p >빠르고 정확한 동작으로 더 많이 박을 터트리세요!</p>
@@ -410,7 +409,7 @@ const GamePage = () => {
                                     <div id="main-video" >
                                         <UserVideoComponent streamManager={mainStreamManager}/>
                                         {/* 위에 공통 UI */}
-                                        <CommonUI props={{count, timer, userList,loadingtime, countdown,loadcomplete}} />
+                                        <CommonUI props={{count, timer, userList,loadcomplete}} />
                                         {/* 위에 게임별 이미지 UI */}
                                         {gameType === 1 && <JumpingJack />}
                                         {gameType === 2 && <Pictogram />}
