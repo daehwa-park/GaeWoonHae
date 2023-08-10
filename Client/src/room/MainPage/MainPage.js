@@ -24,11 +24,12 @@ const Mainpage=()=> {
                 <NavBox className='mainnavbar'/>
                 <NavTitle className='mainnavbar2'/>
                 <div className='mainbody'>
-                    {/* 게임 설명 */}
-                    <div className='mainlog'><p className='gametext'>게임 설명</p></div>
-
                     {/* 게임입장 슬라이드 */}
-                    <div className='maingame'><MainSlide/></div>
+                    {/* <div className='maingame'> */}
+                        <div className='maingame-container'>
+                            <MainSlide />
+                        </div>
+                    {/* </div> */}
                 </div>
             </div>
         </div>

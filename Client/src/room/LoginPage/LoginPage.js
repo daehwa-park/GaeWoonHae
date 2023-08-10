@@ -8,14 +8,8 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // 1. Redux 스토어 초기화
-    // 모든 리듀서에 대한 초기화 액션을 디스패치하세요. 예를 들면:
-    // dispatch({ type: "RESET_YOUR_REDUCER" });
-
-// 2. localStorage 초기화
 localStorage.clear();
 
-// 3. redux-persist 데이터 초기화
 persistor.purge();
   }, [dispatch]);
 

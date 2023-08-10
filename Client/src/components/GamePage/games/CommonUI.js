@@ -1,38 +1,71 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
+import './CommonUI.css'
+// import Timer from "./Timer"
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+// import { useCountdown } from 'react-countdown-circle-timer'
 
 const CommonUI = ({props}) => {
 
     const count = props.count;
-    const timer = props.timer;
+    // const timer = props.timer;
+    const gameTime = props.gameTime;
     const userList = props.userList;
-    
+    let loadcomplete = props.loadcomplete.current;
+    let setFinished = props.setFinished;
+    const [timerstart,setTimerstart] =useState(false)
+
     const [sortedUserList, setSortedUserList] = useState([]);
-
-
+    console.log(sortedUserList)
 
     useEffect(() => {
-        if (userList.length > 1) {
-
+        if (userList) {
             let users = userList.sort((a, b) => (b.count - a.count));
-
             setSortedUserList(users);
-        } else {
-            setSortedUserList(userList);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userList])
 
+    useEffect(() => {
+        console.log(loadcomplete, '로딩확인222@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        if (loadcomplete) {
+            console.log(loadcomplete, '로딩확인333@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+            console.log(" 타이머 시작 : @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+            setTimerstart(true)
 
-
-
+        }
+    }, [loadcomplete])
 
     return(
         <div>
-            <div>
+            <div className='mycount'>
                 My count : {count}
             </div>
-            <div>
-                timer : {timer}
+            <div className='timer' >
+                <CountdownCircleTimer
+                    isPlaying={timerstart}
+                    duration={gameTime}
+                    // duration={timer}
+                    colors={['#F4BE66', '#FFA167', '#FD7F32', '#FF0000']}
+                    colorsTime={[gameTime, gameTime*0.7 , gameTime*0.4, 0]}
+                    size={120}
+                    strokeWidth={9}
+                    onComplete={() => {
+                        props.setFinished(true);
+                        console.log(props.finished);
+                    }}
+                >
+                {/* 타이머가 끝났을 때 표시할 내용 */}
+                {({ remainingTime }) => (
+                    <div>
+                        <div className='timer-title'>운동</div>
+                        <span className='timer-count'>{remainingTime}</span><span className='timer-sec'>초</span> 
+                    </div>
+                )}
+
+                </CountdownCircleTimer>
             </div>
+                {/* <Timer time={60}/> */}
+
             {userList.map((user, idx) => (
                 <div key={idx}>
                     <div>Rank : {idx}</div>

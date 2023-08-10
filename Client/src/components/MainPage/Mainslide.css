@@ -8,19 +8,24 @@
 /*--------------------------------------------------------------
 슬라이드 스타일
 --------------------------------------------------------------*/
+/* .editslide {
+  display: flex;
+  /* justify-content: center; 
+} */
 
-.slidebar {
-  margin-top: 11vh;
-  margin-left: 1vw;
-  width: 60vw;
-  height: 58vh;
-  /* border: 2px solid rgb(84, 43, 89); */
+.slidebar { 
+  /* margin-top: 11vh;
+  margin-left: 1vw; */
+  margin: 0 auto;
+  width: 70vw;
+  height: 60vh;
   overflow: hidden;
   /* border-radius: 30px; */
-  border: 2px solid rgb(235, 230, 230);
+  border: 10px solid black;
   /* background-color: white; */
   border-radius: 20px;
   box-shadow: 2px 2px 1px 1px rgb(58, 57, 57);
+  text-align:center;
 }
 
 .modaltag {
@@ -37,8 +42,8 @@ h2 {
 }
 
 .hero-slider {
-  width: 60vw;
-  height: 62vh;
+  width: 70vw;
+  height: 60vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -57,6 +62,33 @@ h2 {
     height: 100vh;
   }
 } */
+.centered-image-container {
+  position: relative; /* 위치 설정을 위해 */
+  height: 45vh; /* 컨테이너의 높이를 60%로 설정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 2px solid red; */
+}
+
+.centered-image {
+  max-height: 100%; /* 이미지의 최대 높이를 100%로 설정 */
+  max-width: 100%; /* 이미지의 최대 너비를 100%로 설정 */
+}
+.slide-title {
+  /* border: 2px solid rgb(64, 62, 183); */
+  height: 5vh;
+}
+
+.slide-text {
+  height: 6vh;
+  width: 100%; /* 전체 너비를 차지하도록 설정 */
+  text-align: center; /* 가운데 정렬 */
+  /* background-color: rgba(0, 0, 0, 0.6); 배경 색상 설정 */
+  color: black; /* 글자 색상 설정 */
+  padding: 10px; /* 여백 설정 */
+  /* border: 2px solid rgb(64, 62, 183); */
+}
 
 .hero-slider .swiper-slide {
   overflow: hidden;
@@ -64,8 +96,8 @@ h2 {
 }
 
 .hero-slider .swiper-container {
-  width: 60vw;
-  height: 62vh;
+  width: 70vw;
+  height: 60vh;
   position: absolute;
   left: 0;
   top: 0;
@@ -73,8 +105,9 @@ h2 {
 
 /* 슬라이드 크기 */
 .hero-slider .slide-inner {
-  width: 60vw;
-  height: 62vh;
+  
+  width: 70vw;
+  height: 60vh;
   position: absolute;
   left: 0;
   top: 0;
@@ -84,7 +117,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: left;
+  text-align: center;
 }
 
 /* 사이드버튼 css */
@@ -127,7 +160,7 @@ h2 {
   font-family: "Font Awesome 5 Free";
   content: "\f060";
   font-size: 15px;
-  color: #d4d3d3;
+  color: #f0ebeb;
   font-style: normal;
   display: inline-block;
   vertical-align: middle;
@@ -235,10 +268,11 @@ h2 {
   font-size: 40px;
   font-weight: 600;
   line-height: 1;
-  color: #f8f1f1;
+  color: black;
   margin: 0 0 40px;
   text-transform: capitalize;
   transition:all .4s ease;
+  font-family: ;
 } 
 
 @media (max-width: 1199px) {
@@ -268,7 +302,7 @@ h2 {
   font-weight: 500;
   line-height: 1.25;
   letter-spacing: normal;
-  color: #ffffff;
+  color: black;
   margin: 0 0 40px;
   transition:all .4s ease;
 }
@@ -356,23 +390,24 @@ a:hover {
 
 .slide-bg-image1 {
   /* background-image: url("./pickto.jpg"); */
-  background-color: rgb(98, 96, 99);
+  background-color: white;
 
 }
 .slide-bg-image2 {
   /* background-image: url("./bk.jpg"); */
-  background-color: #2b3b95;
+  background-color:white;
 
 }
 
 .slide-bg-image3 {
   /* background-image: url("./ball.jpg"); */
-  background-color: red;
+  background-color: white;
 
 }
 
 .btncom {
   display: flex;
+  justify-content: center;
 }
 
 .left-btn {

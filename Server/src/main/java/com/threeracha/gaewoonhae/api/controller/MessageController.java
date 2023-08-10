@@ -15,7 +15,11 @@ import java.util.List;
 
 @Controller
 public class MessageController {
-
+    @MessageMapping("/gameroom/{roomNumber}/gamefinish")
+    @SendTo("/topic/gameroom/{roomNumber}/gamefinish")
+    public Message userGameFinish(Chat message, StompHeaderAccessor session) throws Exception {
+        return new Message(message.getChat());
+    }
     @MessageMapping("/gameroom/{roomNumber}/gameinfo")
     @SendTo("/topic/gameroom/{roomNumber}/gameinfo")
     public UserInfo gameInfoUpdate(UserInfo userInfo, StompHeaderAccessor session) throws Exception {

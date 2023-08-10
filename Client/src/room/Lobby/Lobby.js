@@ -1,13 +1,14 @@
-// 픽토그램
 import React, { useEffect, useState } from "react";
 
 import "./Lobby1.css";
 import { Container, Row, Col, Card } from "react-bootstrap/";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 
+import { roomActions } from "../../redux/reducer/roomInfoReducer";
 import Chatting from "../../features/chatting/Chatting";
 import GameRoomInfoStart from "../../components/GamePage/GameRoomInfoStart";
-
+import logo from "../../assets/img/mainlogo.png";
+import { useDispatch } from "react-redux";
 // 대기방 - 박 터트리기
 
 const Lobby = () => {
@@ -16,252 +17,95 @@ const Lobby = () => {
     "따라해요 픽토그램!",
     "피해봐요, 오늘의 X!",
   ];
+  const dispatch = useDispatch();
+  const [limitTime, setLimitTime] = useState(60);
   const [userList, setUserList] = useState([]);
+  const saveTime = () => {
+    dispatch(roomActions.getLimitTime({ limitTime }));
+  };
   useEffect(() => {
     console.log("나 유저리스트야", userList);
   }, [userList]);
-  
+  useEffect(() => {
+    console.log("제한시간이양", limitTime);
+    saveTime();
+  }, [limitTime]);
+
   const gameType = useSelector((state) => state.roomInfo.gameType);
   const sessionId = useSelector((state) => state.roomInfo.sessionId);
   const gameName = gameNameList[gameType - 1];
+  const handleTimeChange = (event) => {
+    setLimitTime(Number(event.target.value)); // 선택된 값을 timeSecond로 설정
+  };
 
   return (
     <div className="lobby-body">
-      <Container>
-        <Row className="title-row">
-          <Col className="title-box">
-            <h1>{gameName}</h1>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={3} className="chat-col">
-            <Chatting setUserList={setUserList} />
-          </Col>
-          <Col md={6} className="video-col">
-            <Row>
-              <video
-                id="videoElement"
-                width="640"
-                height="480"
-                autoPlay
-                style={{ display: "none" }}
-              ></video>
-              <canvas id="canvas"></canvas>
-            </Row>
-            <Row>
-              <Col className="invite-time-container">
-                <Card bg="light" style={{ width: "18rem" }}>
-                  <Card.Header>초대코드</Card.Header>
-                  <Card.Body>
-                    <Card.Title>{sessionId}</Card.Title>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col className="invite-time-container">
-                <Card bg="light" style={{ width: "18rem" }}>
-                  <Card.Header>제한 시간</Card.Header>
-                  <Card.Body>
-                    <Card.Title>시간을 입력하세요</Card.Title>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          </Col>
-          <Col md={3} className="game-col">
-            <GameRoomInfoStart
-              userList={userList}
-              gameType={gameType}
-            />
-          </Col>
-        </Row>
-      </Container>
-      <button
-        onClick={() => {
-          console.log(userList);
-        }}
-      >
-        확인용
-      </button>
+      <div className="navbar-lobby">
+        <img className="main-hover" src={logo} alt="" />
+      </div>
+      <div className="lobby-main">
+        <Container>
+          <Row className="title-row">
+            <Col className="title-box">
+              <h1>{gameName}</h1>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={3} className="chat-col">
+              <Chatting setUserList={setUserList} limitTime={limitTime} />
+            </Col>
+            <Col md={6} className="video-col">
+              <Row>
+                <video
+                  id="videoElement"
+                  width="640"
+                  height="480"
+                  autoPlay
+                  style={{ display: "none" }}
+                ></video>
+                <canvas id="canvas"></canvas>
+              </Row>
+              <Row className="text-center">
+                <Col className="invite-time-container">
+                  <Card bg="light" style={{ width: "18rem" }}>
+                    <Card.Header>초대코드</Card.Header>
+                    <Card.Body>
+                      <Card.Title>{sessionId}</Card.Title>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col className="invite-time-container">
+                  <Card bg="light" style={{ width: "18rem" }}>
+                    <Card.Header>제한 시간</Card.Header>
+                    <Card.Body>
+                      <Card.Title>
+                        <Row className="text-center">
+                          <Col lg={8}>{limitTime} 초</Col>
+                          <Col lg={4}>
+                            <select name="time" onChange={handleTimeChange}>
+                              <option value={20}>20</option>
+                              <option value={60}>60</option>
+                              <option value={90}>90</option>
+                              <option value={120}>120</option>
+                              <option value={150}>150</option>
+                            </select>
+                          </Col>
+                        </Row>
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+            </Col>
+            <Col md={3} className="game-col">
+              {/* <div>{userList && userList[0].username}</div> */}
+              <GameRoomInfoStart userList={userList} gameType={gameType} />
+            </Col>
+          </Row>
+        </Container>
+      </div>
     </div>
   );
 };
 
 export default Lobby;
-
-// import React, {useEffect} from "react";
-// import $ from "jquery";
-// import SockJS from "sockjs-client";
-// import Stomp from "stompjs";
-// import "./Chatting.css"
-// const Chatting = () => {
-
-// useEffect(()=> {
-//     var stompClient = null;
-//     var namelist=[];
-//     // redux에서 가져오는 hostName
-//     var host="두현";
-//     var userName="두현";
-//     // redux에서 가져오는 sessionId
-//     const roomname = 'SessionA';
-//     function setConnected(connected) {
-//         $("#connect").prop("disabled", connected);
-//         $("#disconnect").prop("disabled", !connected);
-//         if (connected) {
-//             $("#conversation").show();
-//         }
-//         else {
-//             $("#conversation").hide();
-//         }
-//         $("#messages").html("");
-//     }
-
-// function connect() {
-//     var socket = new SockJS('/gwh-websocket');
-//     stompClient = Stomp.over(socket);
-//     var headers = {
-//         name: userName,
-//         roomNumber: roomname
-//     };
-//     var roomNumber = roomname;
-//     stompClient.connect(headers, function (frame) {  // 서버연결시도
-//         setConnected(true);
-//         stompClient.subscribe('/topic/chatroom/' + roomNumber + '/messages', function (message) {
-//             showMessage(JSON.parse(message.body).content);
-//         });
-
-//         // 구독하지 않은 채널은 아예 메시지 전달이 안되므로 모든 클라이언트가 /host 와 /refresh를 구독해야함
-//         stompClient.subscribe('/topic/chatroom/' + roomNumber + '/host', function (message) {
-//         // 방장이라면 nameList를 갱신하고 /refresh 채널로 보낸다. 여기에 if(방장)
-//          if(randomName===host) {namelist.push({ username: JSON.parse(message.body).content, count: 0 });
-//           stompClient.send("/app/chatroom/" + roomNumber + "/refresh", {}, JSON.stringify(namelist));
-//           console.log(JSON.stringify(namelist, null, 2));
-//          }
-//         });
-
-//         stompClient.subscribe('/topic/chatroom/' + roomNumber + '/refresh', function (message) {
-
-//           // 방장이 아니라면 갱신해버림
-//           if(randomName!==host) { namelist = JSON.parse(message.body);
-
-//           console.log(JSON.stringify(namelist, null, 2)+"이건 갱신된 요청입니다."); }
-//           showUserInfo(namelist);
-//         });
-
-//         stompClient.send("/app/chatroom/" + roomNumber + "/enter", {}, JSON.stringify({}));
-//         stompClient.send("/app/chatroom/" + roomNumber + "/join", {}, JSON.stringify({}));
-
-//       });
-// }
-
-// function disconnect() {
-//     if (stompClient !== null) {
-//         exit();
-//         stompClient.disconnect();
-//     }
-//     setConnected(false);
-//     console.log("Disconnected");
-// }
-
-// function sendChat() {
-//     var roomNumber = roomname; // 채팅방 번호를 가져옵니다.
-//     stompClient.send("/app/chatroom/" + roomNumber + "/chat", {}, JSON.stringify({'chat': $("#chat").val()}));
-// }
-
-// function exit(){
-//     var roomNumber = $("#roomNumber").val(); // 채팅방 번호를 가져옵니다.
-//     stompClient.send("/app/chatroom/" + roomNumber + "/exit", {},  JSON.stringify({}));
-// }
-
-// function showMessage(message) {
-//     $("#messages").append("<tr><td>" + message + "</td></tr>");
-// }
-
-// function showUserInfo(namelist) {
-//   var resultDiv = document.getElementById('result');
-//   resultDiv.innerHTML = '';
-
-//   // namelist 배열을 반복하여 결과를 <div> 태그에 출력
-//   namelist.forEach(function(item) {
-//       var div = document.createElement('div');
-//       div.textContent = '사용자 이름: ' + item.username + ', 카운트: ' + item.count;
-//       resultDiv.appendChild(div);
-//   });
-//   }
-
-// $(function () {
-//     $("form").on('submit', function (e) {
-//         e.preventDefault();
-//     });
-//     $( "#connect" ).click(function() { connect(); });
-//     $( "#disconnect" ).click(function() { disconnect(); });
-//     $( "#send" ).click(function() { sendChat(); });
-// });
-
-// connect();
-// console.log('asdfsadffdsa')
-// },[]);
-
-// return (
-//     <div>
-//       <div className="rowchat">
-//         <div className="conversation">
-//           <table className="table table-striped">
-//             <thead>
-//               <tr>
-//                 <th>대화창</th>
-//               </tr>
-//             </thead>
-//             {/* 메세지 */}
-//             <tbody id="messages">
-//             </tbody>
-//           </table>
-//         </div>
-//       </div>
-
-//   <form className="form-inline">
-//     <div className="chat-button" style={{borderRadius:'5px'}}>
-//       {/* <label htmlFor="chat">chat 쳐라</label> */}
-//         <input type="text" id="chat" className="form-control" placeholder="채팅 입력" />
-//         <button id="send" className="btn btn-default" type="submit">Send</button>
-//     </div>
-//     <div id="result">
-
-//     </div>
-//   </form>
-// </div>
-//   );
-// }
-
-// export default Chatting;
-
-// <div className='lobbymain'>
-//     <div className='lobbylogo'>로고</div>
-//     <div className='lobbyheader'>
-//         <div className='title1'>
-//             <p>플레이할 게임</p>
-//             <h1>점핑 잭으로 박터트리기!</h1>
-//         </div>
-//         <div className='title1'>
-//             <p>초대코드</p>
-//             <h1>~~~~~~~~</h1>
-//         </div>
-//         <div className='title1'>
-//             <p>제한 시간</p>
-//             <h1>1분 </h1>
-//         </div>
-
-//     </div>
-//     <div className='lobbybody'>
-//         <div className='waiting-list'>
-//             참가자
-//         </div>
-//         <div className='select-type'>
-//             <h1>현재 인원수</h1>
-//             <h1>이모지 선택</h1>
-//             <button onClick={gamestart}>+</button>
-//             <Link to='/gamepage/1'><button>게임시작</button></Link>
-//             <Link to='/main'><button>방나가기</button></Link>
-//         </div>
-//     </div>
-
-// </div>

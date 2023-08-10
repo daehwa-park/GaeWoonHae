@@ -1,9 +1,24 @@
+.maintitle {
+    width: 100%;
+    height: 100%;
+    
+}
+
 .mainbody {
     display: flex;
     height: 90vh;
-    background-color: #FFFBF6;
+    background-color:#FEFCF5;
+    text-align: center;
+    border: black;
 }
-
+.maingame-container {
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    height: 100%; /* 부모 컨테이너의 높이를 100%로 설정 */
+    /* border: 2px solid red; */
+    margin: auto;
+  }
 .mainlog {
     margin: 11vh 5vh 0 5vh;
     width: 27vw ;

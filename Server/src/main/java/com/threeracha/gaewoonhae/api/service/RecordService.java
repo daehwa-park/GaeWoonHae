@@ -2,8 +2,12 @@ package com.threeracha.gaewoonhae.api.service;
 
 import com.threeracha.gaewoonhae.api.dto.request.SaveRecordRequest;
 import com.threeracha.gaewoonhae.api.dto.response.RecordResponse;
+import com.threeracha.gaewoonhae.db.domain.GameType;
 import com.threeracha.gaewoonhae.db.domain.Record;
+import com.threeracha.gaewoonhae.db.domain.User;
+import com.threeracha.gaewoonhae.db.repository.GameTypeRepository;
 import com.threeracha.gaewoonhae.db.repository.RecordRepository;
+import com.threeracha.gaewoonhae.db.repository.UserRepository;
 import com.threeracha.gaewoonhae.exception.CustomException;
 import com.threeracha.gaewoonhae.exception.CustomExceptionList;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +31,8 @@ import java.util.stream.Collectors;
 public class RecordService {
 
     final RecordRepository recordRepository;
+    final UserRepository userRepository;
+    final GameTypeRepository gameTypeRepository;
 
     public List<RecordResponse> getAllRecord(Long userId) {
 
@@ -80,7 +86,22 @@ public class RecordService {
                 .collect(Collectors.toList());
     }
 
-    public String saveRecord(SaveRecordRequest saveRecordReq) {
-        return null;
+    public Record saveRecord(SaveRecordRequest req) {
+
+        User user = userRepository.findById(req.getUserId())
+                .orElseThrow(() -> new CustomException(CustomExceptionList.USER_NOT_FOUND_ERROR));
+
+        GameType gameType = gameTypeRepository.findById(req.getGameType())
+                .orElseThrow(() -> new CustomException(CustomExceptionList.INVALID_GAMETYPE_ERROR));
+
+        Record record = Record.builder()
+                .gameType(gameType)
+                .user(user)
+                .count(req.getCount())
+                .recordDateTime(new Timestamp(System.currentTimeMillis()))
+                .build();
+
+
+        return recordRepository.save(record);
     }
 }

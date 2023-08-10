@@ -1,6 +1,6 @@
 video {
     width: 100%;
-    height: auto;
+    /* height: auto; */
     float: left;
     cursor: pointer;
 }
