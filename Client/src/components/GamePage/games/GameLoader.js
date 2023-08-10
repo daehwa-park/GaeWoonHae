@@ -15,9 +15,9 @@ const GameLoader = ({props}) => {
     // states
     const [model, setModel] = useState();
     const [webcam, setWebcam] = useState();
+    const [currentPose, setCurrentPose] = useState();
 
     const poseList = useRef([]);
-    const currentPose = useRef();
 
     const URL = useRef("");
     const loopWebcamId = useRef(null);
@@ -52,7 +52,7 @@ const GameLoader = ({props}) => {
             num = poseList.current[Math.floor(Math.random() * poseList.current.length)];
         }
 
-        return num;
+        setCurrentPose(num);
     }
 
 
@@ -66,12 +66,12 @@ const GameLoader = ({props}) => {
             case 1: 
                 URL.current = 'https://teachablemachine.withgoogle.com/models/ZWOxIpSRc/';
                 poseList.current = [0, 1, 2, 3];
-                currentPose.current = getNextPose(poseList.current);
+                getNextPose();
                 break;
             case 2: 
                 URL.current = 'https://teachablemachine.withgoogle.com/models/99dOWJKg2/';
                 poseList.current = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-                currentPose.current = getNextPose(poseList.current);
+                getNextPose();
                 break;
             case 3: 
                 URL.current = 'https://teachablemachine.withgoogle.com/models/PP6A_2GsN/';
@@ -122,17 +122,17 @@ const GameLoader = ({props}) => {
                 console.log("ready -> true");
             }
             
-            else if (ready1.current && !set.current && prediction[5] > 0.85) {
+            else if (ready1.current && !set.current && prediction[5].probability > 0.85) {
                 set.current = true;
                 console.log("set -> true");
             }
 
-            else if (ready1.current && set.current && !ready2.current && prediction[4] > 0.85) {
+            else if (ready1.current && set.current && !ready2.current && prediction[4].probability > 0.85) {
                 ready2.current = true;
                 console.log("set -> true");
             }
             
-            else if (ready1.current && set.current && ready2.current && prediction[currentPose.current] > 0.85) {
+            else if (ready1.current && set.current && ready2.current && prediction[currentPose].probability > 0.85) {
                 setCount(prev => prev + 1);
                 getNextPose();
                 ready1.current = ready2.current = set.current = false;
@@ -145,21 +145,19 @@ const GameLoader = ({props}) => {
     const predictPictogram = async () => {
 
         if (model && webcam) {
+
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
             const prediction = await model.predict(posenetOutput);
 
-            if (prediction[poseList.current[poseIndex]].probability > 0.85) {
+            if (prediction[currentPose].probability > 0.85) {
                 setCount(prev => prev + 1);
-                poseIndex++;
-                
-                if(poseIndex == poseList.length){
-                    poseIndex = 0;
-                }
-                console.log(poseIndex);
+                getNextPose();
+                setTimeout(() => {
+                    loopPredId.current = requestAnimationFrame(predictPictogram)
+                }, 500);
             }
             else {
-                poseIndex = 0;
-                console.log(poseIndex);
+                loopPredId.current = requestAnimationFrame(predictPictogram)
             }
         }
     }
@@ -220,7 +218,7 @@ const GameLoader = ({props}) => {
                     predictJumpingJack();
                     break;
                 case 2:
-
+                    predictPictogram();
                     break;
 
                 case 3:
@@ -286,7 +284,6 @@ const GameLoader = ({props}) => {
 
         cancelAnimationFrame(loopWebcamId.current);
         clearInterval(loopPredId.current);
-        // clearInterval(squatTimerId);
 
     }, [finished])
 
