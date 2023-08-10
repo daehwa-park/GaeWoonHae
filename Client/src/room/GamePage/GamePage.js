@@ -45,11 +45,12 @@ const GamePage = () => {
     const [GamemodalOpen, setGameModalOpen] = useState(false);
 
     const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? 'https://i9b303.p.ssafy.io/' : 'https://demos.openvidu.io/';
-    // const hostName = useSelector((state) => state.roomInfo.hostName);
+    const hostName = useSelector((state) => state.roomInfo.hostName);
     const myName = useSelector((state) => state.auth.user.nickname);
     const sessionId = useSelector((state) => state.roomInfo.sessionId);
     const gameType = useSelector((state) => state.roomInfo.gameType);
-    const limitTime = useSelector((state) => state.roomInfo.limitTime);
+    // const limitTime = useSelector((state) => state.roomInfo.limitTime);
+    const limitTime = 10;
     // const emoji = useSelector((state) => state.user.emoji);
     const firstUserList = useSelector((state) => state.roomInfo.userList);
 
@@ -74,6 +75,8 @@ const GamePage = () => {
     const [assetLoad, setAssetLoad] = useState(true);
     const [userList, setUserList] = useState(firstUserList);
     const [renderingcount,setRenderingcount] = useState([0,1,2,3])
+    //0809 추가
+    const [finishUserCount, setfinishUserCount] = useState(0);
 
     // refs for openCV
     const webcamRef = useRef();
@@ -90,7 +93,7 @@ const GamePage = () => {
 
     // timer
     const timerIdRef = useRef(null);
-    // let timerId;
+    let timerId;
 
     
     // 모달 입장
@@ -253,6 +256,21 @@ const GamePage = () => {
         };
 
         stompClient.connect(headers, function (frame){ 
+
+            stompClient.subscribe(
+                // 게임정보 주고 받는 채널 구독
+                "/topic/gameroom/" + sessionId + "/gamefinish",
+                (message) => {
+                    // {username: ? count: ?} 으로 변경된 정보가 날라옴. 받아온 정보로 표시되는 게임 정보 업데이트해야함
+                    if(myName===hostName) {
+                        setfinishUserCount(finishUserCount+1)
+                    }
+                    // 메시지가 "전체 게임 종료" 이면 각자 axios 발사하고 게임종료 페이지로 이동함.
+
+
+                }
+            );
+
             stompClient.subscribe(
                 // 게임정보 주고 받는 채널 구독
                 "/topic/gameroom/" + sessionId + "/gameinfo",
@@ -269,12 +287,13 @@ const GamePage = () => {
     }
 
     const updateGameInfo = (gameInfo) => {
-        // userList에서 닉네임 같은 놈 찾아서 카운트 바꾸고 반영
-        const updateUserList = userList.map((user) => 
-            user.username === gameInfo.username ? {
-                ...user, count : gameInfo.count
-            } : user
-        );
+        // userList에서 닉네임 같은 놈 찾아서 카운트 바꾸고 반영(0809)
+        const updateUserList = userList.map((user) => {
+            if (user.username === gameInfo.username) {
+                return { ...user, count: gameInfo.count }; // 해당 유저의 count를 업데이트한 새 객체 반환
+            }
+            return user; // 조건에 맞지 않는 경우 기존 객체 그대로 반환
+        });
 
         setUserList(updateUserList);
     }
@@ -284,6 +303,15 @@ const GamePage = () => {
             "/app/gameroom/" + sessionId + "/gameinfo",{},
             // 내 정보를 해당 채널로 보내면 됨
             JSON.stringify({ username: myName, count: count})
+        );
+    }
+
+    // 0809 추가
+    const myGameFinish = () => {
+        stompClient.send(
+            "/app/gameroom/" + sessionId + "/gamefinish",{},
+            // 내 정보를 해당 채널로 보내면 됨
+            JSON.stringify({})
         );
     }
 
@@ -332,13 +360,16 @@ const GamePage = () => {
 
     useEffect(() => {
         const startTimer = () => {
-            if (timer < limitTime) {
-                timerIdRef.current = setInterval(() => {
-                    setTimer(prev => prev + 1);
-                }, 1000)
-            } else {
-                setFinished(true);
-            }
+            let localTimer = timer;
+            timerId = setInterval(() => {
+                if (localTimer <= limitTime) {
+                    localTimer = localTimer + 1;
+                    setTimer(localTimer);
+                } else {
+                    clearInterval(timerId);
+                    setFinished(true);
+                }
+            }, 1000)
         }
         
         //로딩 조건
@@ -377,7 +408,17 @@ const GamePage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[count])
 
-
+    //0809
+    useEffect(()=> {
+        if (myName === hostName && finishUserCount>=5) {
+            stompClient.send(
+                "/app/gameroom/" + sessionId + "/gamefinish",{},
+                // 내 정보를 해당 채널로 보내면 됨
+                "게임종료"
+            );
+            console.log("자 이제 넘어가도록 하지");
+        }
+    },[finishUserCount])
 
 
     return (
