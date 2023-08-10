@@ -19,16 +19,15 @@ const GameLoader = ({props}) => {
     const poseList = useRef([]);
     const currentPose = useRef();
 
-    const checkPosing = useRef(false);
-
     const URL = useRef("");
     const loopWebcamId = useRef(null);
     const loopPredId = useRef(null);
 
     // catch mosquito
-    const ready1 = useRef(false);
-    const set = useRef(false);
+    const ready1 = useRef(true);
     const ready2 = useRef(false);
+    const set = useRef(false);
+    const go = useRef(false);
 
 
     // const poseList = useRef([0,1,2,3,4]);
@@ -104,8 +103,16 @@ const GameLoader = ({props}) => {
         setModel(await window.tmPose.load(modelURL, metadataURL));
     }
     
+
+    /*
+    *
+    *  ready1, ready2 => 팔 내려 자세
+    *  set => 팔 벌려 자세
+    *  go => 각 4분면 방향으로 팔 올려 자세
+    */
     
     const predictJumpingJack = async () => {
+        
         if (model && webcam) {
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
             const prediction = await model.predict(posenetOutput);
@@ -120,67 +127,42 @@ const GameLoader = ({props}) => {
                 console.log("set -> true");
             }
 
+            else if (ready1.current && set.current && !ready2.current && prediction[4] > 0.85) {
+                ready2.current = true;
+                console.log("set -> true");
+            }
             
-            if (checkPosing.current && ready1.current && set.current) {
-                switch(currentPose.current) {
-                    case 0:
-                        if (prediction[0] > 0.85) {
-                            setCount(prev => prev + 1);
-                            getNextPose();
-                        }
-                        break;
-
-                    case 1:
-                        if (prediction[1] > 0.85) {
-                            setCount(prev => prev + 1);
-                            getNextPose();
-                            }
-                        break;
-
-                    case 2:
-                        if (prediction[2] > 0.85) {
-                            setCount(prev => prev + 1);
-                            getNextPose();
-                        }
-                        break;
-
-                    case 3:
-                        if (prediction[3] > 0.85) {
-                            setCount(prev => prev + 1);
-                            getNextPose();
-                        }
-                        break;
-
-                    default:
-                        break;
-                }
+            else if (ready1.current && set.current && ready2.current && prediction[currentPose.current] > 0.85) {
+                setCount(prev => prev + 1);
+                getNextPose();
+                ready1.current = ready2.current = set.current = false;
             }
         }
 
         loopPredId.current = requestAnimationFrame(predictJumpingJack);
     }
 
-    // const predictPictogram = async () => {
-    //     if (model && webcam) {
-    //         const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
-    
-    //         const prediction = await model.predict(posenetOutput);
+    const predictPictogram = async () => {
 
-    //         if (prediction[poseList.current[poseIndex]].probability > 0.85) {
-    //             setCount(prev => prev + 1);
-    //             poseIndex++;
+        if (model && webcam) {
+            const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
+            const prediction = await model.predict(posenetOutput);
+
+            if (prediction[poseList.current[poseIndex]].probability > 0.85) {
+                setCount(prev => prev + 1);
+                poseIndex++;
                 
-    //             if(poseIndex == poseList.length){
-    //                 poseIndex = 0;
-    //             }
-    //             console.log(poseIndex);
-    //         }
-    //         else {
-    //             poseIndex = 0;
-    //             console.log(poseIndex);
-    //         }
-    //     }
-    // }
+                if(poseIndex == poseList.length){
+                    poseIndex = 0;
+                }
+                console.log(poseIndex);
+            }
+            else {
+                poseIndex = 0;
+                console.log(poseIndex);
+            }
+        }
+    }
 
     // const predictSquat = async () => {
     //     if (model && webcam) {
