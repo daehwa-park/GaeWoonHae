@@ -16,7 +16,8 @@ const GameLoader = ({props}) => {
     // states
     const [model, setModel] = useState();
     const [webcam, setWebcam] = useState();
-    const [currentPose, setCurrentPose] = useState();
+    const [curPoseState, setCurPoseState] = useState();
+    const curPose = useRef();
 
     const poseList = useRef([]);
 
@@ -48,13 +49,14 @@ const GameLoader = ({props}) => {
 
 
     const getNextPose = () => {
-        let num = currentPose;
+        let num = curPose.current;
         
-        while(num === currentPose) {
+        while(num === curPose.current) {
             num = poseList.current[Math.floor(Math.random() * poseList.current.length)];
         }
 
-        setCurrentPose(num);
+        setCurPoseState(num);
+        curPose.current = num;
     }
 
 
@@ -120,29 +122,30 @@ const GameLoader = ({props}) => {
             const prediction = await model.predict(posenetOutput);
 
             // if (!ready1.current &&  prediction[4].probability > 0.85) {
-            if (!ready1.current && poseButton.current === "4") {
+            if (!ready1.current && poseButton.current === 4) {
                 ready1.current = true;
                 console.log("ready1 -> true");
             }
             
             // else if (ready1.current && !set.current && prediction[5].probability > 0.85) {
-            else if (ready1.current && !set.current && poseButton.current === "5") {
+            else if (ready1.current && !set.current && poseButton.current === 5) {
                 set.current = true;
                 console.log("set -> true");
             }
 
             // else if (ready1.current && set.current && !ready2.current && prediction[4].probability > 0.85) {
-            else if (ready1.current && set.current && !ready2.current && poseButton.current === "4") {
+            else if (ready1.current && set.current && !ready2.current && poseButton.current === 4) {
                 ready2.current = true;
                 console.log("ready2 -> true");
             }
             
-            // else if (ready1.current && set.current && ready2.current && prediction[currentPose].probability > 0.85) {
-            else if (ready1.current && set.current && ready2.current && poseButton.current === `${currentPose}`) {
+            // else if (ready1.current && set.current && ready2.current && prediction[curPose.current].probability > 0.85) {
+            else if (ready1.current && set.current && ready2.current && poseButton.current === curPose.current) {
             setCount(prev => prev + 1);
                 getNextPose();
                 ready1.current = ready2.current = set.current = false;
             }
+            console.log(curPose.current);
         }
 
         loopPredId.current = requestAnimationFrame(predictJumpingJack);
@@ -155,7 +158,7 @@ const GameLoader = ({props}) => {
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
             const prediction = await model.predict(posenetOutput);
 
-            if (prediction[currentPose].probability > 0.85) {
+            if (prediction[curPose.current].probability > 0.85) {
                 console.log("currect pose!")
                 setCount(prev => prev + 1);
                 getNextPose();
@@ -304,15 +307,15 @@ const GameLoader = ({props}) => {
     return(
         <div>
             <div>
-                <button onClick={() => {clickEvent('0')}}> pose 0 </button>
-                <button onClick={() => {clickEvent('1')}}> pose 1 </button>
-                <button onClick={() => {clickEvent('2')}}> pose 2 </button>
-                <button onClick={() => {clickEvent('3')}}> pose 3 </button>
-                <button onClick={() => {clickEvent('4')}}> pose 4 </button>
-                <button onClick={() => {clickEvent('5')}}> pose 5 </button>
+                <button onClick={() => {clickEvent(0)}}> pose 0 </button>
+                <button onClick={() => {clickEvent(1)}}> pose 1 </button>
+                <button onClick={() => {clickEvent(2)}}> pose 2 </button>
+                <button onClick={() => {clickEvent(3)}}> pose 3 </button>
+                <button onClick={() => {clickEvent(4)}}> pose 4 </button>
+                <button onClick={() => {clickEvent(5)}}> pose 5 </button>
             </div>
             <div>
-                <h2>{currentPose}</h2>
+                <h2>{curPose.current}</h2>
             </div>
         </div>
     )
