@@ -11,7 +11,8 @@ const GameLoader = ({props}) => {
     const finished = props.finished;
     const gameType = props.gameType;
     const setGameLoad = props.setGameLoad;
-    const limitTime = props.limitTime;
+    const countdown = props.countdown;
+    const setAssetLoad = props.setAssetLoad;
 
     // states
     const [model, setModel] = useState();
@@ -230,70 +231,30 @@ const GameLoader = ({props}) => {
                 case 2:
                     predictPictogram();
                     break;
-
                 case 3:
-
                     break;
-
                 default:
                     break;
-
             }
         }
 
-        // const predictLoop = async (timestamp) => {
-            
-        //     switch(gameType) {
-        //         case 1:
-        //             await predictJumpingJack();
-        //             requestAnimationFrame(predictLoop);
-        //             break;
-        //         case 2:
-        //             picTimerId = setInterval(() => {
-        //                 console.log("interval");
-        //                 console.log("nextpose", poseList.current[poseIndex]);
-        //                 setTimeout(() => {
-        //                     console.log("ready");
-        //                     setTimeout(()=> {
-        //                         predictPictogram();
-        //                     },3000);
-        //                 }, 2000);
-        //             }, 5000);
-        //             break;
-        //         case 3:
-        //             if(!startTime) {
-        //                 startTime = timestamp;
-        //             }
-
-        //             let currentTime = timestamp - startTime;
-        //             currentTime = Math.floor(currentTime);
-        //             console.log(currentTime);
-        //             if(currentTime > 5000) {
-        //                 startTime = timestamp;
-        //                 ballPos = Math.floor(Math.random() * 2);
-        //                 console.log(timestamp - startTime, ballPos);
-        //             }
-                    
-        //             await predictSquat();
-        //             requestAnimationFrame(predictLoop);
-        //             break;
-        //         default:
-        //             break;
-        //     }
-        // }
-
         if (started)  {
-            loopWebcam();
-            loopPredict();
-            console.log("TIMER START!!!!!!!!!!!!!!")
+            console.log("게임 로더 게임 시작 인식함!!!")
+            setTimeout(()=> {
+                loopWebcam();
+                loopPredict();
+            }, countdown);
         }
 
     },[started]);
 
     useEffect(() => {
 
-        cancelAnimationFrame(loopWebcamId.current);
-        clearInterval(loopPredId.current);
+        if (finished) {
+            console.log("게임 로더 게임 종료 인식함!!!!")
+            cancelAnimationFrame(loopWebcamId.current);
+            clearInterval(loopPredId.current);
+        }
 
     }, [finished])
 

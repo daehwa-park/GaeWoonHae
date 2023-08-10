@@ -15,7 +15,6 @@ const CommonUI = ({props}) => {
     const [timerstart,setTimerstart] =useState(false)
 
     const [sortedUserList, setSortedUserList] = useState([]);
-    console.log(sortedUserList)
 
     useEffect(() => {
         if (userList) {

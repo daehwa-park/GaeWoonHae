@@ -1,15 +1,16 @@
-// 로그인 토큰과 유저 정보 데이터를 저장하는 리듀서입니다.
 import { createSlice } from "@reduxjs/toolkit";
+import { PURGE } from "redux-persist";
 
+const initialState = {
+  sessionId: "",
+  hostName: "",
+  gameType: null,
+  limitTime: Number(60),
+  userList: [],
+};
 const roomInfoSlice = createSlice({
   name: "room",
-  initialState: {
-    sessionId: "",
-    hostName: "",
-    gameType: null,
-    limitTime: 1,
-    userList: [],
-  },
+  initialState,
 
   reducers: {
     //payload의 토큰들과 유저id를 state에 저장하는 리듀서 함수입니다.
@@ -21,8 +22,13 @@ const roomInfoSlice = createSlice({
     // 스톰프 클라이언트를 저장하는 리듀서입니다.
     getGameUserList(state, action) {
       state.userList = action.payload.userList;
-      state.limitTime = action.payload.limitTime;
     },
+    getLimitTime(state, action) {
+      state.limitTime = Number(action.payload.limitTime);
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(PURGE, () => initialState);
   },
 });
 

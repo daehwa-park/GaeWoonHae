@@ -1,9 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState, useRef } from 'react';
-import { useSelector } from "react-redux/es/hooks/useSelector"
+import { useDispatch, useSelector } from "react-redux"
 import './GamePage.css'
 import GameEndBtn from "../../components/modal/gameEnd"
 import logo from '../../assets/img/purple_logo.png' 
+
+//게임종료를 위한 action 호출
+import { enterRoomAction } from "../../features/Actions/enterRoomAction";
+
 
 // components
 import UserVideoComponent from '../../features/openvidu_opencv/openvidu/UserVideoComponent';
@@ -31,9 +35,9 @@ import Loading from './loading'
 // 게임페이지
 
 const GamePage = () => {
-
+    const dispatch = useDispatch();
     // 게임 진행시간
-    const gameTime = 20;
+    const [gameTime,setGameTime] = useState(0);
 
     // 로딩 애니메이션(1.버스)
     // const loadingtime = 3000;  // 로딩시간 설정
@@ -50,11 +54,10 @@ const GamePage = () => {
     const myName = useSelector((state) => state.auth.user.nickname);
     const sessionId = useSelector((state) => state.roomInfo.sessionId);
     const gameType = useSelector((state) => state.roomInfo.gameType);
-    // const limitTime = useSelector((state) => state.roomInfo.limitTime);
-    const limitTime = 10;
+    const limitTime = useSelector((state) => state.roomInfo.limitTime);
     // const emoji = useSelector((state) => state.user.emoji);
     const firstUserList = useSelector((state) => state.roomInfo.userList);
-
+    const userId = useSelector((state) => state.auth.user.userId);
     // openvidu states
     const [session, setSession] = useState();
     const [mainStreamManager, setMainStreamManager] = useState();
@@ -94,7 +97,6 @@ const GamePage = () => {
 
     // timer
     const timerIdRef = useRef(null);
-    let timerId;
 
     
     // 모달 입장
@@ -210,8 +212,6 @@ const GamePage = () => {
         setPublisher(undefined);
 
     }
-    //임시 사용
-    console.log(publisher,setAssetLoad,setRenderingcount,leaveSession)
     
     const subscriberLeave = (streamManager) => {
         let remainSubscriber = subscriber;
@@ -246,6 +246,7 @@ const GamePage = () => {
 
     //stomp 연결
     const connectStomp = () => {
+        console.log(limitTime);
         var socket = new SockJS("/gwh-websocket");
 
         let stompClient = Stomp.over(socket);
@@ -258,17 +259,23 @@ const GamePage = () => {
 
         stompClient.connect(headers, function (frame){ 
 
-            stompClient.subscribe(
+            stompClient.subscribe( 
                 // 게임정보 주고 받는 채널 구독
                 "/topic/gameroom/" + sessionId + "/gamefinish",
                 (message) => {
-                    // {username: ? count: ?} 으로 변경된 정보가 날라옴. 받아온 정보로 표시되는 게임 정보 업데이트해야함
-                    if(myName===hostName) {
-                        setfinishUserCount(finishUserCount+1)
-                    }
+                    console.log("gamefinish 채널로 meessage가 왔습니다.");
+                    const parsedMessage = JSON.parse(message.body);
                     // 메시지가 "전체 게임 종료" 이면 각자 axios 발사하고 게임종료 페이지로 이동함.
+                    if(parsedMessage.content === "게임종료") {
+                        //axios 발사 
+                        recordSave();
+                        console.log("나를 포함한 모든 유저의 게임이 종료되었습니다!!")
+                    }
 
-
+                    // 방장만 finishUsercount 관리함
+                    if(myName===hostName) {
+                        setfinishUserCount(finishUserCount+1);
+                    }
                 }
             );
 
@@ -315,6 +322,16 @@ const GamePage = () => {
             JSON.stringify({})
         );
     }
+    // 게임종료시 실행하는 axios 요청
+    const recordSave = async () => {
+        const requestData = {
+          gameType: gameType,
+          count:count,
+          userId: userId,
+        };
+        await dispatch(enterRoomAction.recordSave(requestData));
+      };
+
 
     //로딩 후 3초 카운트가 끝나고 호출되는 함수
     const updateLoadingComplete = () => {
@@ -332,6 +349,7 @@ const GamePage = () => {
 
     useEffect(() => {
 
+        console.log(limitTime,"qwiehowqhekqwhekqwehkqwekqweewqewqghjeqwewq");
         const init = async () => {
             // music.currentTime = 0;
 
@@ -360,7 +378,6 @@ const GamePage = () => {
 
         if (stompLoad && openViduLoad && gameLoad && assetLoad) {
             setStarted(true);
-            console.log("GAME START!!!!!!!!!!!!!!!!!");
         }
 
     },[stompLoad, openViduLoad, gameLoad, assetLoad])
@@ -368,22 +385,11 @@ const GamePage = () => {
 
 
     useEffect(() => {
-        const startTimer = () => {
-            let localTimer = timer;
-            timerId = setInterval(() => {
-                if (localTimer <= limitTime) {
-                    localTimer = localTimer + 1;
-                    setTimer(localTimer);
-                } else {
-                    clearInterval(timerId);
-                    setFinished(true);
-                }
-            }, 1000)
-        }
         
+        setGameTime(limitTime);
         //로딩 조건
         if (started) {
-            startTimer();
+            console.log("게임 시작!!!!!!!!!!!!!!");
             setLoading(false);
             setCounting(true);
             
@@ -394,14 +400,17 @@ const GamePage = () => {
 
             // 버스 로딩,3초 카운트 끝나고 => 게임시간타이머 끝나고 나서 실행
             setTimeout(()=> {
-                setGameModalOpen(true);
+                setFinished(true);
             }, countdown+gameTime*1000+2000);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [started])
-
+    
     useEffect(() => {
         if (finished) {
+            console.log("게임 종료!!!!!!!!!!!!!!!");
+            myGameFinish();
+            setGameModalOpen(true);
             clearInterval(timerIdRef.current);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -417,11 +426,11 @@ const GamePage = () => {
 
     //0809
     useEffect(()=> {
-        if (myName === hostName && finishUserCount>=5) {
+        if (myName === hostName && finishUserCount>=2) {
             stompClient.send(
                 "/app/gameroom/" + sessionId + "/gamefinish",{},
                 // 내 정보를 해당 채널로 보내면 됨
-                "게임종료"
+                JSON.stringify({ chat: "게임종료" })
             );
             console.log("자 이제 넘어가도록 하지");
         }
@@ -457,7 +466,7 @@ const GamePage = () => {
                         </div> */}
                         {/* 게임 로직 컴포넌트 (아무 배치요소 없음) */}
                         <div className='gameloader'>
-                            <GameLoader props={{setCount, started, finished, gameType, setGameLoad}} />
+                            <GameLoader props={{setCount, started, finished, gameType, setGameLoad, countdown, setAssetLoad}} />
                         </div>
                     </div>
                     <div className="mainvideo">

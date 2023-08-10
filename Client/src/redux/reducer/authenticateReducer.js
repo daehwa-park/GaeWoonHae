@@ -1,21 +1,24 @@
 // 로그인 토큰과 유저 정보 데이터를 저장하는 리듀서입니다.
 import { createSlice } from "@reduxjs/toolkit";
+import { PURGE } from "redux-persist";
+
+const initialState = {
+  accessToken: "",
+  refreshToken: "",
+  isLoggined: false,
+  user: {
+    userId: null,
+    nickname: "",
+    point: 0,
+    emojiId: null,
+    oauthProvider: "",
+    saveEmoji: [1],
+  },
+};
 
 const authenticateSlice = createSlice({
   name: "auth",
-  initialState: {
-    accessToken: "",
-    refreshToken: "",
-    isLoggined: false,
-    user: {
-      userId: null,
-      nickname: "",
-      point: 0,
-      emojiId: null,
-      oauthProvider: "",
-      saveEmoji:[1]
-    },
-  },
+  initialState, 
 
   reducers: {
     //payload의 토큰들과 유저id를 state에 저장하는 리듀서 함수입니다.
@@ -48,16 +51,15 @@ const authenticateSlice = createSlice({
     },
 
     emojiBuy(state, action) {
-      // state.user.saveEmoji.push(action.payload.getemoji);
       state.user.point = action.payload.mypoint;
     },
     emojiList(state, action) {
-      // const sortedEmojiList = action.payload.emojiList.sort((a, b) => b - a);
-      // state.user.saveEmoji = [...sortedEmojiList];
-      // console.log(action.payload.emojiList,'체크@@@')
+
       state.user.saveEmoji = action.payload.emojiList.sort((a, b) => a-b) ?? [1];
-      // console.log(state.user.saveEmoji)
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(PURGE, () => initialState);
   },
 });
 
