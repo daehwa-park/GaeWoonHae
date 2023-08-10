@@ -6,7 +6,7 @@
     height: 80vh;
     border: 2px solid rgb(204, 200, 200);
     border-radius: 20px;
-    background-color: white;
+    background-color: rgb(255, 255, 255, 0.9);
     box-shadow: 2px 2px rgb(133, 132, 132);
     z-index: 1;
     text-align: center;

@@ -443,27 +443,34 @@ const GamePage = () => {
             <div className="game-header">
                 <img className="main-hover"  src={logo} alt="" />
             </div>
+            <div className="game-mainscreenimg">
             <div className="game-mainscreen">
                 {/* 로딩 애니메이션 */}
                 {loading ? <Loading /> : null }
                 {counting ? <CountLoading updateLoadingComplete={updateLoadingComplete} /> : null}
                 {/* 게임 종료 모달 */}
-                {GamemodalOpen && (<GameEndBtn/>)}
+                {GamemodalOpen && (<GameEndBtn setModalOpen={setGameModalOpen}/>)}
+
                 <div className="gamescreen">
                     <div className='messagebtntag'>
                         <div className='gametitle'>
-                            <h1 className='titlename'>박 터트리기!!</h1>
-                            <p >빠르고 정확한 동작으로 더 많이 박을 터트리세요!</p>
-                            <hr />
+                            <span className='game-titlename'>박 터트리기!!</span>
+                            <p className='game-titletag' >빠르고 정확한 동작으로 <br/>더 많이 박을 터트리세요!</p>
+    
                         </div>
-                        <div className='ranking'>
-                            <div>현재 랭킹</div>
-                            <div>순위</div>
-                        </div>
+                        {/* <div className='ranking'>
+                            <div className='ranking1'>현재 랭킹</div>
+                            <div className='ranking2'>
+                                1위 : <br/>2위 : <br/>3위 : <br/>4위 : <br/>
+                            </div>
+                        </div> */}
                         {/* 게임 로직 컴포넌트 (아무 배치요소 없음) */}
-                        <GameLoader props={{setCount, started, finished, gameType, setGameLoad, countdown, setAssetLoad}} />
+                        <div className='gameloader'>
+                            <GameLoader props={{setCount, started, finished, gameType, setGameLoad, countdown, setAssetLoad}} />
+                        </div>
                     </div>
                     <div className="mainvideo">
+                
                         <div id="session">
                             {/* OpenCV용 Canvas (전부 invisible 시켜놓으면 됨) */}
                             <div style={{ width: "400px" ,visibility:"hidden" ,display:"flex", position:"absolute"}}>
@@ -479,7 +486,7 @@ const GamePage = () => {
 
                             <div id="video-container" style={{ display:"flex"}}>
                                 {/* 내 화면 */}
-                                <div id="main-videos" style={{ flex:"1" }}>
+                                <div id="main-videos">
                                     <div id="main-video" >
                                         <UserVideoComponent streamManager={mainStreamManager}/>
                                         {/* 위에 공통 UI */}
@@ -490,12 +497,13 @@ const GamePage = () => {
                                 
                                 {console.log("구독자 수!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" , subscriber.length)}
                                 {/* 참여자가 4명이상일떄 */}
-                                {subscriber.length >= 4 ? (
 
+                                {subscriber.length >= 4 ? (
                                     <div id="sub-videos" > 
+                                        <div id="sub-titlebox"></div>
                                         {subscriber.map((sub, i) => (
             
-                                                <div id="sub-video2" key={i}>
+                                                <div id="sub-video2 sub-titlebox" key={i}>
                                                     <h2>{i+1}</h2>
                                                 {/* <span>{sub.id}</span> */}
                                                     <UserVideoComponent streamManager={sub} />
@@ -509,6 +517,7 @@ const GamePage = () => {
                                 {/* 참여자가 3명 이하일때 빈자리 표기 */}
                                 {subscriber.length <= 3 ? (
                                 <div id="sub-videos" > 
+                                    <div id="sub-titlebox"></div>
                                     {subscriber.map((sub, i) => (
                                             // <div id="sub-video2" key={sub.id} onClick={() => this.handleMainVideoStream(sub)} >
                                             <div id="sub-video2" key={i}>
@@ -523,7 +532,7 @@ const GamePage = () => {
                                     {renderingcount.map((count,i) => {
                                         if (count <= 3-subscriber.length){
                                             return (
-                                                <div id="sub-video2" key={i}><img id="sub-video2" src="/images/img/emty.png" alt="dsa" /></div>
+                                                <div id="sub-video2 sub-titlebox" key={i}><img id="sub-video2" src="/images/img/emty.png" alt="dsa" /></div>
                                             ); 
                                         } else {
                                             return null;
@@ -531,6 +540,7 @@ const GamePage = () => {
                                     })}
                                     </div>
                                     ) :null}
+                                
                                 {/* 상대방 화면 */}
                                 {/* <div id="sub-videos" style={{ flex:"1 0 35%", display:"grid"}}> 
                                     {subscriber.map((sub, idx) => {
@@ -548,6 +558,7 @@ const GamePage = () => {
                             </div>
                         </div>
                         {/* <VideoApp leavethisSession={leavethisSession}/> */}
+                    </div>
                     </div>
                 </div>
             

@@ -7,43 +7,98 @@
 
 
 .mycount {
-    top: 28vh;
-    left: 60vw;
+    top: 8vh;
+    left: 66vw;
     position: absolute;
     width: 10vw;
-    height: 10vh;
-    border: 2px solid black;
-    background-color: white;
+    height: 6vh;
+    /* border: 2px solid black; */
+    background-color: rgb(236, 228, 217);
+    text-align: center;
+    line-height: 6vh;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .timer {
-    top: 60vh;
-    left: 60vw;
     position: absolute;
-    width: 120px;
-    height: 120px;
-    border-radius: 60px;
+    top: 6vh;
+    left: 27vw;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
     background-color: white;
 }
 
 .timer-title {
     text-align: center;
     color: rgb(146, 145, 145);
-    font-size: 13px;
+    font-size: 18px;
     font-weight: 600;
 }
 
 .timer-count {
-    font-size: 28px;
+
+    text-align: center;
+    font-size: 40px;
     color: rgb(249, 25, 25);
     text-shadow: 0px 2px 2px rgb(123, 122, 122);
     font-weight: 600;
-    margin-right: 5px;
+    /* margin-right: 5px; */
 }
 
 .timer-sec {
+    margin-left: 3px;
     font-size: 15px;
     color: rgb(249, 25, 25);
     font-weight: 600;
     text-shadow: 0px 1px 1px rgb(123, 122, 122);
+}
+
+.ranking-list {
+    position: absolute;
+    top: 30vh;
+    left: 2.5vw;
+  
+    /* background-color: wheat; */
+    /* position: 2; */
+    /* border: 5px solid black; */
+}
+
+
+.game-ranking {
+    width: 18vw;
+    height: 50vh;
+    /* border: 5px solid black; */
+}
+.game-ranking1 {
+    width: 15vw;
+    height: 6vh;
+    margin: auto;
+    border: 1px 1px 0 1px solid rgb(201, 198, 198);
+    border-radius: 20px;
+    text-align: center;
+    line-height: 6vh;
+    /* background-color: #FD7F32; */
+    background: linear-gradient(#FEC986 0%,white 95%);
+    font-size: 20px;
+    font-weight: 550;
+}
+.game-ranking2 {
+    text-align: center;
+    margin: auto;
+    width: 15vw;
+    height: 45vh;
+    /* border: 1px solid rgb(201, 198, 198); */
+    background-color: #F9F5FF;
+    border: 2px solid rgb(235, 230, 230);
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px rgb(192, 189, 189);
+    font-size: 20px;
+    font-weight: 550;
+}
+
+.user-ranking {
+    margin-top: 2vh;
 }
