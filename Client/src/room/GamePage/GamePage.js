@@ -32,7 +32,7 @@ import Loading from './loading'
 const GamePage = () => {
 
     // 게임 진행시간
-    const gametime = 20;
+    const gameTime = 20;
 
     // 로딩 애니메이션(1.버스)
     // const loadingtime = 3000;  // 로딩시간 설정
@@ -315,6 +315,12 @@ const GamePage = () => {
         );
     }
 
+    //로딩 후 3초 카운트가 끝나고 호출되는 함수
+    const updateLoadingComplete = () => {
+        loadcomplete.current = true
+        console.log(loadcomplete.current, '로딩완료@@@@@@@@@@@@@@@@@@@@@@@@@')
+    }
+
     // 언마운트시에 비디오 종료
     const onUnmount = () => {
         stopVideo.current = true
@@ -340,6 +346,8 @@ const GamePage = () => {
             joinSession();
 
             connectStomp();
+
+            console.log("현재 게임 타입 : ",gameType);
         }
 
         init();
@@ -377,8 +385,6 @@ const GamePage = () => {
             startTimer();
             setLoading(false);
             setCounting(true);
-            // 로딩이 되었으면, 게임시간타이머에 전달
-            loadcomplete.current=true
             
             // 버스 로딩 끝나고 => 3초 카운트 다운시작
             setTimeout(()=> {
@@ -388,7 +394,7 @@ const GamePage = () => {
             // 버스 로딩,3초 카운트 끝나고 => 게임시간타이머 끝나고 나서 실행
             setTimeout(()=> {
                 setGameModalOpen(true);
-            }, countdown+gametime*1000+2000);
+            }, countdown+gameTime*1000+2000);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [started])
@@ -430,8 +436,8 @@ const GamePage = () => {
             </div>
             <div className="mainscreen">
                 {/* 로딩 애니메이션 */}
-                {loading ? <Loading />:null }
-                {counting ? <CountLoading countdown={countdown} /> : null}
+                {loading ? <Loading /> : null }
+                {counting ? <CountLoading updateLoadingComplete={updateLoadingComplete} /> : null}
                 {/* 게임 종료 모달 */}
                 {GamemodalOpen && (<GameEndBtn/>)}
                 <div className='gametitle'>
@@ -460,21 +466,14 @@ const GamePage = () => {
                             </div>
                             {/* 게임 로직 컴포넌트 (아무 배치요소 없음) */}
                             <GameLoader props={{setCount, started, finished, gameType, setGameLoad}} />
-                                {/* 위에 게임별 이미지 UI
-                                {gameType === 1 && <JumpingJack />}
-                                {gameType === 2 && <Pictogram />}
-                                {gameType === 3 && <Squat />} */}
+
                             <div id="video-container" style={{ display:"flex"}}>
                                 {/* 내 화면 */}
                                 <div id="main-videos" style={{ flex:"1 0 60%" }}>
                                     <div id="main-video" >
                                         <UserVideoComponent streamManager={mainStreamManager}/>
                                         {/* 위에 공통 UI */}
-                                        <CommonUI props={{count, timer, userList,loadcomplete, finished, setFinished}} />
-                                        {/* 위에 게임별 이미지 UI */}
-                                        {gameType === 1 && <JumpingJack />}
-                                        {gameType === 2 && <Pictogram />}
-                                        {gameType === 3 && <Squat />}
+                                        <CommonUI props={{count, timer, userList,loadcomplete, finished, setFinished, gameTime}} />
 
                                     </div>
                                 </div>
