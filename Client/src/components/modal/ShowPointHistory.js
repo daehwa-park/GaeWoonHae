@@ -51,21 +51,42 @@ function ShowPointHistory({ setModalOpen, userId}) {
         setModalOpen(false);
     };
     return (
-        <div id='Recommendmodals'>
-            <h3 id='codetxt'>포인트 히스토리</h3>
-            <div id='modalcom' style={{ width: '500px', maxHeight: '600px', overflowY: 'auto' }}>
+        <div id='pointhistory'>
+            {/* <h3 id='codetxt'>포인트 히스토리</h3>
+            <div id='modalcom'>
+                <div class="modal-body" >
+                    
                     {history.map((item, index) => (
                         <div key={index}>
                             <p>포인트: {item.point}
-                            변경 날짜: {item.changeDate}</p>
+                            날짜: {item.changeDate}</p>
                            
                         </div>
                     ))}
+                    </div>
 
                 
             </div>
             <button id='recombutton' onClick={closeModal}>확인</button>
-        </div>
+                    */}
+  <div className="modal-header">
+        새발자 테스트 모달
+    </div>
+    
+    <div className="modal-content">  
+    {history.map((item, index) => (
+                        <div key={index}>
+                            <p>포인트: {item.point}
+                            날짜: {item.changeDate}</p>
+                           
+                        </div>
+                    ))}  
+    </div>
+    
+    <div className="modal-footer">
+        <button id='recombutton' onClick={closeModal}>확인</button>
+    </div>
+        </div> 
     );
 }
 export default ShowPointHistory;
