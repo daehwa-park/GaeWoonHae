@@ -45,7 +45,8 @@
   /*margin-left: 5vw; */
   width: 17vw;
   height: 17vw;
-  border: 8px solid rgb(205, 136, 26);
+  background-color: white;
+  border: 1px solid antiquewhite;
   border-radius: 50%; 
 }
 
