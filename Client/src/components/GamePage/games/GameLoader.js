@@ -1,3 +1,4 @@
+import { Button } from 'bootstrap';
 import React, { Component, useEffect, useRef, useState } from 'react';
 import { useSelector } from "react-redux/es/hooks/useSelector";
 
@@ -27,7 +28,8 @@ const GameLoader = ({props}) => {
     const ready1 = useRef(true);
     const ready2 = useRef(false);
     const set = useRef(false);
-    const go = useRef(false);
+
+
 
 
     // const poseList = useRef([0,1,2,3,4]);
@@ -46,9 +48,9 @@ const GameLoader = ({props}) => {
 
 
     const getNextPose = () => {
-        let num = currentPose.current;
+        let num = currentPose;
         
-        while(num === currentPose.current) {
+        while(num === currentPose) {
             num = poseList.current[Math.floor(Math.random() * poseList.current.length)];
         }
 
@@ -117,23 +119,27 @@ const GameLoader = ({props}) => {
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
             const prediction = await model.predict(posenetOutput);
 
-            if (!ready1.current &&  prediction[4].probability > 0.85) {
+            // if (!ready1.current &&  prediction[4].probability > 0.85) {
+            if (!ready1.current && poseButton.current === "4") {
                 ready1.current = true;
                 console.log("ready1 -> true");
             }
             
-            else if (ready1.current && !set.current && prediction[5].probability > 0.85) {
+            // else if (ready1.current && !set.current && prediction[5].probability > 0.85) {
+            else if (ready1.current && !set.current && poseButton.current === "5") {
                 set.current = true;
                 console.log("set -> true");
             }
 
-            else if (ready1.current && set.current && !ready2.current && prediction[4].probability > 0.85) {
+            // else if (ready1.current && set.current && !ready2.current && prediction[4].probability > 0.85) {
+            else if (ready1.current && set.current && !ready2.current && poseButton.current === "4") {
                 ready2.current = true;
                 console.log("ready2 -> true");
             }
             
-            else if (ready1.current && set.current && ready2.current && prediction[currentPose].probability > 0.85) {
-                setCount(prev => prev + 1);
+            // else if (ready1.current && set.current && ready2.current && prediction[currentPose].probability > 0.85) {
+            else if (ready1.current && set.current && ready2.current && poseButton.current === `${currentPose}`) {
+            setCount(prev => prev + 1);
                 getNextPose();
                 ready1.current = ready2.current = set.current = false;
             }
@@ -288,9 +294,26 @@ const GameLoader = ({props}) => {
 
     }, [finished])
 
+    const poseButton = useRef();
+
+    const clickEvent = (param) => {
+        poseButton.current = param
+        console.log(poseButton.current);
+    }
+
     return(
         <div>
-            
+            <div>
+                <button onClick={() => {clickEvent('0')}}> pose 0 </button>
+                <button onClick={() => {clickEvent('1')}}> pose 1 </button>
+                <button onClick={() => {clickEvent('2')}}> pose 2 </button>
+                <button onClick={() => {clickEvent('3')}}> pose 3 </button>
+                <button onClick={() => {clickEvent('4')}}> pose 4 </button>
+                <button onClick={() => {clickEvent('5')}}> pose 5 </button>
+            </div>
+            <div>
+                <h2>{currentPose}</h2>
+            </div>
         </div>
     )
 }
