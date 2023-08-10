@@ -218,7 +218,6 @@ const GameLoader = ({props}) => {
     useEffect(() => {
 
         const loopWebcam = async () => {
-            console.log("게임 루프");
             webcam.update();
 
             loopWebcamId.current = requestAnimationFrame(loopWebcam);
