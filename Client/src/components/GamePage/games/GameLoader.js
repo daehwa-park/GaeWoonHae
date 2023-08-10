@@ -119,7 +119,7 @@ const GameLoader = ({props}) => {
 
             if (!ready1.current &&  prediction[4].probability > 0.85) {
                 ready1.current = true;
-                console.log("ready -> true");
+                console.log("ready1 -> true");
             }
             
             else if (ready1.current && !set.current && prediction[5].probability > 0.85) {
@@ -129,7 +129,7 @@ const GameLoader = ({props}) => {
 
             else if (ready1.current && set.current && !ready2.current && prediction[4].probability > 0.85) {
                 ready2.current = true;
-                console.log("set -> true");
+                console.log("ready2 -> true");
             }
             
             else if (ready1.current && set.current && ready2.current && prediction[currentPose].probability > 0.85) {
@@ -150,12 +150,13 @@ const GameLoader = ({props}) => {
             const prediction = await model.predict(posenetOutput);
 
             if (prediction[currentPose].probability > 0.85) {
+                console.log("currect pose!")
                 setCount(prev => prev + 1);
                 getNextPose();
                 setTimeout(() => {
                     loopPredId.current = requestAnimationFrame(predictPictogram)
                 }, 500);
-            }
+            } 
             else {
                 loopPredId.current = requestAnimationFrame(predictPictogram)
             }
@@ -289,6 +290,7 @@ const GameLoader = ({props}) => {
 
     return(
         <div>
+            
         </div>
     )
 }
