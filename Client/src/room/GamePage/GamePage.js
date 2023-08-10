@@ -470,7 +470,11 @@ const GamePage = () => {
                                     <div id="main-video" >
                                         <UserVideoComponent streamManager={mainStreamManager}/>
                                         {/* 위에 공통 UI */}
-                                        <CommonUI props={{count, timer, userList, countdown,loadcomplete, gametime}} />
+                                        <CommonUI props={{count, timer, userList,loadcomplete, finished, setFinished}} />
+                                        {/* 위에 게임별 이미지 UI */}
+                                        {gameType === 1 && <JumpingJack />}
+                                        {gameType === 2 && <Pictogram />}
+                                        {gameType === 3 && <Squat />}
 
                                     </div>
                                 </div>
