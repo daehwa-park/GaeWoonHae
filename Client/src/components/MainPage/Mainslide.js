@@ -115,7 +115,7 @@ const Mainslide=() => {
 
                         <div className="swiper-slide" >
                             <div className="slide-inner slide-bg-image1">
-                                <div className="container">
+                                <div className="main-container">
                                     <div className="centered-image-container">
                                         <img src="/images/img/pick.gif" alt="튜토리얼 GIF" className="centered-image" />
                                     </div>
@@ -134,7 +134,7 @@ const Mainslide=() => {
 
                         <div className="swiper-slide">
                             <div className="slide-inner slide-bg-image2" >
-                                <div className="container">
+                                <div className="main-container">
                                     <div className="centered-image-container">
                                         <img src="/images/img/jumping-jacks.gif" alt="튜토리얼 GIF" className="centered-image" />
                                     </div>
@@ -150,7 +150,7 @@ const Mainslide=() => {
                         </div>
                         <div className="swiper-slide">
                             <div className="slide-inner slide-bg-image3">
-                                <div className="container">
+                                <div className="main-container">
                                     <div className="centered-image-container">
                                         <img src="/images/img/squat.gif" alt="튜토리얼 GIF" className="centered-image" />
                                     </div>

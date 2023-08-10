@@ -1,12 +1,13 @@
 .maintitle {
     width: 100%;
     height: 100%;
+    
 }
 
 .mainbody {
     display: flex;
     height: 90vh;
-    background-color: rgb(235, 230, 230);
+    background-color:#FEFCF5;
     text-align: center;
     border: black;
 }
@@ -17,7 +18,6 @@
     height: 100%; /* 부모 컨테이너의 높이를 100%로 설정 */
     /* border: 2px solid red; */
     margin: auto;
-    
   }
 .mainlog {
     margin: 11vh 5vh 0 5vh;

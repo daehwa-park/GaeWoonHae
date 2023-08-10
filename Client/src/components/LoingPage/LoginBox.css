@@ -8,7 +8,8 @@
   flex-direction: column ;
   background-color: #FEFCF5;
   background-position: left;
-
+  margin-left: 8vw;
+  /* border: 2px solid black; */
 }
 @media (max-width: 991.98px) {
   .login-bg .d-none.d-lg-block {
@@ -16,8 +17,8 @@
   }
 }
 .login-logo {
-  width:440px;
-  height: 330px;
+  width:450px;
+  height: 450px;
   cursor: default;
 }
 
