@@ -37,7 +37,7 @@ import Loading from './loading'
 const GamePage = () => {
     const dispatch = useDispatch();
     // 게임 진행시간
-    const gameTime = 20;
+    const [gameTime,setGameTime] = useState(0);
 
     // 로딩 애니메이션(1.버스)
     // const loadingtime = 3000;  // 로딩시간 설정
@@ -352,6 +352,7 @@ const GamePage = () => {
 
     useEffect(() => {
 
+        console.log(limitTime,"qwiehowqhekqwhekqwehkqwekqweewqewqghjeqwewq");
         const init = async () => {
             // music.currentTime = 0;
 
@@ -401,6 +402,7 @@ const GamePage = () => {
             }, 1000)
         }
         
+        setGameTime(limitTime);
         //로딩 조건
         if (started) {
             startTimer();
