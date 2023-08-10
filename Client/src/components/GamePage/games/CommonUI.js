@@ -19,7 +19,8 @@ const CommonUI = ({props}) => {
 
     useEffect(() => {
         if (userList) {
-            let users = userList.sort((a, b) => (b.count - a.count));
+            let users = userList;
+            users.sort((a, b) => (b.count - a.count));
             setSortedUserList(users);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
