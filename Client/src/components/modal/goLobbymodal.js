@@ -52,7 +52,7 @@ function GoLobbyModal({ setModalOpen, value }) {
     const requestData = {
       isPublicRoom: "Y",
       userId,
-      gameType: 1,
+      gameType: value,
     };
     await dispatch(enterRoomAction.makeRoomInfo(requestData));
     setShouldNavigate(true); // 방 생성 클릭 후 shouldNavigate를 true로 설정
@@ -61,7 +61,6 @@ function GoLobbyModal({ setModalOpen, value }) {
     if (sessionId) {
       goToLobby();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldNavigate]);
 
   return (

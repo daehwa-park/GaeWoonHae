@@ -1,7 +1,7 @@
 // 채팅기능
 
-// Api요청 => 채팅(stomp)클라이언트 요청,         
-//                (getStompClient)   
+// Api요청 => 채팅(stomp)클라이언트 요청,
+//                (getStompClient)
 
 import $ from "jquery";
 import SockJS from "sockjs-client";
@@ -14,7 +14,7 @@ function getStompClient(
   myName,
   setUserList,
   navigate,
-  gameType,
+  gameType
 ) {
   return async (dispatch, getState) => {
     console.log("호스트명", hostName);
@@ -94,7 +94,7 @@ function getStompClient(
               roomActions.getGameUserList({
                 userList,
               })
-            )
+            );
             console.log("다음 페이지로 넘아감");
             await navigate(`/gamepage`);
             // 게임 시작 페이지로 이동함.
@@ -111,7 +111,7 @@ function getStompClient(
         // 구독하지 않은 채널은 아예 메시지 전달이 안되므로 모든 클라이언트가 /host 와 /refresh를 구독해야함
         stompClient.subscribe(
           "/topic/chatroom/" + sessionId + "/host",
-          function (message) {
+          async function (message) {
             // 방장이라면 nameList를 갱신하고 /refresh 채널로 보낸다. 여기에 if(방장)
             if (myName === hostName) {
               userList.push({
@@ -124,8 +124,8 @@ function getStompClient(
                 {},
                 JSON.stringify(userList)
               );
+              setUserList(userList);
               console.log(JSON.stringify(userList, null, 2));
-              
             }
           }
         );
@@ -178,15 +178,13 @@ function getStompClient(
     }
 
     function gameStart() {
-      if(userList.length>=1) {
-        
-
-      stompClient.send(
-        "/app/gameroom/" + sessionId + "/gamestart",
-        {},
-        JSON.stringify({})
-      );}
-      else {
+      if (userList.length >= 1) {
+        stompClient.send(
+          "/app/gameroom/" + sessionId + "/gamestart",
+          {},
+          JSON.stringify({})
+        );
+      } else {
         console.log("방에 사람이 다 안찼어요");
       }
     }
@@ -195,17 +193,18 @@ function getStompClient(
       $("#messages").append("<tr><td>" + message + "</td></tr>");
     }
 
-    function showUserInfo(namelist) {
+    async function showUserInfo(namelist) {
       var resultDiv = document.getElementById("result");
       resultDiv.innerHTML = "";
 
       // namelist 배열을 반복하여 결과를 <div> 태그에 출력
-      namelist.forEach(function (item) {
+      await namelist.forEach(function (item) {
         var div = document.createElement("div");
         div.textContent =
           "사용자 이름: " + item.username + ", 카운트: " + item.count;
         resultDiv.appendChild(div);
       });
+      await setUserList(userList);
     }
 
     $(function () {
@@ -214,6 +213,7 @@ function getStompClient(
       });
       $("#connect").click(function () {
         connect();
+        setUserList(userList);
       });
       $("#disconnect").click(function () {
         disconnect();
@@ -226,8 +226,8 @@ function getStompClient(
       });
     });
 
-      await connect();
-      await setUserList(userList);
+    await connect();
+    await setUserList(userList);
   };
 }
 
