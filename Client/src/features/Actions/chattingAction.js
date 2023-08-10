@@ -1,4 +1,3 @@
-// 채팅기능
 
 // Api요청 => 채팅(stomp)클라이언트 요청,
 //                (getStompClient)
@@ -14,7 +13,8 @@ function getStompClient(
   myName,
   setUserList,
   navigate,
-  gameType
+  gameType,
+  limitTime
 ) {
   return async (dispatch, getState) => {
     console.log("호스트명", hostName);
@@ -96,6 +96,7 @@ function getStompClient(
               })
             );
             console.log("다음 페이지로 넘아감");
+            console.log("제한시간 확인", limitTime);
             await navigate(`/gamepage`);
             // 게임 시작 페이지로 이동함.
           } // 구독한 곳으로 메세지가 오면 펑션 메세지가 실행 된다.

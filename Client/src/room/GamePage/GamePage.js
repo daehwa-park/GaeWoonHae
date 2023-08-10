@@ -54,7 +54,8 @@ const GamePage = () => {
     const myName = useSelector((state) => state.auth.user.nickname);
     const sessionId = useSelector((state) => state.roomInfo.sessionId);
     const gameType = useSelector((state) => state.roomInfo.gameType);
-    const limitTime = useSelector((state) => state.roomInfo.limitTime);
+    // const limitTime = useSelector((state) => state.roomInfo.limitTime);
+    const limitTime=14;
     // const emoji = useSelector((state) => state.user.emoji);
     const firstUserList = useSelector((state) => state.roomInfo.userList);
     const userId = useSelector((state) => state.auth.user.userId);
@@ -73,6 +74,7 @@ const GamePage = () => {
     // game states
     const [count, setCount] = useState(0);
     const [timer, setTimer] = useState(0);
+    const [finishUserCount, setfinishUserCount] = useState(0);
     const [started, setStarted] = useState(false);
     const [finished, setFinished] = useState(false);
     const [gameLoad, setGameLoad] = useState(false);
@@ -80,7 +82,7 @@ const GamePage = () => {
     const [userList, setUserList] = useState(firstUserList);
     const [renderingcount,setRenderingcount] = useState([0,1,2,3])
     //0809 추가
-    const [finishUserCount, setfinishUserCount] = useState(0);
+    
 
     // refs for openCV
     const webcamRef = useRef();
@@ -94,7 +96,7 @@ const GamePage = () => {
 
     // openVidu Object
     let OV;
-
+    // let finishUserCount=0;
     // timer
     const timerIdRef = useRef(null);
 
@@ -269,12 +271,14 @@ const GamePage = () => {
                     if(parsedMessage.content === "게임종료") {
                         //axios 발사 
                         recordSave();
+                        setGameModalOpen(true);
                         console.log("나를 포함한 모든 유저의 게임이 종료되었습니다!!")
                     }
 
                     // 방장만 finishUsercount 관리함
                     if(myName===hostName) {
                         setfinishUserCount(finishUserCount+1);
+                    console.log(finishUserCount+"지금 이만큼 끝이났어요~~~~~~~~~~~~~");
                     }
                 }
             );
@@ -410,7 +414,7 @@ const GamePage = () => {
         if (finished) {
             console.log("게임 종료!!!!!!!!!!!!!!!");
             myGameFinish();
-            setGameModalOpen(true);
+            // setGameModalOpen(true);
             clearInterval(timerIdRef.current);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -426,7 +430,8 @@ const GamePage = () => {
 
     //0809
     useEffect(()=> {
-        if (myName === hostName && finishUserCount>=1) {
+        console.log(myName+" "+hostName+" "+finishUserCount)
+        if (myName === hostName && finishUserCount>=2) {
             stompClient.send(
                 "/app/gameroom/" + sessionId + "/gamefinish",{},
                 // 내 정보를 해당 채널로 보내면 됨
