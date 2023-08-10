@@ -2,20 +2,23 @@ import './countloading.css'
 import React, { useState, useEffect } from 'react';
 // import React, { useEffect, useState, useRef } from 'react';
 
-const CountLoading =({countdown}) => {
+const CountLoading =({updateLoadingComplete}) => {
 
     const [time, setTime] = useState(3);
     const [animate, setAnimate] = useState(false);
     // 숫자 카운트 딜레이
-    const countdelay = 900
+    const countdelay = 1000
 
     useEffect(() => {
-        if (time >= 0) {
+        if (time > 0) {
             const timerId = setTimeout(() => {
                 setTime(prevTime => prevTime - 1);
                 setAnimate(true);
             }, countdelay);
             return () => clearTimeout(timerId);
+        }
+        else {
+            updateLoadingComplete();
         }
     }, [time]);
 
