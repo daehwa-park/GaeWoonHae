@@ -2,7 +2,7 @@ import './countloading.css'
 import React, { useState, useEffect } from 'react';
 // import React, { useEffect, useState, useRef } from 'react';
 
-const CountLoading =({countdown}) => {
+const CountLoading =({updateLoadingComplete}) => {
 
     const [time, setTime] = useState(3);
     const [animate, setAnimate] = useState(false);
@@ -16,6 +16,9 @@ const CountLoading =({countdown}) => {
                 setAnimate(true);
             }, countdelay);
             return () => clearTimeout(timerId);
+        }
+        else {
+            updateLoadingComplete();
         }
     }, [time]);
 

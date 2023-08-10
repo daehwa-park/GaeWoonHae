@@ -31,7 +31,17 @@ const CommonUI = ({props}) => {
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userList,loadcomplete])
+    }, [userList])
+
+    useEffect(() => {
+        console.log(loadcomplete, '로딩확인222@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        if (loadcomplete) {
+            console.log(loadcomplete, '로딩확인333@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+            console.log(" 타이머 시작 : @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+            setTimerstart(true)
+
+        }
+    }, [loadcomplete])
 
     return(
         <div>
