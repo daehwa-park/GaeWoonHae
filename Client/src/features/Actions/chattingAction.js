@@ -77,7 +77,7 @@ function getStompClient(
 
     // 카메라 끝
     async function connect() {
-      var socket = new SockJS("http://localhost:5000/gwh-websocket");
+      var socket = new SockJS("/gwh-websocket");
       stompClient = Stomp.over(socket);
       var headers = {
         name: myName,
