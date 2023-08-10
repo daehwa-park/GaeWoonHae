@@ -145,7 +145,6 @@ const GameLoader = ({props}) => {
                 getNextPose();
                 ready1.current = ready2.current = set.current = false;
             }
-            console.log(curPose.current);
         }
 
         loopPredId.current = requestAnimationFrame(predictJumpingJack);
@@ -158,7 +157,8 @@ const GameLoader = ({props}) => {
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
             const prediction = await model.predict(posenetOutput);
 
-            if (prediction[curPose.current].probability > 0.85) {
+            // if (prediction[curPose.current].probability > 0.85) {
+            if (poseButton.current === curPose.current) {
                 console.log("currect pose!")
                 setCount(prev => prev + 1);
                 getNextPose();
@@ -313,9 +313,13 @@ const GameLoader = ({props}) => {
                 <button onClick={() => {clickEvent(3)}}> pose 3 </button>
                 <button onClick={() => {clickEvent(4)}}> pose 4 </button>
                 <button onClick={() => {clickEvent(5)}}> pose 5 </button>
+                <button onClick={() => {clickEvent(6)}}> pose 6 </button>
+                <button onClick={() => {clickEvent(7)}}> pose 7 </button>
+                <button onClick={() => {clickEvent(8)}}> pose 8 </button>
+                <button onClick={() => {clickEvent(9)}}> pose 9 </button>
             </div>
             <div>
-                <h2>{curPose.current}</h2>
+                <h2>{curPoseState}</h2>
             </div>
         </div>
     )
