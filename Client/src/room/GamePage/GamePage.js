@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from "react-redux/es/hooks/useSelector"
 import './GamePage.css'
 import GameEndBtn from "../../components/modal/gameEnd"
+import logo from '../../assets/img/purple_logo.png' 
 
 // components
 import UserVideoComponent from '../../features/openvidu_opencv/openvidu/UserVideoComponent';
@@ -429,27 +430,29 @@ const GamePage = () => {
 
     return (
         <div className='gamepage'>
-            <div className="head">
-                <span>l l l</span>
-                <span className='Logo1'>게운해 </span>
-                <span className='Logo2'>GAEWOONHAE</span>
+            {/* 헤더 */}
+            <div className="game-header">
+                <img className="main-hover"  src={logo} alt="" />
             </div>
-            <div className="mainscreen">
+            <div className="game-mainscreen">
                 {/* 로딩 애니메이션 */}
                 {loading ? <Loading /> : null }
                 {counting ? <CountLoading updateLoadingComplete={updateLoadingComplete} /> : null}
                 {/* 게임 종료 모달 */}
                 {GamemodalOpen && (<GameEndBtn/>)}
-                <div className='gametitle'>
-                    <h1 className='titlename'>박 터트리기!!</h1>
-                    <p >빠르고 정확한 동작으로 더 많이 박을 터트리세요!</p>
-                    <hr />
-                </div>
                 <div className="gamescreen">
                     <div className='messagebtntag'>
-                        {/* 채팅 모달창 */}
-                            {/* <button className='messagebtn' onClick={showModal}>버튼</button>
-                            {modalOpen && <ChatModal className='chatmodal' setModalOpen={setModalOpen} />} */}
+                        <div className='gametitle'>
+                            <h1 className='titlename'>박 터트리기!!</h1>
+                            <p >빠르고 정확한 동작으로 더 많이 박을 터트리세요!</p>
+                            <hr />
+                        </div>
+                        <div className='ranking'>
+                            <div>현재 랭킹</div>
+                            <div>순위</div>
+                        </div>
+                        {/* 게임 로직 컴포넌트 (아무 배치요소 없음) */}
+                        <GameLoader props={{setCount, started, finished, gameType, setGameLoad}} />
                     </div>
                     <div className="mainvideo">
                         <div id="session">
@@ -464,12 +467,10 @@ const GamePage = () => {
                                 <img className="inputImage" alt="input" ref={imgRef} style={{display:'none' }}/>
                                 <img className="emoji" alt="input" ref={emojiRef} style={{display:'none'}} />
                             </div>
-                            {/* 게임 로직 컴포넌트 (아무 배치요소 없음) */}
-                            <GameLoader props={{setCount, started, finished, gameType, setGameLoad}} />
 
                             <div id="video-container" style={{ display:"flex"}}>
                                 {/* 내 화면 */}
-                                <div id="main-videos" style={{ flex:"1 0 60%" }}>
+                                <div id="main-videos" style={{ flex:"1" }}>
                                     <div id="main-video" >
                                         <UserVideoComponent streamManager={mainStreamManager}/>
                                         {/* 위에 공통 UI */}
@@ -482,7 +483,7 @@ const GamePage = () => {
                                 {/* 참여자가 4명이상일떄 */}
                                 {subscriber.length >= 4 ? (
 
-                                    <div id="sub-videos" style={{ flex:"1 0 35%", display:"grid"}}> 
+                                    <div id="sub-videos" > 
                                         {subscriber.map((sub, i) => (
             
                                                 <div id="sub-video2" key={i}>
@@ -498,7 +499,7 @@ const GamePage = () => {
 
                                 {/* 참여자가 3명 이하일때 빈자리 표기 */}
                                 {subscriber.length <= 3 ? (
-                                <div id="sub-videos" style={{ flex:"1 0 35%", display:"grid"}}> 
+                                <div id="sub-videos" > 
                                     {subscriber.map((sub, i) => (
                                             // <div id="sub-video2" key={sub.id} onClick={() => this.handleMainVideoStream(sub)} >
                                             <div id="sub-video2" key={i}>
@@ -540,9 +541,7 @@ const GamePage = () => {
                         {/* <VideoApp leavethisSession={leavethisSession}/> */}
                     </div>
                 </div>
-                <div className="linehr">
-                    <hr />
-                </div>
+            
             </div>
 
 
