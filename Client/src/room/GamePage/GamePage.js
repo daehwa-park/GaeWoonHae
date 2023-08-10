@@ -31,6 +31,7 @@ import Stomp from "stompjs"
 // 로딩창
 import CountLoading from './countloading'
 import Loading from './loading'
+import { current } from '@reduxjs/toolkit';
 
 // 게임페이지
 
@@ -55,6 +56,7 @@ const GamePage = () => {
     const sessionId = useSelector((state) => state.roomInfo.sessionId);
     const gameType = useSelector((state) => state.roomInfo.gameType);
     const limitTime = useSelector((state) => state.roomInfo.limitTime);
+    // const limitTime=14;
     // const emoji = useSelector((state) => state.user.emoji);
     const firstUserList = useSelector((state) => state.roomInfo.userList);
     const userId = useSelector((state) => state.auth.user.userId);
@@ -73,6 +75,8 @@ const GamePage = () => {
     // game states
     const [count, setCount] = useState(0);
     const [timer, setTimer] = useState(0);
+    const [finishUserCount, setfinishUserCount] = useState(0);
+    // let finishUserCount =0;
     const [started, setStarted] = useState(false);
     const [finished, setFinished] = useState(false);
     const [gameLoad, setGameLoad] = useState(false);
@@ -80,7 +84,7 @@ const GamePage = () => {
     const [userList, setUserList] = useState(firstUserList);
     const [renderingcount,setRenderingcount] = useState([0,1,2,3])
     //0809 추가
-    const [finishUserCount, setfinishUserCount] = useState(0);
+    
 
     // refs for openCV
     const webcamRef = useRef();
@@ -94,10 +98,10 @@ const GamePage = () => {
 
     // openVidu Object
     let OV;
-
+    // let finishUserCount=0;
     // timer
     const timerIdRef = useRef(null);
-
+    const finishUserCountRef = useRef(0);
     
     // 모달 입장
     // const showLobbyModal = () => {
@@ -263,18 +267,18 @@ const GamePage = () => {
                 // 게임정보 주고 받는 채널 구독
                 "/topic/gameroom/" + sessionId + "/gamefinish",
                 (message) => {
-                    console.log("gamefinish 채널로 meessage가 왔습니다.");
                     const parsedMessage = JSON.parse(message.body);
                     // 메시지가 "전체 게임 종료" 이면 각자 axios 발사하고 게임종료 페이지로 이동함.
                     if(parsedMessage.content === "게임종료") {
                         //axios 발사 
                         recordSave();
-                        console.log("나를 포함한 모든 유저의 게임이 종료되었습니다!!")
+                        setGameModalOpen(true);
+                        console.log("모든 유저의 게임이 종료되었습니다!!")
                     }
-
                     // 방장만 finishUsercount 관리함
-                    if(myName===hostName) {
-                        setfinishUserCount(finishUserCount+1);
+                    else if(myName === hostName) {
+                        setfinishUserCount(finishUserCountRef.current++);
+                    
                     }
                 }
             );
@@ -319,7 +323,7 @@ const GamePage = () => {
         stompClient.send(
             "/app/gameroom/" + sessionId + "/gamefinish",{},
             // 내 정보를 해당 채널로 보내면 됨
-            JSON.stringify({})
+            JSON.stringify({chat: myName+"님의 게임이 종료되었습니다."})
         );
     }
     // 게임종료시 실행하는 axios 요청
@@ -349,7 +353,6 @@ const GamePage = () => {
 
     useEffect(() => {
 
-        console.log(limitTime,"qwiehowqhekqwhekqwehkqwekqweewqewqghjeqwewq");
         const init = async () => {
             // music.currentTime = 0;
 
@@ -410,7 +413,7 @@ const GamePage = () => {
         if (finished) {
             console.log("게임 종료!!!!!!!!!!!!!!!");
             myGameFinish();
-            setGameModalOpen(true);
+            // setGameModalOpen(true);
             clearInterval(timerIdRef.current);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -426,7 +429,7 @@ const GamePage = () => {
 
     //0809
     useEffect(()=> {
-        if (myName === hostName && finishUserCount>=2) {
+        if (myName === hostName && finishUserCountRef.current>=2) {
             stompClient.send(
                 "/app/gameroom/" + sessionId + "/gamefinish",{},
                 // 내 정보를 해당 채널로 보내면 됨
