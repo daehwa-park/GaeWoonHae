@@ -11,6 +11,7 @@ const CommonUI = ({props}) => {
     const timer = 20;
     const userList = props.userList;
     let loadcomplete = props.loadcomplete.current;
+    let setFinished = props.setFinished;
     const [timerstart,setTimerstart] =useState(false)
 
     
@@ -49,10 +50,14 @@ const CommonUI = ({props}) => {
                     isPlaying={timerstart}
                     duration={timer}
                     // duration={timer}
-                    colors={['rgb(240, 66, 66)', '#F7B801', '#A30000', '#A30000']}
-                    colorsTime={[7, 5, 2, 0]}
+                    colors={['#F4BE66', '#FFA167', '#FD7F32', '#FF0000']}
+                    colorsTime={[timer, timer*0.7 , timer*0.4, 0]}
                     size={120}
                     strokeWidth={9}
+                    onComplete={() => {
+                        props.setFinished(true);
+                        console.log(props.finished);
+                    }}
                 >
                 {/* 타이머가 끝났을 때 표시할 내용 */}
                 {({ remainingTime }) => (
