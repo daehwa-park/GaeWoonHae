@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from "react-redux/es/hooks/useSelector"
 import './GamePage.css'
-
+import GameEndBtn from "../../components/modal/gameEnd"
 
 // components
 import UserVideoComponent from '../../features/openvidu_opencv/openvidu/UserVideoComponent';
@@ -20,9 +20,9 @@ import { OpenVidu } from 'openvidu-browser';
 // stomp
 import SockJS from "sockjs-client"
 import Stomp from "stompjs"
-import JumpingJack from '../../components/GamePage/games/ui/JumpingJack';
-import Pictogram from '../../components/GamePage/games/ui/Pictogram';
-import Squat from '../../components/GamePage/games/ui/Squat';
+// import JumpingJack from '../../components/GamePage/games/ui/JumpingJack';
+// import Pictogram from '../../components/GamePage/games/ui/Pictogram';
+// import Squat from '../../components/GamePage/games/ui/Squat';
 // 로딩창
 import CountLoading from './countloading'
 import Loading from './loading'
@@ -31,13 +31,18 @@ import Loading from './loading'
 
 const GamePage = () => {
 
-    // 로딩 애니메이션
-    const loadingtime = 3000;  // 로딩시간 설정
+    // 게임 진행시간
+    const gametime = 20;
+
+    // 로딩 애니메이션(1.버스)
+    // const loadingtime = 3000;  // 로딩시간 설정
     const [loading,setLoading] =useState(true);
-    // 로딩이 끝났을떄 카운트 다운
+    // 로딩 애니메이션(2.카운트 다운)
     const countdown = 5000;
     const [counting,setCounting] = useState(false);
     const loadcomplete = useRef(false);
+    // 게임 종료 모달 
+    const [GamemodalOpen, setGameModalOpen] = useState(false);
 
     const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? 'https://i9b303.p.ssafy.io/' : 'https://demos.openvidu.io/';
     // const hostName = useSelector((state) => state.roomInfo.hostName);
@@ -88,6 +93,13 @@ const GamePage = () => {
     // let timerId;
 
     
+    // 모달 입장
+    // const showLobbyModal = () => {
+    //     setGameModalOpen(true);
+    // };
+
+
+
     // openCV Settings
     
     const updateEmoji = async () => {
@@ -300,8 +312,6 @@ const GamePage = () => {
             joinSession();
 
             connectStomp();
-        
- 
         }
 
         init();
@@ -330,18 +340,24 @@ const GamePage = () => {
                 setFinished(true);
             }
         }
-        console.log(loadcomplete.current, '로딩중@@@@@@@@@@@@@@@@@@@@@@@@@')
+        
         //로딩 조건
         if (started) {
             startTimer();
             setLoading(false);
             setCounting(true);
+            // 로딩이 되었으면, 게임시간타이머에 전달
             loadcomplete.current=true
-            console.log(loadcomplete.current, '로딩완료@@@@@@@@@@@@@@@@@@@@@@@@@')
+            
+            // 버스 로딩 끝나고 => 3초 카운트 다운시작
             setTimeout(()=> {
                 setCounting(false);
             }, countdown);
 
+            // 버스 로딩,3초 카운트 끝나고 => 게임시간타이머 끝나고 나서 실행
+            setTimeout(()=> {
+                setGameModalOpen(true);
+            }, countdown+gametime*1000+2000);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [started])
@@ -375,6 +391,8 @@ const GamePage = () => {
                 {/* 로딩 애니메이션 */}
                 {loading ? <Loading />:null }
                 {counting ? <CountLoading countdown={countdown} /> : null}
+                {/* 게임 종료 모달 */}
+                {GamemodalOpen && (<GameEndBtn/>)}
                 <div className='gametitle'>
                     <h1 className='titlename'>박 터트리기!!</h1>
                     <p >빠르고 정확한 동작으로 더 많이 박을 터트리세요!</p>
@@ -401,17 +419,17 @@ const GamePage = () => {
                             </div>
                             {/* 게임 로직 컴포넌트 (아무 배치요소 없음) */}
                             <GameLoader props={{setCount, started, finished, gameType, setGameLoad}} />
+                                {/* 위에 게임별 이미지 UI
+                                {gameType === 1 && <JumpingJack />}
+                                {gameType === 2 && <Pictogram />}
+                                {gameType === 3 && <Squat />} */}
                             <div id="video-container" style={{ display:"flex"}}>
                                 {/* 내 화면 */}
                                 <div id="main-videos" style={{ flex:"1 0 60%" }}>
                                     <div id="main-video" >
                                         <UserVideoComponent streamManager={mainStreamManager}/>
                                         {/* 위에 공통 UI */}
-                                        <CommonUI props={{count, timer, userList,loadingtime, countdown,loadcomplete}} />
-                                        {/* 위에 게임별 이미지 UI */}
-                                        {gameType === 1 && <JumpingJack />}
-                                        {gameType === 2 && <Pictogram />}
-                                        {gameType === 3 && <Squat />}
+                                        <CommonUI props={{count, timer, userList, countdown,loadcomplete, gametime}} />
 
                                     </div>
                                 </div>

@@ -37,13 +37,13 @@
   margin-left: 3vw;
 }
 .profile-img {
-  /* margin: 1vh auto; */
+  margin: 0 auto;
   margin-top:5vh;
-  margin-left: 5vw;
-  width: 15vw;
-  height: 15vw;
+  /*margin-left: 5vw; */
+  width: 17vw;
+  height: 17vw;
   border: 2px solid black;
-  border-radius: 10;
+  border-radius: 50%; 
 }
 
 .main-emoji {
