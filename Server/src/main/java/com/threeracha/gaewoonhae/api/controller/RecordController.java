@@ -38,9 +38,10 @@ public class RecordController {
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
     })
     @PostMapping("/save")
-    public ResponseEntity<CommonResponse<String>> saveRecord(@RequestBody SaveRecordRequest saveRecordReq) {
-
-        return new ResponseEntity<>(makeCommonResponse(SUCCESS, recordService.saveRecord(saveRecordReq)), HttpStatus.OK);
+    public ResponseEntity<CommonResponse<RecordResponse>> saveRecord(@RequestBody SaveRecordRequest saveRecordReq) {
+        return new ResponseEntity<>(makeCommonResponse(SUCCESS,
+                new RecordResponse(recordService.saveRecord(saveRecordReq))),
+                HttpStatus.OK);
     }
 
     @Operation(summary = "게임 기록 전체 조회", description = "파라미터로 받은 userId와 일치하는 게임 기록 전체를 전달.")

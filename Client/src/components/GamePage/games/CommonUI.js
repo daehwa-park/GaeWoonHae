@@ -8,24 +8,26 @@ const CommonUI = ({props}) => {
 
     const count = props.count;
     // const timer = props.timer;
-    const timer = 20;
+    const timer = props.gametime;
     const userList = props.userList;
     let loadcomplete = props.loadcomplete.current;
     let setFinished = props.setFinished;
     const [timerstart,setTimerstart] =useState(false)
 
-    
     const [sortedUserList, setSortedUserList] = useState([]);
     console.log(sortedUserList)
 
     useEffect(() => {
-        console.log(loadcomplete, '로딩확인@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
         if (userList) {
-            
             let users = userList.sort((a, b) => (b.count - a.count));
-            
             setSortedUserList(users);
-            
+            console.log(loadcomplete, '진입전@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+            if (loadcomplete) {
+                console.log(loadcomplete, '진입후@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+                setTimeout(()=>{
+                    setTimerstart(true)
+                },loadingtime)
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userList])

@@ -1,5 +1,6 @@
-import React, {  useEffect, useRef, useState } from 'react';
-// import { useSelector } from "react-redux/es/hooks/useSelector";
+import { Button } from 'bootstrap';
+import React, { Component, useEffect, useRef, useState } from 'react';
+import { useSelector } from "react-redux/es/hooks/useSelector";
 
 
 const GameLoader = ({props}) => {
@@ -10,28 +11,54 @@ const GameLoader = ({props}) => {
     const finished = props.finished;
     const gameType = props.gameType;
     const setGameLoad = props.setGameLoad;
+    const limitTime = props.limitTime;
 
     // states
     const [model, setModel] = useState();
     const [webcam, setWebcam] = useState();
+    const [curPoseState, setCurPoseState] = useState();
+    const curPose = useRef();
 
-    const poseList = useRef([0,1,2,3,4]);
+    const poseList = useRef([]);
 
-    let URL;
-    let loopId;
-    // let timerId;
-    // let poseList = [0,1,2,3,4];
-    let poseIndex = 0;
+    const URL = useRef("");
+    const loopWebcamId = useRef(null);
+    const loopPredId = useRef(null);
 
-    let ready = false;
-    let set = false;
-    let go = false;
+    // catch mosquito
+    const ready1 = useRef(true);
+    const ready2 = useRef(false);
+    const set = useRef(false);
+
+
+
+
+    // const poseList = useRef([0,1,2,3,4]);
+
+
+    // let squatTimerId;
+    // let poseIndex = 0;
+
     
-    let rightReady = false;
-    let leftReady = false;
+    // let rightReady = false;
+    // let leftReady = false;
 
-    let ballPos = 0;
-    let startTime;
+    // let ballPos = 0;
+    // let startTime;
+
+
+
+    const getNextPose = () => {
+        let num = curPose.current;
+        
+        while(num === curPose.current) {
+            num = poseList.current[Math.floor(Math.random() * poseList.current.length)];
+        }
+
+        setCurPoseState(num);
+        curPose.current = num;
+    }
+
 
     /*
     * Teachable Machine Settings
@@ -41,19 +68,24 @@ const GameLoader = ({props}) => {
 
         switch(gameType) {
             case 1: 
-                URL = 'https://teachablemachine.withgoogle.com/models/ZWOxIpSRc/';
+                URL.current = 'https://teachablemachine.withgoogle.com/models/ZWOxIpSRc/';
+                poseList.current = [0, 1, 2, 3];
+                getNextPose();
                 break;
             case 2: 
-                URL = 'https://teachablemachine.withgoogle.com/models/99dOWJKg2/';
+                URL.current = 'https://teachablemachine.withgoogle.com/models/99dOWJKg2/';
+                poseList.current = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+                getNextPose();
                 break;
             case 3: 
-                URL = 'https://teachablemachine.withgoogle.com/models/PP6A_2GsN/';
+                URL.current = 'https://teachablemachine.withgoogle.com/models/PP6A_2GsN/';
                 break;
             default:
-                URL = 'https://teachablemachine.withgoogle.com/models/M-BMZ7bbw/';
+                URL.current = 'https://teachablemachine.withgoogle.com/models/M-BMZ7bbw/';
+                break;
         }
 
-        await setTmModel(URL);
+        await setTmModel();
 
         // Convenience function to setup a webcam
         const size = 200;
@@ -68,91 +100,108 @@ const GameLoader = ({props}) => {
         .catch((err) => console.error('Error accessing the webcam:', err));
     }
 
-    const setTmModel = async(URL) => {
-        const modelURL = `${URL}model.json`;
-        const metadataURL = `${URL}metadata.json`;
+    const setTmModel = async() => {
+        const modelURL = `${URL.current}model.json`;
+        const metadataURL = `${URL.current}metadata.json`;
 
         setModel(await window.tmPose.load(modelURL, metadataURL));
     }
     
+
+    /*
+    *
+    *  ready1, ready2 => 팔 내려 자세
+    *  set => 팔 벌려 자세
+    *  go => 각 4분면 방향으로 팔 올려 자세
+    */
+    
     const predictJumpingJack = async () => {
+        
         if (model && webcam) {
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
-            console.log(pose)
             const prediction = await model.predict(posenetOutput);
 
-            if (!ready && prediction[0].probability > 0.85) {
-                ready = true;
-                console.log("ready -> true");
+            // if (!ready1.current &&  prediction[4].probability > 0.85) {
+            if (!ready1.current && poseButton.current === 4) {
+                ready1.current = true;
+                console.log("ready1 -> true");
             }
-            else if (ready && !set && prediction[1].probability > 0.85) {
-                set = true;
+            
+            // else if (ready1.current && !set.current && prediction[5].probability > 0.85) {
+            else if (ready1.current && !set.current && poseButton.current === 5) {
+                set.current = true;
                 console.log("set -> true");
             }
-            else if (ready && set  && !go && prediction[0].probability > 0.85) {
-                go = true;
-                console.log("go -> true");
+
+            // else if (ready1.current && set.current && !ready2.current && prediction[4].probability > 0.85) {
+            else if (ready1.current && set.current && !ready2.current && poseButton.current === 4) {
+                ready2.current = true;
+                console.log("ready2 -> true");
             }
-            else if (go) {
-                setCount(prev => prev + 1);
-                ready = set = go = false;
-                console.log("complete", ready, set, go);
+            
+            // else if (ready1.current && set.current && ready2.current && prediction[curPose.current].probability > 0.85) {
+            else if (ready1.current && set.current && ready2.current && poseButton.current === curPose.current) {
+            setCount(prev => prev + 1);
+                getNextPose();
+                ready1.current = ready2.current = set.current = false;
             }
         }
+
+        loopPredId.current = requestAnimationFrame(predictJumpingJack);
     }
 
     const predictPictogram = async () => {
+
         if (model && webcam) {
+
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
-            console.log(pose)
             const prediction = await model.predict(posenetOutput);
 
-            if (prediction[poseList.current[poseIndex]].probability > 0.85) {
+            // if (prediction[curPose.current].probability > 0.85) {
+            if (poseButton.current === curPose.current) {
+                console.log("currect pose!")
                 setCount(prev => prev + 1);
-                poseIndex++;
-                
-                if(poseIndex === poseList.length){
-                    poseIndex = 0;
-                }
-                console.log(poseIndex);
-            }
+                getNextPose();
+                setTimeout(() => {
+                    loopPredId.current = requestAnimationFrame(predictPictogram)
+                }, 500);
+            } 
             else {
-                poseIndex = 0;
-                console.log(poseIndex);
+                loopPredId.current = requestAnimationFrame(predictPictogram)
             }
         }
     }
 
-    const predictSquat = async () => {
-        if (model && webcam) {
-            const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
-            console.log(pose)
-            const prediction = await model.predict(posenetOutput);
+    // const predictSquat = async () => {
+    //     if (model && webcam) {
+    //         const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
+    
+    //         const prediction = await model.predict(posenetOutput);
 
-            console.log(ballPos, "squat!!");
+    //         console.log(ballPos, "squat!!");
             
 
-            if (ballPos == 0 && !rightReady && prediction[1].probability > 0.85) {
-                rightReady = true;
-                console.log("Rready -> true");
-            }
-            else if (ballPos == 0 && rightReady && prediction[0].probability > 0.85) {
-                setCount(prev => prev + 1);
-                rightReady = false;
-                console.log("complete 0");
-            }
-            else if (ballPos == 1 && !leftReady && prediction[3].probability > 0.85) {
-                leftReady = true;
-                console.log("Lready -> true");
-            }
-            else if (ballPos == 1 && leftReady && prediction[2].probability > 0.85) {
-                setCount(prev => prev + 1);
-                leftReady = false;
-                console.log("complete 1");
-            }
-        }
-    }
-    console.log(predictSquat)
+    //         if (ballPos == 0 && !rightReady && prediction[1].probability > 0.85) {
+    //             rightReady = true;
+    //             console.log("Rready -> true");
+    //         }
+    //         else if (ballPos == 0 && rightReady && prediction[0].probability > 0.85) {
+    //             setCount(prev => prev + 1);
+    //             rightReady = false;
+    //             console.log("complete 0");
+    //         }
+    //         else if (ballPos == 1 && !leftReady && prediction[3].probability > 0.85) {
+    //             leftReady = true;
+    //             console.log("Lready -> true");
+    //         }
+    //         else if (ballPos == 1 && leftReady && prediction[2].probability > 0.85) {
+    //             setCount(prev => prev + 1);
+    //             leftReady = false;
+    //             console.log("complete 1");
+    //         }
+    //     }
+    // }
+
     useEffect(() => {
         
         const init = async () => {
@@ -161,89 +210,117 @@ const GameLoader = ({props}) => {
             console.log("GAME LOADED!!!!!!!!!!!!!");
         }
 
-        const shuffle = (array) => {
-            for (let i = array.length - 1; i > 0; i--) {
-                  // 무작위로 index 값 생성 (0 이상 i 미만)
-              let j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-
-        shuffle(poseList.current);
-        console.log(poseList.current);
         init();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
-    const loopIdRef = useRef(null);
-    const timerIdRef = useRef(null);
 
     useEffect(() => {
 
-        const loop = async () => {
+        const loopWebcam = async () => {
             webcam.update();
-            
-            loopIdRef.current = requestAnimationFrame(loop);
+
+            loopWebcamId.current = requestAnimationFrame(loopWebcam);
         };
 
-        const predictLoop = async (timestamp) => {
-            
+        const loopPredict = async () => {
             switch(gameType) {
                 case 1:
-                    await predictJumpingJack();
-                    requestAnimationFrame(predictLoop);
+                    predictJumpingJack();
                     break;
                 case 2:
-                    timerIdRef.current = setInterval(() => {
-                        console.log("interval");
-                        console.log("nextpose", poseList.current[poseIndex]);
-                        setTimeout(() => {
-                            console.log("ready");
-                            setTimeout(()=> {
-                                predictPictogram();
-                            },3000);
-                        }, 2000);
-                    }, 5000);
+                    predictPictogram();
                     break;
-                case 3:
-                    if(!startTime) {
-                        startTime = timestamp;
-                    }
 
-                    let currentTime = timestamp - startTime;
-                    currentTime = Math.floor(currentTime);
-                    console.log(currentTime);
-                    if(currentTime > 5000) {
-                        startTime = timestamp;
-                        ballPos = Math.floor(Math.random() * 2);
-                        console.log(timestamp - startTime, ballPos);
-                    }
-                    
-                    await predictSquat();
-                    requestAnimationFrame(predictLoop);
+                case 3:
+
                     break;
+
                 default:
                     break;
+
             }
         }
 
+        // const predictLoop = async (timestamp) => {
+            
+        //     switch(gameType) {
+        //         case 1:
+        //             await predictJumpingJack();
+        //             requestAnimationFrame(predictLoop);
+        //             break;
+        //         case 2:
+        //             picTimerId = setInterval(() => {
+        //                 console.log("interval");
+        //                 console.log("nextpose", poseList.current[poseIndex]);
+        //                 setTimeout(() => {
+        //                     console.log("ready");
+        //                     setTimeout(()=> {
+        //                         predictPictogram();
+        //                     },3000);
+        //                 }, 2000);
+        //             }, 5000);
+        //             break;
+        //         case 3:
+        //             if(!startTime) {
+        //                 startTime = timestamp;
+        //             }
+
+        //             let currentTime = timestamp - startTime;
+        //             currentTime = Math.floor(currentTime);
+        //             console.log(currentTime);
+        //             if(currentTime > 5000) {
+        //                 startTime = timestamp;
+        //                 ballPos = Math.floor(Math.random() * 2);
+        //                 console.log(timestamp - startTime, ballPos);
+        //             }
+                    
+        //             await predictSquat();
+        //             requestAnimationFrame(predictLoop);
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        // }
+
         if (started)  {
-            loop();
-            predictLoop();
+            loopWebcam();
+            loopPredict();
             console.log("TIMER START!!!!!!!!!!!!!!")
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     },[started]);
 
     useEffect(() => {
 
-        cancelAnimationFrame(loopId);
-        clearInterval(timerIdRef.current);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        cancelAnimationFrame(loopWebcamId.current);
+        clearInterval(loopPredId.current);
+
     }, [finished])
+
+    const poseButton = useRef();
+
+    const clickEvent = (param) => {
+        poseButton.current = param
+        console.log(poseButton.current);
+    }
 
     return(
         <div>
+            <div>
+                <button onClick={() => {clickEvent(0)}}> pose 0 </button>
+                <button onClick={() => {clickEvent(1)}}> pose 1 </button>
+                <button onClick={() => {clickEvent(2)}}> pose 2 </button>
+                <button onClick={() => {clickEvent(3)}}> pose 3 </button>
+                <button onClick={() => {clickEvent(4)}}> pose 4 </button>
+                <button onClick={() => {clickEvent(5)}}> pose 5 </button>
+                <button onClick={() => {clickEvent(6)}}> pose 6 </button>
+                <button onClick={() => {clickEvent(7)}}> pose 7 </button>
+                <button onClick={() => {clickEvent(8)}}> pose 8 </button>
+                <button onClick={() => {clickEvent(9)}}> pose 9 </button>
+            </div>
+            <div>
+                <h2>{curPoseState}</h2>
+            </div>
         </div>
     )
 }

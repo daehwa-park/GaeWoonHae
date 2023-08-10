@@ -1,7 +1,7 @@
 // 네비게이션바 기본틀
 
 import {useNavigate} from "react-router-dom"
-import logo from '../../assets/img/logo_.png'
+import logo from '../../assets/img/purple_logo.png'
 import "./NavBox.css"
 
 

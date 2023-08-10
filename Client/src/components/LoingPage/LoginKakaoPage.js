@@ -36,6 +36,7 @@ const LoginKakaoPage = () => {
   useEffect(() => {
     console.log("로그인 실행");
     getLoginTokens();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   useEffect(() => {
@@ -43,6 +44,7 @@ const LoginKakaoPage = () => {
         isToken(accessToken);
         getUserInfo();
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
   return <div>로그인 중입니다~</div>;
