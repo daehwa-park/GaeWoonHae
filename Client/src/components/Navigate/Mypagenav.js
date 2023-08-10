@@ -4,7 +4,7 @@ import { useState} from "react"
 import './Mypagenav.css'
 import {useNavigate} from "react-router-dom"
 import RecommendModal from "../modal/RecommendModal"
-import logo from '../../assets/img/mainlogo.png'
+import logo from '../../assets/img/purple_logo.png'
 
 
 const NavBoxTag = () => {

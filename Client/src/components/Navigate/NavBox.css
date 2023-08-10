@@ -2,14 +2,15 @@
   position: absolute;
   width: 100%;
   height: 10vh;
-  background-color: #C5A8FC;
+  background-color: #FEFCF5;
   z-index: -1;
+
 }
 
 .main-hover {
   margin-left: 3vh;
-  width: 20vw;
-  height: 10vh;
+  width: 18vw;
+  height: 8vh;
   --c: #d79e0d; 
   --s: .35em;
   

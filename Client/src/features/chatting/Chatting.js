@@ -30,7 +30,7 @@ const Chatting = ({ setUserList }) => {
         myName,
         setUserList,
         navigate,
-        gameType,
+        gameType
       )
     );
   };
@@ -72,14 +72,15 @@ const Chatting = ({ setUserList }) => {
           Send
         </Button>
         {hostName === myName && (
-        <Button
-          id="gameStart"
-          className="gamestart-btn"
-          variant="primary"
-          type="submit"
-        >
-          gameStart
-        </Button> )}
+          <Button
+            id="gameStart"
+            className="gamestart-btn"
+            variant="primary"
+            type="submit"
+          >
+            gameStart
+          </Button>
+        )}
       </Form>
       <div className="user-info" id="result"></div>
     </div>

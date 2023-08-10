@@ -16,6 +16,7 @@ import java.util.Date;
 @Getter //Lombok 어노테이션으로 getter
 @Setter //Lombok 어노테이션으로 setter
 @Table(name = "record_tbl") //테이블 관련 설정 어노테이션
+@Builder
 public class Record {
 
     @Id

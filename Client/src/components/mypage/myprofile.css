@@ -37,17 +37,22 @@
   margin-left: 3vw;
 }
 .profile-img {
-  margin: 3vh auto;
-  width: 15vw;
-  height: 15vw;
-  /* border: 2px solid black; */
-  border-radius: 5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-top:5vh;
+  /*margin-left: 5vw; */
+  width: 17vw;
+  height: 17vw;
+  border: 8px solid rgb(205, 136, 26);
+  border-radius: 50%; 
 }
 
 .main-emoji {
-  margin: auto;
-  width: 17vw;
-  height: 17vw;
+  /* margin: ; */
+  width: 12vw;
+  height: 11vw;
 }
 .changebtn {
   margin-left: 1.3vw;
