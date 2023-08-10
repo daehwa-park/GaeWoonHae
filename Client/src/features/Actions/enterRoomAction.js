@@ -52,4 +52,18 @@ function makeRoomInfo(requestData) {
   };
 }
 
-export const enterRoomAction = { getRoomInfo, makeRoomInfo };
+function recordSave(requestData) {
+  return async (dispatch, getState) => {
+    await roomApi
+      .post("/api/record/save", requestData)
+      .then((res) => {
+        console.log("게임 정보 저장", res);
+      })
+      .catch((err) => {
+        console.log("게임 정보 저장", err);
+      });
+  };
+}
+
+
+export const enterRoomAction = { getRoomInfo, makeRoomInfo, recordSave };
