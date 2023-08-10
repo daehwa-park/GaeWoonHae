@@ -83,6 +83,7 @@ const Lobby = () => {
                           <Col lg={8}>{limitTime} 초</Col>
                           <Col lg={4}>
                             <select name="time" onChange={handleTimeChange}>
+                              <option value={20}>20</option>
                               <option value={60}>60</option>
                               <option value={90}>90</option>
                               <option value={120}>120</option>

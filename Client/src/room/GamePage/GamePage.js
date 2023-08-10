@@ -97,7 +97,6 @@ const GamePage = () => {
 
     // timer
     const timerIdRef = useRef(null);
-    let timerId;
 
     
     // 모달 입장
@@ -213,8 +212,6 @@ const GamePage = () => {
         setPublisher(undefined);
 
     }
-    //임시 사용
-    console.log(publisher,setAssetLoad,setRenderingcount,leaveSession)
     
     const subscriberLeave = (streamManager) => {
         let remainSubscriber = subscriber;
@@ -381,7 +378,6 @@ const GamePage = () => {
 
         if (stompLoad && openViduLoad && gameLoad && assetLoad) {
             setStarted(true);
-            console.log("GAME START!!!!!!!!!!!!!!!!!");
         }
 
     },[stompLoad, openViduLoad, gameLoad, assetLoad])
@@ -389,23 +385,11 @@ const GamePage = () => {
 
 
     useEffect(() => {
-        const startTimer = () => {
-            let localTimer = timer;
-            timerId = setInterval(() => {
-                if (localTimer <= limitTime) {
-                    localTimer = localTimer + 1;
-                    setTimer(localTimer);
-                } else {
-                    clearInterval(timerId);
-                    setFinished(true);
-                }
-            }, 1000)
-        }
         
         setGameTime(limitTime);
         //로딩 조건
         if (started) {
-            startTimer();
+            console.log("게임 시작!!!!!!!!!!!!!!");
             setLoading(false);
             setCounting(true);
             
@@ -416,15 +400,17 @@ const GamePage = () => {
 
             // 버스 로딩,3초 카운트 끝나고 => 게임시간타이머 끝나고 나서 실행
             setTimeout(()=> {
-                myGameFinish();
-                setGameModalOpen(true);
+                setFinished(true);
             }, countdown+gameTime*1000+2000);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [started])
-
+    
     useEffect(() => {
         if (finished) {
+            console.log("게임 종료!!!!!!!!!!!!!!!");
+            myGameFinish();
+            setGameModalOpen(true);
             clearInterval(timerIdRef.current);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -475,7 +461,7 @@ const GamePage = () => {
                             <div>순위</div>
                         </div>
                         {/* 게임 로직 컴포넌트 (아무 배치요소 없음) */}
-                        <GameLoader props={{setCount, started, finished, gameType, setGameLoad}} />
+                        <GameLoader props={{setCount, started, finished, gameType, setGameLoad, countdown, setAssetLoad}} />
                     </div>
                     <div className="mainvideo">
                         <div id="session">
