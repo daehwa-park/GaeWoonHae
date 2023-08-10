@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 
-.head {
-    height: 5vh;
+.gamepage {
+    background-color: #FEFCF5;
+    height: 100%;
+    width: 100%;
+}
+.game-header {
+    height: 8vh;
 }
 
 .Logo1 {
@@ -15,18 +20,19 @@
     font-family: 'Righteous', cursive;
 }
 
-.gamepage {
-    background-color: #FDE8FF;
-    height: 100%;
-    width: 100%;
-}
 
-.mainscreen {
-    margin:0 auto;
+.game-mainscreen {
     background-color: white;
-    width: 98vw;
-    height: 85vh;
+    /* border: 10px solid red; */
+    width: 100vw;
+    height: 87vh;
     border-radius: 20px;
+}
+.gamescreen {
+    display:flex;
+    /* width: 100vw; */
+    height: 87vh;
+    border: 5px solid rgb(109, 203, 101);
 }
 
 .gametitle {
@@ -37,6 +43,13 @@
     /* height: 10vh; */
     /* line-height: 5vh; */
     /* margin: 0 auto; */
+    border: 2px solid black;
+}
+
+#video-container {
+    width: 100%;
+    height: 87vh;
+    border: 5px solid black;
 }
 
 .titlename {
@@ -47,9 +60,9 @@
     position: flex;
     /* top: 50%; */
     /* left:50%; */
-    width: 25vw;
-    height: 60vh;
-    border: 2px solid black;
+    width: 19vw;
+    height: 87vh;
+    border: 5px solid black;
 }
 
 .messagebtn {
@@ -61,21 +74,16 @@
     border-radius: 3vw;
 }
 
-
-
-.gamescreen {
-    display:flex;
-    /* align-items: center; */
-    height: 60vh;
+.ranking {
+    width: 14vw;
+    height: 50vh;
+    border: 5px solid black;
 }
 
 .mainvideo {
-    width: 75vw;
-    height: 60vh;
-    border :2px solid red;
-}
-.lienhr {
-    height: 5vh;
+    width: 81vw;
+    height: 87vh;
+    border :5px solid red;
 }
 
 .footer {
@@ -91,27 +99,26 @@
     /* background-color: blue; */
 }
 
-#main-videos {
-    width: 65vw;
+  #main-video {
+    /* display: flex; */
+    margin-top: 3vh;
+    margin-left: 1vw;
+    width: 77%;
+    /* height: auto; */
+    /* height: 62%; */
+    /* border: 20px solid salmon; */
     border-radius: 30px;
   }
   
-  #main-video {
-    margin-top: 6vh;
-    margin-left: 3vw;
-    width: 40vw;
-    height: 30vh;
-    /* border-radius: 30px; */
-  }
-  
   #sub-videos {
-    margin-top: 7vh;
-    width: 30vw;
-    border: 2px solid salmon;
-    flex: 1 0 50%;
-    display: grid;
+    margin-top: 3vh;
+    width: 15vw;
+    height: 80vh;
+    border: 5px solid salmon;
+    /* flex: 1 0 50%; */
+    /* display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr); */
   }
   
   #sub-video2 {
