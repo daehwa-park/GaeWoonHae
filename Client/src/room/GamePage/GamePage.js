@@ -426,7 +426,7 @@ const GamePage = () => {
 
     //0809
     useEffect(()=> {
-        if (myName === hostName && finishUserCount>=1) {
+        if (myName === hostName && finishUserCount>=2) {
             stompClient.send(
                 "/app/gameroom/" + sessionId + "/gamefinish",{},
                 // 내 정보를 해당 채널로 보내면 됨
