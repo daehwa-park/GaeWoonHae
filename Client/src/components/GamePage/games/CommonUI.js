@@ -73,7 +73,7 @@ const CommonUI = ({props}) => {
                             </div> */}
                         <div className='game-ranking2'>
                             {sortedUserList.map((user, idx) => (
-                                <div className='user-ranking'>{idx}위 {user.username} {user.count}개 </div>
+                                <div className='user-ranking' key={idx}>{idx}위 {user.username} {user.count}개 </div>
                             ))}
                             {/* <div className='user-ranking'>1위 김두현 12개</div>
                             <div className='user-ranking'>2위 김두현 12개</div>
