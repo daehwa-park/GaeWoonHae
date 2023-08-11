@@ -54,7 +54,7 @@ public class RoomService {
         Room room = roomRepository.findRoomBySessionId(request.getSessionId())
                 .orElseThrow(() -> new CustomException(CustomExceptionList.ROOM_NOT_FOUND_ERROR));
 
-        if (request.getUserId().longValue() != room.getUser().getUserId().longValue()) {
+        if (request.getGameType() != room.getGameType().getGameType()) {
             throw new CustomException(CustomExceptionList.INVALID_HOST_ERROR);
         }
 
@@ -67,7 +67,7 @@ public class RoomService {
         Room room = roomRepository.findRoomBySessionId(request.getSessionId())
                 .orElseThrow(() -> new CustomException(CustomExceptionList.ROOM_NOT_FOUND_ERROR));
 
-        if (request.getUserId().longValue() != room.getUser().getUserId().longValue()) {
+        if (request.getGameType() != room.getGameType().getGameType())  {
             throw new CustomException(CustomExceptionList.INVALID_HOST_ERROR);
         }
 
@@ -81,7 +81,7 @@ public class RoomService {
         Room room = roomRepository.findRoomBySessionId(request.getSessionId())
                 .orElseThrow(() -> new CustomException(CustomExceptionList.ROOM_NOT_FOUND_ERROR));
 
-        if (request.getUserId().longValue() != room.getUser().getUserId().longValue()) {
+        if (request.getGameType() != room.getGameType().getGameType())  {
             throw new CustomException(CustomExceptionList.INVALID_HOST_ERROR);
         }
 
