@@ -17,7 +17,7 @@ const CommonUI = ({props}) => {
     const [sortedUserList, setSortedUserList] = useState([]);
 
     useEffect(() => {
-        if (userList) {
+        if (userList && userList.length > 0) {
             let users = userList;
             users.sort((a, b) => (b.count - a.count));
             setSortedUserList(users);
