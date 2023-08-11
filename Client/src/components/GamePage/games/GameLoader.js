@@ -32,7 +32,8 @@ const GameLoader = ({props}) => {
     const set = useRef(false);
 
 
-
+    // 오류방지용 콘솔
+    console.log(Button,Component,useSelector,setAssetLoad)
 
     // const poseList = useRef([0,1,2,3,4]);
 
@@ -146,6 +147,8 @@ const GameLoader = ({props}) => {
                 getNextPose();
                 ready1.current = ready2.current = set.current = false;
             }
+            // 오류 방지용 콘솔
+            console.log(pose,prediction)
         }
 
         loopPredId.current = requestAnimationFrame(predictJumpingJack);
@@ -170,6 +173,8 @@ const GameLoader = ({props}) => {
             else {
                 loopPredId.current = requestAnimationFrame(predictPictogram)
             }
+            // 오류 방지용 콘솔
+            console.log(pose,prediction)
         }
     }
 
@@ -212,6 +217,7 @@ const GameLoader = ({props}) => {
         }
 
         init();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
 
@@ -245,7 +251,7 @@ const GameLoader = ({props}) => {
                 loopPredict();
             }, countdown);
         }
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
     },[started]);
 
     useEffect(() => {

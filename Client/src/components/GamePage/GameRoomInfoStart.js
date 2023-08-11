@@ -6,6 +6,10 @@ import "./GameRoomInfo.css";
 const GameRoomInfoStart = ({ userList }) => {
   const hostName = useSelector((state) => state.roomInfo.hostName);
   const myName = useSelector((state) => state.auth.user.nickname);
+
+  // 오류 방지용 콘솔
+  console.log(hostName,myName)
+
   useEffect(() => {
     console.log("게임인포 유저리스트", userList);
   }, [userList]);

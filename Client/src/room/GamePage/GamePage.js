@@ -95,6 +95,12 @@ const GamePage = () => {
     // 비디오 종료 조건
     const stopVideo = useRef(false);
 
+    // 타이틀 
+    const titleimgRef =useRef('/images/img/gametypelogo1.png')
+
+
+    //오류 방지용 콘솔
+    console.log(hostName,myName,sessionId)
 
     // openVidu Object
     let OV;
@@ -107,6 +113,9 @@ const GamePage = () => {
     // const showLobbyModal = () => {
     //     setGameModalOpen(true);
     // };
+
+    // 오류방지용 콘솔
+    console.log(current,publisher,setTimer,setRenderingcount)
 
 
 
@@ -209,14 +218,18 @@ const GamePage = () => {
             mySession.disconnect();
         }
         
+        
+        
         OV = null;
         setSession(undefined);
         setSubscriber([]);
         setMainStreamManager(undefined);
         setPublisher(undefined);
-
     }
-    
+    //오류 방지용 콘솔
+    console.log(leaveSession)
+
+
     const subscriberLeave = (streamManager) => {
         let remainSubscriber = subscriber;
         let index = remainSubscriber.indexOf(streamManager, 0);
@@ -437,6 +450,7 @@ const GamePage = () => {
             );
             console.log("자 이제 넘어가도록 하지");
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[finishUserCount])
 
 
@@ -457,7 +471,7 @@ const GamePage = () => {
                 <div className="gamescreen">
                     <div className='messagebtntag'>
                         <div className='gametitle'>
-                            <span className='game-titlename'>박 터트리기!!</span>
+                            <img className='game-logo' src={titleimgRef.current} alt=""/>
                             <p className='game-titletag' >빠르고 정확한 동작으로 <br/>더 많이 박을 터트리세요!</p>
     
                         </div>
@@ -571,7 +585,7 @@ const GamePage = () => {
             <div className="footer"></div>
             {/* <button type="button" onClick={init}>Start</button>
             <h4>횟수 : {myCount}</h4> */}
-            {/* <button onClick={handleLeaveSession}> 방 나가기 </button> */}
+            <button className="btn-back"> 방 나가기 </button>
             {/* <Link to='/main'><button>게임나가기</button></Link> */}
         </div>
     )

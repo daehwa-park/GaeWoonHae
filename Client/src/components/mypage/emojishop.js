@@ -88,13 +88,13 @@ const Myemojipage = () => {
   const nextTick = () => {
     detectFace(); // 2번함수 실행
     if (!stopVideo.current) {
-      console.log(stopVideo.current,'확인')
+   
       requestAnimationFrame(async () => {
         nextTick(); // 반복
       })
-      console.log('진행중',stopVideo.current)
+
     } else {
-      console.log('종료',stopVideo.current)
+
     }
   };
 
