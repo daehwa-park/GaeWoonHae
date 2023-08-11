@@ -21,12 +21,12 @@ const Mainslide=() => {
     const [LobbymodalOpen2, setLobbyModalOpen2] = useState(false);
     const [LobbymodalOpen3, setLobbyModalOpen3] = useState(false);
     const showLobbyModal = (game_idx) => {
-        if (game_idx ===0) {
-            setLobbyModalOpen2(true);
+      if (game_idx ===0) {
+          setLobbyModalOpen1(true);
         } else if (game_idx ===1) {
-            setLobbyModalOpen1(true);
+          setLobbyModalOpen2(true);
         } else {
-            setLobbyModalOpen3(true);
+          setLobbyModalOpen3(true);
         }
     };
     
@@ -117,14 +117,11 @@ const Mainslide=() => {
                             <div className="slide-inner slide-bg-image1">
                                 <div className="main-container">
                                     <div className="centered-image-container">
-                                        <img src="/images/img/pick.gif" alt="튜토리얼 GIF" className="centered-image" />
+                                        <img src="/images/img/squat_gif.gif" alt="튜토리얼 GIF" className="centered-image" />
                                     </div>
-                                    <div data-swiper-parallax="300" className="slide-title">
-                                         <h2>픽토그램</h2>
-                                    </div>
-                                    <div data-swiper-parallax="400" className="slide-text">
-                                        <p>랜덤하게 생성되는 픽토그램의 자세를 따라해보세요</p>
-                                    </div>
+                                    <img src="/images/img/1.png" alt="튜토리얼 GIF"  className="centered-text" />
+                                    
+                                  
                                     
                                     {/* <div className="clearfix"></div> */}
                                 </div>
@@ -135,33 +132,26 @@ const Mainslide=() => {
                         <div className="swiper-slide">
                             <div className="slide-inner slide-bg-image2" >
                                 <div className="main-container">
-                                    <div className="centered-image-container">
-                                        <img src="/images/img/jumping-jacks.gif" alt="튜토리얼 GIF" className="centered-image" />
-                                    </div>
-                                    <div data-swiper-parallax="300" className="slide-title">
-                                        <h2>박 터트리기</h2>
-                                    </div>
-                                    <div data-swiper-parallax="400" className="slide-text">
-                                        <p>박을 터트려라</p>
-                                    </div>
-        
-                                </div>
+
+             
+                                       <div className="centered-image-container">
+                                        <img src="/images/img/squat_gif.gif" alt="튜토리얼 GIF" className="centered-image" />
+                                        </div>
+                                        <img src="/images/img/2.png" alt="튜토리얼 GIF"  className="centered-text" />
+                                        </div>
+                                
                             </div>
                         </div>
                         <div className="swiper-slide">
                             <div className="slide-inner slide-bg-image3">
                                 <div className="main-container">
-                                    <div className="centered-image-container">
-                                        <img src="/images/img/squat.gif" alt="튜토리얼 GIF" className="centered-image" />
+
+                                        <div className="centered-image-container">
+                                            <img src="/images/img/squat_gif.gif" alt="튜토리얼 GIF" className="centered-image" />
+                                        </div>
+                                        <img src="/images/img/3.png" alt="튜토리얼 GIF"  className="centered-text" />
                                     </div>
-                                    <div data-swiper-parallax="300" className="slide-title">
-                                        <h2>공 피하기</h2>
-                                    </div>
-                                    <div data-swiper-parallax="400" className="slide-text">
-                                        <p>공 피하슈</p>
-                                    </div>
-                
-                                </div>
+                        
                             </div>
                         </div>
                         <div className="swiper-pagination"></div>
@@ -173,7 +163,9 @@ const Mainslide=() => {
             </div>
             <div className="btncom">
                 {/* <FontAwesomeIcon className="left-btn" icon={faChevronLeft} style={{color: "#f37f20",}}/> */}
-                <button className="theme-btn-s2 start-btn" onClick={()=>showLobbyModal(nowslideidx)}>게임 선택</button>
+                <button className="theme-btn-s2 start-btn" onClick={()=>showLobbyModal(nowslideidx)}>
+                    <img src="images/img/game_selected.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+                </button>
                 {/* <FontAwesomeIcon className="right-btn" icon={faChevronRight} style={{color: "#f37f20",}}/> */}
     
             </div>

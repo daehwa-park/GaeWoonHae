@@ -20,6 +20,7 @@ const CountLoading =({updateLoadingComplete}) => {
         else {
             updateLoadingComplete();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [time]);
 
     useEffect(() => {

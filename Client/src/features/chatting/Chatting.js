@@ -1,5 +1,3 @@
-// 채팅 기능
-
 import React, { useEffect, useState } from "react";
 
 import "./Chatting.css";
@@ -15,6 +13,7 @@ const Chatting = ({ setUserList }) => {
   const hostName = useSelector((state) => state.roomInfo.hostName);
   const myName = useSelector((state) => state.auth.user.nickname);
   const sessionId = useSelector((state) => state.roomInfo.sessionId);
+  const limitTime = useSelector((state) => state.roomInfo.limitTime);
 
   const [chatMessage, setChatMessage] = useState(""); // 입력받은 채팅메세지를 저장하는 state입니다.
 
@@ -30,7 +29,8 @@ const Chatting = ({ setUserList }) => {
         myName,
         setUserList,
         navigate,
-        gameType
+        gameType,
+        limitTime
       )
     );
   };

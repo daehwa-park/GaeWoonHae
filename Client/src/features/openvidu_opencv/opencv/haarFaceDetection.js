@@ -50,6 +50,9 @@ export function detectHaarFace(img, emo) {
   cv.cvtColor(dst, gray, cv.COLOR_RGBA2GRAY, 0);
 
   const faces = new cv.RectVector();
+
+  let M = cv.Mat.ones(3, 3, cv.CV_8U);
+  let anchor = new cv.Point(-1, -1);
   
   // detect faces
   faceCascade.detectMultiScale(gray, faces, 1.12, 4, 0, minsize, maxsize);
@@ -76,6 +79,9 @@ export function detectHaarFace(img, emo) {
 
     cv.bitwise_and(roi, roi, imgBg, emogray);
     cv.bitwise_and(emocopy, emocopy, imgFg, maskInv);
+
+    cv.erode(imgFg, imgFg, M, anchor, 1, cv.BORDER_CONSTANT, cv.morphologyDefaultBorderValue());
+    cv.dilate(imgFg, imgFg, M, anchor, 1, cv.BORDER_CONSTANT, cv.morphologyDefaultBorderValue());
 
     cv.add(imgBg, imgFg, sum );
 

@@ -15,11 +15,11 @@ const CommonUI = ({props}) => {
     const [timerstart,setTimerstart] =useState(false)
 
     const [sortedUserList, setSortedUserList] = useState([]);
-    console.log(sortedUserList)
 
     useEffect(() => {
-        if (userList) {
-            let users = userList.sort((a, b) => (b.count - a.count));
+        if (userList && userList.length > 0) {
+            let users = [...userList];
+            users.sort((a, b) => (b.count - a.count));
             setSortedUserList(users);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,7 +38,7 @@ const CommonUI = ({props}) => {
     return(
         <div>
             <div className='mycount'>
-                My count : {count}
+                성공횟수 : {count}
             </div>
             <div className='timer' >
                 <CountdownCircleTimer
@@ -47,8 +47,8 @@ const CommonUI = ({props}) => {
                     // duration={timer}
                     colors={['#F4BE66', '#FFA167', '#FD7F32', '#FF0000']}
                     colorsTime={[gameTime, gameTime*0.7 , gameTime*0.4, 0]}
-                    size={120}
-                    strokeWidth={9}
+                    size={180}
+                    strokeWidth={12}
                     onComplete={() => {
                         props.setFinished(true);
                         console.log(props.finished);
@@ -56,23 +56,32 @@ const CommonUI = ({props}) => {
                 >
                 {/* 타이머가 끝났을 때 표시할 내용 */}
                 {({ remainingTime }) => (
-                    <div>
-                        <div className='timer-title'>운동</div>
-                        <span className='timer-count'>{remainingTime}</span><span className='timer-sec'>초</span> 
+                    <div >
+                        <div className='timer-title'>남은 시간</div>
+                        <div className='timer-count'>{remainingTime}<span className='timer-sec'>초</span></div> 
                     </div>
                 )}
 
                 </CountdownCircleTimer>
             </div>
                 {/* <Timer time={60}/> */}
-
-            {userList.map((user, idx) => (
-                <div key={idx}>
-                    <div>Rank : {idx}</div>
-                    <div>NickName : {user.username}</div>
-                    <div>count : {user.count}</div>
+            <div className='ranking-list'>
+                <div className='game-ranking'>
+                        <div className='game-ranking1'>현재 랭킹</div>
+                            {/* <div className='ranking2'>
+                                1위 : <br/>2위 : <br/>3위 : <br/>4위 : <br/>
+                            </div> */}
+                        <div className='game-ranking2'>
+                            {sortedUserList.map((user, idx) => (
+                                <div className='user-ranking' key={idx}>{idx}위 {user.username} {user.count}개 </div>
+                            ))}
+                            {/* <div className='user-ranking'>1위 김두현 12개</div>
+                            <div className='user-ranking'>2위 김두현 12개</div>
+                            <div className='user-ranking'>3위 김두현 12개</div> */}
+                        </div>
+                        
                 </div>
-            ))}
+            </div>
         </div>
     );
 

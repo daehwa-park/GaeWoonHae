@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Righteous&subset=latin-ext');
 
 .gamepage {
     background-color: #FEFCF5;
@@ -6,7 +7,7 @@
     width: 100%;
 }
 .game-header {
-    height: 8vh;
+    height: 6vh;
 }
 
 .Logo1 {
@@ -20,49 +21,74 @@
     font-family: 'Righteous', cursive;
 }
 
+.game-mainscreenimg {
+    /* background-image: url('../../assets/background/gamebackgound.png'); */
+    /* top: 3vh; */
+    /* background-color: #72f14b; */
+    width: 100vw;
+    height: 83vh;
+    position: absolute;
+    /* z-index: 0; */
+}
 
 .game-mainscreen {
     background-color: white;
+    margin-top: 1.5vh;
+    /* background-image: url('../../assets/background/gamebackgound.png'); */
     /* border: 10px solid red; */
     width: 100vw;
-    height: 87vh;
+    
+    /* margin-top: 1vh; */
+    
+    height: 83vh;
+    /* height: 87vh; */
     border-radius: 20px;
 }
 .gamescreen {
     display:flex;
     /* width: 100vw; */
-    height: 87vh;
-    border: 5px solid rgb(109, 203, 101);
+    height: 83vh;
+    border: 6px solid rgb(96, 97, 97);
+    border-radius: 20px;
 }
-
+.game-logo {
+    width: 16vw;
+}
 .gametitle {
     /* background-color: aquamarine;
     display:flex;
     justify-content: center; */
     text-align: center;
-    /* height: 10vh; */
-    /* line-height: 5vh; */
-    /* margin: 0 auto; */
-    border: 2px solid black;
+    width: 23vw;
+    height: 20vh;
+    margin-top: 4vh;
+    /* border: 10px solid black; */
 }
 
 #video-container {
     width: 100%;
-    height: 87vh;
-    border: 5px solid black;
+    height: 83vh;
+    /* border: 5px solid black; */
 }
 
-.titlename {
-    margin-top: 10px;
+.game-titlename {
+    margin-top: 5vh;
+    font-size: 3vw;
+    font-weight: 550;
+}
+
+.game-titletag {
+    font-size: 1vw;
+    margin-top: 3vh;
 }
 
 .messagebtntag{
     position: flex;
     /* top: 50%; */
     /* left:50%; */
-    width: 19vw;
-    height: 87vh;
-    border: 5px solid black;
+    width: 22vw;
+    height: 83vh;
+    border-right: 7px solid rgb(104, 104, 104);
 }
 
 .messagebtn {
@@ -74,16 +100,12 @@
     border-radius: 3vw;
 }
 
-.ranking {
-    width: 14vw;
-    height: 50vh;
-    border: 5px solid black;
-}
+
 
 .mainvideo {
     width: 81vw;
-    height: 87vh;
-    border :5px solid red;
+    height: 83vh;
+    /* border :5px solid red; */
 }
 
 .footer {
@@ -99,39 +121,84 @@
     /* background-color: blue; */
 }
 
-  #main-video {
+
+#main-videos {
+    width: 60vw;
+    /* border: 5px solid rgb(182, 21, 182); */
+}
+
+#main-video {
     /* display: flex; */
-    margin-top: 3vh;
-    margin-left: 1vw;
-    width: 77%;
+    /* margin-top: 3vh;
+    margin-left: 1vw; */
+    width: 86%;
+    margin:  3vh auto;
     /* height: auto; */
     /* height: 62%; */
     /* border: 20px solid salmon; */
     border-radius: 30px;
-  }
-  
-  #sub-videos {
-    margin-top: 3vh;
-    width: 15vw;
+}
+
+
+#sub-videos {
+    margin: 3vh 2vw;
+    width: 14vw;
+    /* margin: 0 0 0 3vw; */
     height: 80vh;
-    border: 5px solid salmon;
+    /* border: 5px solid salmon; */
     /* flex: 1 0 50%; */
     /* display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr); */
-  }
-  
-  #sub-video2 {
+}
+#sub-titlebox {
+    
+
+    width: 13vw;
+    height: 4vh;
+    /* background-color: #FD7F32; */
+    background: linear-gradient(#FEC986,white);
+    border-radius: 15px 15px 0 0;
+    /* border: 2px solid black; */
+}
+
+#sub-video2 {
+
     width: 13vw;
     /* height: 20vh; */
-    border: 2px solid black;
+    border: 4px solid rgb(81, 80, 80);
     display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-  }
-  
-  #session-header {
+    /* justify-content: center;
+    align-items: center; */
+    border-radius: 10px;
+}
+
+#session-header {
     margin-left: 60vw;
     margin-top: 14vh;
-  }
+}
+
+
+.gameloader {
+    position: absolute;
+    top: 90%;
+    left: 5%;
+    z-index: 10;
+    /* display: none; */
+}
+
+.btn-back {
+    position: absolute;
+    right: 5vw;
+    bottom: 2vh;;
+    text-align: center;
+    width: 9vw;
+    height: 5vh;
+    border: 2px solid rgb(235, 230, 230);
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px rgb(192, 189, 189);
+    text-transform: uppercase;
+    transition:all .2s ease;
+    font-weight: 700;
+}

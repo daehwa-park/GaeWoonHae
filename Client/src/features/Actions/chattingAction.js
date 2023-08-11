@@ -1,4 +1,3 @@
-// 채팅기능
 
 // Api요청 => 채팅(stomp)클라이언트 요청,
 //                (getStompClient)
@@ -7,14 +6,14 @@ import $ from "jquery";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { roomActions } from "../../redux/reducer/roomInfoReducer";
-
+import { enterRoomAction } from "./enterRoomAction";
 function getStompClient(
   hostName,
   sessionId,
   myName,
   setUserList,
   navigate,
-  gameType
+  gameType,
 ) {
   return async (dispatch, getState) => {
     console.log("호스트명", hostName);
@@ -90,12 +89,21 @@ function getStompClient(
           // 채팅방 채널 구독
           "/topic/gameroom/" + sessionId + "/gamestart",
           async function (message) {
+            const ParsedMessage = JSON.parse(message.body);
+            const limitTime = ParsedMessage.content;
+            console.log("현재 제한시간", limitTime);
             await dispatch(
               roomActions.getGameUserList({
                 userList,
               })
             );
+            await dispatch(
+              roomActions.getLimitTime({
+                limitTime,
+              })
+            );
             console.log("다음 페이지로 넘아감");
+            console.log("제한시간 확인", limitTime);
             await navigate(`/gamepage`);
             // 게임 시작 페이지로 이동함.
           } // 구독한 곳으로 메세지가 오면 펑션 메세지가 실행 된다.
@@ -177,13 +185,23 @@ function getStompClient(
       );
     }
 
+    const startedGame = async () => {
+      const requestData = {
+        sessionId,
+        gameType: gameType,
+      };
+      await dispatch(enterRoomAction.startedRoom(requestData));
+    };
+    
     function gameStart() {
+      const currentLimitTime = getState().roomInfo.limitTime;
       if (userList.length >= 1) {
         stompClient.send(
           "/app/gameroom/" + sessionId + "/gamestart",
           {},
-          JSON.stringify({})
+          JSON.stringify({chat: currentLimitTime})
         );
+        startedGame();
       } else {
         console.log("방에 사람이 다 안찼어요");
       }

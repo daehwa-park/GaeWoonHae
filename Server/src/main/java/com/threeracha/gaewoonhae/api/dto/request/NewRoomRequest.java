@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor //기본 생성자 만들어줌
 @AllArgsConstructor //여기에 필드에 쓴 모든생성자만 만들어줌
 public class NewRoomRequest {
-    private char isPublicRoom;
-    private Long userId;
-    private int gameType;
+    char isPublicRoom;
+    Long userId;
+    int gameType;
 }
