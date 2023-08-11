@@ -349,6 +349,15 @@ const GamePage = () => {
         console.log('언마운트 성공')
     }
 
+    // 게임 종료 방 상태 변경
+    const finishedGameStatus = async () => {
+        const requestData = {
+          sessionId,
+          gameType: gameType,
+        };
+        await dispatch(enterRoomAction.finishedRoom(requestData));
+      };
+
     // useEffects
 
     useEffect(() => {
@@ -435,6 +444,7 @@ const GamePage = () => {
                 // 내 정보를 해당 채널로 보내면 됨
                 JSON.stringify({ chat: "게임종료" })
             );
+            finishedGameStatus();
             console.log("자 이제 넘어가도록 하지");
         }
     },[finishUserCount])

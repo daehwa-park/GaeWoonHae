@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor //여기에 필드에 쓴 모든생성자만 만들어줌
 public class SetRoomStatusRequest {
 
-    Long userId;
+    int gameType;
     String sessionId;
 
 }
