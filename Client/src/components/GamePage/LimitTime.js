@@ -15,6 +15,7 @@ const LimitTime = () => {
   useEffect(() => {
     console.log("제한시간이양", limitTime);
     saveTime();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limitTime]);
   return (
     <Card bg="light" style={{ width: "18rem" }}>

@@ -35,6 +35,9 @@ const CommonUI = ({props}) => {
         }
     }, [loadcomplete])
 
+    // 오류 방지용 콘솔
+    console.log(setFinished)
+
     return(
         <div>
             <div className='mycount'>
