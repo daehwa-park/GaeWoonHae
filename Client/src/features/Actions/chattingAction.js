@@ -14,7 +14,6 @@ function getStompClient(
   setUserList,
   navigate,
   gameType,
-  limitTime
 ) {
   return async (dispatch, getState) => {
     console.log("호스트명", hostName);
@@ -90,9 +89,17 @@ function getStompClient(
           // 채팅방 채널 구독
           "/topic/gameroom/" + sessionId + "/gamestart",
           async function (message) {
+            const ParsedMessage = JSON.parse(message.body);
+            const limitTime = ParsedMessage.content;
+            console.log("현재 제한시간", limitTime);
             await dispatch(
               roomActions.getGameUserList({
                 userList,
+              })
+            );
+            await dispatch(
+              roomActions.getLimitTime({
+                limitTime,
               })
             );
             console.log("다음 페이지로 넘아감");
@@ -187,11 +194,12 @@ function getStompClient(
     };
     
     function gameStart() {
+      const currentLimitTime = getState().roomInfo.limitTime;
       if (userList.length >= 1) {
         stompClient.send(
           "/app/gameroom/" + sessionId + "/gamestart",
           {},
-          JSON.stringify({})
+          JSON.stringify({chat: currentLimitTime})
         );
         startedGame();
       } else {
