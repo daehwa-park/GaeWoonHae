@@ -26,6 +26,7 @@ const roomInfoSlice = createSlice({
     getLimitTime(state, action) {
       state.limitTime = Number(action.payload.limitTime);
     },
+    resetRoomInfo: () => initialState,
   },
   extraReducers: (builder) => {
     builder.addCase(PURGE, () => initialState);

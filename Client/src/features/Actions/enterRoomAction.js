@@ -1,8 +1,7 @@
 // 대기방 정보
 
-// Api요청 =>  방정보 받기,     
-//            (getRoomInfo)            
-
+// Api요청 =>  방정보 받기,
+//            (getRoomInfo)
 
 import axios from "axios";
 import { roomActions } from "../../redux/reducer/roomInfoReducer";
@@ -90,6 +89,53 @@ function recordSave(requestData) {
       });
   };
 }
+function codeEnterRoom(requestData) {
+  return async (dispatch, getState) => {
+    try {
+      const res = await roomApi.post(`/api/room/find`, requestData);
+      console.log("초대 코드 방 저장", res.data.data);
+      const { sessionId, hostName, gameType } = res.data.data;
+      dispatch(roomActions.getRoomInfo({ sessionId, hostName, gameType }));
+      return { success: true, sessionId, gameType };
+    } catch (err) {
+      // ... 기존의 에러 처리 로직
+      if (err.response && err.response.status === 404) {
+        alert("존재하지 않는 방입니다.");
+      } else {
+        console.log("초대 코드 방 찾기 실패", err);
+      }
+      throw err; // 에러를 다시 throw하여 catch 부분에서 처리할 수 있도록 합니다.
+    }
+  };
+}
+// function codeEnterRoom(requestData) {
+//   return async (dispatch, getState) => {
+//     await roomApi
+//       .post(`/api/room/find`, requestData)
+//       .then((res) => {
+//         console.log("초대 코드 방 저장", res.data.data);
+//         const { sessionId, hostName, gameType } = res.data.data;
+//         dispatch(roomActions.getRoomInfo({ sessionId, hostName, gameType }));
+//         return { success: true };
+//       })
 
+//       .catch((err) => {
+//         // 서버로부터의 응답 내용에 따라 조건을 변경해야 할 수도 있습니다.
+//         // 예를 들면, err.response.data.message === 'Room not found' 와 같은 조건이 될 수 있습니다.
+//         if (err.response && err.response.status === 404) {
+//           alert("존재하지 않는 방입니다.");
+//         } else {
+//           console.log("초대 코드 방 찾기 실패", err);
+//         }
+//       });
+//   };
+// }
 
-export const enterRoomAction = { getRoomInfo, makeRoomInfo, recordSave, startedRoom, finishedRoom };
+export const enterRoomAction = {
+  getRoomInfo,
+  makeRoomInfo,
+  recordSave,
+  startedRoom,
+  finishedRoom,
+  codeEnterRoom,
+};
