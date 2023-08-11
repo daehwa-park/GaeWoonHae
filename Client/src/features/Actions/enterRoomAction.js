@@ -52,6 +52,32 @@ function makeRoomInfo(requestData) {
   };
 }
 
+function startedRoom(requestData) {
+  return async (dispatch, getState) => {
+    await roomApi
+      .post("/api/room/start", requestData)
+      .then((res) => {
+        console.log("게임 시작된 방 상태 변경", res);
+      })
+      .catch((err) => {
+        console.log("게임 시작된 방 상태 변경", err);
+      });
+  };
+}
+
+function finishedRoom(requestData) {
+  return async (dispatch, getState) => {
+    await roomApi
+      .post("/api/room/finish", requestData)
+      .then((res) => {
+        console.log("게임 시작된 방 상태 변경", res);
+      })
+      .catch((err) => {
+        console.log("게임 시작된 방 상태 변경", err);
+      });
+  };
+}
+
 function recordSave(requestData) {
   return async (dispatch, getState) => {
     await roomApi
@@ -66,4 +92,4 @@ function recordSave(requestData) {
 }
 
 
-export const enterRoomAction = { getRoomInfo, makeRoomInfo, recordSave };
+export const enterRoomAction = { getRoomInfo, makeRoomInfo, recordSave, startedRoom, finishedRoom };
