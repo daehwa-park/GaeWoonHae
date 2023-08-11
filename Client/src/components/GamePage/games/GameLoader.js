@@ -1,6 +1,5 @@
-import { Button } from 'bootstrap';
-import React, { Component, useEffect, useRef, useState } from 'react';
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import React, { useEffect, useRef, useState } from 'react';
+
 import JumpingJack from './ui/JumpingJack';
 import './GameLoader.css';
 
