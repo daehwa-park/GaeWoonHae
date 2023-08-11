@@ -61,6 +61,7 @@ function GoLobbyModal({ setModalOpen, value }) {
     if (sessionId) {
       goToLobby();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldNavigate]);
 
   return (

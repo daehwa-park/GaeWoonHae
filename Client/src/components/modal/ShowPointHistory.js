@@ -10,7 +10,8 @@ function ShowPointHistory({ setModalOpen, userId}) {
         const day = date.getDate().toString().padStart(2, '0');
         return `${year}-${month}-${day}`;
       };
-    
+    // 오류 방지용 콘솔
+    console.log(formatDate)
     const [history, setHistory] = useState([]);
     const recordApi = axios.create({
         baseURL: process.env.REACT_APP_SPRING_URI,
