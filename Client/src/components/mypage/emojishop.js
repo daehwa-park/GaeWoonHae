@@ -3,6 +3,12 @@ import emoji1 from "../../assets/emoji/emoji1.png";
 import emoji2 from "../../assets/emoji/emoji2.png";
 import emoji3 from "../../assets/emoji/emoji3.png";
 import emoji4 from "../../assets/emoji/emoji4.png";
+import emoji5 from "../../assets/emoji/emoji5.png";
+import emoji6 from "../../assets/emoji/emoji6.png";
+import emoji7 from "../../assets/emoji/emoji7.png";
+import emoji8 from "../../assets/emoji/emoji8.png";
+import emoji9 from "../../assets/emoji/emoji9.png";
+
 import { useEffect, useState, useRef } from "react";
 import { emojiShopAction } from "../../features/Actions/emojiprocessing";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +21,17 @@ import {
 import cv from "@techstark/opencv-js";
 
 
+const emojiArray = [
+  emoji1,
+  emoji2,
+  emoji3,
+  emoji4,
+  emoji5,
+  emoji6,
+  emoji7,
+  emoji8,
+  emoji9
+];
 const Myemojipage = () => {
   // 유저 Id
   const userId = useSelector((state) => state.auth.user.userId);
@@ -143,7 +160,8 @@ const Myemojipage = () => {
   return (
     <div className="mypage-body2">
       <div className="emoji-shop">
-        <h3 className="emoji-title1">이모지 상점 {saveEmoji}</h3>
+        <h3 className="emoji-title1">이모지 상점 </h3>
+         {/* {saveEmoji}</h3> */}
         <h3 className="emoji-title2">
           보유 포인트: <span>{userPoint}</span>
           <span>C</span>
@@ -181,8 +199,8 @@ const Myemojipage = () => {
                   )}
                 </div>
                 <div>
-                  <div className="emoji-id"><span>이모지id :</span> <span>{selectEmojiId}</span></div>
-                  <div className="emoji-price"><span>price :</span> <span>{selectPrice}c</span></div>
+                  <div className="emoji-id"><span>번호 :</span> <span>{selectEmojiId}</span></div>
+                  <div className="emoji-price"><span>가격 :</span> <span>{selectPrice}c</span></div>
                 </div>
               </div>
             </div>
@@ -190,30 +208,17 @@ const Myemojipage = () => {
         <div className="emoji-right">
           {/* 이모지 종류 리스트 */}
           <div className="emojicomp">
-            <img
-              className="emoji-size"
-              src={emoji1}
-              onClick={() => handleEmojiClick(emoji1, 1)}
-              alt=""
-            />
-            <img
-              className="emoji-size"
-              src={emoji2}
-              onClick={() => handleEmojiClick(emoji2, 2)}
-              alt=""
-            />
-            <img
-              className="emoji-size"
-              src={emoji3}
-              onClick={() => handleEmojiClick(emoji3, 3)}
-              alt=""
-            />
-            <img
-              className="emoji-size"
-              src={emoji4}
-              onClick={() => handleEmojiClick(emoji3, 3)}
-              alt=""
-            />
+
+              {emojiArray.map((emoji, index) => (
+                <img
+                  key={index}
+                  className="emoji-size"
+                  src={emoji}
+                  onClick={() => handleEmojiClick(emoji, index)}
+                  alt=""
+                />
+              ))}
+     
           </div>
         </div>
       </div>

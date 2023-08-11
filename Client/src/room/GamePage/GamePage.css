@@ -183,14 +183,13 @@
     position: absolute;
     top: 90%;
     left: 5%;
-    z-index: 10;
-    /* display: none; */
+    display: none;
 }
 
 .btn-back {
     position: absolute;
     right: 5vw;
-    bottom: 2vh;;
+    bottom: 1vh;;
     text-align: center;
     width: 9vw;
     height: 5vh;

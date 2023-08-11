@@ -1,18 +1,25 @@
 #Recommendmodals {
     position: absolute;
-    top: 37%;
-    left: 37%;
-    width: 350px;
-    height: 210px;
-    border: 2px solid rgb(204, 200, 200);
-    border-radius: 20px;
+    top: 30%;
+    left: 30%;
+    width: 40vw;
+    height: 40vh;
+    border: 2px solid #ccc8c8;
+    border-radius: 5px;
     background-color: white;
     box-shadow: 2px 2px rgb(133, 132, 132);
     z-index: 1;
     text-align: center;
 }
-#codetxt {
-    margin-top: 20px;
+#codetxtRec {
+    height: 6vh;
+    /* margin-top: 20px; */
+    background-color: rgb(76, 142, 190);
+    border-radius: 5px 5px 0 0;
+    text-align: center;
+    line-height: 6vh;
+    color: white;
+    font-weight: 600;
 }
 
 #modalcom {
@@ -20,10 +27,10 @@
     justify-content: center;
 }
 
-#codeinput {
-    margin: 8px 0 12px;
-    width: 250px;
-    height: 40px;
+#codeinputRec {
+    margin: 8vh 0 8vh;
+    width: 30vw;
+    height: 5vh;
     border: 2px solid rgb(204, 200, 200);
     border-radius: 6px;
     background-color: white;
@@ -45,4 +52,9 @@
     background-color:#a5c8e9 ;
     color: #282a2b;
 
+}
+
+#modalcomRec {
+    display: flex;
+    justify-content: center;
 }
