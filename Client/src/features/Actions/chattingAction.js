@@ -6,7 +6,7 @@ import $ from "jquery";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { roomActions } from "../../redux/reducer/roomInfoReducer";
-
+import { enterRoomAction } from "./enterRoomAction";
 function getStompClient(
   hostName,
   sessionId,
@@ -178,6 +178,14 @@ function getStompClient(
       );
     }
 
+    const startedGame = async () => {
+      const requestData = {
+        sessionId,
+        gameType: gameType,
+      };
+      await dispatch(enterRoomAction.startedRoom(requestData));
+    };
+    
     function gameStart() {
       if (userList.length >= 1) {
         stompClient.send(
@@ -185,6 +193,7 @@ function getStompClient(
           {},
           JSON.stringify({})
         );
+        startedGame();
       } else {
         console.log("방에 사람이 다 안찼어요");
       }
