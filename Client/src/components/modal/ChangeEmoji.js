@@ -6,9 +6,9 @@ import "./ChangeEmoji.css"
 import { useDispatch } from "react-redux";
 import { emojiShopAction } from '../../features/Actions/emojiprocessing'
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import emoji1 from '../../assets/emoji/emoji_1.png'
-import emoji2 from '../../assets/emoji/emoji_2.png'
-import emoji3 from '../../assets/emoji/emoji_3.png'
+import emoji1 from '../../assets/emoji/emoji1.png'
+import emoji2 from '../../assets/emoji/emoji2.png'
+import emoji3 from '../../assets/emoji/emoji3.png'
 import { useEffect, useState } from "react";
 import {edituserinfo} from '../../features/Actions/edituserinfo'
 

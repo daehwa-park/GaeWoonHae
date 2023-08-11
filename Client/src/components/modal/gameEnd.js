@@ -31,8 +31,8 @@ function GameEndModal({ setModalOpen }) {
             <div>
                 <h3 id='codetxt3'>게임이 종료 되었습니다.</h3>
                 <div id='Endmodal'>
-                    <p id='Endbutton' >확인</p>
-                    <p id='Endbutton' >취소</p>
+                    <p id='Endbutton' >메인페이지로</p>
+                    <p id='Endbutton' onClick={closeModal()} >나가기</p>
                 </div>
             </div>
         </div>

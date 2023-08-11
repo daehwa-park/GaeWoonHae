@@ -1,7 +1,8 @@
 import { Button } from 'bootstrap';
 import React, { Component, useEffect, useRef, useState } from 'react';
 import { useSelector } from "react-redux/es/hooks/useSelector";
-
+import JumpingJack from './ui/JumpingJack';
+import './GameLoader.css';
 
 const GameLoader = ({props}) => {
 
@@ -18,8 +19,10 @@ const GameLoader = ({props}) => {
     const [model, setModel] = useState();
     const [webcam, setWebcam] = useState();
     const [curPoseState, setCurPoseState] = useState();
-    const curPose = useRef();
+    const [success, setSuccess] = useState(false);
+    const [fail, setFail] = useState(false);
 
+    const curPose = useRef();
     const poseList = useRef([]);
 
     const URL = useRef("");
@@ -30,23 +33,6 @@ const GameLoader = ({props}) => {
     const ready1 = useRef(true);
     const ready2 = useRef(false);
     const set = useRef(false);
-
-
-
-
-    // const poseList = useRef([0,1,2,3,4]);
-
-
-    // let squatTimerId;
-    // let poseIndex = 0;
-
-    
-    // let rightReady = false;
-    // let leftReady = false;
-
-    // let ballPos = 0;
-    // let startTime;
-
 
 
     const getNextPose = () => {
@@ -69,7 +55,7 @@ const GameLoader = ({props}) => {
 
         switch(gameType) {
             case 1: 
-                URL.current = 'https://teachablemachine.withgoogle.com/models/ZWOxIpSRc/';
+                URL.current = 'https://teachablemachine.withgoogle.com/models/-T38dkjNF/';
                 poseList.current = [0, 1, 2, 3];
                 getNextPose();
                 break;
@@ -110,7 +96,6 @@ const GameLoader = ({props}) => {
     
 
     /*
-    *
     *  ready1, ready2 => 팔 내려 자세
     *  set => 팔 벌려 자세
     *  go => 각 4분면 방향으로 팔 올려 자세
@@ -122,26 +107,22 @@ const GameLoader = ({props}) => {
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
             const prediction = await model.predict(posenetOutput);
 
-            // if (!ready1.current &&  prediction[4].probability > 0.85) {
-            if (!ready1.current && poseButton.current === 4) {
+            if (!ready1.current &&  prediction[4].probability > 0.85) {
                 ready1.current = true;
                 console.log("ready1 -> true");
             }
             
-            // else if (ready1.current && !set.current && prediction[5].probability > 0.85) {
-            else if (ready1.current && !set.current && poseButton.current === 5) {
+            else if (ready1.current && !set.current && prediction[5].probability > 0.85) {
                 set.current = true;
                 console.log("set -> true");
             }
 
-            // else if (ready1.current && set.current && !ready2.current && prediction[4].probability > 0.85) {
-            else if (ready1.current && set.current && !ready2.current && poseButton.current === 4) {
+            else if (ready1.current && set.current && !ready2.current && prediction[4].probability > 0.85) {
                 ready2.current = true;
                 console.log("ready2 -> true");
             }
             
-            // else if (ready1.current && set.current && ready2.current && prediction[curPose.current].probability > 0.85) {
-            else if (ready1.current && set.current && ready2.current && poseButton.current === curPose.current) {
+            else if (ready1.current && set.current && ready2.current && prediction[curPose.current].probability > 0.85) {
             setCount(prev => prev + 1);
                 getNextPose();
                 ready1.current = ready2.current = set.current = false;
@@ -212,13 +193,13 @@ const GameLoader = ({props}) => {
         }
 
         init();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
 
     useEffect(() => {
 
         const loopWebcam = async () => {
-            console.log("게임 루프");
             webcam.update();
 
             loopWebcamId.current = requestAnimationFrame(loopWebcam);
@@ -246,7 +227,7 @@ const GameLoader = ({props}) => {
                 loopPredict();
             }, countdown);
         }
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
     },[started]);
 
     useEffect(() => {
@@ -267,22 +248,9 @@ const GameLoader = ({props}) => {
     }
 
     return(
-        <div>
-            <div>
-                <button onClick={() => {clickEvent(0)}}> pose 0 </button>
-                <button onClick={() => {clickEvent(1)}}> pose 1 </button>
-                <button onClick={() => {clickEvent(2)}}> pose 2 </button>
-                <button onClick={() => {clickEvent(3)}}> pose 3 </button>
-                <button onClick={() => {clickEvent(4)}}> pose 4 </button>
-                <button onClick={() => {clickEvent(5)}}> pose 5 </button>
-                <button onClick={() => {clickEvent(6)}}> pose 6 </button>
-                <button onClick={() => {clickEvent(7)}}> pose 7 </button>
-                <button onClick={() => {clickEvent(8)}}> pose 8 </button>
-                <button onClick={() => {clickEvent(9)}}> pose 9 </button>
-            </div>
-            <div>
-                <h2>{curPoseState}</h2>
-            </div>
+        <div className='jumpingjack'>
+            {/* {gameType === 1 && <JumpingJack props={{setAssetLoad, curPoseState, success, fail}}/>} */}
+            <JumpingJack props={{setAssetLoad, curPoseState, success, fail}}/>
         </div>
     )
 }

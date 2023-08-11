@@ -29,7 +29,7 @@ public class MessageController {
     @MessageMapping("/gameroom/{roomNumber}/gamestart")
     @SendTo("/topic/gameroom/{roomNumber}/gamestart")
     public Message gameStart(Chat message, StompHeaderAccessor session) throws Exception {
-        return new Message("게임을 시작합니다.");
+        return new Message(message.getChat());
     }
 
     @MessageMapping("/chatroom/{roomNumber}/refresh")
