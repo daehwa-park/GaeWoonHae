@@ -11,9 +11,9 @@ function RecommendModal({ setModalOpen, id, title, content, writer }) {
 
     return (
         <div id='Recommendmodals'>
-            <h3 id='codetxt'>초대코드 입력</h3>
-            <input id='codeinput' type="text"></input>
-            <div id='modalcom'>
+            <h3 id='codetxtRec'>초대 코드</h3>
+            <input id='codeinputRec' type="text" placeholder="초대 코드 입력"></input>
+            <div id='modalcomRec'>
                 <p id='recombutton' >입장</p>
                 <p id='recombutton' onClick={closeModal}>취소</p>
             </div>

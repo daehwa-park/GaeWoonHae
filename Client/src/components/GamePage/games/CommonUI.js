@@ -12,6 +12,9 @@ const CommonUI = ({props}) => {
     const userList = props.userList;
     let loadcomplete = props.loadcomplete.current;
     let setFinished = props.setFinished;
+    // 오류방지
+    console.log(setFinished)
+
     const [timerstart,setTimerstart] =useState(false)
 
     const [sortedUserList, setSortedUserList] = useState([]);

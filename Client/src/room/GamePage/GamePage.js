@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import './GamePage.css'
 import GameEndBtn from "../../components/modal/gameEnd"
 import logo from '../../assets/img/purple_logo.png' 
-
+import { useNavigate } from 'react-router-dom';
 //게임종료를 위한 action 호출
 import { enterRoomAction } from "../../features/Actions/enterRoomAction";
 
@@ -111,10 +111,17 @@ const GamePage = () => {
     //     setGameModalOpen(true);
     // };
 
+    // 네비게이션
+    const navigate = useNavigate();
+
     // 오류방지용 콘솔
     console.log(current,publisher,setTimer,setRenderingcount)
 
-
+    // 네비게이션
+    const goMain =() => {
+        stopVideo.current = true
+        navigate('/main')
+    }
 
     // openCV Settings
     
@@ -208,7 +215,7 @@ const GamePage = () => {
             }
         }
         
-        const leaveSession = () => {
+    const leaveSession = () => {
             const mySession = session;
             
             if (mySession) {
@@ -224,6 +231,8 @@ const GamePage = () => {
         setPublisher(undefined);
     }
 
+    //오류 방지용 콘솔
+    console.log(leaveSession)
 
     const subscriberLeave = (streamManager) => {
         let remainSubscriber = subscriber;
@@ -589,7 +598,7 @@ const GamePage = () => {
             <div className="footer"></div>
             {/* <button type="button" onClick={init}>Start</button>
             <h4>횟수 : {myCount}</h4> */}
-            <button className="btn-back"> 방 나가기 </button>
+            <button className="btn-back" onClick={goMain}> 방 나가기 </button>
             {/* <Link to='/main'><button>게임나가기</button></Link> */}
         </div>
     )
