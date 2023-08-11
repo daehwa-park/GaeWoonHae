@@ -2,7 +2,7 @@ import { Button } from 'bootstrap';
 import React, { Component, useEffect, useRef, useState } from 'react';
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import JumpingJack from './ui/JumpingJack';
-
+import './GameLoader.css';
 
 const GameLoader = ({props}) => {
 
@@ -127,8 +127,6 @@ const GameLoader = ({props}) => {
                 getNextPose();
                 ready1.current = ready2.current = set.current = false;
             }
-            // 오류 방지용 콘솔
-            console.log(pose,prediction)
         }
 
         loopPredId.current = requestAnimationFrame(predictJumpingJack);
@@ -153,8 +151,6 @@ const GameLoader = ({props}) => {
             else {
                 loopPredId.current = requestAnimationFrame(predictPictogram)
             }
-            // 오류 방지용 콘솔
-            console.log(pose,prediction)
         }
     }
 
@@ -252,10 +248,9 @@ const GameLoader = ({props}) => {
     }
 
     return(
-        <div>
-            {/* {gameType === 1 && <JumpingJack props={{setAssetLoad, curPoseState, success, fail}}/>}
-            {gameType === 2 && <JumpingJack />}
-            {gameType === 3 && <JumpingJack />} */}
+        <div className='jumpingjack'>
+            {/* {gameType === 1 && <JumpingJack props={{setAssetLoad, curPoseState, success, fail}}/>} */}
+            <JumpingJack props={{setAssetLoad, curPoseState, success, fail}}/>
         </div>
     )
 }

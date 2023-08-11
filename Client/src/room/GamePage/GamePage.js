@@ -96,11 +96,8 @@ const GamePage = () => {
     const stopVideo = useRef(false);
 
     // 타이틀 
-    const titleimgRef =useRef('/images/img/gametypelogo1.png')
+    const titleimgRef = useRef('/images/img/gametypelogo1.png')
 
-
-    //오류 방지용 콘솔
-    console.log(hostName,myName,sessionId)
 
     // openVidu Object
     let OV;
@@ -226,8 +223,6 @@ const GamePage = () => {
         setMainStreamManager(undefined);
         setPublisher(undefined);
     }
-    //오류 방지용 콘솔
-    console.log(leaveSession)
 
 
     const subscriberLeave = (streamManager) => {
@@ -518,7 +513,6 @@ const GamePage = () => {
                                         <UserVideoComponent streamManager={mainStreamManager}/>
                                         {/* 위에 공통 UI */}
                                         <CommonUI props={{count, timer, userList,loadcomplete, finished, setFinished, gameTime}} />
-
                                     </div>
                                 </div>
                                 

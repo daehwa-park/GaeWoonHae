@@ -34,37 +34,42 @@ const JumpingJack = ({props}) => {
     useEffect(() => {
         if (curPoseState) {
             curPose.current = curPoseState;
-
         }
     },[curPoseState]);
 
-
+    const motions = [
+        "왼쪽 위",
+        "오른쪽 위",
+        "왼쪽 아래",
+        "오른쪽 아래"
+    ];
 
     return (
         <div>
-            <Col>
+            {/* <Col>
                 <Row>
                     <div>
-                        <img src={mosquito} ref={normalImages[0]} style={isVisible=false} />
-                        <img src={mosquito} ref={successImages[0]} style={isVisible=false} />
+                        <img src={mosquito} ref={normalImages[0]} alt='mos' style={{visibility:'hidden'}} />
+                        <img src={mosquito} ref={successImages[0]} alt='mos' style={{visibility:'hidden'}} />
                     </div>
                     <div>
-                        <img src={mosquito} ref={normalImages[1]} style={isVisible=false} />
-                        <img src={mosquito} ref={successImages[1]} style={isVisible=false} />
+                        <img src={mosquito} ref={normalImages[1]} alt='mos' style={{visibility:'hidden'}} />
+                        <img src={mosquito} ref={successImages[1]} alt='mos' style={{visibility:'hidden'}} />
                     </div>
                 </Row>
                 <Row>
                     <div>
-                        <img src={mosquito} ref={normalImages[2]} style={isVisible=false} />
-                        <img src={mosquito} ref={successImages[2]} style={isVisible=false} />
+                        <img src={mosquito} ref={normalImages[2]} alt='mos' style={{visibility:'hidden'}} />
+                        <img src={mosquito} ref={successImages[2]} alt='mos' style={{visibility:'hidden'}} />
                     </div>
                     <div>
-                        <img src={mosquito} ref={normalImages[3]} style={isVisible=false} />
-                        <img src={mosquito} ref={successImages[3]} style={isVisible=false} />
+                        <img src={mosquito} ref={normalImages[3]} alt='mos' style={{visibility:'hidden'}} />
+                        <img src={mosquito} ref={successImages[3]} alt='mos' style={{visibility:'hidden'}} />
                     </div>
                 </Row>
             </Col>
-            <img src={mosquito} ref={failImage} style={isVisible=false} />
+            <img src={mosquito} ref={failImage} style={{visibility:'hidden'}} /> */}
+            <h1>현재 동작 : {motions[curPoseState]}</h1>
         </div>
     );
 };

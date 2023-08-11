@@ -21,12 +21,12 @@ const Mainslide=() => {
     const [LobbymodalOpen2, setLobbyModalOpen2] = useState(false);
     const [LobbymodalOpen3, setLobbyModalOpen3] = useState(false);
     const showLobbyModal = (game_idx) => {
-        if (game_idx ===0) {
-            setLobbyModalOpen2(true);
+      if (game_idx ===0) {
+          setLobbyModalOpen1(true);
         } else if (game_idx ===1) {
-            setLobbyModalOpen1(true);
+          setLobbyModalOpen2(true);
         } else {
-            setLobbyModalOpen3(true);
+          setLobbyModalOpen3(true);
         }
     };
     
