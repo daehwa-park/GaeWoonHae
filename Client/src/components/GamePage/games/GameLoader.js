@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import JumpingJack from './ui/JumpingJack';
 import './GameLoader.css';
+import Pictogram from './ui/Pictogram';
 
 const GameLoader = ({props}) => {
 
@@ -131,6 +132,14 @@ const GameLoader = ({props}) => {
                 setSuccess(true);
                 ready1.current = ready2.current = set.current = false;
             }
+
+            // 테스트용 키버튼 동작 
+            else if (key.current) {
+
+                setSuccess(true);
+                key.current = false;
+                ready1.current = ready2.current = set.current = false;
+            }
         }
 
         loopPredId.current = requestAnimationFrame(predictJumpingJack);
@@ -142,8 +151,17 @@ const GameLoader = ({props}) => {
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
             const prediction = await model.predict(posenetOutput);
 
-            if (prediction[curPose.current].probability > 0.85) {
+            if (prediction[curPose.current].probability > 0.85 || key.current) {
                 setSuccess(true);
+                setTimeout(() => {
+                    loopPredId.current = requestAnimationFrame(predictPictogram)
+                }, 2000);
+            } 
+
+            // 테스트용 키버튼
+            if (key.current) {
+                setSuccess(true);
+                key.current = false;
                 setTimeout(() => {
                     loopPredId.current = requestAnimationFrame(predictPictogram)
                 }, 2000);
@@ -234,9 +252,17 @@ const GameLoader = ({props}) => {
 
     }, [finished]);
 
+    const key = useRef(false);
+
+    // 테스트용
+    window.addEventListener("keydown", (e) => {
+        key.current = true;
+    });
+
     return(
         <div className='jumpingjack'>
             {gameType === 1 && <JumpingJack props={{curPoseState, success, fail}}/>}
+            {gameType === 2 && <Pictogram props={{curPoseState, success, fail}}/>}
         </div>
     )
 }

@@ -1,20 +1,18 @@
-.division0 {
-    z-index: 20;
+.screen-ui {
+    z-index : 10000;
+    position: absolute;
+    top: 10vh;
+    left: 30vw;
 }
 
-.division0 {
-    z-index: 21;
+.screen-row {
+    display: flex;
 }
 
-.division0 {
-    z-index: 22;
-}
 
-.division0 {
-    z-index: 23;
+.img-container {
 }
 
 .mosquito-img {
-    width: 100px;
-    height: 100px;
+    width: 10vw;
 }

@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useState, useRef } from 'react';
 import mosquito from '../../../../assets/game/jumpingjack/mosquito.png'
+import deadMosquito from '../../../../assets/game/jumpingjack/deadMosquito.jpg'
 import { Col, Row } from 'react-bootstrap';
 import { isVisible } from '@testing-library/user-event/dist/utils';
 import './JumpingJack.css'
@@ -52,25 +53,29 @@ const JumpingJack = ({props}) => {
     }, [curPoseState])
 
     return (
-        <div>
-            <div className="division0">
-                <img className='mosquito-img' src={mosquito} ref={normalImages[0]} alt='mos0' style={{visibility:'hidden'}} />
-                <img className='mosquito-img' src={mosquito} ref={successImages[0]} alt='deadmos0' style={{visibility:'hidden'}} />
+        <div className="screen-ui">
+            <div className="screen-row">
+                <div className="img-container">
+                    <img className='mosquito-img' src={mosquito} ref={normalImages[0]} alt='mos0' style={{visibility:'visible'}} />
+                    <img className='mosquito-img' src={deadMosquito} ref={successImages[0]} alt='deadmos0' style={{visibility:'visible'}} />
+                </div>
+                <div className="img-container">
+                    <img className='mosquito-img' src={mosquito} ref={normalImages[1]} alt='mos1' style={{visibility:'visible'}} />
+                    <img className='mosquito-img' src={deadMosquito} ref={successImages[1]} alt='deadmos1' style={{visibility:'visible'}} />
+                </div>
             </div>
-            <div className="division1">
-                <img className='mosquito-img' src={mosquito} ref={normalImages[1]} alt='mos1' style={{visibility:'hidden'}} />
-                <img className='mosquito-img' src={mosquito} ref={successImages[1]} alt='deadmos1' style={{visibility:'hidden'}} />
-            </div>
-    
-            <div className="division2">
-                <img className='mosquito-img' src={mosquito} ref={normalImages[2]} alt='mos2' style={{visibility:'hidden'}} />
-                <img className='mosquito-img' src={mosquito} ref={successImages[2]} alt='deadmos2' style={{visibility:'hidden'}} />
-            </div>
-            <div className="division3">
-                <img className='mosquito-img' src={mosquito} ref={normalImages[3]} alt='mos3' style={{visibility:'hidden'}} />
-                <img className='mosquito-img' src={mosquito} ref={successImages[3]} alt='deadmos3' style={{visibility:'hidden'}} />
+            <div className="screen-row">
+                <div className="img-container">
+                    <img className='mosquito-img' src={mosquito} ref={normalImages[2]} alt='mos2' style={{visibility:'visible'}} />
+                    <img className='mosquito-img' src={deadMosquito} ref={successImages[2]} alt='deadmos2' style={{visibility:'visible'}} />
+                </div>
+                <div className="img-container">
+                    <img className='mosquito-img' src={mosquito} ref={normalImages[3]} alt='mos3' style={{visibility:'visible'}} />
+                    <img className='mosquito-img' src={deadMosquito} ref={successImages[3]} alt='deadmos3' style={{visibility:'visible'}} />
+                </div>
             </div>
         </div>
+    
     );
 };
 

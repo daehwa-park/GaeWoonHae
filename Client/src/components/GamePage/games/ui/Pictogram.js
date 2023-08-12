@@ -1,6 +1,6 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useEffect, useState, useRef } from 'react';
 
-const Pictogram = () => {
+const Pictogram = ({props}) => {
     const curPoseState = props.curPoseState;
     const success = props.success;
     const fail = props.fail;

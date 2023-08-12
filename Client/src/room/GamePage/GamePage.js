@@ -114,7 +114,7 @@ const GamePage = () => {
     const navigate = useNavigate();
 
     // 오류방지용 콘솔
-    // console.log(current,publisher,setTimer,setRenderingcount)
+    console.log(current,publisher,setTimer,setRenderingcount)
 
     // 네비게이션
     const goMain =() => {
