@@ -140,6 +140,7 @@ const GameLoader = ({props}) => {
                 key.current = false;
                 ready1.current = ready2.current = set.current = false;
             }
+            console.log(pose)
         }
 
         loopPredId.current = requestAnimationFrame(predictJumpingJack);
@@ -169,6 +170,7 @@ const GameLoader = ({props}) => {
             else {
                 loopPredId.current = requestAnimationFrame(predictPictogram)
             }
+            console.log(pose,prediction)
         }
     }
 
@@ -258,6 +260,9 @@ const GameLoader = ({props}) => {
     window.addEventListener("keydown", (e) => {
         key.current = true;
     });
+
+    //오류방지
+    console.log(setSuccess,setFail,clickEvent)
 
     return(
         <div className='jumpingjack'>

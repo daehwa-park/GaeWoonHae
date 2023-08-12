@@ -52,6 +52,7 @@ const JumpingJack = ({props}) => {
         }        
     }, [curPoseState])
 
+    console.log(Component,useState,mosquito,Col,Row,isVisible,setAssetLoad,success,fail,normalImages,successImages,failImage)
     return (
         <div className="screen-ui">
             <div className="screen-row">
