@@ -84,7 +84,7 @@ color: #282a2b;
 
 .points {
   margin-left: 1.5vw;
-  color: rgb(80, 80, 239);
+  color: blueviolet;
   font-size: 3vh;
 }
 
@@ -145,7 +145,7 @@ color: #282a2b;
 .nametag {
   font-size: 25px;
   font-weight: 550;
-  color: #c0a0d5;
+  color:blueviolet;
 }
 
 @media (max-width: 1420px) {

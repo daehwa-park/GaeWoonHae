@@ -283,7 +283,7 @@ const Myprofilepage = () => {
           
           <div className='nickname'>
               닉네임 : <span className='nickname2'>{nickname}</span>  <br/>  
-              <button className='changebtn' onClick={()=>showLobbyModal1()}>변경하기</button>
+              <button className='changebtn' onClick={()=>showLobbyModal1()}>변경</button>
           </div>
 
           {/* <div className='setemoji'>
@@ -293,16 +293,18 @@ const Myprofilepage = () => {
 
    
           <div className='savepoint'>
-              보유 포인트 : <span className='points'>{userpoint}c</span>
-              <button className='changebtn' onClick={()=>showLobbyModal3()}>목록 조회</button> 
+              포인트 : <span className='points'>{userpoint }<img src="/images/img/coin.png" alt="My Image" width="25"/>
+              </span>  
+              
+              <button className='changebtn' onClick={()=>showLobbyModal3()}>조회</button> 
           </div>
-
+         
           <div className='leavesecession' onClick={()=>withdrawal()} >탈퇴하기</div>
         </div>
 
         <div className='mypageright'>
           
-            <div className='chart-nick'><span className='nametag'>{nickname}</span>님의 주간 운동량 차트</div>
+            <div className='chart-nick'><span className='nametag'>{nickname}</span>님의 주간 운동량</div>
             <div className='helth-chart'>
               <Rechart data={data}/>
             </div>
@@ -348,10 +350,11 @@ const Myprofilepage = () => {
                 <div className='image3'>
                     <div className='kcal'>오늘 소모 칼로리 : {todayKcal} Kcal</div>
                     <div className='kcal'>총 소모 칼로리 : {totalKcal} Kcal</div>
-                    
-                    <div className='kcal'> 선택 날짜:
+                    <p></p>
+
+                    <div className='kcal'>선택 일자 : 
                         {formatDate(selectedDate)}</div>
-                    <div className='kcal'> {dateKcal} Kcal</div>
+                    <div className='kcal'>소모 칼로리 : {dateKcal} Kcal</div>
                    
                     {/* <div>
                         <div className="text-gray-500 mt-4">

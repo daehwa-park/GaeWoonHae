@@ -21,13 +21,15 @@
     border: 2px solid black;
 }
 .emojicomp2 {
-    width: 36vw;
+    margin: 0 auto;
+    width: 50vw;
     height: 35vh;
-    border: 2px solid black;
+    /* border: 2px solid black; */
 }
 
 #codetxt2 {
     margin-top: 30px;
+    font-size: 30px;
 }
 
 #changemodal {
