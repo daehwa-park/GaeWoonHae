@@ -27,6 +27,7 @@ const GameLoader = ({props}) => {
     const URL = useRef("");
     const loopWebcamId = useRef(null);
     const loopPredId = useRef(null);
+    const failTimerId = useRef(null);
 
     // catch mosquito
     const ready1 = useRef(true);
@@ -56,12 +57,10 @@ const GameLoader = ({props}) => {
             case 1: 
                 URL.current = 'https://teachablemachine.withgoogle.com/models/-T38dkjNF/';
                 poseList.current = [0, 1, 2, 3];
-                getNextPose();
                 break;
             case 2: 
                 URL.current = 'https://teachablemachine.withgoogle.com/models/99dOWJKg2/';
                 poseList.current = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-                getNextPose();
                 break;
             case 3: 
                 URL.current = 'https://teachablemachine.withgoogle.com/models/PP6A_2GsN/';
@@ -122,8 +121,8 @@ const GameLoader = ({props}) => {
             }
             
             else if (ready1.current && set.current && ready2.current && prediction[curPose.current].probability > 0.85) {
-            setCount(prev => prev + 1);
-                getNextPose();
+
+                setSuccess(true);
                 ready1.current = ready2.current = set.current = false;
             }
         }
@@ -138,8 +137,7 @@ const GameLoader = ({props}) => {
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
             const prediction = await model.predict(posenetOutput);
 
-            // if (prediction[curPose.current].probability > 0.85) {
-            if (poseButton.current === curPose.current) {
+            if (prediction[curPose.current].probability > 0.85) {
                 console.log("currect pose!")
                 setCount(prev => prev + 1);
                 getNextPose();
@@ -153,36 +151,6 @@ const GameLoader = ({props}) => {
         }
     }
 
-    // const predictSquat = async () => {
-    //     if (model && webcam) {
-    //         const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
-    
-    //         const prediction = await model.predict(posenetOutput);
-
-    //         console.log(ballPos, "squat!!");
-            
-
-    //         if (ballPos == 0 && !rightReady && prediction[1].probability > 0.85) {
-    //             rightReady = true;
-    //             console.log("Rready -> true");
-    //         }
-    //         else if (ballPos == 0 && rightReady && prediction[0].probability > 0.85) {
-    //             setCount(prev => prev + 1);
-    //             rightReady = false;
-    //             console.log("complete 0");
-    //         }
-    //         else if (ballPos == 1 && !leftReady && prediction[3].probability > 0.85) {
-    //             leftReady = true;
-    //             console.log("Lready -> true");
-    //         }
-    //         else if (ballPos == 1 && leftReady && prediction[2].probability > 0.85) {
-    //             setCount(prev => prev + 1);
-    //             leftReady = false;
-    //             console.log("complete 1");
-    //         }
-    //     }
-    // }
-
     useEffect(() => {
         
         const init = async () => {
@@ -193,8 +161,34 @@ const GameLoader = ({props}) => {
 
         init();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    },[]);
 
+    useEffect(() => {
+        if (success) {
+            clearTimeout(failTimerId.current);
+
+            setCount(prev => prev + 1);
+            setSuccess(false);
+
+            failTimerId.current = setTimeout(() => {
+                setFail(true);
+            }, 5000);
+
+            getNextPose();
+        }
+    }, [success]);
+
+    useEffect(() => {
+        if(fail) {
+            setFail(false);
+
+            failTimerId.current = setTimeout(() => {
+                setFail(true);
+            }, 5000);
+
+            getNextPose();
+        }
+    },[fail]);
 
     useEffect(() => {
 
@@ -222,11 +216,12 @@ const GameLoader = ({props}) => {
         if (started)  {
             console.log("게임 로더 게임 시작 인식함!!!")
             setTimeout(()=> {
+                getNextPose();
                 loopWebcam();
                 loopPredict();
             }, countdown);
         }
-// eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[started]);
 
     useEffect(() => {
@@ -237,14 +232,7 @@ const GameLoader = ({props}) => {
             clearInterval(loopPredId.current);
         }
 
-    }, [finished])
-
-    const poseButton = useRef();
-
-    const clickEvent = (param) => {
-        poseButton.current = param
-        console.log(poseButton.current);
-    }
+    }, [finished]);
 
     return(
         <div className='jumpingjack'>
