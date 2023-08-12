@@ -60,6 +60,7 @@ const GamePage = () => {
     // const emoji = useSelector((state) => state.user.emoji);
     const firstUserList = useSelector((state) => state.roomInfo.userList);
     const userId = useSelector((state) => state.auth.user.userId);
+    const useremojiId = useSelector(state => state.auth.user.emojiId);
     // openvidu states
     const [session, setSession] = useState();
     const [mainStreamManager, setMainStreamManager] = useState();
@@ -385,7 +386,7 @@ const GamePage = () => {
                 // send page to error
             }
 
-            emojiRef.current.src = `../../images/emoji/emoji2.png`
+            emojiRef.current.src = `../../images/emoji/emoji${useremojiId}.png`;
             await loadHaarFaceModels();
             updateEmoji();
             console.log("MODEL LOADED!!!!!!!!!!!!!!!!!!!!")
