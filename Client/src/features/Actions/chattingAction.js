@@ -14,8 +14,10 @@ function getStompClient(
   setUserList,
   navigate,
   gameType,
+  
 ) {
   return async (dispatch, getState) => {
+    window.addEventListener('beforeunload', checkAliveUser);
     console.log("호스트명", hostName);
     console.log("세션ID", sessionId);
     console.log("내이름", myName);
@@ -154,6 +156,28 @@ function getStompClient(
           }
         );
 
+        stompClient.subscribe(
+          "/topic/chatroom/" + sessionId + "/aliveCheck",
+          async function (message) {
+            // 방장이 아니라면 갱신해버림
+            if (myName === hostName) {
+              const updateUserList = userList.filter((user) => {
+                return user.username !== JSON.parse(message.body).content; // 특정 조건을 만족하지 않는 경우만 반환
+              });
+                userList = updateUserList;
+                setUserList(userList);
+                stompClient.send(
+                  "/app/chatroom/" + sessionId + "/refresh",
+                  {},
+                  JSON.stringify(userList)
+                  
+                );
+              
+            }
+          }
+        );
+
+
         stompClient.send(
           "/app/chatroom/" + sessionId + "/enter",
           {},
@@ -165,15 +189,6 @@ function getStompClient(
           JSON.stringify({})
         );
       });
-    }
-
-    function disconnect() {
-      if (stompClient !== null) {
-        // exit();
-        stompClient.disconnect();
-      }
-
-      console.log("Disconnected");
     }
 
     function sendChat() {
@@ -193,6 +208,26 @@ function getStompClient(
       await dispatch(enterRoomAction.startedRoom(requestData));
     };
     
+    async function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+     async function checkAliveUser() {
+       await stompClient.send(
+        "/app/chatroom/" + sessionId + "/alive",
+        {},
+        JSON.stringify({})
+      );
+       await stompClient.send(
+        "/app/chatroom/" + sessionId + "/exit",
+        {},
+        JSON.stringify({})
+      );
+      if (stompClient !== null) {
+        await stompClient.disconnect();
+      }
+    }
+
     function gameStart() {
       const currentLimitTime = getState().roomInfo.limitTime;
       if (userList.length >= 1) {
@@ -232,9 +267,6 @@ function getStompClient(
       $("#connect").click(function () {
         connect();
         setUserList(userList);
-      });
-      $("#disconnect").click(function () {
-        disconnect();
       });
       $("#send").click(function () {
         sendChat();
