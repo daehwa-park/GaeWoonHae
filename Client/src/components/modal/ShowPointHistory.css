@@ -12,6 +12,7 @@
     text-align: center;
 }
 #codetxt {
+    font-family: 'CustomFont', sans-serif; /* 로컬 폰트 사용 */
     margin : 0 auto;
 }
 
@@ -57,6 +58,22 @@
     /* 다양한 포맷의 폰트 파일을 지정 */
   }
   
-  body {
-    font-family: 'CustomFont', sans-serif; /* 로컬 폰트 사용 */
-  }
+.modal-header{
+    margin: 0 auto;
+    height: 5vh;
+    font-size: 20px;
+}
+
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    background-color: rgba(0, 0, 0, 0.6);  /* 배경을 흐린 회색으로 설정 */
+}

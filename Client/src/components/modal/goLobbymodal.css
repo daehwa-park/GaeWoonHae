@@ -14,21 +14,23 @@
 }
 
 .gametitle {
-    text-align: center;
+    margin: 0 auto;
+    /* text-align: center; */
+
     /* margin-left: 20vw; */
     /* border: 2px solid black; */
-    text-decoration: underline;
+    /* text-decoration: underline; */
 }
 
 .cancelbtn {
     margin-top: 1vh;
-    margin-left: 40vw;
+    margin-right: 5vw;
     position: absolute;
     text-align: center;
     width: 60px;
-    height: 30px;
-    border: 2px solid black;
-    font-size: 15px;
+    height: 40px;
+    /* border: 2px solid black; */
+    font-size: 30px;
     /* border-radius: 5px; */
 }
 
@@ -37,7 +39,7 @@
     transition:all .4s ease;
 }
 .canceltext:hover, .canceltext:focus, .canceltext:active {
-    background-color:#505253 ;
+    background-color:orangered ;
     color: #f1ecec;
 }
 
@@ -45,7 +47,7 @@
 .selectlobby {
     display: flex;
     margin-top: 3vh;
-    border: 10px #141414;
+    border: black;
 }
 
 .Loobycreate {
@@ -129,4 +131,12 @@
   
   body {
     font-family: 'CustomFont', sans-serif; /* 로컬 폰트 사용 */
+  }
+
+  .tutorial{
+    border: 20px red;
+    margin: 0 auto;
+    width: 20vw;
+    height: 20vh;
+
   }
