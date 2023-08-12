@@ -81,7 +81,8 @@ const GamePage = () => {
     const [finished, setFinished] = useState(false);
     const [gameLoad, setGameLoad] = useState(false);
     const [assetLoad, setAssetLoad] = useState(true);
-    const [userList, setUserList] = useState(firstUserList);
+    // const [userList, setUserList] = useState(firstUserList);
+    const userList = useRef(firstUserList);
     const [renderingcount,setRenderingcount] = useState([0,1,2,3])
     //0809 추가
     
@@ -91,6 +92,7 @@ const GamePage = () => {
     const imgRef = useRef();
     const faceImgRef = useRef();
     const emojiRef = useRef();
+    const countRef = useRef(0);
 
     // 비디오 종료 조건
     const stopVideo = useRef(false);
@@ -317,14 +319,19 @@ const GamePage = () => {
 
     const updateGameInfo = (gameInfo) => {
         // userList에서 닉네임 같은 놈 찾아서 카운트 바꾸고 반영(0809)
-        const updateUserList = userList.map((user) => {
+        const updateUserList = userList.current.map((user) => {
             if (user.username === gameInfo.username) {
                 return { ...user, count: gameInfo.count }; // 해당 유저의 count를 업데이트한 새 객체 반환
             }
             return user; // 조건에 맞지 않는 경우 기존 객체 그대로 반환
         });
 
-        setUserList(updateUserList);
+        updateUserList.sort((a, b) => b.count - a.count);
+        
+        userList.current =updateUserList;
+        
+        console.log(updateUserList);
+        console.log(userList);
     }
 
     const gameInfoChange = () => {
@@ -466,6 +473,11 @@ const GamePage = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[finishUserCount])
+
+    useEffect(()=> {
+        console.log(userList);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[userList])
 
 
     return (
