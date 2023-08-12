@@ -179,12 +179,11 @@
 }
 
 
-.gameloader {
+/* .gameloader {
     position: absolute;
     top: 90%;
     left: 5%;
-    display: none;
-}
+} */
 
 .btn-back {
     position: absolute;
