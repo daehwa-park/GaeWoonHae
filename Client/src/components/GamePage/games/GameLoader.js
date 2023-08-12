@@ -262,7 +262,7 @@ const GameLoader = ({props}) => {
     });
 
     //오류방지
-    console.log(setSuccess,setFail,clickEvent)
+    console.log(setSuccess,setFail)
 
     return(
         <div className='jumpingjack'>
