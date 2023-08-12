@@ -80,7 +80,6 @@ const GamePage = () => {
     const [started, setStarted] = useState(false);
     const [finished, setFinished] = useState(false);
     const [gameLoad, setGameLoad] = useState(false);
-    const [assetLoad, setAssetLoad] = useState(true);
     const [userList, setUserList] = useState(firstUserList);
     const [renderingcount,setRenderingcount] = useState([0,1,2,3])
     //0809 추가
@@ -405,11 +404,11 @@ const GamePage = () => {
 
     useEffect(() => {
 
-        if (stompLoad && openViduLoad && gameLoad && assetLoad) {
+        if (stompLoad && openViduLoad && gameLoad) {
             setStarted(true);
         }
 
-    },[stompLoad, openViduLoad, gameLoad, assetLoad])
+    },[stompLoad, openViduLoad, gameLoad])
 
 
 
@@ -506,7 +505,7 @@ const GamePage = () => {
                         </div> */}
                         {/* 게임 로직 컴포넌트 (아무 배치요소 없음) */}
                         <div className='gameloader'>
-                            <GameLoader props={{setCount, started, finished, gameType, setGameLoad, countdown, setAssetLoad}} />
+                            <GameLoader props={{setCount, started, finished, gameType, setGameLoad, countdown}} />
                         </div>
                     </div>
                     <div className="mainvideo">
