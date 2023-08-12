@@ -13,7 +13,7 @@ const CommonUI = ({props}) => {
     let loadcomplete = props.loadcomplete.current;
     let setFinished = props.setFinished;
     // 오류방지
-    console.log(setFinished)
+    // console.log(setFinished)
 
     const [timerstart,setTimerstart] =useState(false)
 

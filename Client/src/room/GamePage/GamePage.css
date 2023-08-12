@@ -183,7 +183,7 @@
     position: absolute;
     top: 90%;
     left: 5%;
-    display: none;
+    /* display: none; */
 }
 
 .btn-back {

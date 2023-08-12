@@ -12,7 +12,6 @@ const GameLoader = ({props}) => {
     const gameType = props.gameType;
     const setGameLoad = props.setGameLoad;
     const countdown = props.countdown;
-    const setAssetLoad = props.setAssetLoad;
 
     // states
     const [model, setModel] = useState();
@@ -44,6 +43,13 @@ const GameLoader = ({props}) => {
 
         setCurPoseState(num);
         curPose.current = num;
+
+        console.log("자세 바뀜~~@@@@@@@@@@@@@@@");
+
+        failTimerId.current = setTimeout(() => {
+            console.log("실패 예약@@@@@@@@@@@@@@@@@@@@@@@")
+            setFail(true);
+        }, 5000);
     }
 
 
@@ -133,17 +139,14 @@ const GameLoader = ({props}) => {
     const predictPictogram = async () => {
 
         if (model && webcam) {
-
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
             const prediction = await model.predict(posenetOutput);
 
             if (prediction[curPose.current].probability > 0.85) {
-                console.log("currect pose!")
-                setCount(prev => prev + 1);
-                getNextPose();
+                setSuccess(true);
                 setTimeout(() => {
                     loopPredId.current = requestAnimationFrame(predictPictogram)
-                }, 500);
+                }, 2000);
             } 
             else {
                 loopPredId.current = requestAnimationFrame(predictPictogram)
@@ -165,14 +168,11 @@ const GameLoader = ({props}) => {
 
     useEffect(() => {
         if (success) {
+            console.log("성공함@@@@@@@@@@@@@@@@@@@@");
             clearTimeout(failTimerId.current);
 
             setCount(prev => prev + 1);
             setSuccess(false);
-
-            failTimerId.current = setTimeout(() => {
-                setFail(true);
-            }, 5000);
 
             getNextPose();
         }
@@ -180,11 +180,8 @@ const GameLoader = ({props}) => {
 
     useEffect(() => {
         if(fail) {
+            console.log("실패함@@@@@@@@@@@@@@@@@@@@");
             setFail(false);
-
-            failTimerId.current = setTimeout(() => {
-                setFail(true);
-            }, 5000);
 
             getNextPose();
         }
@@ -204,7 +201,9 @@ const GameLoader = ({props}) => {
                     predictJumpingJack();
                     break;
                 case 2:
-                    predictPictogram();
+                    setTimeout(() => {
+                        predictPictogram();
+                    }, 2000);
                     break;
                 case 3:
                     break;
@@ -230,14 +229,14 @@ const GameLoader = ({props}) => {
             console.log("게임 로더 게임 종료 인식함!!!!")
             cancelAnimationFrame(loopWebcamId.current);
             clearInterval(loopPredId.current);
+            clearTimeout(failTimerId.current);
         }
 
     }, [finished]);
 
     return(
         <div className='jumpingjack'>
-            {/* {gameType === 1 && <JumpingJack props={{setAssetLoad, curPoseState, success, fail}}/>} */}
-            <JumpingJack props={{setAssetLoad, curPoseState, success, fail}}/>
+            {gameType === 1 && <JumpingJack props={{curPoseState, success, fail}}/>}
         </div>
     )
 }
