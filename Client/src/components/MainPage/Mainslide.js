@@ -96,6 +96,27 @@ const Mainslide=() => {
     
         var swiper = new Swiper(".swiper-container", swiperOptions);
         console.log(swiper)
+
+        $(".arrow-left").on("click", function() {
+          swiper.slidePrev();
+          var speed = 700; // 원하는 속도로 설정
+          for (var i = 0; i < swiper.slides.length; i++) {
+              swiper.slides[i].style.transition = speed + "ms";
+              swiper.slides[i].querySelector(".slide-inner").style.transition =
+                  speed + "ms";
+          }
+          console.log('asdafsdas')
+      });
+        $(".arrow-right").on("click", function() {
+          swiper.slideNext();
+          var speed = 700; // 원하는 속도로 설정
+          for (var i = 0; i < swiper.slides.length; i++) {
+              swiper.slides[i].style.transition = speed + "ms";
+              swiper.slides[i].querySelector(".slide-inner").style.transition =
+                  speed + "ms";
+          }
+          console.log('asdafsdas')
+      });
         // DATA BACKGROUND IMAGE
         // var sliderBgSetting = $(".slide-bg-image");
         // sliderBgSetting.each(function (indx) {
@@ -155,17 +176,20 @@ const Mainslide=() => {
                             </div>
                         </div>
                         <div className="swiper-pagination"></div>
-                        <div className="swiper-button-next"></div>
-                        <div className="swiper-button-prev"></div>
+                        {/* <div className="swiper-button-next"></div> */}
+                        {/* <div className="swiper-button-prev"></div> */}
                     </div>
                 </div>
                 </section>
             </div>
             <div className="btncom">
                 {/* <FontAwesomeIcon className="left-btn" icon={faChevronLeft} style={{color: "#f37f20",}}/> */}
-                <button className="theme-btn-s2 start-btn" onClick={()=>showLobbyModal(nowslideidx)}>
+                  <div className="arrow-left" ></div>
+                 
+                  <button className="theme-btn-s2 start-btn" onClick={()=>showLobbyModal(nowslideidx)}>
                     <img src="images/img/game_selected.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
-                </button>
+                  </button>
+                  <div className="arrow-right"></div> 
                 {/* <FontAwesomeIcon className="right-btn" icon={faChevronRight} style={{color: "#f37f20",}}/> */}
     
             </div>

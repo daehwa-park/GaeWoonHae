@@ -105,7 +105,7 @@
 .mainvideo {
     width: 81vw;
     height: 83vh;
-    /* border :5px solid red; */
+    
 }
 
 .footer {
@@ -125,6 +125,7 @@
 #main-videos {
     width: 60vw;
     /* border: 5px solid rgb(182, 21, 182); */
+    
 }
 
 #main-video {
@@ -136,10 +137,12 @@
     /* height: auto; */
     /* height: 62%; */
     /* border: 20px solid salmon; */
-    border-radius: 30px;
 }
 
+#main-videocss{
+    border :5px solid red;
 
+}
 #sub-videos {
     margin: 3vh 2vw;
     width: 14vw;
@@ -151,13 +154,23 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr); */
 }
-#sub-titlebox {
+#sub-titlebox1 {
     
 
     width: 13vw;
     height: 4vh;
     /* background-color: #FD7F32; */
     background: linear-gradient(#FEC986,white);
+    border-radius: 15px 15px 0 0;
+    /* border: 2px solid black; */
+}
+#sub-titlebox2 {
+    
+
+    width: 13vw;
+    height: 4vh;
+    /* background-color: #FD7F32; */
+    background: linear-gradient(#4175f9,white);
     border-radius: 15px 15px 0 0;
     /* border: 2px solid black; */
 }

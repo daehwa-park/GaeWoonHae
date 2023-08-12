@@ -44,6 +44,7 @@ const JumpingJack = ({props}) => {
         "오른쪽 아래"
     ];
 
+    console.log(Component,useState,mosquito,Col,Row,isVisible,setAssetLoad,success,fail,normalImages,successImages,failImage)
     return (
         <div>
             {/* <Col>

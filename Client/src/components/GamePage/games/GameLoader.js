@@ -126,6 +126,7 @@ const GameLoader = ({props}) => {
                 getNextPose();
                 ready1.current = ready2.current = set.current = false;
             }
+            console.log(pose)
         }
 
         loopPredId.current = requestAnimationFrame(predictJumpingJack);
@@ -150,6 +151,7 @@ const GameLoader = ({props}) => {
             else {
                 loopPredId.current = requestAnimationFrame(predictPictogram)
             }
+            console.log(pose,prediction)
         }
     }
 
@@ -245,6 +247,9 @@ const GameLoader = ({props}) => {
         poseButton.current = param
         console.log(poseButton.current);
     }
+
+    //오류방지
+    console.log(setSuccess,setFail,clickEvent)
 
     return(
         <div className='jumpingjack'>
