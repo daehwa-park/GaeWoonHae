@@ -49,3 +49,14 @@
 .modal-content{
     height: 30vh; overflow-y: auto; 
 }
+
+@font-face {
+    font-family: 'CustomFont';
+    src: url('../../assets/font/DungGeunMo.woff2') format('woff2'),
+    url('../../assets/font/DungGeunMo.woff') format('woff')
+    /* 다양한 포맷의 폰트 파일을 지정 */
+  }
+  
+  body {
+    font-family: 'CustomFont', sans-serif; /* 로컬 폰트 사용 */
+  }

@@ -1,9 +1,15 @@
+@font-face {
+  font-family: 'CustomFont';
+  src: url('../../assets/font/DungGeunMo.woff') format('woff2'),
+  url('../../assets/font/DungGeunMo.woff') format('woff')
+  /* 다양한 포맷의 폰트 파일을 지정 */
+}
 
 .mypage-body1 {
   display: flex;
   width: 95%;
   height: 92%;
-
+  font-family: 'CustomFont', sans-serif;
 }
 
 .mypageleft {
@@ -35,6 +41,7 @@
 
 .mypage-body2 {
   margin-left: 3vw;
+
 }
 .profile-img {
   display: flex;

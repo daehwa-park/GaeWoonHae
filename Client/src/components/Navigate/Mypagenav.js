@@ -34,7 +34,7 @@ const NavBoxTag = () => {
             {modalOpen && <RecommendModal setModalOpen={setModalOpen} />}
             <img className="main-hover" onClick={goTomainpage} src={logo} alt=""/>
             <div className="navbox-tag">
-                <div className="menu" onClick={showModal}>초대코드로 접속</div>
+                {/* <div className="menu" onClick={showModal}>초대코드로 접속</div> */}
                 <div className="menu" onClick={goToEmoji} >이모지 상점</div>
                 <div className="menu" onClick={goTomypage}>마이페이지</div>
             </div>
