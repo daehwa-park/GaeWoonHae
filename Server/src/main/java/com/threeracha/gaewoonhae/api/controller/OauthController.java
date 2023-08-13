@@ -69,7 +69,6 @@ public class OauthController {
     })
     @PostMapping("/regen")
     public ResponseEntity<CommonResponse<LoginResponse>> regenerateTokens(@RequestBody RegenTokenReq regenTokenReq) {
-        System.out.println("리젠 실행됨");
         return new ResponseEntity<>(makeCommonResponse(SUCCESS, oAuthLoginService.regenToken(regenTokenReq)), HttpStatus.OK);
     }
 
