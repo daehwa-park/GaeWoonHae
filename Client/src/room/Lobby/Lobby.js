@@ -93,15 +93,28 @@ const Lobby = () => {
     "피해봐요, 오늘의 X!",
   ];
 
-  const [userList, setUserList] = useState([]);
+
+  const refUserList = useRef([]);
+
+  const [num, setNum] = useState(0);
 
   useEffect(() => {
-    console.log("나 유저리스트야", userList);
-  }, [userList]);
+    console.log("나 유저리스트야", refUserList.current);
+  }, [refUserList.current]);
 
   const gameType = useSelector((state) => state.roomInfo.gameType);
   const sessionId = useSelector((state) => state.roomInfo.sessionId);
   const gameName = gameNameList[gameType - 1];
+
+  const updateUserList = (userlist) => {
+    refUserList.current = userlist;
+    console.log(refUserList.current, "lobbyupdate");
+    plusOne();
+  }
+
+  const plusOne = () => {
+    setNum(prev => prev + 1);
+  }
 
   return (
     <div className="lobby-body">
@@ -117,7 +130,7 @@ const Lobby = () => {
           </Row>
           <Row>
             <Col md={3} className="chat-col">
-              <Chatting setUserList={setUserList} />
+              <Chatting updateUserList={updateUserList} />
             </Col>
             <Col md={6} className="video-col">
               <Row>
@@ -156,7 +169,7 @@ const Lobby = () => {
             </Col>
             <Col md={3} className="game-col">
               {/* <div>{userList && userList[0].username}</div> */}
-              <GameRoomInfoStart userList={userList} gameType={gameType} />
+              <GameRoomInfoStart userList={refUserList.current} />
             </Col>
           </Row>
         </Container>

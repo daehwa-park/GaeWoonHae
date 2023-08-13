@@ -11,7 +11,7 @@ const GameRoomInfoStart = ({ userList }) => {
   console.log(hostName,myName)
 
   useEffect(() => {
-    console.log("게임인포 유저리스트", userList);
+    console.log("게임인포 유저리스트", userList, userList.length);
   }, [userList]);
   return (
     <div>
