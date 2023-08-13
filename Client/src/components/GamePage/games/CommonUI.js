@@ -7,6 +7,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 const CommonUI = ({props}) => {
 
     const count = props.count;
+    const gameType = props.gameType;
     // const timer = props.timer;
     const gameTime = props.gameTime;
     const userList = props.userList.current;

@@ -122,7 +122,7 @@ function getStompClient(
                 return user.username !== JSON.parse(message.body).content; // 특정 조건을 만족하지 않는 경우만 반환
               });
                 userList = updateUserList;
-                setUserList(userList);
+                updateUser(userList);
                 stompClient.send(
                   "/app/chatroom/" + sessionId + "/refresh",
                   {},
