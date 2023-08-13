@@ -197,6 +197,11 @@ const GameLoader = ({props}) => {
 
         init();
         // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        return(() => {
+            finishedRef.current = true;
+        });
+
     },[]);
 
     useEffect(() => {
