@@ -14,7 +14,7 @@ const Chatting = ({ setUserList }) => {
   const myName = useSelector((state) => state.auth.user.nickname);
   const sessionId = useSelector((state) => state.roomInfo.sessionId);
   const limitTime = useSelector((state) => state.roomInfo.limitTime);
-
+  const userId = useSelector((state) => state.auth.user.userId);
   const [chatMessage, setChatMessage] = useState(""); // 입력받은 채팅메세지를 저장하는 state입니다.
 
   const handleInputChange = (e) => {
@@ -30,7 +30,8 @@ const Chatting = ({ setUserList }) => {
         setUserList,
         navigate,
         gameType,
-        limitTime
+        limitTime,
+        userId
       )
     );
   };

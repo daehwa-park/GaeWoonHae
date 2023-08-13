@@ -67,8 +67,8 @@ const Myemojipage = () => {
   // 이모지 선택시 정보 변경
   const handleEmojiClick = (emoji, num) => {
     setSelectedEmoji(emoji);
-    setSelectEmojiId(num);
-    setSelectPrice(emojiPriceList[num - 1]);
+    setSelectEmojiId(num+1);
+    setSelectPrice(emojiPriceList[num]);
 
     selectedEmojiRef.current = emoji;
   };
@@ -166,7 +166,7 @@ const Myemojipage = () => {
          {/* {saveEmoji}</h3> */}
         <h3 className="emoji-title2">
           보유 포인트: <span>{userPoint}</span>
-          <span>C</span>
+          <span><img src="/images/img/coin.png" alt="My Image" width="20"/></span>
         </h3>
       </div>
       <div className="emoji-body">
@@ -202,7 +202,9 @@ const Myemojipage = () => {
                 </div>
                 <div>
                   <div className="emoji-id"><span>번호 :</span> <span>{selectEmojiId}</span></div>
-                  <div className="emoji-price"><span>가격 :</span> <span>{selectPrice}c</span></div>
+                  <div className="emoji-price"><span>가격 :</span> <span>{selectPrice}
+                  <img src="/images/img/coin.png" alt="My Image" width="18"/>
+                  </span></div>
                 </div>
               </div>
             </div>
