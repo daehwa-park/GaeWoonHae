@@ -32,7 +32,7 @@ const Pictogram = ({props}) => {
     },[fail]);
 
     useEffect(() => {
-        if (curPoseState) {
+        if (curPoseState !== undefined) {
             let curPose = curPoseState;
         }        
     }, [curPoseState])
