@@ -73,16 +73,16 @@ const CommonUI = ({props}) => {
                         <div className={`game-ranking2-${gameType}`}>
                             {userList.map((user, idx) => (
                                 <div className='user-ranking' key={idx}>
-                                    {sortedUserList.length ===1 && (
+                                    {userList.length ===1 && (
                                         <img className='user-rank1' src={first} alt="" />
                                     )}
-                                    {sortedUserList.length ===2 && (
+                                    {userList.length ===2 && (
                                         <div>
                                             <img className='user-rank1' src={first} alt="" />
                                             <img className='user-rank2' src={second} alt="" />
                                         </div>
                                     )}
-                                    {sortedUserList.length ===3 && (
+                                    {userList.length ===3 && (
                                         <div>
                                             <img className='user-rank1' src={first} alt="" />
                                             <img className='user-rank2' src={second} alt="" />
