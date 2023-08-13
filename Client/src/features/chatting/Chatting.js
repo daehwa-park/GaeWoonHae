@@ -6,7 +6,7 @@ import { chattingAction } from "../Actions/chattingAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Chatting = ({ setUserList }) => {
+const Chatting = ({ updateUserList }) => {
   const gameType = useSelector((state) => state.roomInfo.gameType);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,13 +21,19 @@ const Chatting = ({ setUserList }) => {
     setChatMessage(e.target.value); // 채팅 메세지가 입력되면 state를 갱신합니다.
   };
 
+  const updateUser = (userlist) => {
+    console.log("dis", userlist);
+    updateUserList(userlist);
+  }
+
+
   const saveStompClient = () => {
     dispatch(
       chattingAction.getStompClient(
         hostName,
         sessionId,
         myName,
-        setUserList,
+        updateUser,
         navigate,
         gameType,
         limitTime

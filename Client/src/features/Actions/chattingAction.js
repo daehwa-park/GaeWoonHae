@@ -11,7 +11,7 @@ function getStompClient(
   hostName,
   sessionId,
   myName,
-  setUserList,
+  updateUser,
   navigate,
   gameType,
 ) {
@@ -27,7 +27,7 @@ function getStompClient(
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
 
-    // 비디오 스트림 가져오기
+    //비디오 스트림 가져오기
     async function startVideo() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -40,7 +40,7 @@ function getStompClient(
       }
     }
 
-    // 비디오 스트림에서 프레임을 캔버스에 렌더링하는 함수
+    //비디오 스트림에서 프레임을 캔버스에 렌더링하는 함수
     function drawCanvas() {
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
@@ -132,7 +132,7 @@ function getStompClient(
                 {},
                 JSON.stringify(userList)
               );
-              setUserList(userList);
+              updateUser(userList);
               console.log(JSON.stringify(userList, null, 2));
             }
           }
@@ -149,7 +149,8 @@ function getStompClient(
                 JSON.stringify(userList, null, 2) + "이건 갱신된 요청입니다."
               );
             }
-            setUserList(userList);
+            updateUser(userList);
+
             showUserInfo(userList);
           }
         );
@@ -222,7 +223,7 @@ function getStompClient(
           "사용자 이름: " + item.username + ", 카운트: " + item.count;
         resultDiv.appendChild(div);
       });
-      await setUserList(userList);
+      updateUser(userList);
     }
 
     $(function () {
@@ -231,7 +232,7 @@ function getStompClient(
       });
       $("#connect").click(function () {
         connect();
-        setUserList(userList);
+        updateUser(userList);
       });
       $("#disconnect").click(function () {
         disconnect();
@@ -245,7 +246,7 @@ function getStompClient(
     });
 
     await connect();
-    await setUserList(userList);
+    updateUser(userList);
   };
 }
 
