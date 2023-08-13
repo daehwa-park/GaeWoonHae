@@ -75,17 +75,35 @@ function GoLobbyModal({ setModalOpen, value }) {
           X
         </div>
         {/* <h1 className="gametitle">{gamename()}</h1> */}
-        <h2>{gamename()}</h2>
-        <div className="tutorial">
-          <img src="images/img/cap.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
-        </div>
-        <br/>
-        <p> 화면에 나타나는 모기를 그림과 같은 동작을 통해 더 많이, 더빠르게 잡자 !<br/>
-          정확한 동작으로 잡아야 운동효과 UP !
-          </p>
+        <h2 className="tutorial-name">{gamename()}</h2>
+
+        {value===1 && (
+          <div>   
+            <div className="tutorial">
+              <img src="images/img/cap.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+            </div>
+            <br/>
+            <p className="tutorial-content"> 화면에 나타나는 모기를 그림과 같은 동작을 통해 더 많이, 더빠르게 잡자 !<br/>
+              정확한 동작으로 잡아야 운동효과 UP !
+            </p>
+          </div>
+        )}
+        {value===2 && (
+          <div>   
+            <div className="tutorial">
+              <img src="" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+            </div>
+            <br/>
+            <p className="tutorial-content"> 화면에 나타나는 동작을 더빠르게 !<br/>
+              정확한 동작을 취해야 운동효과 UP !
+            </p>
+          </div>
+        )}
+
+
 
         <div className="selectlobby">
-          <button className="modalButton-left"onClick={() => createRoom()}>
+          <button className="modalButton-left go-lobby"onClick={() => createRoom()}>
             방 생성          
           </button>
 
@@ -94,7 +112,7 @@ function GoLobbyModal({ setModalOpen, value }) {
             {/* <img src="images/img/enter_room.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} /> 
           </button> */}
 
-          <button  className="modalButton-right" onClick={() => findRoom()}>
+          <button  className="modalButton-right go-lobby" onClick={() => findRoom()}>
             방 입장
             {/* <img src="images/img/make_room.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} /> */}
           </button>

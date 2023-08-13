@@ -84,6 +84,7 @@ color: #282a2b;
 
 .points {
   margin-left: 1.5vw;
+
   color: blueviolet;
   font-size: 3vh;
 }
@@ -193,6 +194,11 @@ color: #282a2b;
 
 .kcal {
   margin: 1vh 0 0 1vw;
+}
+
+.mypage-money {
+  width: 1.2vw;
+  margin-left: 0.5vw;
 }
 
 .kcal-table {
