@@ -82,7 +82,7 @@ const GamePage = () => {
     const [finished, setFinished] = useState(false);
     const [gameLoad, setGameLoad] = useState(false);
     const [assetLoad, setAssetLoad] = useState(true);
-    // const [userList, setUserList] = useState(firstUserList);
+    const [renderingUserList, setrenderingUserList] = useState(firstUserList);
     const userList = useRef(firstUserList);
     const [renderingcount,setRenderingcount] = useState([0,1,2,3])
     //0809 추가
@@ -327,8 +327,8 @@ const GamePage = () => {
 
         updateUserList.sort((a, b) => b.count - a.count);
         
-        userList.current =updateUserList;
-        
+        userList.current = updateUserList;
+        setrenderingUserList(updateUserList);
         console.log(updateUserList);
         console.log(userList);
     }
@@ -468,10 +468,10 @@ const GamePage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[finishUserCount])
 
-    useEffect(()=> {
-        console.log(userList);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[userList])
+    // useEffect(()=> {
+    //     console.log(userList);
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[userList])
 
 
     return (
@@ -536,7 +536,7 @@ const GamePage = () => {
                                     <div id="main-video" >
                                         <UserVideoComponent id="main-videocss" streamManager={mainStreamManager}/>
                                         {/* 위에 공통 UI */}
-                                        <CommonUI props={{count, timer, userList,loadcomplete, finished, setFinished, gameTime, gameType}} />
+                                        <CommonUI props={{count, timer, renderingUserList, loadcomplete, finished, setFinished, gameTime, gameType}} />
                                     </div>
                                 </div>
                                 
