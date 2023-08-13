@@ -11,7 +11,7 @@ function getStompClient(
   hostName,
   sessionId,
   myName,
-  setUserList,
+  updateUser,
   navigate,
   gameType,
   limitTime,
@@ -31,6 +31,7 @@ function getStompClient(
     var stompClient = null;
     var userList = [];
     // redux에서 가져오는 hostName
+
     // 카메라 끝
     async function connect() {
       var socket = new SockJS("/gwh-websocket");
@@ -89,7 +90,8 @@ function getStompClient(
                 {},
                 JSON.stringify(userList)
               );
-              setUserList(userList);
+              updateUser(userList);
+              console.log(JSON.stringify(userList, null, 2));
             }
           }
         );
@@ -105,7 +107,8 @@ function getStompClient(
                 JSON.stringify(userList, null, 2) + "이건 갱신된 요청입니다."
               );
             }
-            setUserList(userList);
+            updateUser(userList);
+
             showUserInfo(userList);
           }
         );
@@ -230,7 +233,7 @@ function getStompClient(
           "사용자 이름: " + item.username + ", 카운트: " + item.count;
         resultDiv.appendChild(div);
       });
-      await setUserList(userList);
+      updateUser(userList);
     }
 
     $(function () {
@@ -239,7 +242,7 @@ function getStompClient(
       });
       $("#connect").click(function () {
         connect();
-        setUserList(userList);
+        updateUser(userList);
       });
       $("#send").click(function () {
         sendChat();
@@ -251,7 +254,7 @@ function getStompClient(
     });
 
     await connect();
-    await setUserList(userList);
+    updateUser(userList);
     arriveLobby();
   };
 }
