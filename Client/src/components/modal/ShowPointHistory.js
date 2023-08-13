@@ -54,19 +54,29 @@ function ShowPointHistory({ setModalOpen, userId}) {
     return (
         <div className="modal-container">
         <div id='pointhistory'>
-    <div className="modal-header">
-        포인트 히스토리
-    </div>
-    
-    <div className="modal-content">  
-    {history.map((item, index) => (
-                        <div key={index}>
-                            <p>포인트: {item.point}
-                            날짜: {item.changeDate}</p>
-                           
-                        </div>
-                    ))}  
-    </div>
+            <br/>
+        <h3>포인트 히스토리</h3>
+   <div>
+  <table className="modal-content">
+    <thead>
+      <tr>
+        <th>번호</th>
+        <th>포인트</th>
+        <th>변경 날짜</th>
+      </tr>
+    </thead>
+    <tbody>
+      {history.map((item, index) => (
+        <tr key={index}>
+          <td>{index + 1}</td>
+          <td>{item.point}</td>
+          <td>{item.changeDate}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
     
     <div className="modal-footer">
         <button id='recombutton' onClick={closeModal}>확인</button>

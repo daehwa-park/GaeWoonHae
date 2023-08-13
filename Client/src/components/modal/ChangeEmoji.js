@@ -86,6 +86,8 @@ function ChangeEmojiModal({ setModalOpen }) {
           }
         };
     return (
+    <div className="modal-container">
+
         <div id='changemodals'>
             <h3 id='codetxt2'>이모지 변경하기</h3>
             <div className='emoji-box2'>
@@ -103,9 +105,10 @@ function ChangeEmojiModal({ setModalOpen }) {
 
          
             <div id='changemodal'>
-                <p id='changebutton' onClick={emojiSellect} >적용하기</p>
+                <p id='changebutton' onClick={emojiSellect}>적용</p>
                 <p id='changebutton' onClick={closeModal}>취소</p>
             </div>
+        </div>
         </div>
     );
 }

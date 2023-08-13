@@ -50,6 +50,8 @@ function BuyModal({ setModalOpen, userPoint,userId,selectEmojiId, selectPrice, E
     },[])
 
     return (
+    <div className="modal-container">
+
         <div id='Buymodals'>
             {changeBuyMD === 0 && (
                 <div>
@@ -90,7 +92,7 @@ function BuyModal({ setModalOpen, userPoint,userId,selectEmojiId, selectPrice, E
                 </div>
             )}
 
-        </div>
+        </div></div>
     );
 }
 export default BuyModal;
