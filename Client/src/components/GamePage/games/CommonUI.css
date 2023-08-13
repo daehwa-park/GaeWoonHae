@@ -27,14 +27,19 @@
     left: 27vw;
     width: 180px;
     height: 180px;
+    /* width: 10vw;
+    height: 10vw; */
     border-radius: 50%;
     background-color: white;
 }
 
 .timer2 {
     position: absolute;
-    top: 54vh;
-    left: 27vw;
+    top: 31vw;
+    /* top: 6vh; */
+    left: 67vw;
+    /* width: 10vw;
+    height: 10vw; */
     width: 180px;
     height: 180px;
     border-radius: 50%;
@@ -85,6 +90,27 @@
     /* border: 5px solid black; */
 }
 
+.user-rank1 {
+    position: absolute;
+    left: 2vw;
+    width: 2vw;
+    height: 2vw;
+}
+.user-rank2 {
+    position: absolute;
+    left: 2vw;
+    width: 2vw;
+    height: 2vw;
+    margin-top: 4vh;
+}
+.user-rank3 {
+    position: absolute;
+    left: 2vw;
+    width: 2vw;
+    height: 2vw;
+    margin-top: 8vh;
+}
+
 
 .game-ranking-ui1 {
     width: 18vw;
@@ -124,7 +150,7 @@
     font-weight: 550;
 }
 .game-ranking1-2 {
-    width: 15vw;
+    width: 17vw;
     height: 6vh;
     margin: auto;
     border: 1px 1px 0 1px solid rgb(201, 198, 198);
@@ -139,7 +165,7 @@
 .game-ranking2-2 {
     text-align: center;
     margin: auto;
-    width: 15vw;
+    width: 17vw;
     height: 45vh;
     /* border: 1px solid rgb(201, 198, 198); */
     background-color: #F9F5FF;
@@ -151,6 +177,7 @@
 }
 
 .user-ranking {
+    position: relative;
     margin-top: 2vh;
 }
 

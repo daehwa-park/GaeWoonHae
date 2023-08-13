@@ -46,7 +46,7 @@
 }
 .gamescreen {
     display:flex;
-    /* width: 100vw; */
+    width: 100vw;
     height: 83vh;
     border: 6px solid rgb(96, 97, 97);
     border-radius: 20px;
@@ -54,15 +54,16 @@
 .game-logo {
     width: 16vw;
 }
-.gametitle {
+.gametitles {
     /* background-color: aquamarine;
     display:flex;
     justify-content: center; */
     text-align: center;
-    width: 23vw;
+    width: 20vw;
     height: 20vh;
-    margin-top: 4vh;
-    /* border: 10px solid black; */
+    margin: 4vh auto;
+    border: 6px solid rgb(128, 125, 125);
+    border-radius: 8px;
 }
 
 #video-container {
@@ -87,8 +88,11 @@
     /* top: 50%; */
     /* left:50%; */
     width: 22vw;
-    height: 83vh;
-    border-right: 7px solid rgb(104, 104, 104);
+    height: 82vh;
+    /* border-right: 7px solid rgb(104, 104, 104); */
+    /* border-right: 7px dashed rgb(104, 104, 104); */
+    border-right: 2mm ridge rgba(112, 112, 112, 0.6);;
+    /* border-radius: 5px; */
 }
 
 .messagebtn {
