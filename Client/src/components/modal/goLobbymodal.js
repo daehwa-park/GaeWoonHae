@@ -75,11 +75,14 @@ function GoLobbyModal({ setModalOpen, value }) {
           X
         </div>
         <h1 className="gametitle">{gamename()}</h1>
-        
-        <p>튜토리얼 사진</p>
-        <p>설명 2줄</p>
+        <div className="tutorial">
+          <img src="images/img/pick.gif" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+        </div>
+        <p> 화면에 나타나는 모기를 그림과 같은 동작을 통해 더 많이, 더빠르게 잡자 !<br/>
+          정확한 동작으로 잡아야 운동효과 UP !
+          </p>
+
         <div className="selectlobby">
-          
           <button className="modalButton-left" onClick={() => createRoom()}>
             <img src="images/img/enter_room.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
           </button>
