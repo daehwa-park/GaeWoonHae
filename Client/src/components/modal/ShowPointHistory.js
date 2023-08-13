@@ -57,7 +57,8 @@ function ShowPointHistory({ setModalOpen, userId}) {
             <br/>
         <h3>포인트 히스토리</h3>
    <div>
-  <table className="modal-content">
+    <div className="modal-content">
+    <table >
     <thead>
       <tr>
         <th>번호</th>
@@ -66,15 +67,21 @@ function ShowPointHistory({ setModalOpen, userId}) {
       </tr>
     </thead>
     <tbody>
-      {history.map((item, index) => (
-        <tr key={index}>
-          <td>{index + 1}</td>
-          <td>{item.point}</td>
-          <td>{item.changeDate}</td>
-        </tr>
-      ))}
+    {history.map((item, index) => (
+  <tr key={index}>
+    <td>{index + 1}</td>
+    <td>
+      {item.point >= 0 ? "+" : ""}
+      {item.point}
+      <img src="/images/img/coin.png" alt="My Image" width="18" />
+    </td>
+    <td>{item.changeDate}</td>
+  </tr>
+))}
     </tbody>
   </table>
+    </div>
+
 </div>
 
     

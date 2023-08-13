@@ -1,12 +1,12 @@
 #Endmodals {
     position: absolute;
-    top: 10%;
-    left: 10%;
-    width: 80vw;
-    height: 80vh;
+    top: 2%;
+    left: 30%;
+    width: 40vw;
+    height: 82vh;
     border: 2px solid rgb(204, 200, 200);
     border-radius: 20px;
-    background-color: rgb(255, 255, 255, 0.9);
+    background-color: rgba(249, 244, 192, 0.9);
     box-shadow: 2px 2px rgb(133, 132, 132);
     z-index: 1;
     text-align: center;
@@ -20,7 +20,7 @@
     justify-content: center;
 }
 
-#Endbutton {
+/* #Endbutton {
     margin-top: 40px;
     margin-left: 20px;
     width: 110px;
@@ -38,4 +38,87 @@
     background-color:#a5c8e9 ;
     color: #282a2b;
 
-}
+} */
+
+.RankingHeader {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-family: 'CustomFont', sans-serif;
+  }
+  
+  .AllRecord {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .RecordBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+    padding: 1px 15px;
+    margin: 10px 0;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: 2px solid rgb(33, 29, 29);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+  .Rank {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+  
+  .Username {
+    font-size: 1.7rem;
+    margin: 0 10px;
+    font-family: 'CustomFont', sans-serif;
+    letter-spacing: 5px; /* 글자 사이 간격 조절 */
+    font-weight: bold;
+  }
+  
+  .Count {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'CustomFont', sans-serif;
+  }
+
+  .buttons {
+    display: flex; /* 가로 정렬 설정 */
+    justify-content: center; /* 버튼 사이 간격 설정 */
+    align-self: flex-end;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 5%;
+  }
+
+  .Button {
+    width: 120px; /* 버튼 너비 설정 */
+    height: 40px;
+    border: 2px solid rgb(204, 200, 200);
+    border-radius: 5px;
+    background-color: rgb(221, 216, 225);
+    box-shadow: 4px 4px rgb(133, 132, 132);
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    font-family: 'CustomFont', sans-serif;
+  }
+  
+  .Button:hover,
+  .Button:focus,
+  .Button:active {
+    background-color:  rgb(235, 162, 78);
+    box-shadow: 4px 4px rgb(182, 122, 55);
+    color: #ffffff;
+  }

@@ -9,11 +9,12 @@ import third from '../../../assets/ranking/third.png'
 
 const CommonUI = ({props}) => {
 
+    
     const count = props.count;
     const gameType = props.gameType;
     // const timer = props.timer;
     const gameTime = props.gameTime;
-    const userList = props.userList.current;
+    const userList = props.renderingUserList;
     let loadcomplete = props.loadcomplete.current;
     let setFinished = props.setFinished;
     
@@ -22,17 +23,6 @@ const CommonUI = ({props}) => {
     const timercolor = '#F4BE66';
 
     const [timerstart,setTimerstart] =useState(false)
-
-    const [sortedUserList, setSortedUserList] = useState([]);
-
-    useEffect(() => {
-        console.log(gameType,'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-        if (userList && userList.length > 0) {
-            let users = [...userList];
-            setSortedUserList(users);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userList])
 
     useEffect(() => {
         if (loadcomplete) {

@@ -21,8 +21,9 @@
 }
 
 #buybutton {
-    margin-top: 40px;
-    margin-left: 20px;
+    /* margin-top: 40px; */
+    text-align: center;
+    margin-left: 10px;
     width: 110px;
     height: 40px;
     border: 2px solid rgb(204, 200, 200);
