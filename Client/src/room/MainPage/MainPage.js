@@ -14,15 +14,6 @@ const Mainpage = () => {
   const userId = useSelector((state) => state.auth.user.userId);
   const dispatch = useDispatch();
 
-  const [musicPlaying, setMusicPlaying] = useState(false)
-  const musicOnIcon = '../../assets/music/apple_music_icon.png'
-  const musicOffIcon = '/assets/music/apple_music_icon.png'
-  const musicIcon = musicPlaying ? musicOnIcon : musicOffIcon
-
-  const startMusic = () => {
-    setMusicPlaying(true) 
-  }
-
   useEffect(() => {
     // 메인페이지로 오면 방정보 리듀서를 초기화 합니다.
     dispatch(roomActions.resetRoomInfo());
@@ -46,9 +37,6 @@ const Mainpage = () => {
             {/* </div> */}
           </div>
         </div>
-      </div>
-      <div>
-        <img src={musicIcon} alt="music-icon" onClick={startMusic}/>
       </div>
     </div>
   );
