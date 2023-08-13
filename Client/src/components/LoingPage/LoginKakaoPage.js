@@ -47,7 +47,7 @@ const LoginKakaoPage = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
-  return <div>로그인 중입니다~</div>;
+  return <div> 로그인 중 ... </div>;
 };
 
 export default LoginKakaoPage;

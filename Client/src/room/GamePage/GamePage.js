@@ -60,6 +60,7 @@ const GamePage = () => {
     // const emoji = useSelector((state) => state.user.emoji);
     const firstUserList = useSelector((state) => state.roomInfo.userList);
     const userId = useSelector((state) => state.auth.user.userId);
+    const useremojiId = useSelector(state => state.auth.user.emojiId);
     // openvidu states
     const [session, setSession] = useState();
     const [mainStreamManager, setMainStreamManager] = useState();
@@ -80,7 +81,9 @@ const GamePage = () => {
     const [started, setStarted] = useState(false);
     const [finished, setFinished] = useState(false);
     const [gameLoad, setGameLoad] = useState(false);
-    const [userList, setUserList] = useState(firstUserList);
+    const [assetLoad, setAssetLoad] = useState(true);
+    // const [userList, setUserList] = useState(firstUserList);
+    const userList = useRef(firstUserList);
     const [renderingcount,setRenderingcount] = useState([0,1,2,3])
     //0809 추가
     
@@ -90,6 +93,7 @@ const GamePage = () => {
     const imgRef = useRef();
     const faceImgRef = useRef();
     const emojiRef = useRef();
+    const updateEmojiId = useRef();
 
     // 비디오 종료 조건
     const stopVideo = useRef(false);
@@ -102,7 +106,6 @@ const GamePage = () => {
     let OV;
     // let finishUserCount=0;
     // timer
-    const timerIdRef = useRef(null);
     const finishUserCountRef = useRef(0);
     
     // 모달 입장
@@ -113,8 +116,6 @@ const GamePage = () => {
     // 네비게이션
     const navigate = useNavigate();
 
-    // 오류방지용 콘솔
-    console.log(current,publisher,setTimer,setRenderingcount)
 
     // 네비게이션
     const goMain =() => {
@@ -125,8 +126,14 @@ const GamePage = () => {
     // openCV Settings
     
     const updateEmoji = async () => {
-        detectFace();
-        requestAnimationFrame(updateEmoji);
+        if (stopVideo.current) {
+            cancelAnimationFrame(updateEmojiId.current);
+            return;
+        }
+        console.log("이모지 업데이트", stopVideo.current);
+
+        await detectFace();
+        updateEmojiId.current = requestAnimationFrame(updateEmoji);
     }
 
     const detectFace = () => {
@@ -230,9 +237,6 @@ const GamePage = () => {
         setPublisher(undefined);
     }
 
-    //오류 방지용 콘솔
-    console.log(leaveSession)
-
     const subscriberLeave = (streamManager) => {
         let remainSubscriber = subscriber;
         let index = remainSubscriber.indexOf(streamManager, 0);
@@ -266,11 +270,9 @@ const GamePage = () => {
 
     //stomp 연결
     const connectStomp = () => {
-        console.log(limitTime);
         var socket = new SockJS("/gwh-websocket");
 
         let stompClient = Stomp.over(socket);
-        console.log(stompClient);
 
         var headers = {
             name: myName,
@@ -316,14 +318,19 @@ const GamePage = () => {
 
     const updateGameInfo = (gameInfo) => {
         // userList에서 닉네임 같은 놈 찾아서 카운트 바꾸고 반영(0809)
-        const updateUserList = userList.map((user) => {
+        const updateUserList = userList.current.map((user) => {
             if (user.username === gameInfo.username) {
                 return { ...user, count: gameInfo.count }; // 해당 유저의 count를 업데이트한 새 객체 반환
             }
             return user; // 조건에 맞지 않는 경우 기존 객체 그대로 반환
         });
 
-        setUserList(updateUserList);
+        updateUserList.sort((a, b) => b.count - a.count);
+        
+        userList.current =updateUserList;
+        
+        console.log(updateUserList);
+        console.log(userList);
     }
 
     const gameInfoChange = () => {
@@ -385,9 +392,9 @@ const GamePage = () => {
                 // send page to error
             }
 
-            emojiRef.current.src = `../../images/emoji/emoji2.png`
+            emojiRef.current.src = `../../images/emoji/emoji${useremojiId}.png`;
             await loadHaarFaceModels();
-            updateEmoji();
+            updateEmojiId.current = requestAnimationFrame(updateEmoji);
             console.log("MODEL LOADED!!!!!!!!!!!!!!!!!!!!")
 
             joinSession();
@@ -426,10 +433,6 @@ const GamePage = () => {
                 setCounting(false);
             }, countdown);
 
-            // 버스 로딩,3초 카운트 끝나고 => 게임시간타이머 끝나고 나서 실행
-            setTimeout(()=> {
-                setFinished(true);
-            }, countdown+gameTime*1000+2000);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [started])
@@ -439,7 +442,6 @@ const GamePage = () => {
             console.log("게임 종료!!!!!!!!!!!!!!!");
             myGameFinish();
             // setGameModalOpen(true);
-            clearInterval(timerIdRef.current);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[finished])
@@ -465,6 +467,11 @@ const GamePage = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[finishUserCount])
+
+    useEffect(()=> {
+        console.log(userList);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[userList])
 
 
     return (

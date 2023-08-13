@@ -155,7 +155,9 @@
 }
 
 .picto2 {
-    width: 20vw;
-    height: 20vw;
+    position: absolute;
+    width: 14vw;
+    height: 14vw;
+    border-radius: 50%;
     background-color: white;
 }

@@ -9,14 +9,13 @@ const CommonUI = ({props}) => {
     const count = props.count;
     // const timer = props.timer;
     const gameTime = props.gameTime;
-    const userList = props.userList;
-    const gameType = props.gameType;
+    const userList = props.userList.current;
     let loadcomplete = props.loadcomplete.current;
     let setFinished = props.setFinished;
-    // 오류방지
-    console.log(setFinished)
+  
+
     // 타이머 색깔
-    const timercolor = gameType===1 ? '#F4BE66': '#1e69ff';
+    const timercolor = '#F4BE66';
 
     const [timerstart,setTimerstart] =useState(false)
 
@@ -26,8 +25,6 @@ const CommonUI = ({props}) => {
         console.log(gameType,'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
         if (userList && userList.length > 0) {
             let users = [...userList];
-            console.log(users,"유저 정보 확인")
-            users.sort((a, b) => (b.count - a.count));
             setSortedUserList(users);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,8 +56,8 @@ const CommonUI = ({props}) => {
                     size={180}
                     strokeWidth={12}
                     onComplete={() => {
-                        props.setFinished(true);
-                        console.log(props.finished);
+                        console.log("타이머 끝나서 콜백함수 실행됨~~~")
+                        setFinished(true);
                     }}
                 >
                 {/* 타이머가 끝났을 때 표시할 내용 */}
@@ -82,7 +79,7 @@ const CommonUI = ({props}) => {
                             </div> */}
                         <div className={`game-ranking2-${gameType}`}>
                             {sortedUserList.map((user, idx) => (
-                                <div className='user-ranking' key={idx}>{idx}위 {user.username} {user.count}개 </div>
+                                <div className='user-ranking' key={idx}>{idx+1}위 {user.username} {user.count}개 </div>
                             ))}
                             {/* <div className='user-ranking'>1위 김두현 12개</div>
                             <div className='user-ranking'>2위 김두현 12개</div>
@@ -91,9 +88,11 @@ const CommonUI = ({props}) => {
                         
                 </div>
             </div>
-            <div className={`picto${gameType}`}>
-                픽토그램 이미지
-            </div>
+            {/* {gameType ===2 ? (
+                <div className={`picto${gameType}`}>
+                    <img src={pictoImg} alt=""/>
+                </div>
+            ) : null } */}
         </div>
     );
 

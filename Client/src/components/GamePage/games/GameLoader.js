@@ -28,6 +28,7 @@ const GameLoader = ({props}) => {
     const loopWebcamId = useRef(null);
     const loopPredId = useRef(null);
     const failTimerId = useRef(null);
+    const finishedRef = useRef(false);
 
     // catch mosquito
     const ready1 = useRef(true);
@@ -106,9 +107,16 @@ const GameLoader = ({props}) => {
     *  go => 각 4분면 방향으로 팔 올려 자세
     */
     
-    const predictJumpingJack = async () => {
-        
+   const predictJumpingJack = async () => {
+       
+        if (finishedRef.current) {
+            cancelAnimationFrame(loopPredId.current);
+            return;
+        }
+        console.log("팔벌려뛰기 인식 루프", finishedRef.current);
+       
         if (model && webcam) {
+            await webcam.update();
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
             const prediction = await model.predict(posenetOutput);
 
@@ -140,7 +148,6 @@ const GameLoader = ({props}) => {
                 key.current = false;
                 ready1.current = ready2.current = set.current = false;
             }
-            console.log(pose)
         }
 
         loopPredId.current = requestAnimationFrame(predictJumpingJack);
@@ -148,7 +155,14 @@ const GameLoader = ({props}) => {
 
     const predictPictogram = async () => {
 
+        if (finishedRef.current) {
+            cancelAnimationFrame(loopPredId.current);
+            return;
+        }
+        console.log("픽토그램 인식 루프");
+
         if (model && webcam) {
+            await webcam.update();
             const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
             const prediction = await model.predict(posenetOutput);
 
@@ -170,7 +184,6 @@ const GameLoader = ({props}) => {
             else {
                 loopPredId.current = requestAnimationFrame(predictPictogram)
             }
-            console.log(pose,prediction)
         }
     }
 
@@ -184,6 +197,11 @@ const GameLoader = ({props}) => {
 
         init();
         // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        return(() => {
+            finishedRef.current = true;
+        });
+
     },[]);
 
     useEffect(() => {
@@ -208,21 +226,15 @@ const GameLoader = ({props}) => {
     },[fail]);
 
     useEffect(() => {
-
-        const loopWebcam = async () => {
-            webcam.update();
-
-            loopWebcamId.current = requestAnimationFrame(loopWebcam);
-        };
-
         const loopPredict = async () => {
+            console.log("게임 로직 선택기");
             switch(gameType) {
                 case 1:
-                    predictJumpingJack();
+                    requestAnimationFrame(predictJumpingJack);
                     break;
                 case 2:
                     setTimeout(() => {
-                        predictPictogram();
+                        requestAnimationFrame(predictPictogram);
                     }, 2000);
                     break;
                 case 3:
@@ -236,7 +248,6 @@ const GameLoader = ({props}) => {
             console.log("게임 로더 게임 시작 인식함!!!")
             setTimeout(()=> {
                 getNextPose();
-                loopWebcam();
                 loopPredict();
             }, countdown);
         }
@@ -247,9 +258,8 @@ const GameLoader = ({props}) => {
 
         if (finished) {
             console.log("게임 로더 게임 종료 인식함!!!!")
-            cancelAnimationFrame(loopWebcamId.current);
-            clearInterval(loopPredId.current);
             clearTimeout(failTimerId.current);
+            finishedRef.current = true;
         }
 
     }, [finished]);
@@ -260,9 +270,6 @@ const GameLoader = ({props}) => {
     window.addEventListener("keydown", (e) => {
         key.current = true;
     });
-
-    //오류방지
-    console.log(setSuccess,setFail)
 
     return(
         <div className='jumpingjack'>
