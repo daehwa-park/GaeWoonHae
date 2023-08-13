@@ -108,28 +108,32 @@ function codeEnterRoom(requestData) {
     }
   };
 }
-// function codeEnterRoom(requestData) {
-//   return async (dispatch, getState) => {
-//     await roomApi
-//       .post(`/api/room/find`, requestData)
-//       .then((res) => {
-//         console.log("초대 코드 방 저장", res.data.data);
-//         const { sessionId, hostName, gameType } = res.data.data;
-//         dispatch(roomActions.getRoomInfo({ sessionId, hostName, gameType }));
-//         return { success: true };
-//       })
 
-//       .catch((err) => {
-//         // 서버로부터의 응답 내용에 따라 조건을 변경해야 할 수도 있습니다.
-//         // 예를 들면, err.response.data.message === 'Room not found' 와 같은 조건이 될 수 있습니다.
-//         if (err.response && err.response.status === 404) {
-//           alert("존재하지 않는 방입니다.");
-//         } else {
-//           console.log("초대 코드 방 찾기 실패", err);
-//         }
-//       });
-//   };
-// }
+function leaveRoom(requestData) {
+  return async (dispatch, getState) => {
+    await roomApi.post("/api/room/leave", requestData)
+      .then((res) => {
+        console.log("유저 로비방 탈퇴", res);
+      })
+      .catch((err) => {
+        console.log("방 탈퇴 중 오류 발생", err);
+      });
+  };
+}
+
+function arriveRoom(requestData) {
+  return async (dispatch, getState) => {
+    await roomApi.post("/api/room/arrive", requestData)
+      .then((res) => {
+        console.log("유저 로비방 입장", res);
+      })
+      .catch((err) => {
+        console.log("유저 로비방 입장 중 오류 발생", err);
+      });
+  };
+}
+
+
 
 export const enterRoomAction = {
   getRoomInfo,
@@ -138,4 +142,6 @@ export const enterRoomAction = {
   startedRoom,
   finishedRoom,
   codeEnterRoom,
+  leaveRoom,
+  arriveRoom,
 };

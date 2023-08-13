@@ -1,5 +1,6 @@
 package com.threeracha.gaewoonhae.api.controller;
 
+import com.threeracha.gaewoonhae.api.dto.request.LeaveRoomRequest;
 import com.threeracha.gaewoonhae.api.dto.request.SessionIdRequest;
 import com.threeracha.gaewoonhae.api.dto.request.SetRoomStatusRequest;
 import com.threeracha.gaewoonhae.api.dto.response.CommonResponse;
@@ -49,6 +50,32 @@ public class RoomController {
 
         return new ResponseEntity<>(
                 makeCommonResponse(SUCCESS, roomByGameType), HttpStatus.OK);
+    }
+
+    @Operation(summary = "로비방에서 유저가 떠남", description = "방장일 경우 해당 방의 상태는 close, 아닐 경우 currentUserNum -1")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = String.class)))
+    })
+    @PostMapping ("/leave")
+    public ResponseEntity<CommonResponse<RoomInfoResponse>> leaveRoom(@RequestBody LeaveRoomRequest leaveRoomRequest) {
+        RoomInfoResponse roomInfoResponse = roomService.leaveRoom(leaveRoomRequest);
+                
+        return new ResponseEntity<>(
+                makeCommonResponse(SUCCESS, roomInfoResponse), HttpStatus.OK);
+    }
+
+    @Operation(summary = "로비방에 유저가 입장함", description = "로비방에 입장을 했을때, currentUserNum 1 증가")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = String.class)))
+    })
+    @PostMapping ("/arrive")
+    public ResponseEntity<CommonResponse<RoomInfoResponse>> arriveRoom(@RequestBody SessionIdRequest sessionIdRequest) {
+        RoomInfoResponse roomInfoResponse = roomService.arriveRoom(sessionIdRequest);
+
+        return new ResponseEntity<>(
+                makeCommonResponse(SUCCESS, roomInfoResponse), HttpStatus.OK);
     }
 
     @Operation(summary = "초대코드로 방 조회", description = "초대코드에 해당하는 방이 있는 경우 sessionId 반환, 아닐 경우 customException 반환")
