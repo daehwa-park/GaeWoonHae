@@ -4,6 +4,12 @@
 *{
     box-sizing: border-box;
 }
+@font-face {
+  font-family: 'CustomFont';
+  src: url('../../assets/font/DungGeunMo.woff2') format('woff2'),
+  url('../../assets/font/DungGeunMo.woff') format('woff')
+  /* 다양한 포맷의 폰트 파일을 지정 */
+}
 
 /*--------------------------------------------------------------
 슬라이드 스타일
@@ -34,14 +40,19 @@
 
 body {
   margin: 0;
-  font-family: 'Rajdhani', sans-serif;
+  font-family: 'CustomFont', sans-serif; /* 로컬 폰트 사용 */
+ 
 }
 
 h2 {
       line-height:1.1;
+      font-family: 'CustomFont', sans-serif; /* 로컬 폰트 사용 */
+ 
 }
 
 .hero-slider {
+  font-family: 'CustomFont', sans-serif; /* 로컬 폰트 사용 */
+ 
   width: 63vw;
   height: 60vh;
   display: -webkit-box;
@@ -95,7 +106,7 @@ h2 {
 
 .hero-slider .swiper-slide {
   overflow: hidden;
-  color: #fff;
+  /* color: #fff; */
 }
 
 .hero-slider .swiper-container {

@@ -15,6 +15,13 @@ import { useNavigate } from "react-router-dom"
 import emoji1 from '../../assets/emoji/emoji1.png'
 import emoji2 from '../../assets/emoji/emoji2.png'
 import emoji3 from '../../assets/emoji/emoji3.png'
+import emoji4 from '../../assets/emoji/emoji4.png'
+import emoji5 from '../../assets/emoji/emoji5.png'
+import emoji6 from '../../assets/emoji/emoji6.png'
+import emoji7 from '../../assets/emoji/emoji7.png'
+import emoji8 from '../../assets/emoji/emoji8.png'
+import emoji9 from '../../assets/emoji/emoji9.png'
+import emoji10 from '../../assets/emoji/emoji10.png'
 
 //달력
 import Calendar from 'react-calendar';
@@ -230,19 +237,23 @@ const Myprofilepage = () => {
   };
   
   
-  // 이모지 선택 관리
+  const emojiImages = {
+    1: emoji1,
+    2: emoji2,
+    3: emoji3,
+    4: emoji4,
+    5: emoji5,
+    6: emoji6,
+    7: emoji7,
+    8: emoji8,
+    9: emoji9,
+    10: emoji10,
+  };
+  
   const getEmoji = (emojiId) => {
-    switch (emojiId) {
-        case 1:
-          return emoji1;
-        case 2:
-          return emoji2;
-        case 3:
-          return emoji3;
-        default:
-          return ""; 
-      }
-    };
+    return emojiImages[emojiId] || "";
+  };
+
 
   // 회원 탈퇴 
   const dispatch = useDispatch();

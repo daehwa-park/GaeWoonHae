@@ -137,14 +137,19 @@ const Mainslide=() => {
                         <div className="swiper-slide" >
                             <div className="slide-inner slide-bg-image1">
                                 <div className="main-container">
+                                  <h3>
+                                    짝짝! 모기 잡아라!
+                                  </h3>
                                     <div className="centered-image-container">
-                                        <img src="/images/img/squat_gif.gif" alt="튜토리얼 GIF" className="centered-image" />
+                                        {/* <img src="/images/img/squat_gif.gif" alt="튜토리얼 GIF" className="centered-image" /> */}
+                                        
                                     </div>
-                                    <img src="/images/img/1.png" alt="튜토리얼 GIF"  className="centered-text" />
+                                    {/* 박수 동작으로 화면에 나타나는 모기를 잡아보자! <br/>
+                                    게임이 종료될때까지 많이 성공한 사람이 승리! */}
+                                    {/* <img src="/images/img/1.png" alt="튜토리얼 GIF"  className="centered-text" /> */}
                                     
                                   
                                     
-                                    {/* <div className="clearfix"></div> */}
                                 </div>
                             </div>
                         </div>
@@ -153,17 +158,19 @@ const Mainslide=() => {
                         <div className="swiper-slide">
                             <div className="slide-inner slide-bg-image2" >
                                 <div className="main-container">
-
+                                      <h3>
+                                          도전! 픽토그램!
+                                        </h3>
              
                                        <div className="centered-image-container">
-                                        <img src="/images/img/squat_gif.gif" alt="튜토리얼 GIF" className="centered-image" />
+                                        {/* <img src="/images/img/squat_gif.gif" alt="튜토리얼 GIF" className="centered-image" /> */}
                                         </div>
-                                        <img src="/images/img/2.png" alt="튜토리얼 GIF"  className="centered-text" />
+                                        {/* <img src="/images/img/2.png" alt="튜토리얼 GIF"  className="centered-text" /> */}
                                         </div>
                                 
                             </div>
                         </div>
-                        <div className="swiper-slide">
+                        {/* <div className="swiper-slide">
                             <div className="slide-inner slide-bg-image3">
                                 <div className="main-container">
 
@@ -174,7 +181,7 @@ const Mainslide=() => {
                                     </div>
                         
                             </div>
-                        </div>
+                        </div> */}
                         <div className="swiper-pagination"></div>
                         {/* <div className="swiper-button-next"></div> */}
                         {/* <div className="swiper-button-prev"></div> */}
