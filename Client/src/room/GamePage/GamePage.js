@@ -486,7 +486,7 @@ const GamePage = () => {
                 {loading ? <Loading /> : null }
                 {counting ? <CountLoading updateLoadingComplete={updateLoadingComplete} /> : null}
                 {/* 게임 종료 모달 */}
-                {GamemodalOpen && (<GameEndBtn setModalOpen={setGameModalOpen}/>)}
+                {GamemodalOpen && (<GameEndBtn setModalOpen={setGameModalOpen} props={{renderingUserList}}/>)}
 
                 <div className="gamescreen">
                     <div className='messagebtntag'>
@@ -551,6 +551,7 @@ const GamePage = () => {
                                                 <div id="sub-video2 sub-titlebox" key={i}>
                                                     <h2>{i+1}</h2>
                                                 {/* <span>{sub.id}</span> */}
+                                                
                                                     <UserVideoComponent streamManager={sub} />
                                                     {/* {LenSubscribers} */}
                                                 </div>
