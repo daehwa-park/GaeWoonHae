@@ -107,6 +107,7 @@ const GamePage = () => {
     // let finishUserCount=0;
     // timer
     const finishUserCountRef = useRef(0);
+    const countRef = useRef(0);
     
     // 모달 입장
     // const showLobbyModal = () => {
@@ -334,6 +335,7 @@ const GamePage = () => {
     }
 
     const gameInfoChange = () => {
+        countRef.current=count;
         stompClient.send(
             "/app/gameroom/" + sessionId + "/gameinfo",{},
             // 내 정보를 해당 채널로 보내면 됨
@@ -351,10 +353,12 @@ const GamePage = () => {
     }
     // 게임종료시 실행하는 axios 요청
     const recordSave = async () => {
+        console.log("게임끝나서 db에 저장함"+count)
         const requestData = {
-          gameType: gameType,
-          count:count,
           userId: userId,
+          gameType: gameType,
+          count:countRef.current,
+          
         };
         await dispatch(enterRoomAction.recordSave(requestData));
       };
@@ -441,6 +445,7 @@ const GamePage = () => {
         if (finished) {
             console.log("게임 종료!!!!!!!!!!!!!!!");
             myGameFinish();
+            onUnmount();
             // setGameModalOpen(true);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
