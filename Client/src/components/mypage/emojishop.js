@@ -166,7 +166,7 @@ const Myemojipage = () => {
          {/* {saveEmoji}</h3> */}
         <h3 className="emoji-title2">
           보유 포인트: <span>{userPoint}</span>
-          <span><img src="/images/img/coin.png" alt="My Image" width="20"/></span>
+          <span><img className="money-img1" src="/images/img/coin.png" alt="My Image" width="20"/></span>
         </h3>
       </div>
       <div className="emoji-body">
@@ -202,8 +202,8 @@ const Myemojipage = () => {
                 </div>
                 <div>
                   <div className="emoji-id"><span>번호 :</span> <span>{selectEmojiId}</span></div>
-                  <div className="emoji-price"><span>가격 :</span> <span>{selectPrice}
-                  <img src="/images/img/coin.png" alt="My Image" width="18"/>
+                  <div className="emoji-price"><span>가격 :</span> <span>{selectPrice}  
+                   <img className="money-img2" src="/images/img/coin.png" alt="My Image" width="18"/>
                   </span></div>
                 </div>
               </div>

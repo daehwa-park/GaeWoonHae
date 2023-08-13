@@ -30,7 +30,7 @@
     background-color: white;
     box-shadow: 2px 2px rgb(133, 132, 132);
 }
-#recombutton {
+#historybutton {
     margin-top: 2vh;
     margin-right: 1vw;
     width: 110px;
@@ -42,9 +42,10 @@
     text-transform: uppercase;
     transition:all .2s ease;
     font-size: 15px;
+    line-height: 40px;
 }
 
-#recombutton:hover, #recombutton:focus, #recombutton:active {
+#historybutton:hover, #historybutton:focus, #historybutton:active {
     background-color:#a5c8e9 ;
     color: #282a2b;
 
@@ -63,7 +64,7 @@
     font-size: 20px;
 }
 
-.modal-container {
+.historymodal-container {
     position: fixed;
     top: 0;
     left: 0;

@@ -52,43 +52,41 @@ function ShowPointHistory({ setModalOpen, userId}) {
         setModalOpen(false);
     };
     return (
-        <div className="modal-container">
-        <div id='pointhistory'>
-            <br/>
-        <h3>포인트 히스토리</h3>
-   <div>
-    <div className="modal-content">
-    <table >
-    <thead>
-      <tr>
-        <th>번호</th>
-        <th>포인트</th>
-        <th>변경 날짜</th>
-      </tr>
-    </thead>
-    <tbody>
-    {history.map((item, index) => (
-  <tr key={index}>
-    <td>{index + 1}</td>
-    <td>
-      {item.point >= 0 ? "+" : ""}
-      {item.point}
-      <img src="/images/img/coin.png" alt="My Image" width="18" />
-    </td>
-    <td>{item.changeDate}</td>
-  </tr>
-))}
-    </tbody>
-  </table>
-    </div>
+        <div className="historymodal-container">
+          <div id='pointhistory'>
+              <br/>
+              <h3>포인트 히스토리</h3>
+              <div>
+                <div className="modal-content">
+                  <table >
+                    <thead>
+                      <tr>
+                        <th>번호</th>
+                        <th>포인트</th>
+                        <th>변경 날짜</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {history.map((item, index) => (
+                            <tr key={index}>
+                              <td>{index + 1}</td>
+                              <td>
+                                {item.point >= 0 ? "+" : ""}
+                                {item.point}
+                                <img src="/images/img/coin.png" alt="My Image" width="18" />
+                              </td>
+                              <td>{item.changeDate}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
 
-</div>
-
-    
-    <div className="modal-footer">
-        <button id='recombutton' onClick={closeModal}>확인</button>
-    </div>
-        </div> 
+              <div className="modal-footer">
+                  <button id='historybutton' onClick={closeModal}>확인</button>
+              </div>
+            </div> 
         </div>
     );
 }

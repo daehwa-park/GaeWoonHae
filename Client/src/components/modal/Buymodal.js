@@ -57,7 +57,7 @@ function BuyModal({ setModalOpen, userPoint,userId,selectEmojiId, selectPrice, E
                 <div>
                     <h3 id='codetxt2'>구매하시겠습니까?</h3>
                     <div id='Buymodal'>
-                        <p id='buybutton' onClick={emojiBuy} >확인</p>
+                        <p className="btn-enter" id='buybutton'  onClick={emojiBuy} >확인</p>
                         <p id='buybutton' onClick={closeModal}>취소</p>
                     </div>
                 </div>

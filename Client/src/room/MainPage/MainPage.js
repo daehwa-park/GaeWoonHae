@@ -14,11 +14,18 @@ const Mainpage = () => {
   const userId = useSelector((state) => state.auth.user.userId);
   const dispatch = useDispatch();
 
+  const checking=()=>{
+    localStorage.removeItem('music')
+    console.log('asdf')
+  }
   useEffect(() => {
     // 메인페이지로 오면 방정보 리듀서를 초기화 합니다.
     dispatch(roomActions.resetRoomInfo());
     //유저 정보 받아오기
     dispatch(authenticateAction.getUserInfo(userId));
+
+    localStorage.setItem('music',true)
+    return checking()
   });
 
   return (
