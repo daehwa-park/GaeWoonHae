@@ -18,15 +18,16 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000", "https://i9b303.p.ssafy.io")
+                .allowedOriginPatterns("http://localhost:3000", "https://i9b303.p.ssafy.io")
+                .allowCredentials(true)
                 .allowedMethods("OPTIONS","GET","POST","PUT","DELETE");
     }
 
-//    @Override
-//    public void addInterceptors(InterceptorRegistry interceptorRegistry) {
-//
-//        interceptorRegistry.addInterceptor(authInterceptor)
-//                .addPathPatterns("/**")
-//                .excludePathPatterns("/api/oauth/login/**", "/api/oauth/regen");
-//    }
+    @Override
+    public void addInterceptors(InterceptorRegistry interceptorRegistry) {
+
+        interceptorRegistry.addInterceptor(authInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/api/oauth/login/**", "/api/oauth/regen", "/api/sessions/**", "/gameroom/**", "/chatroom/**");
+    }
 }
