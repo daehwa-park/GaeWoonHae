@@ -3,6 +3,9 @@ import './CommonUI.css'
 // import Timer from "./Timer"
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 // import { useCountdown } from 'react-countdown-circle-timer'
+import first from '../../../assets/ranking/first.png'
+import second from '../../../assets/ranking/second.png'
+import third from '../../../assets/ranking/third.png'
 
 const CommonUI = ({props}) => {
 
@@ -14,7 +17,7 @@ const CommonUI = ({props}) => {
     const userList = props.renderingUserList;
     let loadcomplete = props.loadcomplete.current;
     let setFinished = props.setFinished;
-  
+    
 
     // 타이머 색깔
     const timercolor = '#F4BE66';
@@ -22,9 +25,8 @@ const CommonUI = ({props}) => {
     const [timerstart,setTimerstart] =useState(false)
 
     useEffect(() => {
-        console.log(loadcomplete, '로딩확인222@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
         if (loadcomplete) {
-            console.log(loadcomplete, '로딩확인333@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+            console.log(loadcomplete, '로딩확인@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
             console.log(" 타이머 시작 : @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
             setTimerstart(true)
 
@@ -54,7 +56,7 @@ const CommonUI = ({props}) => {
                 {/* 타이머가 끝났을 때 표시할 내용 */}
                 {({ remainingTime }) => (
                     <div >
-                        <div className='timer-title'>남은 시간 {gameType}</div>
+                        <div className='timer-title'>남은 시간</div>
                         <div className='timer-count'>{remainingTime}<span className='timer-sec'>초</span></div> 
                     </div>
                 )}
@@ -70,7 +72,25 @@ const CommonUI = ({props}) => {
                             </div> */}
                         <div className={`game-ranking2-${gameType}`}>
                             {userList.map((user, idx) => (
-                                <div className='user-ranking' key={idx}>{idx+1}위 {user.username} {user.count}개 </div>
+                                <div className='user-ranking' key={idx}>
+                                    {userList.length ===1 && (
+                                        <img className='user-rank1' src={first} alt="" />
+                                    )}
+                                    {userList.length ===2 && (
+                                        <div>
+                                            <img className='user-rank1' src={first} alt="" />
+                                            <img className='user-rank2' src={second} alt="" />
+                                        </div>
+                                    )}
+                                    {userList.length ===3 && (
+                                        <div>
+                                            <img className='user-rank1' src={first} alt="" />
+                                            <img className='user-rank2' src={second} alt="" />
+                                            <img className='user-rank3' src={third} alt="" />
+                                        </div>
+                                    )}
+                                    {idx+1}위 {user.username} {user.count}개 
+                                </div>
                             ))}
                             {/* <div className='user-ranking'>1위 김두현 12개</div>
                             <div className='user-ranking'>2위 김두현 12개</div>
