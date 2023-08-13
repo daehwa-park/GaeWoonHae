@@ -14,13 +14,15 @@ function getStompClient(
   setUserList,
   navigate,
   gameType,
-  
+  limitTime,
+  userId,
 ) {
   return async (dispatch, getState) => {
-    window.addEventListener('beforeunload', async function (event) {
+    window.addEventListener('beforeunload',  function (event) {
       // 특정 함수 실행
       // 사용자에게 경고 메시지 표시 (옵션)
-      await checkAliveUser();
+      
+      checkAliveUser();
       event.returnValue = '변경 사항이 저장되지 않을 수 있습니다.';
     });
     console.log("호스트명", hostName);
@@ -124,11 +126,18 @@ function getStompClient(
                   JSON.stringify(userList)
                   
                 );
+                stompClient.send(
+                  "/topic/chatroom/" + sessionId + "/messages",
+                  {},
+                  JSON.stringify({content : JSON.parse(message.body).content+"님이 퇴장하셨습니다!"})
+                  
+                );
             }
             else {
               // to 준영이형 if문 안에 로비 페이지로 이동.
               if(JSON.parse(message.body).content===hostName) {
-                console.log("이거 터진방");
+                stompClient.disconnect();
+                console.log("방장 나가서 사라진방");
               }
             } 
           }
@@ -163,19 +172,32 @@ function getStompClient(
       };
       await dispatch(enterRoomAction.startedRoom(requestData));
     };
+
+    const leaveLobby = async () => {
+      console.log(userId);
+      const requestData = {
+        // userId 수정해야 함. 받아오는 값으로
+        userId,
+        sessionId,
+      };
+      await dispatch(enterRoomAction.leaveRoom(requestData));
+    };
+
+    const arriveLobby = async () => {
+      const requestData = {
+        sessionId,
+      };
+      await dispatch(enterRoomAction.arriveRoom(requestData));
+    };
     
-     async function checkAliveUser() {
-        stompClient.send(
+    function checkAliveUser() {
+      leaveLobby();
+      stompClient.send(
         "/app/chatroom/" + sessionId + "/alive",
         {},
         JSON.stringify({})
       );
-        stompClient.send(
-        "/app/chatroom/" + sessionId + "/exit",
-        {},
-        JSON.stringify({})
-      );
-        // await stompClient.disconnect();
+       stompClient.disconnect();
       
     }
 
@@ -221,6 +243,7 @@ function getStompClient(
       });
       $("#send").click(function () {
         sendChat();
+        leaveLobby();
       });
       $("#gameStart").click(function () {
         gameStart();
@@ -229,6 +252,7 @@ function getStompClient(
 
     await connect();
     await setUserList(userList);
+    arriveLobby();
   };
 }
 
