@@ -33,7 +33,7 @@ function GoLobbyModal({ setModalOpen, value }) {
 
   const gamename = () => {
     if (value === 1) {
-      return "박터트리기";
+      return "모기를 잡아라!";
     } else if (value === 2) {
       return "도전! 픽토그램";
     } else if (value === 3) {
@@ -74,21 +74,29 @@ function GoLobbyModal({ setModalOpen, value }) {
         <div className="cancelbtn canceltext" onClick={closeModal}>
           X
         </div>
-        <h1 className="gametitle">{gamename()}</h1>
+        {/* <h1 className="gametitle">{gamename()}</h1> */}
+        <h2>{gamename()}</h2>
         <div className="tutorial">
-          <img src="images/img/pick.gif" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+          <img src="images/img/cap.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
         </div>
+        <br/>
         <p> 화면에 나타나는 모기를 그림과 같은 동작을 통해 더 많이, 더빠르게 잡자 !<br/>
           정확한 동작으로 잡아야 운동효과 UP !
           </p>
 
         <div className="selectlobby">
-          <button className="modalButton-left" onClick={() => createRoom()}>
-            <img src="images/img/enter_room.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+          <button className="modalButton-left"onClick={() => createRoom()}>
+            방 생성          
           </button>
 
+          {/* <button className="modalButton-left" onClick={() => createRoom()}>
+            방 생성
+            {/* <img src="images/img/enter_room.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} /> 
+          </button> */}
+
           <button  className="modalButton-right" onClick={() => findRoom()}>
-            <img src="images/img/make_room.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+            방 입장
+            {/* <img src="images/img/make_room.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} /> */}
           </button>
         </div>
         

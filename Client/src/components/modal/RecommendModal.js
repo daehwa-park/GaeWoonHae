@@ -53,6 +53,8 @@ function RecommendModal({ setModalOpen }) {
   };
 
   return (
+    <div className="modal-container">
+
     <div id="Recommendmodals">
       <h3 id="codetxt">초대코드 입력</h3>
       <input id="codeinput" type="text" ref={inviteCodeRef}></input>
@@ -64,6 +66,7 @@ function RecommendModal({ setModalOpen }) {
           취소
         </p>
       </div>
+    </div>
     </div>
   );
 }
