@@ -6,11 +6,12 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 const CommonUI = ({props}) => {
 
+    
     const count = props.count;
     const gameType = props.gameType;
     // const timer = props.timer;
     const gameTime = props.gameTime;
-    const userList = props.userList.current;
+    const userList = props.renderingUserList;
     let loadcomplete = props.loadcomplete.current;
     let setFinished = props.setFinished;
   
@@ -19,17 +20,6 @@ const CommonUI = ({props}) => {
     const timercolor = '#F4BE66';
 
     const [timerstart,setTimerstart] =useState(false)
-
-    const [sortedUserList, setSortedUserList] = useState([]);
-
-    useEffect(() => {
-        console.log(gameType,'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-        if (userList && userList.length > 0) {
-            let users = [...userList];
-            setSortedUserList(users);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userList])
 
     useEffect(() => {
         console.log(loadcomplete, '로딩확인222@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
@@ -79,7 +69,7 @@ const CommonUI = ({props}) => {
                                 1위 : <br/>2위 : <br/>3위 : <br/>4위 : <br/>
                             </div> */}
                         <div className={`game-ranking2-${gameType}`}>
-                            {sortedUserList.map((user, idx) => (
+                            {userList.map((user, idx) => (
                                 <div className='user-ranking' key={idx}>{idx+1}위 {user.username} {user.count}개 </div>
                             ))}
                             {/* <div className='user-ranking'>1위 김두현 12개</div>
