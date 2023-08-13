@@ -24,14 +24,17 @@
 }
 
 .cancelbtn {
-    margin-top: 1vh;
-    margin-right: 5vw;
+    /* margin-top: 1vh;
+    margin-right: 15vw; */
     position: absolute;
+    right: 1vw;
+    top: 0.7vw;
     text-align: center;
-    width: 60px;
-    height: 40px;
+    line-height: 2.5vw;
+    width: 2.5vw;
+    height: 2.5vw;
     /* border: 2px solid black; */
-    font-size: 30px;
+    font-size: 2vw;
     /* border-radius: 5px; */
 }
 
@@ -47,7 +50,7 @@
 
 .selectlobby {
     display: flex;
-    margin-top: 3vh;
+    /* margin-top: 1vh; */
     border: black;
 }
 
@@ -107,7 +110,7 @@
 }
 
 .modalButton-left{ 
-    margin-top: 5vh;
+    margin-top: 3vh;
     /* margin: 0 auto; */
     margin-left: 12vw;
     width: 15vw;
@@ -119,9 +122,10 @@
     border-radius: 10px;
     box-shadow: 2px 2px 1px 1px rgb(192, 189, 189);
     font-size: 30px;
+    transition:all .2s ease;
 }
 .modalButton-right{ 
-    margin-top: 5vh;
+    margin-top: 3vh;
     margin-left: 5vw; 
     /* margin: 0 auto; */
     width: 15vw;
@@ -133,8 +137,14 @@
     border-radius: 10px;
     box-shadow: 2px 2px 1px 1px rgb(192, 189, 189);
     font-size: 30px;
-
+    transition:all .2s ease;
 }
+
+.go-lobby:hover, .go-lobby:focus, .go-lobby:active {
+    background-color:#e6ecf1 ;
+    color: #282a2b;
+  }
+  
 
 @font-face {
     font-family: 'CustomFont';
@@ -149,9 +159,18 @@
 
   .tutorial{
     border: 20px red;
-    /* margin-left: 0 auto; */
-    width: 40vw;
+    width: 36vw;
     margin: 0 auto;
-    /* height: vh; */
+    border: 5px solid rgb(0, 0, 0);
 
+  }
+
+  .tutorial-name{
+    margin: 5vh 0 6vh 0;
+    font-size: 2vw;
+  }
+
+  .tutorial-content{
+    margin-top: 2vh;
+    font-size: 1vw;
   }

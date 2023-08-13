@@ -28,7 +28,7 @@ const Pictogram = ({props}) => {
     const [top, setTop] = useState(7);
     const [left, setLeft] = useState(37);
     // 픽토그램 중앙에서 보여주는 시간
-    const time2 = 1500;
+    const time2 = 3000;
 
     // 게임시작 
     useEffect(() => {
