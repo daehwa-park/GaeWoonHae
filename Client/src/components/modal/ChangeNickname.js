@@ -18,6 +18,7 @@ function ChangeNickModal({ setModalOpen, userId }) {
     const changename = async() => {
         console.log('닉네임 변경 시도')
         dispatch(edituserinfo.changeUserNick(nickname,userId));
+        closeModal();
     }
   
     return (
