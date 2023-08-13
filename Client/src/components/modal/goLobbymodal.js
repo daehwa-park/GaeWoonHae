@@ -1,11 +1,15 @@
 import "./goLobbymodal.css";
+
 import { useNavigate } from "react-router-dom";
 
 import { enterRoomAction } from "../../features/Actions/enterRoomAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+
 function GoLobbyModal({ setModalOpen, value }) {
+
+  
   const dispatch = useDispatch();
 
   const userId = useSelector((state) => state.auth.user.userId);
@@ -29,11 +33,11 @@ function GoLobbyModal({ setModalOpen, value }) {
 
   const gamename = () => {
     if (value === 1) {
-      return "박터트리기 방생성";
+      return "박터트리기";
     } else if (value === 2) {
-      return "픽토그램 방생성";
+      return "도전! 픽토그램";
     } else if (value === 3) {
-      return "공피하기 방생성";
+      return "공피하기";
     }
   };
   //방입장
@@ -65,26 +69,29 @@ function GoLobbyModal({ setModalOpen, value }) {
   }, [shouldNavigate]);
 
   return (
-    <div>
+    <div className="modal-container">
       <div className="golobby">
         <div className="cancelbtn canceltext" onClick={closeModal}>
-          취소
+          X
         </div>
         <h1 className="gametitle">{gamename()}</h1>
-        <div className="selectlobby">
-          <div className="Loobycreate roomtext" onClick={() => createRoom()}>
-            {" "}
-            <p>방 생성</p>
-            <br />
-            <div>
-              <input type="radio"></input>
-            </div>
-          </div>
-          <div className="Loobyselect roomtext" onClick={() => findRoom()}>
-            {" "}
-            <p>방 입장</p>
-          </div>
+        <div className="tutorial">
+          <img src="images/img/pick.gif" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
         </div>
+        <p> 화면에 나타나는 모기를 그림과 같은 동작을 통해 더 많이, 더빠르게 잡자 !<br/>
+          정확한 동작으로 잡아야 운동효과 UP !
+          </p>
+
+        <div className="selectlobby">
+          <button className="modalButton-left" onClick={() => createRoom()}>
+            <img src="images/img/enter_room.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+          </button>
+
+          <button  className="modalButton-right" onClick={() => findRoom()}>
+            <img src="images/img/make_room.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+          </button>
+        </div>
+        
       </div>
     </div>
   );

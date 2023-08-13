@@ -20,6 +20,8 @@ function RecommendModal({ setModalOpen }) {
   // Redux store에서 필요한 데이터를 가져옵니다.
   //   const { sessionId, gameType } = useSelector((state) => state.roomInfo);
   const roomInfo = useSelector((state) => state.roomInfo);
+  //오류방지
+  console.log(roomInfo)
   const enterRoom = () => {
     const inputValue = inviteCodeRef.current.value;
     const requestData = {

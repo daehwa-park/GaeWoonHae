@@ -60,6 +60,7 @@ const GamePage = () => {
     // const emoji = useSelector((state) => state.user.emoji);
     const firstUserList = useSelector((state) => state.roomInfo.userList);
     const userId = useSelector((state) => state.auth.user.userId);
+    const useremojiId = useSelector(state => state.auth.user.emojiId);
     // openvidu states
     const [session, setSession] = useState();
     const [mainStreamManager, setMainStreamManager] = useState();
@@ -98,7 +99,7 @@ const GamePage = () => {
     const stopVideo = useRef(false);
 
     // 타이틀 
-    const titleimgRef = useRef('/images/img/gametypelogo1.png')
+    const titleimgRef = useRef(`/images/img/gametypelogo${gameType}.png`)
 
 
     // openVidu Object
@@ -393,7 +394,7 @@ const GamePage = () => {
                 // send page to error
             }
 
-            emojiRef.current.src = `../../images/emoji/emoji2.png`
+            emojiRef.current.src = `../../images/emoji/emoji${useremojiId}.png`;
             await loadHaarFaceModels();
             updateEmoji();
             console.log("MODEL LOADED!!!!!!!!!!!!!!!!!!!!")
@@ -412,11 +413,11 @@ const GamePage = () => {
 
     useEffect(() => {
 
-        if (stompLoad && openViduLoad && gameLoad && assetLoad) {
+        if (stompLoad && openViduLoad && gameLoad) {
             setStarted(true);
         }
 
-    },[stompLoad, openViduLoad, gameLoad, assetLoad])
+    },[stompLoad, openViduLoad, gameLoad])
 
 
 
@@ -496,11 +497,20 @@ const GamePage = () => {
 
                 <div className="gamescreen">
                     <div className='messagebtntag'>
-                        <div className='gametitle'>
-                            <img className='game-logo' src={titleimgRef.current} alt=""/>
-                            <p className='game-titletag' >빠르고 정확한 동작으로 <br/>더 많이 박을 터트리세요!</p>
-    
-                        </div>
+                        {gameType===1 ? (
+                            <div className='gametitle'>
+                                <img className='game-logo' src={titleimgRef.current} alt=""/>
+                                <p className='game-titletag' >빠르고 정확한 동작으로 <br/>더 많은 모기를 잡으세요!</p>
+                            </div>
+
+                        ) : null}
+                        {gameType===2 ? (
+                            <div className='gametitle'>
+                                <img className='game-logo' src={titleimgRef.current} alt=""/>
+                                <p className='game-titletag' >제시된 동작을 취해주세요! <br/>정확한 동작을 취할수록 높은 점수를 얻습니다.</p>
+                            </div>
+                        ) : null}
+
                         {/* <div className='ranking'>
                             <div className='ranking1'>현재 랭킹</div>
                             <div className='ranking2'>
@@ -509,7 +519,7 @@ const GamePage = () => {
                         </div> */}
                         {/* 게임 로직 컴포넌트 (아무 배치요소 없음) */}
                         <div className='gameloader'>
-                            <GameLoader props={{setCount, started, finished, gameType, setGameLoad, countdown, setAssetLoad}} />
+                            <GameLoader props={{setCount, started, finished, gameType, setGameLoad, countdown}} />
                         </div>
                     </div>
                     <div className="mainvideo">
@@ -531,9 +541,9 @@ const GamePage = () => {
                                 {/* 내 화면 */}
                                 <div id="main-videos">
                                     <div id="main-video" >
-                                        <UserVideoComponent streamManager={mainStreamManager}/>
+                                        <UserVideoComponent id="main-videocss" streamManager={mainStreamManager}/>
                                         {/* 위에 공통 UI */}
-                                        <CommonUI props={{count, timer, userList,loadcomplete, finished, setFinished, gameTime}} />
+                                        <CommonUI props={{count, timer, userList,loadcomplete, finished, setFinished, gameTime, gameType}} />
                                     </div>
                                 </div>
                                 
@@ -542,7 +552,7 @@ const GamePage = () => {
 
                                 {subscriber.length >= 4 ? (
                                     <div id="sub-videos" > 
-                                        <div id="sub-titlebox"></div>
+                                        <div id={`sub-titlebox${gameType}`}></div>
                                         {subscriber.map((sub, i) => (
             
                                                 <div id="sub-video2 sub-titlebox" key={i}>

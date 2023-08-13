@@ -8,6 +8,7 @@ import emoji6 from "../../assets/emoji/emoji6.png";
 import emoji7 from "../../assets/emoji/emoji7.png";
 import emoji8 from "../../assets/emoji/emoji8.png";
 import emoji9 from "../../assets/emoji/emoji9.png";
+import emoji10 from "../../assets/emoji/emoji10.png";
 
 import { useEffect, useState, useRef } from "react";
 import { emojiShopAction } from "../../features/Actions/emojiprocessing";
@@ -30,7 +31,8 @@ const emojiArray = [
   emoji6,
   emoji7,
   emoji8,
-  emoji9
+  emoji9,
+  emoji10
 ];
 const Myemojipage = () => {
   // 유저 Id

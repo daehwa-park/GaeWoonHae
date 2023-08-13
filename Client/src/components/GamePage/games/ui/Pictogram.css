@@ -1,0 +1,42 @@
+.timers2 {
+    width: 120px;
+    height: 120px;
+    background-color: rgb(255, 255, 255,);
+    border-radius: 60px;
+}
+
+
+.timer2 {
+    position: absolute;
+    top: 54vh;
+    left: 27vw;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.timer-title2 {
+    text-align: center;
+    color: rgb(146, 145, 145);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.timer-count2 {
+
+    text-align: center;
+    font-size: 40px;
+    color: rgb(249, 25, 25);
+    text-shadow: 0px 2px 2px rgb(123, 122, 122);
+    font-weight: 600;
+    /* margin-right: 5px; */
+}
+
+.timer-sec2 {
+    margin-left: 3px;
+    font-size: 15px;
+    color: rgb(249, 25, 25);
+    font-weight: 600;
+    text-shadow: 0px 1px 1px rgb(123, 122, 122);
+}
