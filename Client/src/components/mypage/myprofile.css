@@ -200,3 +200,13 @@ color: #282a2b;
   width: 1.2vw;
   margin-left: 0.5vw;
 }
+
+.kcal-table {
+  border-collapse: separate;
+  border-spacing: 5px; /* 원하는 간격으로 조정 */
+}
+
+.kcal-table td {
+  padding: 8px;
+  /* border: 1px solid #ccc; */
+}
