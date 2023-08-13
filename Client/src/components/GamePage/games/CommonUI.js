@@ -13,8 +13,7 @@ const CommonUI = ({props}) => {
     let loadcomplete = props.loadcomplete.current;
     let setFinished = props.setFinished;
   
-    // 오류방지
-    console.log(setFinished)
+
     // 타이머 색깔
     const timercolor = '#F4BE66';
 
@@ -57,8 +56,8 @@ const CommonUI = ({props}) => {
                     size={180}
                     strokeWidth={12}
                     onComplete={() => {
-                        props.setFinished(true);
-                        console.log(props.finished);
+                        console.log("타이머 끝나서 콜백함수 실행됨~~~")
+                        setFinished(true);
                     }}
                 >
                 {/* 타이머가 끝났을 때 표시할 내용 */}

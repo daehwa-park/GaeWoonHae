@@ -93,7 +93,7 @@ const GamePage = () => {
     const imgRef = useRef();
     const faceImgRef = useRef();
     const emojiRef = useRef();
-    const countRef = useRef(0);
+    const updateEmojiId = useRef();
 
     // 비디오 종료 조건
     const stopVideo = useRef(false);
@@ -106,7 +106,6 @@ const GamePage = () => {
     let OV;
     // let finishUserCount=0;
     // timer
-    const timerIdRef = useRef(null);
     const finishUserCountRef = useRef(0);
     
     // 모달 입장
@@ -117,8 +116,6 @@ const GamePage = () => {
     // 네비게이션
     const navigate = useNavigate();
 
-    // 오류방지용 콘솔
-    console.log(current,publisher,setTimer,setRenderingcount)
 
     // 네비게이션
     const goMain =() => {
@@ -129,8 +126,14 @@ const GamePage = () => {
     // openCV Settings
     
     const updateEmoji = async () => {
-        detectFace();
-        requestAnimationFrame(updateEmoji);
+        if (stopVideo.current) {
+            cancelAnimationFrame(updateEmojiId.current);
+            return;
+        }
+        console.log("이모지 업데이트", stopVideo.current);
+
+        await detectFace();
+        updateEmojiId.current = requestAnimationFrame(updateEmoji);
     }
 
     const detectFace = () => {
@@ -234,9 +237,6 @@ const GamePage = () => {
         setPublisher(undefined);
     }
 
-    //오류 방지용 콘솔
-    console.log(leaveSession)
-
     const subscriberLeave = (streamManager) => {
         let remainSubscriber = subscriber;
         let index = remainSubscriber.indexOf(streamManager, 0);
@@ -270,11 +270,9 @@ const GamePage = () => {
 
     //stomp 연결
     const connectStomp = () => {
-        console.log(limitTime);
         var socket = new SockJS("/gwh-websocket");
 
         let stompClient = Stomp.over(socket);
-        console.log(stompClient);
 
         var headers = {
             name: myName,
@@ -396,7 +394,7 @@ const GamePage = () => {
 
             emojiRef.current.src = `../../images/emoji/emoji${useremojiId}.png`;
             await loadHaarFaceModels();
-            updateEmoji();
+            updateEmojiId.current = requestAnimationFrame(updateEmoji);
             console.log("MODEL LOADED!!!!!!!!!!!!!!!!!!!!")
 
             joinSession();
@@ -435,10 +433,6 @@ const GamePage = () => {
                 setCounting(false);
             }, countdown);
 
-            // 버스 로딩,3초 카운트 끝나고 => 게임시간타이머 끝나고 나서 실행
-            setTimeout(()=> {
-                setFinished(true);
-            }, countdown+gameTime*1000+2000);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [started])
@@ -448,7 +442,6 @@ const GamePage = () => {
             console.log("게임 종료!!!!!!!!!!!!!!!");
             myGameFinish();
             // setGameModalOpen(true);
-            clearInterval(timerIdRef.current);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[finished])
