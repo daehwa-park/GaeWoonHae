@@ -9,8 +9,7 @@ const CommonUI = ({props}) => {
     const count = props.count;
     // const timer = props.timer;
     const gameTime = props.gameTime;
-    const userList = props.userList;
-    const gameType = props.gameType;
+    const userList = props.userList.current;
     let loadcomplete = props.loadcomplete.current;
     let setFinished = props.setFinished;
   
@@ -27,8 +26,6 @@ const CommonUI = ({props}) => {
         console.log(gameType,'@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
         if (userList && userList.length > 0) {
             let users = [...userList];
-            console.log(users,"유저 정보 확인")
-            users.sort((a, b) => (b.count - a.count));
             setSortedUserList(users);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -83,7 +80,7 @@ const CommonUI = ({props}) => {
                             </div> */}
                         <div className={`game-ranking2-${gameType}`}>
                             {sortedUserList.map((user, idx) => (
-                                <div className='user-ranking' key={idx}>{idx}위 {user.username} {user.count}개 </div>
+                                <div className='user-ranking' key={idx}>{idx+1}위 {user.username} {user.count}개 </div>
                             ))}
                             {/* <div className='user-ranking'>1위 김두현 12개</div>
                             <div className='user-ranking'>2위 김두현 12개</div>

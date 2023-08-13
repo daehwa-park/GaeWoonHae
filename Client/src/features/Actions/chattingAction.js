@@ -14,66 +14,23 @@ function getStompClient(
   setUserList,
   navigate,
   gameType,
+  limitTime,
+  userId,
 ) {
   return async (dispatch, getState) => {
+    window.addEventListener('beforeunload',  function (event) {
+      // 특정 함수 실행
+      // 사용자에게 경고 메시지 표시 (옵션)
+      
+      checkAliveUser();
+      event.returnValue = '변경 사항이 저장되지 않을 수 있습니다.';
+    });
     console.log("호스트명", hostName);
     console.log("세션ID", sessionId);
     console.log("내이름", myName);
     var stompClient = null;
     var userList = [];
     // redux에서 가져오는 hostName
-    // 카메라 시작
-    const video = document.getElementById("videoElement");
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-
-    // 비디오 스트림 가져오기
-    async function startVideo() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-        });
-
-        video.srcObject = stream;
-      } catch (err) {
-        console.error("비디오 스트림을 가져오는데 실패하였습니다.", err);
-      }
-    }
-
-    // 비디오 스트림에서 프레임을 캔버스에 렌더링하는 함수
-    function drawCanvas() {
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-      // 웹캠 필터 - 그레이스케일 필터 적용
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imageData.data;
-
-      for (let i = 0; i < data.length; i += 4) {
-        const red = data[i];
-        const green = data[i + 1];
-        const blue = data[i + 2];
-
-        const average = (red + green + blue) / 3;
-
-        data[i] = data[i + 1] = data[i + 2] = average;
-      }
-
-      ctx.putImageData(imageData, 0, 0);
-
-      requestAnimationFrame(drawCanvas);
-    }
-    function wait(ms) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
-    }
-
-    (async () => {
-      await startVideo();
-      await wait(10);
-    })();
-
-    // 비디오 캡처 후 실시간 렌더링
-    video.addEventListener("play", drawCanvas);
-
     // 카메라 끝
     async function connect() {
       var socket = new SockJS("/gwh-websocket");
@@ -133,7 +90,6 @@ function getStompClient(
                 JSON.stringify(userList)
               );
               setUserList(userList);
-              console.log(JSON.stringify(userList, null, 2));
             }
           }
         );
@@ -154,6 +110,40 @@ function getStompClient(
           }
         );
 
+        stompClient.subscribe(
+          "/topic/chatroom/" + sessionId + "/aliveCheck",
+          async function (message) {
+            // 방장이 아니라면 갱신해버림
+            if (myName === hostName) {
+              const updateUserList = userList.filter((user) => {
+                return user.username !== JSON.parse(message.body).content; // 특정 조건을 만족하지 않는 경우만 반환
+              });
+                userList = updateUserList;
+                setUserList(userList);
+                stompClient.send(
+                  "/app/chatroom/" + sessionId + "/refresh",
+                  {},
+                  JSON.stringify(userList)
+                  
+                );
+                stompClient.send(
+                  "/topic/chatroom/" + sessionId + "/messages",
+                  {},
+                  JSON.stringify({content : JSON.parse(message.body).content+"님이 퇴장하셨습니다!"})
+                  
+                );
+            }
+            else {
+              // to 준영이형 if문 안에 로비 페이지로 이동.
+              if(JSON.parse(message.body).content===hostName) {
+                stompClient.disconnect();
+                console.log("방장 나가서 사라진방");
+              }
+            } 
+          }
+        );
+
+
         stompClient.send(
           "/app/chatroom/" + sessionId + "/enter",
           {},
@@ -167,17 +157,7 @@ function getStompClient(
       });
     }
 
-    function disconnect() {
-      if (stompClient !== null) {
-        // exit();
-        stompClient.disconnect();
-      }
-
-      console.log("Disconnected");
-    }
-
     function sendChat() {
-      console.log(stompClient);
       stompClient.send(
         "/app/chatroom/" + sessionId + "/chat",
         {},
@@ -192,7 +172,35 @@ function getStompClient(
       };
       await dispatch(enterRoomAction.startedRoom(requestData));
     };
+
+    const leaveLobby = async () => {
+      console.log(userId);
+      const requestData = {
+        // userId 수정해야 함. 받아오는 값으로
+        userId,
+        sessionId,
+      };
+      await dispatch(enterRoomAction.leaveRoom(requestData));
+    };
+
+    const arriveLobby = async () => {
+      const requestData = {
+        sessionId,
+      };
+      await dispatch(enterRoomAction.arriveRoom(requestData));
+    };
     
+    function checkAliveUser() {
+      leaveLobby();
+      stompClient.send(
+        "/app/chatroom/" + sessionId + "/alive",
+        {},
+        JSON.stringify({})
+      );
+       stompClient.disconnect();
+      
+    }
+
     function gameStart() {
       const currentLimitTime = getState().roomInfo.limitTime;
       if (userList.length >= 1) {
@@ -233,11 +241,9 @@ function getStompClient(
         connect();
         setUserList(userList);
       });
-      $("#disconnect").click(function () {
-        disconnect();
-      });
       $("#send").click(function () {
         sendChat();
+        leaveLobby();
       });
       $("#gameStart").click(function () {
         gameStart();
@@ -246,6 +252,7 @@ function getStompClient(
 
     await connect();
     await setUserList(userList);
+    arriveLobby();
   };
 }
 

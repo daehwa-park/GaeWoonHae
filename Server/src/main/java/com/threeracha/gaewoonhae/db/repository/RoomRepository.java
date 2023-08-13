@@ -20,7 +20,7 @@ public class RoomRepository {
     }
 
     public Optional<Room> findRoomByGameType(GameType gameType) {
-        Room findRoom = em.createQuery("SELECT r FROM Room r WHERE r.gameType = :gameType AND r.isPublicRoom = 'Y' AND r.currentUserNum < 5", Room.class)
+        Room findRoom = em.createQuery("SELECT r FROM Room r WHERE r.gameType = :gameType AND r.isPublicRoom = 'Y' AND r.roomStatus = 'R' AND r.currentUserNum < 5", Room.class)
                 .setParameter("gameType", gameType)
                 .setMaxResults(1)
                 .getSingleResult();
@@ -28,9 +28,8 @@ public class RoomRepository {
         return Optional.ofNullable(findRoom);
     }
 
-    public String makeNewRoom(Room newRoom) {
+    public void makeNewRoom(Room newRoom) {
         em.persist(newRoom);
-        return newRoom.getSessionId();
     }
 
     public Optional<Room> findRoomBySessionId(String SessionId) {
