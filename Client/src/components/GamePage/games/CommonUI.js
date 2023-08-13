@@ -71,7 +71,7 @@ const CommonUI = ({props}) => {
                                 1위 : <br/>2위 : <br/>3위 : <br/>4위 : <br/>
                             </div> */}
                         <div className={`game-ranking2-${gameType}`}>
-                            {sortedUserList.map((user, idx) => (
+                            {userList.map((user, idx) => (
                                 <div className='user-ranking' key={idx}>
                                     {sortedUserList.length ===1 && (
                                         <img className='user-rank1' src={first} alt="" />
