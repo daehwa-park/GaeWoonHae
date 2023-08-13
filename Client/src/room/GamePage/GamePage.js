@@ -491,14 +491,14 @@ const GamePage = () => {
                 <div className="gamescreen">
                     <div className='messagebtntag'>
                         {gameType===1 ? (
-                            <div className='gametitle'>
+                            <div className='gametitles'>
                                 <img className='game-logo' src={titleimgRef.current} alt=""/>
                                 <p className='game-titletag' >빠르고 정확한 동작으로 <br/>더 많은 모기를 잡으세요!</p>
                             </div>
 
                         ) : null}
                         {gameType===2 ? (
-                            <div className='gametitle'>
+                            <div className='gametitles'>
                                 <img className='game-logo' src={titleimgRef.current} alt=""/>
                                 <p className='game-titletag' >제시된 동작을 취해주세요! <br/>정확한 동작을 취할수록 높은 점수를 얻습니다.</p>
                             </div>
@@ -512,7 +512,7 @@ const GamePage = () => {
                         </div> */}
                         {/* 게임 로직 컴포넌트 (아무 배치요소 없음) */}
                         <div className='gameloader'>
-                            <GameLoader props={{setCount, started, finished, gameType, setGameLoad, countdown}} />
+                            <GameLoader props={{setCount, started, finished, gameType, setGameLoad, countdown, loadcomplete}} />
                         </div>
                     </div>
                     <div className="mainvideo">

@@ -13,6 +13,7 @@ const GameLoader = ({props}) => {
     const gameType = props.gameType;
     const setGameLoad = props.setGameLoad;
     const countdown = props.countdown;
+    let loadcomplete = props.loadcomplete.current; //실질적으로 게임이 시작되는 지점
 
     // states
     const [model, setModel] = useState();
@@ -34,6 +35,9 @@ const GameLoader = ({props}) => {
     const ready1 = useRef(true);
     const ready2 = useRef(false);
     const set = useRef(false);
+
+    // 픽토그램 딜레이 시간
+    const waitTime =2000;
 
 
     const getNextPose = () => {
@@ -170,7 +174,7 @@ const GameLoader = ({props}) => {
                 setSuccess(true);
                 setTimeout(() => {
                     loopPredId.current = requestAnimationFrame(predictPictogram)
-                }, 2000);
+                }, waitTime);
             } 
 
             // 테스트용 키버튼
@@ -179,7 +183,7 @@ const GameLoader = ({props}) => {
                 key.current = false;
                 setTimeout(() => {
                     loopPredId.current = requestAnimationFrame(predictPictogram)
-                }, 2000);
+                }, waitTime);
             } 
             else {
                 loopPredId.current = requestAnimationFrame(predictPictogram)
@@ -235,7 +239,7 @@ const GameLoader = ({props}) => {
                 case 2:
                     setTimeout(() => {
                         requestAnimationFrame(predictPictogram);
-                    }, 2000);
+                    }, waitTime);
                     break;
                 case 3:
                     break;
@@ -274,7 +278,7 @@ const GameLoader = ({props}) => {
     return(
         <div className='jumpingjack'>
             {gameType === 1 && <JumpingJack props={{curPoseState, success, fail}}/>}
-            {gameType === 2 && <Pictogram props={{curPoseState, success, fail}}/>}
+            {gameType === 2 && <Pictogram props={{curPoseState, success, fail, started,loadcomplete}}/>}
         </div>
     )
 }
