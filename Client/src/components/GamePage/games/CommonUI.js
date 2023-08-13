@@ -13,10 +13,11 @@ const CommonUI = ({props}) => {
     const gameType = props.gameType;
     let loadcomplete = props.loadcomplete.current;
     let setFinished = props.setFinished;
+  
     // 오류방지
     console.log(setFinished)
     // 타이머 색깔
-    const timercolor = gameType===1 ? '#F4BE66': '#1e69ff';
+    const timercolor = '#F4BE66';
 
     const [timerstart,setTimerstart] =useState(false)
 
@@ -91,9 +92,11 @@ const CommonUI = ({props}) => {
                         
                 </div>
             </div>
-            <div className={`picto${gameType}`}>
-                픽토그램 이미지
-            </div>
+            {/* {gameType ===2 ? (
+                <div className={`picto${gameType}`}>
+                    <img src={pictoImg} alt=""/>
+                </div>
+            ) : null } */}
         </div>
     );
 
