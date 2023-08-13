@@ -1,4 +1,14 @@
+@font-face {
+  font-family: 'CustomFont';
+  src: url('../../assets/font/DungGeunMo.woff') format('woff2'),
+  url('../../assets/font/DungGeunMo.woff') format('woff')
+  /* 다양한 포맷의 폰트 파일을 지정 */
+}
+
+
+
 .mypage-body2 {
+  font-family: 'CustomFont', sans-serif;
   width: 90%;
   height: 93%;
   margin: auto;
@@ -26,7 +36,7 @@
   font-size: 22px;
   font-weight: 550;
   /* text-decoration-style: double; */
-  text-decoration-line: underline;
+  /* text-decoration-line: underline; */
 }
 
 .emoji-body {
