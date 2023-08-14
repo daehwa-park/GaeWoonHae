@@ -75,7 +75,7 @@ h2 {
 } */
 .centered-image-container {
   position: relative; /* 위치 설정을 위해 */
-  height: 40vh; /* 컨테이너의 높이를 60%로 설정 */
+  height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;

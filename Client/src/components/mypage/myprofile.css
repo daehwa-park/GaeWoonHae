@@ -53,7 +53,7 @@
   width: 17vw;
   height: 17vw;
   background-color: white;
-  border: 1px solid antiquewhite;
+  /* border: 1px solid antiquewhite; */
   border-radius: 50%; 
 }
 
@@ -205,7 +205,7 @@ color: #282a2b;
   border-collapse: separate;
   border-right: 5px ;
   /* border-spacing: 5px;  */
-  font-size: 29px;
+  font-size: 1.7vw;
 
 }
 

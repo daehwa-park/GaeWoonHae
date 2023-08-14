@@ -6,7 +6,7 @@ import { chattingAction } from "../Actions/chattingAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Chatting = ({ updateUserList }) => {
+const Chatting = ({ setModalOpen, setUserList, updateUserList }) => {
   const gameType = useSelector((state) => state.roomInfo.gameType);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,6 +21,9 @@ const Chatting = ({ updateUserList }) => {
     setChatMessage(e.target.value); // 채팅 메세지가 입력되면 state를 갱신합니다.
   };
 
+  const handleLeaveRoom = () => {
+    navigate("/main");
+  };
   const updateUser = (userlist) => {
     console.log("dis", userlist);
     updateUserList(userlist);
@@ -30,9 +33,11 @@ const Chatting = ({ updateUserList }) => {
   const saveStompClient = () => {
     dispatch(
       chattingAction.getStompClient(
+        setModalOpen,
         hostName,
         sessionId,
         myName,
+        setUserList,
         updateUser,
         navigate,
         gameType,
@@ -60,34 +65,51 @@ const Chatting = ({ updateUserList }) => {
           <tbody id="messages"></tbody>
         </table>
       </div>
-      <Form className="chat-input-form">
-        <Form.Control
-          type="text"
-          id="chat"
-          value={chatMessage}
-          className="chat-input"
-          placeholder="채팅 입력"
-          onChange={handleInputChange}
-        />
-        <Button
-          id="send"
-          className="send-btn"
-          variant="primary"
-          type="submit"
-          onClick={handleSend}
-        >
-          Send
-        </Button>
+      <Form className="chat-input-form row">
+        <div className="col-9">
+          <Form.Control
+            type="text"
+            id="chat"
+            value={chatMessage}
+            className="chat-input"
+            placeholder="채팅 입력"
+            onChange={handleInputChange}
+            style={{ margin: "0px" }}
+          />
+        </div>
+        <div className="col-3 mx-0">
+          <button
+            id="send"
+            className="send-btn"
+            type="submit"
+            onClick={handleSend}
+            style={{ margin: "0px" }}
+          >
+            Send
+          </button>
+        </div>
+      </Form>
+      <Form>
         {hostName === myName && (
-          <Button
+          <button
             id="gameStart"
             className="gamestart-btn"
             variant="primary"
             type="submit"
           >
-            gameStart
-          </Button>
+            게임 시작
+          </button>
         )}
+        <button
+          id="leaveRoom"
+          className="leave-room-btn"
+          type="button"
+          onClick={() => {
+            handleLeaveRoom();
+          }}
+        >
+          방나가기
+        </button>
       </Form>
       <div className="user-info" id="result"></div>
     </div>
