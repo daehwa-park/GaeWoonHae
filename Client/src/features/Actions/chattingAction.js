@@ -219,7 +219,39 @@ function getStompClient(
     }
 
     function showMessage(message) {
-      $("#messages").append("<tr><td>" + message + "</td></tr>");
+      let sender, content;
+      let messageClass = "message-other";
+    
+      // 메시지에 ':'가 있는 경우
+      if (message.includes(":")) {
+        [sender, content] = message.split(":");
+    
+        if (sender.trim() === myName) {
+          messageClass = "message-own";
+          $("#messages").append(
+            `<tr><td class="message ${messageClass}" style="background-color:purple; color:white">` +
+              content +
+              "</td></tr>"
+          );
+        } else {
+          $("#messages").append(
+            `<p>${sender}<p/>` +
+              `<tr><td class="message ${messageClass}" style="background-color:#77838F; color:black">` +
+              content +
+              "</td></tr>"
+          );
+        }
+      } else {
+        // 메시지에 ':'가 없는 경우
+        content = message;
+        $("#messages").append(
+          "<tr><td class='welcome-ms'>" + content + "</td></tr>"
+        );
+      }
+    
+      // $("#messages").append(
+      //   `<tr><td class="message ${messageClass}">` + content + "</td></tr>"
+      // );
     }
 
     async function showUserInfo(namelist) {

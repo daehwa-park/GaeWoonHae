@@ -1,3 +1,42 @@
 .game-room-info-start {
-    background-color: rgb(199, 125, 199);
-  }
+  /* background-color: rgb(199, 125, 199); */
+  height: 77vh;
+}
+.count-people {
+display: flex;
+flex-direction: column;
+margin-bottom: 10px;
+padding: 10px;
+padding-left: 20px;
+background-color: rgb(189, 125, 250);
+color:aliceblue
+}
+
+.count-people > * {
+font-family: "dung-geun-mo";
+/* font-style:oblique; */
+}
+
+.card-list {
+display: flex;
+flex-direction: column;
+height: 60%;
+}
+.head-of-room {
+vertical-align: middle; /* 이미지를 수직 중앙으로 정렬 */
+height: 1.3em; /* 글자 크기에 맞추기 위한 높이 설정. 글자 크기가 16px이라면 이미지의 높이도 16px가 됩니다. */
+width: auto; /* 가로 세로 비율 유지 */
+}
+
+.user-card {
+display: flex;
+justify-content: space-between;
+background-color: #e6e6fa; /* 연보라색 */
+padding: 10px;
+padding-left: 20px;
+padding-right: 20px;
+border-radius: 10px;
+font-family: "dung-geun-mo";
+margin: 7px 0;
+
+}

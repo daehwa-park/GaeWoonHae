@@ -6,7 +6,7 @@ import { chattingAction } from "../Actions/chattingAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Chatting = ({ updateUserList }) => {
+const Chatting = ({ setUserList, refUserList }) => {
   const gameType = useSelector((state) => state.roomInfo.gameType);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,32 +20,29 @@ const Chatting = ({ updateUserList }) => {
   const handleInputChange = (e) => {
     setChatMessage(e.target.value); // 채팅 메세지가 입력되면 state를 갱신합니다.
   };
-
-  const updateUser = (userlist) => {
-    console.log("dis", userlist);
-    updateUserList(userlist);
-  }
-
-
+  const handleLeaveRoom = () => {
+    navigate("/main");
+  };
   const saveStompClient = () => {
     dispatch(
       chattingAction.getStompClient(
         hostName,
         sessionId,
         myName,
-        updateUser,
+        setUserList,
         navigate,
         gameType,
         limitTime,
-        userId
-      )
-    );
+
+    userId
+  )
+);
   };
   const handleSend = () => {
     console.log(chatMessage);
 
-    // 채팅을 보낸 후 입력창을 초기화
-    setChatMessage("");
+// 채팅을 보낸 후 입력창을 초기화
+setChatMessage("");
   };
 
   useEffect(() => {
@@ -69,7 +66,7 @@ const Chatting = ({ updateUserList }) => {
           placeholder="채팅 입력"
           onChange={handleInputChange}
         />
-        <Button
+        <button
           id="send"
           className="send-btn"
           variant="primary"
@@ -77,17 +74,27 @@ const Chatting = ({ updateUserList }) => {
           onClick={handleSend}
         >
           Send
-        </Button>
+        </button>
         {hostName === myName && (
-          <Button
+          <button
             id="gameStart"
             className="gamestart-btn"
             variant="primary"
             type="submit"
           >
-            gameStart
-          </Button>
+            게임 시작
+          </button>
         )}
+        <button
+          id="leaveRoom"
+          className="leave-room-btn"
+          type="button"
+          onClick={() => {
+            handleLeaveRoom();
+          }}
+        >
+          방나가기
+        </button>
       </Form>
       <div className="user-info" id="result"></div>
     </div>

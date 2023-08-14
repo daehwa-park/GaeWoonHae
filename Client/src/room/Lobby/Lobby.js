@@ -88,15 +88,14 @@ const Lobby = () => {
     };
   
   const gameNameList = [
-    "터트려요 추억의 박!",
-    "따라해요 픽토그램!",
-    "피해봐요, 오늘의 X!",
+    "짝짝! 모기 잡아라!!",
+    "도전! 픽토그램!",
   ];
 
 
-  const refUserList = useRef([]);
-
   const [num, setNum] = useState(0);
+  const [userList, setUserList] = useState([]);
+  const refUserList = useRef([]);
 
   useEffect(() => {
     console.log("나 유저리스트야", refUserList.current);
@@ -155,11 +154,14 @@ const Lobby = () => {
               </Row>
               <Row className="text-center">
                 <Col className="invite-time-container">
-                  <Card bg="light" style={{ width: "18rem" }}>
-                    <Card.Header>초대코드</Card.Header>
-                    <Card.Body>
-                      <Card.Title>{sessionId}</Card.Title>
-                    </Card.Body>
+                  <Card bg="light">
+                    <Card.Header
+                      className="card-head"
+                      style={{ backgroundColor: "#e6e6fa" }}
+                    >
+                      초대코드
+                    </Card.Header>
+                    <Card.Body className="card-body">{sessionId}</Card.Body>
                   </Card>
                 </Col>
                 <Col className="invite-time-container">
@@ -169,7 +171,10 @@ const Lobby = () => {
             </Col>
             <Col md={3} className="game-col">
               {/* <div>{userList && userList[0].username}</div> */}
-              <GameRoomInfoStart userList={refUserList.current} />
+              <GameRoomInfoStart
+                userList={userList}
+                refUserList={refUserList}
+              />
             </Col>
           </Row>
         </Container>

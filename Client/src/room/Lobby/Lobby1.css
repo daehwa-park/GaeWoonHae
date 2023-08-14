@@ -2,8 +2,8 @@
   /* position: absolute; */
   width: 100%;
   height: 10%;
-  background-color: #C5A8FC;
-  z-index: 5;
+  background-color: #FEFCF5;
+  z-index: -5;
 }
 .lobby-main{
   width: 100%;
@@ -22,6 +22,14 @@
   align-items: center;
   height: 250px;
   flex-direction: column;
+}
+.invite-time-container > * {
+  box-sizing: border-box;
+  width: 100%;
+  height: 50%;
+}
+.custom-card-header {
+  background-color: #e6e6fa; 
 }
 
 .lobbyheader {
@@ -68,9 +76,16 @@
 }
 
 .title-box {
-  background-color: #f3e8ff; /* 연한 보라색 배경색 설정 */
+  /* background-color: #f3e8ff; 연한 보라색 배경색 설정 */
   padding: 10px;
   border-radius: 5px;
+  font-family: "pixel-robo";
+}
+.gradient-text {
+  background: linear-gradient(45deg, red, blue); /* 그라데이션의 색상과 방향을 설정합니다. */
+  -webkit-background-clip: text;  /* 배경 클리핑: 텍스트 */
+  background-clip: text;
+  color: transparent;  /* 원래의 텍스트 색상을 투명하게 설정 */
 }
 
 .title-box h1 {
@@ -89,14 +104,7 @@
     order: 2;
   }
 }
-.chat-box {
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  height: 60vh;
-  overflow-y: auto;
-  background-color: #f2ebf8;
-}
+
 
 /* 채팅 입력창 스타일 */
 .chat-input {
@@ -108,9 +116,7 @@
 }
 
 /* 채팅 입력창 전송 버튼 스타일 */
-.send-btn {
-  margin-top: 5px;
-}
+
 
 /* 사용자 정보 스타일 */
 .user-info {
@@ -119,4 +125,15 @@
   border-radius: 5px;
   padding: 10px;
   margin-top: 10px;
+  display: none;
+}
+
+.card-head {
+  font-family: "pixel-robo";
+}
+
+.card-body {
+  font-family: "dung-geun-mo";
+  font-weight: 700;
+  font-size: larger;
 }
