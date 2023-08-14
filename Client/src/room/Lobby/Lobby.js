@@ -3,10 +3,10 @@ import React, { useEffect, useState, useRef } from "react";
 import "./Lobby1.css";
 import { Container, Row, Col, Card } from "react-bootstrap/";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-
+import LobbyClose from "../../components/modal/LobbyClose";
 import Chatting from "../../features/chatting/Chatting";
 import GameRoomInfoStart from "../../components/GamePage/GameRoomInfoStart";
-import logo from "../../assets/img/mainlogo.png";
+import logo from "../../assets/img/purple_logo.png";
 import LimitTime from "../../components/GamePage/LimitTime";
 // 대기방 - 박 터트리기
 
@@ -20,6 +20,8 @@ import cv from "@techstark/opencv-js";
 
 const Lobby = () => {
   const useremojiId = useSelector(state => state.auth.user.emojiId);
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   const webcamRef = useRef();
   const imgRef = useRef();
@@ -88,15 +90,14 @@ const Lobby = () => {
     };
   
   const gameNameList = [
-    "터트려요 추억의 박!",
-    "따라해요 픽토그램!",
-    "피해봐요, 오늘의 X!",
+    "짝짝! 모기 잡아라!!",
+    "도전! 픽토그램!",
   ];
 
 
-  const refUserList = useRef([]);
-
   const [num, setNum] = useState(0);
+  const [userList, setUserList] = useState([]);
+  const refUserList = useRef([]);
 
   useEffect(() => {
     console.log("나 유저리스트야", refUserList.current);
@@ -112,16 +113,47 @@ const Lobby = () => {
     plusOne();
   }
 
-  const plusOne = () => {
+  const plusOne = () => {    
     setNum(prev => prev + 1);
   }
+  const [showCode, setShowCode] = useState(false);
 
+  const handleMouseEnter = () => {
+    setShowCode(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowCode(false);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(sessionId);
+    alert("초대코드가 복사되었습니다!");
+    setShowCode(false);
+  };
   return (
     <div className="lobby-body">
-      <div className="navbar-lobby">
-        <img className="main-hover" src={logo} alt="" />
+    <div className="navbar-lobby">
+      <img className="main-hover" src={logo} alt="" />
+      <div
+        className={`invitation-code ${showCode ? "hovered" : ""}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {showCode ? (
+          <>
+            {sessionId}{" "}
+            <button className="code-copy" onClick={handleCopy}>
+              Copy
+            </button>
+          </>
+        ) : (
+          "초대코드"
+        )}
       </div>
+    </div>
       <div className="lobby-main">
+      {modalOpen && (<LobbyClose setModalOpen={setModalOpen}/>)}
         <Container>
           <Row className="title-row">
             <Col className="title-box">
@@ -130,7 +162,7 @@ const Lobby = () => {
           </Row>
           <Row>
             <Col md={3} className="chat-col">
-              <Chatting updateUserList={updateUserList} />
+              <Chatting setModalOpen={setModalOpen} setUserList={setUserList} updateUserList={updateUserList} />
             </Col>
             <Col md={6} className="video-col">
               <Row>
@@ -140,7 +172,7 @@ const Lobby = () => {
                 id="canvas1"
                 className="outputImage"
                 ref={faceImgRef}
-                style={{ width: "480px", borderRadius: "10px" }}
+                style={{ width: "95%", borderRadius: "10px", marginLeft: "3%" }}
                 
               />
               <img className="emoji" alt="input" ref={emoji} style={{ display: "none" }}></img>
@@ -149,27 +181,33 @@ const Lobby = () => {
                 className="webcam"
                 mirrored
                 screenshotFormat="image/jpeg"
-                style={{ width: "480px", visibility: "hidden" ,display:"flex", position:"absolute" }}
+                style={{ width: "360px", visibility: "hidden" ,display:"flex", position:"absolute" }}
               />
             </div>
               </Row>
-              <Row className="text-center">
+              {/* <Row className="text-center">
                 <Col className="invite-time-container">
-                  <Card bg="light" style={{ width: "18rem" }}>
-                    <Card.Header>초대코드</Card.Header>
-                    <Card.Body>
-                      <Card.Title>{sessionId}</Card.Title>
-                    </Card.Body>
+                  <Card bg="light">
+                    <Card.Header
+                      className="card-head"
+                      style={{ backgroundColor: "#e6e6fa" }}
+                    >
+                      초대코드
+                    </Card.Header>
+                    <Card.Body className="card-body">{sessionId}</Card.Body>
                   </Card>
                 </Col>
                 <Col className="invite-time-container">
-                  <LimitTime />
+                  <LimitTime/>
                 </Col>
-              </Row>
+              </Row> */}
             </Col>
             <Col md={3} className="game-col">
               {/* <div>{userList && userList[0].username}</div> */}
-              <GameRoomInfoStart userList={refUserList.current} />
+              <GameRoomInfoStart
+                userList={userList}
+                refUserList={refUserList}
+              />
             </Col>
           </Row>
         </Container>
