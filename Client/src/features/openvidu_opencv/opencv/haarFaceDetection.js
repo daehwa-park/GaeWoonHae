@@ -4,7 +4,7 @@
 import cv from "@techstark/opencv-js";
 import { loadDataFile } from "./cvDataFile";
 
-const minsize = new cv.Size(30, 30);
+const minsize = new cv.Size(0, 0);
 const maxsize = new cv.Size(130, 130);
 
 let faceCascade;
