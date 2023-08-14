@@ -16,6 +16,7 @@ import emoji7 from "../../assets/emoji/emoji7.png";
 import emoji8 from "../../assets/emoji/emoji8.png";
 import emoji9 from "../../assets/emoji/emoji9.png";
 import emoji10 from "../../assets/emoji/emoji10.png";
+import emojix from "../../assets/emoji/emojix.png";
 import { useEffect, useState } from "react";
 import {edituserinfo} from '../../features/Actions/edituserinfo'
 
@@ -32,7 +33,7 @@ function ChangeEmojiModal({ setModalOpen }) {
         emoji7,
         emoji8,
         emoji9,
-        emoji10
+        emoji10,
       ];
     // 구입한 이모지 리스트
     const saveEmoji = useSelector((state) => state.auth.user.saveEmoji) ?? [1];
@@ -93,6 +94,7 @@ function ChangeEmojiModal({ setModalOpen }) {
             <div className='emoji-box2'>
                 {/* <div className='emoji-img2' >{selectedEmoji ? <img className='selected-emoji' src={selectedEmoji} alt='' /> : '구입한 이모지가 없습니다.'}</div> */}
                 <div className='emojicomp2'>
+                    <img className='emoji-size' src={emojix} onClick={() => handleEmojiClick(emojix,11)} alt=""/>
                     {saveEmoji.map((emojiId)=>(
                         <img className='emoji-size' src={getEmoji(emojiId)} onClick={() => handleEmojiClick(getEmoji(emojiId),emojiId)} alt=""/>
                     ))}

@@ -148,9 +148,11 @@ const GamePage = () => {
             imgRef.current.onload = async () => {
                 try {
                     const img = cv.imread(imgRef.current);
-                    const emo = cv.imread(emojiRef.current)
-                    detectHaarFace(img,emo);    // opencv : loadHaarFaceModels()로 화면인식을 학습 => 포인트에 이모지 씌우기
-                    
+                    if(useremojiId !== 11){
+                        emojiRef.current.src = `../../images/emoji/emoji${useremojiId}.png`;
+                        const emo = cv.imread(emojiRef.current);
+                        detectHaarFace(img,emo);    // opencv : loadHaarFaceModels()로 화면인식을 학습 => 포인트에 이모지 씌우기
+                    }
                     cv.imshow(faceImgRef.current, img);
                     img.delete();  // 이미지 초기화
                     resolve();
@@ -396,7 +398,6 @@ const GamePage = () => {
                 // send page to error
             }
 
-            emojiRef.current.src = `../../images/emoji/emoji${useremojiId}.png`;
             await loadHaarFaceModels();
             updateEmojiId.current = requestAnimationFrame(updateEmoji);
             console.log("MODEL LOADED!!!!!!!!!!!!!!!!!!!!")
