@@ -32,6 +32,12 @@ public class MessageController {
         return new Message(message.getChat());
     }
 
+    @MessageMapping("/chatroom/{roomNumber}/alive")
+    @SendTo("/topic/chatroom/{roomNumber}/aliveCheck")
+    public Message checkAliveUser(Chat chat, StompHeaderAccessor session) throws Exception {
+        return new Message((String) session.getSessionAttributes().get("name"));
+    }
+
     @MessageMapping("/chatroom/{roomNumber}/refresh")
     @SendTo("/topic/chatroom/{roomNumber}/refresh")
     public List<UserInfo> userListRefresh(List<UserInfo> namelist, StompHeaderAccessor session) throws Exception {

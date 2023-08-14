@@ -2,17 +2,18 @@
 // 사용처 : 이모지 상점
 
 import "./gameEnd.css"
-
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 
 
-function GameEndModal({ setModalOpen }) {
-
-    
+function GameEndModal({ setModalOpen, props }) {
+    const navigate = useNavigate();
+    const userList = props.renderingUserList;
     // 모달 끄기 
     const closeModal = () => {
-        setModalOpen(false);
+        navigate(`/main`);
+        // setModalOpen(false);
     };
 
    
@@ -20,6 +21,7 @@ function GameEndModal({ setModalOpen }) {
     useEffect(()=> {
         const fetchData = async () => {
     
+            setModalOpen(true);
         }
         fetchData();
         
@@ -28,13 +30,24 @@ function GameEndModal({ setModalOpen }) {
 
     return (
         <div id='Endmodals'>
-            <div>
-                <h3 id='codetxt3'>게임이 종료 되었습니다.</h3>
-                <div id='Endmodal'>
-                    <p id='Endbutton' >메인페이지로</p>
-                    <p id='Endbutton' onClick={closeModal()} >나가기</p>
+            <div className="RankingHeader">🏆 게임 종료 랭킹 🏆</div>
+                <div className="AllRecord">
+                    {userList.map((user, idx) => (
+                    <div className="RecordBox" key={idx}>
+                        <span className="Rank">
+                            {idx + 1 === 1 ? "🥇"
+                            : idx + 1 === 2 ? "🥈"
+                            : idx + 2 === 3 ? "🥉"
+                            : idx + 1 + "위"}
+                        </span>
+                    <span className="Username">{user.username}</span>
+                    <span className="Count">{user.count}개</span>
+                    </div>
+                    ))}
                 </div>
-            </div>
+                <div className="buttons">
+                    <button  className="Button" onClick={closeModal} >🔙 나가기</button>
+                </div>
         </div>
     );
 }

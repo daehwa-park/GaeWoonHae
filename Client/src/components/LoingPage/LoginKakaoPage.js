@@ -13,6 +13,7 @@ const LoginKakaoPage = () => {
 
   const accessToken = useSelector((state) => state.auth.accessToken);
   const userId = useSelector((state) => state.auth.user.userId);
+  const isLoggined = useSelector((state) => state.auth.isLoggined);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // 백엔드에서 토큰을 얻기위해 미들웨어의 로그인 함수로 보냅니다.
@@ -24,12 +25,12 @@ const LoginKakaoPage = () => {
   const isToken = (accessToken) => {
     console.log("이스토큰 실행");
     dispatch(authActions.loginJudgement({ accessToken }));
+    navigate("/main");
   };
 
   const getUserInfo = async () => {
     console.log("유저인포 실행");
     dispatch(authenticateAction.getUserInfo(userId));
-    navigate("/main");
   };
 
   // 토큰이 없으면 getLoginToken 함수를 있으면 토큰이 있으면 로그인 여부 처리 함수를 실행한다.
@@ -40,14 +41,21 @@ const LoginKakaoPage = () => {
   },[])
 
   useEffect(() => {
-      if (accessToken !== "") {
+      if (accessToken && accessToken !== "") {
+        console.log(accessToken);
         isToken(accessToken);
-        getUserInfo();
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
-  return <div>로그인 중입니다~</div>;
+  // useEffect(() => {
+  //   if (isLoggined) {
+  //     console.log(accessToken, userId);
+  //     getUserInfo();
+  //   }
+  // }, [isLoggined])
+
+  return <div> 로그인 중 ... </div>;
 };
 
 export default LoginKakaoPage;

@@ -1,0 +1,10 @@
+.music-modal {
+  position: absolute;
+  top: 87vh;
+  left: 0.5vw;
+}
+
+.music-img {
+  width: 4vw;
+  height: 4vw;
+}

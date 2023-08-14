@@ -1,9 +1,15 @@
+@font-face {
+  font-family: 'CustomFont';
+  src: url('../../assets/font/DungGeunMo.woff') format('woff2'),
+  url('../../assets/font/DungGeunMo.woff') format('woff')
+  /* 다양한 포맷의 폰트 파일을 지정 */
+}
 
 .mypage-body1 {
   display: flex;
   width: 95%;
   height: 92%;
-
+  font-family: 'CustomFont', sans-serif;
 }
 
 .mypageleft {
@@ -35,6 +41,7 @@
 
 .mypage-body2 {
   margin-left: 3vw;
+
 }
 .profile-img {
   display: flex;
@@ -77,7 +84,8 @@ color: #282a2b;
 
 .points {
   margin-left: 1.5vw;
-  color: rgb(80, 80, 239);
+
+  color: blueviolet;
   font-size: 3vh;
 }
 
@@ -138,7 +146,7 @@ color: #282a2b;
 .nametag {
   font-size: 25px;
   font-weight: 550;
-  color: #c0a0d5;
+  color:blueviolet;
 }
 
 @media (max-width: 1420px) {
@@ -186,4 +194,26 @@ color: #282a2b;
 
 .kcal {
   margin: 1vh 0 0 1vw;
+}
+
+.mypage-money {
+  width: 1.2vw;
+  margin-left: 0.5vw;
+}
+
+.kcal-table {
+  border-collapse: separate;
+  border-right: 5px ;
+  /* border-spacing: 5px;  */
+  font-size: 29px;
+
+}
+
+.kcal-table td {
+  padding: 3px;
+  /* padding-right: 10vw; */
+  /* border: 1px solid #ccc; */
+}
+.colored-td{
+  color: blueviolet;
 }

@@ -6,11 +6,62 @@
 import axios from "axios";
 import { emojiActions } from "../../redux/reducer/emojishopReducer";
 import {authActions} from "../../redux/reducer/authenticateReducer"
+import { authenticateAction } from "./authenticateAction";
 
 const emojiapi = axios.create({
   baseURL: process.env.REACT_APP_SPRING_URI,
   headers: { "cotent-type": "application/json" },
 })
+
+
+emojiapi.interceptors.request.use(
+  (config) => {
+    const accessToken = window.localStorage.getItem('accessToken');
+
+    config.headers['token'] = accessToken;
+
+    return config;
+  },
+  (error) => {
+    console.log(error);
+    return Promise.reject(error);
+  }
+)
+
+emojiapi.interceptors.response.use(
+  (response) => {
+    if (response.status === 404) {
+      console.log('404 페이지로 넘어가야 함!');
+    }
+
+    return response;
+  },
+  async (error) => {
+    if (error.response.status === 401) {
+
+      if (error.response.data.code === "E004") {
+        window.location.href = `${process.env.REACT_APP_CLIENT_URI}`;
+        return;
+      }
+
+      if (error.response.data.code === "E003") {
+        await authenticateAction.refreshToken();
+
+        const accessToken = window.localStorage.getItem("accessToken");
+
+        error.config.headers = {
+          'Content-Type': 'application/json',
+          'token': accessToken,
+        };
+        
+        // 중단된 요청을(에러난 요청)을 토큰 갱신 후 재요청
+        const response = await axios.request(error.config);
+        return response;
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 // 이모지 상점 데이터 가져오기
 function emojiShopdata() {

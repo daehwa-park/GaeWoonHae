@@ -1,7 +1,9 @@
 package com.threeracha.gaewoonhae.utils.oauth.service;
 
 import com.threeracha.gaewoonhae.db.domain.Emoji;
+import com.threeracha.gaewoonhae.db.domain.UserBuyEmoji;
 import com.threeracha.gaewoonhae.db.repository.EmojiRepository;
+import com.threeracha.gaewoonhae.db.repository.UserBuyRepository;
 import com.threeracha.gaewoonhae.exception.CustomException;
 import com.threeracha.gaewoonhae.exception.CustomExceptionList;
 import com.threeracha.gaewoonhae.utils.oauth.request.OAuthLoginParams;
@@ -22,6 +24,7 @@ public class OAuthLoginService {
     private final EmojiRepository emojiRepository;
     private final AuthTokensGenerator authTokensGenerator;
     private final RequestOAuthInfoService requestOAuthInfoService;
+    private final UserBuyRepository userBuyRepository;
 
     public LoginResponse login(OAuthLoginParams params) {
         // API 서버로부터 유저 정보를 받아옴
@@ -57,15 +60,24 @@ public class OAuthLoginService {
     }
 
     private User newUser(OAuthInfoResponse oAuthInfoResponse) {
+        Emoji emoji = emojiRepository.findById(1L)
+                .orElseThrow(()-> new CustomException(CustomExceptionList.EMOJI_NOT_FOUND_ERROR));
+
         User user = User.builder()
                 .email(oAuthInfoResponse.getEmail())
                 .nickname(oAuthInfoResponse.getNickname())
-                .emoji(emojiRepository.findById(1L).orElseThrow(()
-                        -> new CustomException(CustomExceptionList.EMOJI_NOT_FOUND_ERROR)))
+                .emoji(emoji)
                 .oAuthProvider(oAuthInfoResponse.getOAuthProvider())
                 .build();
+        userRepository.save(user);
 
-        return userRepository.save(user);
+        UserBuyEmoji userBuyEmoji = new UserBuyEmoji();
+        userBuyEmoji.setUser(user);
+        userBuyEmoji.setEmoji(emoji);
+
+        userBuyRepository.save(userBuyEmoji);
+
+        return user;
     }
 
     public LoginResponse regenToken(RegenTokenReq regenTokenReq) {
@@ -75,13 +87,13 @@ public class OAuthLoginService {
 
         String refreshToken = user.getRefreshToken();
 
-        System.out.println(refreshToken);
-        System.out.println(regenTokenReq.getRefreshToken());
-
         if (authTokensGenerator.verifyToken(regenTokenReq.getRefreshToken()) &&
                 refreshToken.equals(regenTokenReq.getRefreshToken())) {
 
             AuthTokens token = authTokensGenerator.generate(user.getUserId());
+
+            user.setRefreshToken(token.getRefreshToken());
+            userRepository.save(user);
 
             return new LoginResponse(token, user.getUserId());
 

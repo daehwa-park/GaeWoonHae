@@ -5,10 +5,12 @@ import com.threeracha.gaewoonhae.utils.oauth.enums.OAuthProvider;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Schema(description = "유저 정보 Response")
 @Getter
 @Setter
+@ToString
 public class UserInfoResponse {
     @Schema(description = "사용자 닉네임")
     String nickname;

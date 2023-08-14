@@ -104,6 +104,8 @@ export function detectHaarFace(img, emo) {
 
   gray.delete();
   faces.delete();
+  M.delete();
+  emoji.delete();
 
   return dst;
 }
