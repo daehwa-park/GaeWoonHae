@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import './GamePage.css'
 import GameEndBtn from "../../components/modal/gameEnd"
 import logo from '../../assets/img/purple_logo.png' 
-
+import { useNavigate } from 'react-router-dom';
 //게임종료를 위한 action 호출
 import { enterRoomAction } from "../../features/Actions/enterRoomAction";
 
@@ -60,6 +60,7 @@ const GamePage = () => {
     // const emoji = useSelector((state) => state.user.emoji);
     const firstUserList = useSelector((state) => state.roomInfo.userList);
     const userId = useSelector((state) => state.auth.user.userId);
+    const useremojiId = useSelector(state => state.auth.user.emojiId);
     // openvidu states
     const [session, setSession] = useState();
     const [mainStreamManager, setMainStreamManager] = useState();
@@ -81,7 +82,8 @@ const GamePage = () => {
     const [finished, setFinished] = useState(false);
     const [gameLoad, setGameLoad] = useState(false);
     const [assetLoad, setAssetLoad] = useState(true);
-    const [userList, setUserList] = useState(firstUserList);
+    const [renderingUserList, setrenderingUserList] = useState(firstUserList);
+    const userList = useRef(firstUserList);
     const [renderingcount,setRenderingcount] = useState([0,1,2,3])
     //0809 추가
     
@@ -91,36 +93,47 @@ const GamePage = () => {
     const imgRef = useRef();
     const faceImgRef = useRef();
     const emojiRef = useRef();
+    const updateEmojiId = useRef();
 
     // 비디오 종료 조건
     const stopVideo = useRef(false);
 
     // 타이틀 
-    const titleimgRef = useRef('/images/img/gametypelogo1.png')
+    const titleimgRef = useRef(`/images/img/gametypelogo${gameType}.png`)
 
 
     // openVidu Object
     let OV;
     // let finishUserCount=0;
     // timer
-    const timerIdRef = useRef(null);
     const finishUserCountRef = useRef(0);
+    const countRef = useRef(0);
     
     // 모달 입장
     // const showLobbyModal = () => {
     //     setGameModalOpen(true);
     // };
 
-    // 오류방지용 콘솔
-    console.log(current,publisher,setTimer,setRenderingcount)
+    // 네비게이션
+    const navigate = useNavigate();
 
 
+    // 네비게이션
+    const goMain =() => {
+        stopVideo.current = true
+        navigate('/main')
+    }
 
     // openCV Settings
     
     const updateEmoji = async () => {
-        detectFace();
-        requestAnimationFrame(updateEmoji);
+        if (stopVideo.current) {
+            cancelAnimationFrame(updateEmojiId.current);
+            return;
+        }
+
+        await detectFace();
+        updateEmojiId.current = requestAnimationFrame(updateEmoji);
     }
 
     const detectFace = () => {
@@ -134,9 +147,11 @@ const GamePage = () => {
             imgRef.current.onload = async () => {
                 try {
                     const img = cv.imread(imgRef.current);
-                    const emo = cv.imread(emojiRef.current)
-                    detectHaarFace(img,emo);    // opencv : loadHaarFaceModels()로 화면인식을 학습 => 포인트에 이모지 씌우기
-                    
+                    if(useremojiId !== 11){
+                        emojiRef.current.src = `../../images/emoji/emoji${useremojiId}.png`;
+                        const emo = cv.imread(emojiRef.current);
+                        detectHaarFace(img,emo);    // opencv : loadHaarFaceModels()로 화면인식을 학습 => 포인트에 이모지 씌우기
+                    }
                     cv.imshow(faceImgRef.current, img);
                     img.delete();  // 이미지 초기화
                     resolve();
@@ -208,7 +223,7 @@ const GamePage = () => {
             }
         }
         
-        const leaveSession = () => {
+    const leaveSession = () => {
             const mySession = session;
             
             if (mySession) {
@@ -223,7 +238,6 @@ const GamePage = () => {
         setMainStreamManager(undefined);
         setPublisher(undefined);
     }
-
 
     const subscriberLeave = (streamManager) => {
         let remainSubscriber = subscriber;
@@ -258,11 +272,9 @@ const GamePage = () => {
 
     //stomp 연결
     const connectStomp = () => {
-        console.log(limitTime);
         var socket = new SockJS("/gwh-websocket");
 
         let stompClient = Stomp.over(socket);
-        console.log(stompClient);
 
         var headers = {
             name: myName,
@@ -285,8 +297,8 @@ const GamePage = () => {
                     }
                     // 방장만 finishUsercount 관리함
                     else if(myName === hostName) {
-                        setfinishUserCount(finishUserCountRef.current++);
-                    
+                        setfinishUserCount(++finishUserCountRef.current);
+                        console.log("한놈 끝났다.");
                     }
                 }
             );
@@ -308,17 +320,23 @@ const GamePage = () => {
 
     const updateGameInfo = (gameInfo) => {
         // userList에서 닉네임 같은 놈 찾아서 카운트 바꾸고 반영(0809)
-        const updateUserList = userList.map((user) => {
+        const updateUserList = userList.current.map((user) => {
             if (user.username === gameInfo.username) {
                 return { ...user, count: gameInfo.count }; // 해당 유저의 count를 업데이트한 새 객체 반환
             }
             return user; // 조건에 맞지 않는 경우 기존 객체 그대로 반환
         });
 
-        setUserList(updateUserList);
+        updateUserList.sort((a, b) => b.count - a.count);
+        
+        userList.current = updateUserList;
+        setrenderingUserList(updateUserList);
+        console.log(updateUserList);
+        console.log(userList);
     }
 
     const gameInfoChange = () => {
+        countRef.current=count;
         stompClient.send(
             "/app/gameroom/" + sessionId + "/gameinfo",{},
             // 내 정보를 해당 채널로 보내면 됨
@@ -333,13 +351,16 @@ const GamePage = () => {
             // 내 정보를 해당 채널로 보내면 됨
             JSON.stringify({chat: myName+"님의 게임이 종료되었습니다."})
         );
+        console.log("나 끝났다");
     }
     // 게임종료시 실행하는 axios 요청
     const recordSave = async () => {
+        console.log("게임끝나서 db에 저장함"+count)
         const requestData = {
-          gameType: gameType,
-          count:count,
           userId: userId,
+          gameType: gameType,
+          count:countRef.current,
+          
         };
         await dispatch(enterRoomAction.recordSave(requestData));
       };
@@ -377,9 +398,8 @@ const GamePage = () => {
                 // send page to error
             }
 
-            emojiRef.current.src = `../../images/emoji/emoji2.png`
             await loadHaarFaceModels();
-            updateEmoji();
+            updateEmojiId.current = requestAnimationFrame(updateEmoji);
             console.log("MODEL LOADED!!!!!!!!!!!!!!!!!!!!")
 
             joinSession();
@@ -396,11 +416,11 @@ const GamePage = () => {
 
     useEffect(() => {
 
-        if (stompLoad && openViduLoad && gameLoad && assetLoad) {
+        if (stompLoad && openViduLoad && gameLoad) {
             setStarted(true);
         }
 
-    },[stompLoad, openViduLoad, gameLoad, assetLoad])
+    },[stompLoad, openViduLoad, gameLoad])
 
 
 
@@ -418,10 +438,6 @@ const GamePage = () => {
                 setCounting(false);
             }, countdown);
 
-            // 버스 로딩,3초 카운트 끝나고 => 게임시간타이머 끝나고 나서 실행
-            setTimeout(()=> {
-                setFinished(true);
-            }, countdown+gameTime*1000+2000);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [started])
@@ -430,8 +446,8 @@ const GamePage = () => {
         if (finished) {
             console.log("게임 종료!!!!!!!!!!!!!!!");
             myGameFinish();
+            onUnmount();
             // setGameModalOpen(true);
-            clearInterval(timerIdRef.current);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[finished])
@@ -446,7 +462,8 @@ const GamePage = () => {
 
     //0809
     useEffect(()=> {
-        if (myName === hostName && finishUserCountRef.current>=2) {
+        console.log("현재 참여 유저 리스트 수",userList.current.length, "끝난 유저 수", finishUserCountRef.current);
+        if (myName === hostName && finishUserCountRef.current>=userList.current.length) {
             stompClient.send(
                 "/app/gameroom/" + sessionId + "/gamefinish",{},
                 // 내 정보를 해당 채널로 보내면 됨
@@ -457,6 +474,11 @@ const GamePage = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[finishUserCount])
+
+    // useEffect(()=> {
+    //     console.log(userList);
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[userList])
 
 
     return (
@@ -471,15 +493,24 @@ const GamePage = () => {
                 {loading ? <Loading /> : null }
                 {counting ? <CountLoading updateLoadingComplete={updateLoadingComplete} /> : null}
                 {/* 게임 종료 모달 */}
-                {GamemodalOpen && (<GameEndBtn setModalOpen={setGameModalOpen}/>)}
+                {GamemodalOpen && (<GameEndBtn setModalOpen={setGameModalOpen} props={{renderingUserList}}/>)}
 
                 <div className="gamescreen">
                     <div className='messagebtntag'>
-                        <div className='gametitle'>
-                            <img className='game-logo' src={titleimgRef.current} alt=""/>
-                            <p className='game-titletag' >빠르고 정확한 동작으로 <br/>더 많이 박을 터트리세요!</p>
-    
-                        </div>
+                        {gameType===1 ? (
+                            <div className='gametitles'>
+                                <img className='game-logo' src={titleimgRef.current} alt=""/>
+                                <p className='game-titletag' >빠르고 정확한 동작으로 <br/>더 많은 모기를 잡으세요!</p>
+                            </div>
+
+                        ) : null}
+                        {gameType===2 ? (
+                            <div className='gametitles'>
+                                <img className='game-logo' src={titleimgRef.current} alt=""/>
+                                <p className='game-titletag' >제시된 동작을 취해주세요! <br/>정확한 동작을 취할수록 높은 점수를 얻습니다.</p>
+                            </div>
+                        ) : null}
+
                         {/* <div className='ranking'>
                             <div className='ranking1'>현재 랭킹</div>
                             <div className='ranking2'>
@@ -488,7 +519,7 @@ const GamePage = () => {
                         </div> */}
                         {/* 게임 로직 컴포넌트 (아무 배치요소 없음) */}
                         <div className='gameloader'>
-                            <GameLoader props={{setCount, started, finished, gameType, setGameLoad, countdown, setAssetLoad}} />
+                            <GameLoader props={{setCount, started, finished, gameType, setGameLoad, countdown, loadcomplete}} />
                         </div>
                     </div>
                     <div className="mainvideo">
@@ -510,9 +541,9 @@ const GamePage = () => {
                                 {/* 내 화면 */}
                                 <div id="main-videos">
                                     <div id="main-video" >
-                                        <UserVideoComponent streamManager={mainStreamManager}/>
+                                        <UserVideoComponent id="main-videocss" streamManager={mainStreamManager}/>
                                         {/* 위에 공통 UI */}
-                                        <CommonUI props={{count, timer, userList,loadcomplete, finished, setFinished, gameTime}} />
+                                        <CommonUI props={{count, timer, renderingUserList, loadcomplete, finished, setFinished, gameTime, gameType}} />
                                     </div>
                                 </div>
                                 
@@ -521,12 +552,13 @@ const GamePage = () => {
 
                                 {subscriber.length >= 4 ? (
                                     <div id="sub-videos" > 
-                                        <div id="sub-titlebox"></div>
+                                        <div id={`sub-titlebox${gameType}`}></div>
                                         {subscriber.map((sub, i) => (
             
                                                 <div id="sub-video2 sub-titlebox" key={i}>
                                                     <h2>{i+1}</h2>
                                                 {/* <span>{sub.id}</span> */}
+                                                
                                                     <UserVideoComponent streamManager={sub} />
                                                     {/* {LenSubscribers} */}
                                                 </div>
@@ -589,7 +621,7 @@ const GamePage = () => {
             <div className="footer"></div>
             {/* <button type="button" onClick={init}>Start</button>
             <h4>횟수 : {myCount}</h4> */}
-            <button className="btn-back"> 방 나가기 </button>
+            <button className="btn-back" onClick={goMain}> 방 나가기 </button>
             {/* <Link to='/main'><button>게임나가기</button></Link> */}
         </div>
     )

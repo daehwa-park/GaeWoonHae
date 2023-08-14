@@ -1,44 +1,64 @@
-#Recommendmodals {
+@font-face {
+    font-family: 'CustomFont';
+    src: url('../../assets/font/DungGeunMo.woff2') format('woff2'),
+    url('../../assets/font/DungGeunMo.woff') format('woff')
+    /* 다양한 포맷의 폰트 파일을 지정 */
+  }
+
+#Recmodals {
+    font-family: 'CustomFont', sans-serif; /* 로컬 폰트 사용 */
+
     position: absolute;
-    top: 37%;
-    left: 37%;
-    width: 350px;
-    height: 210px;
-    border: 2px solid rgb(204, 200, 200);
-    border-radius: 20px;
+    top: 30%;
+    left: 32%;
+    width: 36vw;
+    height: 40vh;
+    border: 2px solid #ccc8c8;
+    border-radius: 10px;
     background-color: white;
     box-shadow: 2px 2px rgb(133, 132, 132);
     z-index: 1;
     text-align: center;
 }
-#codetxt {
-    margin-top: 20px;
+/* #codetxtRec {
+    height: 6vh;
+    background-color: rgb(76, 142, 190);
+    border-radius: 5px 5px 0 0;
+    text-align: center;
+    line-height: 6vh;
+    color: white;
+    font-weight: 600;
+} */
+
+#codetxt-rec {
+    margin: 4vh;
 }
 
-#modalcom {
+#Recmodalcom {
     display: flex;
     justify-content: center;
 }
 
-#codeinput {
-    margin: 8px 0 12px;
-    width: 250px;
-    height: 40px;
+#Reccodeinput {
+    margin: 4vh 0 8vh;
+    width: 26vw;
+    height: 4vh;
     border: 2px solid rgb(204, 200, 200);
     border-radius: 6px;
     background-color: white;
     box-shadow: 2px 2px rgb(133, 132, 132);
 }
 #recombutton {
-    width: 110px;
-    height: 40px;
+    width: 5vw;
+    height: 3.5vh;
     border: 2px solid rgb(204, 200, 200);
     border-radius: 20px;
     background-color: white;
     box-shadow: 2px 2px rgb(133, 132, 132);
     text-transform: uppercase;
     transition:all .2s ease;
-    font-size: 15px;
+    font-size: 1vw;
+    line-height: 3.5vh;
 }
 
 #recombutton:hover, #recombutton:focus, #recombutton:active {
@@ -46,3 +66,22 @@
     color: #282a2b;
 
 }
+
+.Recmodal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    background-color: rgba(0, 0, 0, 0.6);  /* 배경을 흐린 회색으로 설정 */
+}
+
+.rec-next {
+    margin-right: 2vw;
+}
+  

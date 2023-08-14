@@ -52,42 +52,42 @@ function ShowPointHistory({ setModalOpen, userId}) {
         setModalOpen(false);
     };
     return (
-        <div id='pointhistory'>
-            {/* <h3 id='codetxt'>포인트 히스토리</h3>
-            <div id='modalcom'>
-                <div class="modal-body" >
-                    
-                    {history.map((item, index) => (
-                        <div key={index}>
-                            <p>포인트: {item.point}
-                            날짜: {item.changeDate}</p>
-                           
-                        </div>
-                    ))}
-                    </div>
+        <div className="historymodal-container">
+          <div id='pointhistory'>
+              <br/>
+              <h3>포인트 히스토리</h3>
+              <div>
+                <div className="modal-content">
+                  <table >
+                    <thead>
+                      <tr>
+                        <th>번호</th>
+                        <th>포인트</th>
+                        <th>변경 날짜</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {history.map((item, index) => (
+                            <tr key={index}>
+                              <td>{index + 1}</td>
+                              <td>
+                                {item.point >= 0 ? "+" : ""}
+                                {item.point}
+                                <img src="/images/img/coin.png" alt="My Image" width="18" />
+                              </td>
+                              <td>{item.changeDate}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
 
-                
-            </div>
-            <button id='recombutton' onClick={closeModal}>확인</button>
-                    */}
-  <div className="modal-header">
-        새발자 테스트 모달
-    </div>
-    
-    <div className="modal-content">  
-    {history.map((item, index) => (
-                        <div key={index}>
-                            <p>포인트: {item.point}
-                            날짜: {item.changeDate}</p>
-                           
-                        </div>
-                    ))}  
-    </div>
-    
-    <div className="modal-footer">
-        <button id='recombutton' onClick={closeModal}>확인</button>
-    </div>
-        </div> 
+              <div className="modal-footer">
+                  <button id='historybutton' onClick={closeModal}>확인</button>
+              </div>
+            </div> 
+        </div>
     );
 }
 export default ShowPointHistory;

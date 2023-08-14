@@ -1,4 +1,14 @@
+@font-face {
+  font-family: 'CustomFont';
+  src: url('../../assets/font/DungGeunMo.woff') format('woff2'),
+  url('../../assets/font/DungGeunMo.woff') format('woff')
+  /* 다양한 포맷의 폰트 파일을 지정 */
+}
+
+
+
 .mypage-body2 {
+  font-family: 'CustomFont', sans-serif;
   width: 90%;
   height: 93%;
   margin: auto;
@@ -15,18 +25,18 @@
 }
 
 .emoji-title1 {
-  margin-left: 4vw;
-  font-size: 25px;
+  margin-left: 3vw;
+  font-size: 3vw;
   font-weight: 550;
 }
 
 .emoji-title2 {
   margin-top: 1vh;
-  margin-left: 55vw;
-  font-size: 22px;
+  margin-left: 54vw;
+  font-size: 1.8vw;
   font-weight: 550;
   /* text-decoration-style: double; */
-  text-decoration-line: underline;
+  /* text-decoration-line: underline; */
 }
 
 .emoji-body {
@@ -38,7 +48,7 @@
   margin-left: 3vw;
   width: 26vw;
   height: 55vh;
-  border: 2px solid black;
+  /* border: 2px solid black; */
 
 }
 .emoji-right {
@@ -46,7 +56,7 @@
   display: flex;
   width: 54vw;
   height: 55vh;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   
 }
 
@@ -69,11 +79,13 @@
 .emoji-id {
   margin-top: 2vh;
   margin-left: 1vw;
+  font-size: 1.5vw;
 }
 
 .emoji-price {
   margin-top: 2vh;
   margin-left: 1vw;
+  font-size: 1.5vw;
 }
 
 .emojicomp {
@@ -92,7 +104,7 @@
   margin: 3vh 0 0 1vw;
   width: 23vw;
   height: 12vh;
-  border: 3px solid rgb(123, 122, 122);
+  /* border: 3px solid rgb(123, 122, 122); */
 }
 
 
@@ -105,7 +117,7 @@
   margin-left: 1vw;
   width: 5vw;
   height: 5vw;
-  border: 5px solid rgb(183, 183, 177);
+  /* border: 5px solid rgb(183, 183, 177); */
 }
 
 .emoji-size {
@@ -123,6 +135,7 @@
 }
 
 .sellect-btn {
+  line-height: 5vh;
   margin-top: 4vh;
   margin-left: 2vw;
   text-align: center;
@@ -134,6 +147,7 @@
   box-shadow: 1px 1px 1px 1px rgb(192, 189, 189);
   text-transform: uppercase;
   transition:all .2s ease;
+  font-size: 1.5vw;
   font-weight: 700;
 }
 
@@ -144,4 +158,13 @@
 .sellect-btn:hover, .sellect-btn:focus, .sellect-btn:active {
   background-color:#e6ecf1 ;
   color: #282a2b;
+}
+
+.money-img1 {
+  margin-left: 0.5vw;
+  width: 1.2vw;
+}
+.money-img2 {
+  margin-left: 0.5vw;
+  width: 1vw;
 }

@@ -1,0 +1,18 @@
+.screen-ui {
+    z-index : 10000;
+    position: absolute;
+    top: 10vh;
+    left: 30vw;
+}
+
+.screen-row {
+    display: flex;
+}
+
+
+.img-container {
+}
+
+.mosquito-img {
+    width: 10vw;
+}

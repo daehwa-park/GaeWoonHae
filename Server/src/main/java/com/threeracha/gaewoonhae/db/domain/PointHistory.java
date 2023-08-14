@@ -15,6 +15,7 @@ import java.util.Date;
 @Getter //Lombok 어노테이션으로 getter
 @Setter //Lombok 어노테이션으로 setter
 @ToString
+@Builder
 @Table(name = "point_history_tbl") //테이블 관련 설정 어노테이션
 public class PointHistory {
 
@@ -35,13 +36,4 @@ public class PointHistory {
     @Column(name = "change_time", nullable = false)
     private Timestamp changeTime;
 
-    @Builder
-    public PointHistory(User user, int pointChange){
-        this.user=user;
-        this.pointChange= pointChange;
-
-    }
-
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date changeTime;
 }

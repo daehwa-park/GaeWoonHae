@@ -6,7 +6,7 @@ import { chattingAction } from "../Actions/chattingAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Chatting = ({ setUserList }) => {
+const Chatting = ({ updateUserList }) => {
   const gameType = useSelector((state) => state.roomInfo.gameType);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -14,12 +14,18 @@ const Chatting = ({ setUserList }) => {
   const myName = useSelector((state) => state.auth.user.nickname);
   const sessionId = useSelector((state) => state.roomInfo.sessionId);
   const limitTime = useSelector((state) => state.roomInfo.limitTime);
-
+  const userId = useSelector((state) => state.auth.user.userId);
   const [chatMessage, setChatMessage] = useState(""); // 입력받은 채팅메세지를 저장하는 state입니다.
 
   const handleInputChange = (e) => {
     setChatMessage(e.target.value); // 채팅 메세지가 입력되면 state를 갱신합니다.
   };
+
+  const updateUser = (userlist) => {
+    console.log("dis", userlist);
+    updateUserList(userlist);
+  }
+
 
   const saveStompClient = () => {
     dispatch(
@@ -27,10 +33,11 @@ const Chatting = ({ setUserList }) => {
         hostName,
         sessionId,
         myName,
-        setUserList,
+        updateUser,
         navigate,
         gameType,
-        limitTime
+        limitTime,
+        userId
       )
     );
   };

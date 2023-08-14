@@ -15,6 +15,14 @@ import { useNavigate } from "react-router-dom"
 import emoji1 from '../../assets/emoji/emoji1.png'
 import emoji2 from '../../assets/emoji/emoji2.png'
 import emoji3 from '../../assets/emoji/emoji3.png'
+import emoji4 from '../../assets/emoji/emoji4.png'
+import emoji5 from '../../assets/emoji/emoji5.png'
+import emoji6 from '../../assets/emoji/emoji6.png'
+import emoji7 from '../../assets/emoji/emoji7.png'
+import emoji8 from '../../assets/emoji/emoji8.png'
+import emoji9 from '../../assets/emoji/emoji9.png'
+import emoji10 from '../../assets/emoji/emoji10.png'
+import emojix from '../../assets/emoji/emojix.png'
 
 //달력
 import Calendar from 'react-calendar';
@@ -98,6 +106,56 @@ const Myprofilepage = () => {
     baseURL: process.env.REACT_APP_SPRING_URI,
     headers: { "cotent-type": "application/json" },
   });
+
+  
+  kcalApi.interceptors.request.use(
+    (config) => {
+      const accessToken = window.localStorage.getItem('accessToken');
+      config.headers['token'] = accessToken;
+
+      return config;
+    },
+    (error) => {
+      console.log(error);
+      return Promise.reject(error);
+    }
+  )
+
+
+  kcalApi.interceptors.response.use(
+    (response) => {
+      if (response.status === 404) {
+        console.log('404 페이지로 넘어가야 함!');
+      }
+
+      return response;
+    },
+    async (error) => {
+      if (error.response.status === 401) {
+
+        if (error.response.data.code === "E004") {
+          window.location.href = `${process.env.REACT_APP_CLIENT_URI}`;
+          return;
+        }
+
+        if (error.response.data.code === "E003") {
+          await authenticateAction.refreshToken();
+
+          const accessToken = window.localStorage.getItem("accessToken");
+
+          error.config.headers = {
+            'Content-Type': 'application/json',
+            'token': accessToken,
+          };
+          
+          // 중단된 요청을(에러난 요청)을 토큰 갱신 후 재요청
+          const response = await axios.request(error.config);
+          return response;
+        }
+      }
+      return Promise.reject(error);
+    }
+  );
   
   function getTodayGameHistory(){
     kcalApi
@@ -148,6 +206,8 @@ const Myprofilepage = () => {
         .post("/api/record/date/"+userId, date)
         .then((res)=>{
           console.log("선택 기간 운동")
+          console.log(selectedDate)
+          
           console.log(res)
           var calculatedKcal =0;
             for(var i=0 ; i<res.data.data.length; i++){
@@ -230,19 +290,24 @@ const Myprofilepage = () => {
   };
   
   
-  // 이모지 선택 관리
+  const emojiImages = {
+    1: emoji1,
+    2: emoji2,
+    3: emoji3,
+    4: emoji4,
+    5: emoji5,
+    6: emoji6,
+    7: emoji7,
+    8: emoji8,
+    9: emoji9,
+    10: emoji10,
+    11: emojix,
+  };
+  
   const getEmoji = (emojiId) => {
-    switch (emojiId) {
-        case 1:
-          return emoji1;
-        case 2:
-          return emoji2;
-        case 3:
-          return emoji3;
-        default:
-          return ""; 
-      }
-    };
+    return emojiImages[emojiId] || "";
+  };
+
 
   // 회원 탈퇴 
   const dispatch = useDispatch();
@@ -283,7 +348,7 @@ const Myprofilepage = () => {
           
           <div className='nickname'>
               닉네임 : <span className='nickname2'>{nickname}</span>  <br/>  
-              <button className='changebtn' onClick={()=>showLobbyModal1()}>변경하기</button>
+              <button className='changebtn' onClick={()=>showLobbyModal1()}>변경</button>
           </div>
 
           {/* <div className='setemoji'>
@@ -293,16 +358,18 @@ const Myprofilepage = () => {
 
    
           <div className='savepoint'>
-              보유 포인트 : <span className='points'>{userpoint}c</span>
-              <button className='changebtn' onClick={()=>showLobbyModal3()}>목록 조회</button> 
+              포인트 : <span className='points'>{userpoint}<img className='mypage-money' src="/images/img/coin.png" alt="My Image" width="25"/>
+              </span>  
+              
+              <button className='changebtn' onClick={()=>showLobbyModal3()}>조회</button> 
           </div>
-
+         
           <div className='leavesecession' onClick={()=>withdrawal()} >탈퇴하기</div>
         </div>
 
         <div className='mypageright'>
           
-            <div className='chart-nick'><span className='nametag'>{nickname}</span>님의 주간 운동량 차트</div>
+            <div className='chart-nick'><span className='nametag'>{nickname}</span>님의 주간 운동량</div>
             <div className='helth-chart'>
               <Rechart data={data}/>
             </div>
@@ -317,51 +384,38 @@ const Myprofilepage = () => {
                     // selectRange={true} 
                     formatDay={(locale, date) => moment(date).format("DD")} 
                     /> 
-                    {/* <Calendar
-                      onChange={onCalendarChange} // useState로 포커스 변경 시 현재 날짜 받아오기
-                      formatDay={(locale, date) => moment(date).format("DD")} // 날'일' 제외하고 숫자만 보이도록 설정
-                      value={value}
-                      minDetail="month" // 상단 네비게이션에서 '월' 단위만 보이게 설정
-                      maxDetail="month" // 상단 네비게이션에서 '월' 단위만 보이게 설정
-                      navigationLabel={null}
-                      showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
-                      className="mx-auto w-full text-sm border-b"
-                      tileContent={({ date, view }) => { // 날짜 타일에 컨텐츠 추가하기 (html 태그)
-                        // 추가할 html 태그를 변수 초기화
-                        let html = [];
-                        // 현재 날짜가 post 작성한 날짜 배열(mark)에 있다면, dot div 추가
-                        if (mark.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
-                          html.push(<div className="dot"></div>);
-                        }
-                        // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
-                        return (
-                          <>
-                            <div className="flex justify-center items-center absoluteDiv">
-                              {html}
-                            </div>
-                          </>
-                        );
-                      }}
-                    /> */}
+                 
                 </div>
 
                 <div className='image3'>
-                    <div className='kcal'>오늘 소모 칼로리 : {todayKcal} Kcal</div>
+                    {/* <div className='kcal'>오늘 소모 칼로리 : {todayKcal} Kcal</div>
                     <div className='kcal'>총 소모 칼로리 : {totalKcal} Kcal</div>
-                    
-                    <div className='kcal'> 선택 날짜:
-                        {formatDate(selectedDate)}</div>
-                    <div className='kcal'> {dateKcal} Kcal</div>
-                   
-                    {/* <div>
-                        <div className="text-gray-500 mt-4">
-                          선택 날짜:
-                        {formatDate(selectedDate)}
-                        </div>
-                        <div className='kcal'>
-                          {dateKcal} Kcal</div>
+                    <p></p>
 
-                    </div> */}
+                    <div className='kcal'>선택 일자 : 
+                        {formatDate(selectedDate)}</div>
+                    <div className='kcal'>소모 칼로리 : {dateKcal} Kcal</div>
+                    */}
+                    <table className="kcal-table">
+                      <tbody>
+                        <tr>
+                          <td className="colored-td">TODAY KCAL  </td>
+                          <td>  :  {todayKcal} Kcal</td>
+                        </tr>
+                        <tr>
+                          <td className="colored-td">TOTAL KCAL  </td>
+                          <td>  :  {totalKcal} Kcal</td>
+                        </tr>
+                        <tr>
+                          <td className="colored-td">SELECTED DATE  </td>
+                          <td>  :  {formatDate(selectedDate)}</td>
+                        </tr>
+                        <tr>
+                          <td className="colored-td">SELECTED KCAL  </td>
+                          <td>  :  {dateKcal} Kcal</td>
+                        </tr>
+                      </tbody>
+                    </table>
                 </div>
             </div>
         </div>

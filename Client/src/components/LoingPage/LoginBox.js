@@ -1,7 +1,7 @@
 // 로그인 페이지 구성
 
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import React from "react";
 import "./LoginBox.css";
 // import "./LoginKakaoPage"
@@ -41,9 +41,9 @@ const LoginBox = () => {
           alt="dsa"
         />
       </div>
-      <div>
+      {/* <div>
         <Link className="login-link">비회원 로그인</Link>
-      </div>
+      </div> */}
     </div>
   );
 };

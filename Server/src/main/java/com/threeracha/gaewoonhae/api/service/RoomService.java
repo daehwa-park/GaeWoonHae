@@ -1,6 +1,8 @@
 package com.threeracha.gaewoonhae.api.service;
 
+import com.threeracha.gaewoonhae.api.dto.request.LeaveRoomRequest;
 import com.threeracha.gaewoonhae.api.dto.request.NewRoomRequest;
+import com.threeracha.gaewoonhae.api.dto.request.SessionIdRequest;
 import com.threeracha.gaewoonhae.api.dto.request.SetRoomStatusRequest;
 import com.threeracha.gaewoonhae.api.dto.response.RoomInfoResponse;
 import com.threeracha.gaewoonhae.db.domain.GameType;
@@ -27,9 +29,6 @@ public class RoomService {
         GameType gameType = roomRepository.findGameType(gameTypeId);
         Room roomByGameType = roomRepository.findRoomByGameType(gameType)
                 .orElseThrow(() -> new CustomException(CustomExceptionList.ROOM_NOT_FOUND_ERROR));
-
-        int updateUserNum = roomByGameType.getCurrentUserNum()+1;
-        roomByGameType.setCurrentUserNum(updateUserNum);
         return new RoomInfoResponse(roomByGameType);
     }
 
@@ -40,12 +39,35 @@ public class RoomService {
         return new RoomInfoResponse(roomBySessionId);
     }
 
+    public RoomInfoResponse leaveRoom(LeaveRoomRequest leaveRoomRequest) {
+        Room roomBySessionId = roomRepository.findRoomBySessionId(leaveRoomRequest.getSessionId())
+                .orElseThrow(() -> new CustomException(CustomExceptionList.ROOM_NOT_FOUND_ERROR));
+
+        int currentUserNum = roomBySessionId.getCurrentUserNum();
+        User hostUser = userService.getUserInfo(leaveRoomRequest.getUserId());
+        roomBySessionId.setCurrentUserNum(currentUserNum-1);
+        if(roomBySessionId.getUser()==hostUser) {
+            roomBySessionId.setRoomStatus(RoomStatus.CLOSED.code());
+        }
+        return new RoomInfoResponse(roomBySessionId);
+    }
+
+    public RoomInfoResponse arriveRoom(SessionIdRequest sessionIdRequest) {
+        Room roomBySessionId = roomRepository.findRoomBySessionId(sessionIdRequest.getSessionId())
+                .orElseThrow(() -> new CustomException(CustomExceptionList.ROOM_NOT_FOUND_ERROR));
+
+        int currentUserNum = roomBySessionId.getCurrentUserNum();
+        roomBySessionId.setCurrentUserNum(currentUserNum+1);
+        return new RoomInfoResponse(roomBySessionId);
+    }
+
+
     public RoomInfoResponse makeNewRoom(NewRoomRequest newRoomRequest) {
         User findUser = userService.getUserInfo(newRoomRequest.getUserId());
         GameType gameType = roomRepository.findGameType(newRoomRequest.getGameType());
         char isPublicRoom = newRoomRequest.getIsPublicRoom();
         String makeSessionId = RandomCodeGenerator.getRandomCode(8);
-        Room newRoom = new Room(makeSessionId, findUser, gameType, 1, 5,isPublicRoom,'R');
+        Room newRoom = new Room(makeSessionId, findUser, gameType, 0, 5,isPublicRoom,'R');
         roomRepository.makeNewRoom(newRoom);
         return new RoomInfoResponse(newRoom);
     }
