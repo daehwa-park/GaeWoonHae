@@ -40,7 +40,6 @@ emojiapi.interceptors.response.use(
     if (error.response.status === 401) {
 
       if (error.response.data.code === "E004") {
-        alert("로그인 페이지로 돌아갑니다.");
         window.location.href = `${process.env.REACT_APP_CLIENT_URI}`;
         return;
       }

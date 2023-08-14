@@ -19,12 +19,12 @@ import {
 import cv from "@techstark/opencv-js";
 
 const Lobby = () => {
+  const useremojiId = useSelector(state => state.auth.user.emojiId);
 
   const webcamRef = useRef();
   const imgRef = useRef();
   const faceImgRef = useRef();
   const emoji = useRef();
-  const selectedEmojiRef = useRef(emoji1);
   const stopVideo = useRef(false);
     // 언마운트시에 비디오 종료
     const onUnmount = () => {
@@ -68,13 +68,13 @@ const Lobby = () => {
         imgRef.current.onload = async () => {
           try {
             const img = cv.imread(imgRef.current);
-  
-            if (selectedEmojiRef.current !== null) {
-              emoji.current.src = selectedEmojiRef.current; // 이모지
+
+            if(useremojiId !== 11){
+              emoji.current.src = `../../images/emoji/emoji${useremojiId}.png`; // 이모지
               const emo = cv.imread(emoji.current);
-  
               detectHaarFace(img, emo); // opencv : loadHaarFaceModels()로 화면인식을 학습 => 포인트에 이모지 씌우기
             }
+
             cv.imshow(faceImgRef.current, img);
   
             img.delete(); // 이미지 초기화
