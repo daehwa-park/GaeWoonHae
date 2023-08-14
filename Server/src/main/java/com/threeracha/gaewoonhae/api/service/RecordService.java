@@ -3,9 +3,11 @@ package com.threeracha.gaewoonhae.api.service;
 import com.threeracha.gaewoonhae.api.dto.request.SaveRecordRequest;
 import com.threeracha.gaewoonhae.api.dto.response.RecordResponse;
 import com.threeracha.gaewoonhae.db.domain.GameType;
+import com.threeracha.gaewoonhae.db.domain.PointHistory;
 import com.threeracha.gaewoonhae.db.domain.Record;
 import com.threeracha.gaewoonhae.db.domain.User;
 import com.threeracha.gaewoonhae.db.repository.GameTypeRepository;
+import com.threeracha.gaewoonhae.db.repository.PointHistoryRepository;
 import com.threeracha.gaewoonhae.db.repository.RecordRepository;
 import com.threeracha.gaewoonhae.db.repository.UserRepository;
 import com.threeracha.gaewoonhae.exception.CustomException;
@@ -33,6 +35,7 @@ public class RecordService {
     final RecordRepository recordRepository;
     final UserRepository userRepository;
     final GameTypeRepository gameTypeRepository;
+    final PointHistoryRepository pointHisotryRepository;
 
     public List<RecordResponse> getAllRecord(Long userId) {
 
@@ -94,13 +97,25 @@ public class RecordService {
         GameType gameType = gameTypeRepository.findById(req.getGameType())
                 .orElseThrow(() -> new CustomException(CustomExceptionList.INVALID_GAMETYPE_ERROR));
 
+        int point = req.getCount() * 5;
+        Timestamp current = new Timestamp(System.currentTimeMillis());
+
+        user.setPoint(user.getPoint() + point);
+
+        PointHistory history = PointHistory.builder()
+                .user(user)
+                .pointChange(point)
+                .changeTime(current)
+                .build();
+
+        pointHisotryRepository.save(history);
+
         Record record = Record.builder()
                 .gameType(gameType)
                 .user(user)
                 .count(req.getCount())
-                .recordDateTime(new Timestamp(System.currentTimeMillis()))
+                .recordDateTime(current)
                 .build();
-
 
         return recordRepository.save(record);
     }

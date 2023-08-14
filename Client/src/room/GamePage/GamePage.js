@@ -131,7 +131,6 @@ const GamePage = () => {
             cancelAnimationFrame(updateEmojiId.current);
             return;
         }
-        console.log("이모지 업데이트", stopVideo.current);
 
         await detectFace();
         updateEmojiId.current = requestAnimationFrame(updateEmoji);
@@ -298,8 +297,8 @@ const GamePage = () => {
                     }
                     // 방장만 finishUsercount 관리함
                     else if(myName === hostName) {
-                        setfinishUserCount(finishUserCountRef.current++);
-                    
+                        setfinishUserCount(++finishUserCountRef.current);
+                        console.log("한놈 끝났다.");
                     }
                 }
             );
@@ -352,6 +351,7 @@ const GamePage = () => {
             // 내 정보를 해당 채널로 보내면 됨
             JSON.stringify({chat: myName+"님의 게임이 종료되었습니다."})
         );
+        console.log("나 끝났다");
     }
     // 게임종료시 실행하는 axios 요청
     const recordSave = async () => {
@@ -462,7 +462,8 @@ const GamePage = () => {
 
     //0809
     useEffect(()=> {
-        if (myName === hostName && finishUserCountRef.current>=2) {
+        console.log("현재 참여 유저 리스트 수",userList.current.length, "끝난 유저 수", finishUserCountRef.current);
+        if (myName === hostName && finishUserCountRef.current>=userList.current.length) {
             stompClient.send(
                 "/app/gameroom/" + sessionId + "/gamefinish",{},
                 // 내 정보를 해당 채널로 보내면 됨

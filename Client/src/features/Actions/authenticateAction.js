@@ -19,7 +19,6 @@ const loginApi = axios.create({
 loginApi.interceptors.request.use(
   (config) => {
     const accessToken = window.localStorage.getItem('accessToken');
-
     config.headers['token'] = accessToken;
 
     return config;
@@ -40,14 +39,13 @@ loginApi.interceptors.response.use(
   },
   async (error) => {
 
-    console.log("요청 거절됨", error);
-
     if (error.response.status === 401) {
 
       console.log("코드 스테이터스 401");
 
       if (error.response.data.code === "E004") {
-        console.log("리프레쉬 토큰이 올바르지 않음, 재 로그인 요망")
+        console.log("리프레쉬 토큰이 올바르지 않음, 재 로그인 요망");
+        alert("로그인 페이지로 돌아갑니다.");
         window.location.href = `${process.env.REACT_APP_CLIENT_URI}`;
         return;
       }
@@ -69,7 +67,9 @@ loginApi.interceptors.response.use(
         return response;
       }
     }
-    return Promise.reject(error);
+    else {
+      return Promise.reject(error);
+    }
   }
 );
 
@@ -122,17 +122,16 @@ function getTokensUserId(authorizationCode) {
 
 // 유저 정보 받기
 function getUserInfo(userId) {
-  console.log(process.env.REACT_APP_CLIENT_URI)
 
   return async (dispatch, getState) => {
     await loginApi
       .get("/api/user/userinfo/" + userId )
       .then((res) => {
+        console.log(res.data.data);
         dispatch(authActions.getUserInfo( res.data.data ));
       })
       .catch((err) => {
-        console.log(userId);
-        console.log(err);
+        console.log("유저 정보 요청 거절됨", err);
       });
   };
 }
