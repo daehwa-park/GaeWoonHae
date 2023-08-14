@@ -55,9 +55,10 @@ function RecommendModal({ setModalOpen }) {
   return (
     <div className="Recmodal-container">
 
-    <div id="Recmodals">
-      <h3 id="codetxt-rec">초대코드 입력</h3>
-      <input id="Reccodeinput" type="text" ref={inviteCodeRef}></input>
+    <div id="nickmodals">
+      <h3 id="nickcodetxt">초대코드 입력</h3>
+      <input id="nickcodeinput" type="text" ref={inviteCodeRef}></input>
+      
       <div id="Recmodalcom">
         <p className="rec-next" id="recombutton" onClick={enterRoom}>입장</p>
         <p id="recombutton" onClick={closeModal}>취소</p>
