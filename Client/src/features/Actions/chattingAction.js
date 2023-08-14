@@ -8,9 +8,11 @@ import Stomp from "stompjs";
 import { roomActions } from "../../redux/reducer/roomInfoReducer";
 import { enterRoomAction } from "./enterRoomAction";
 function getStompClient(
+  setModalOpen,
   hostName,
   sessionId,
   myName,
+  setUserList,
   updateUser,
   navigate,
   gameType,
@@ -91,6 +93,8 @@ function getStompClient(
                 JSON.stringify(userList)
               );
               updateUser(userList);
+              setUserList(userList);
+
               console.log(JSON.stringify(userList, null, 2));
             }
           }
@@ -108,7 +112,7 @@ function getStompClient(
               );
             }
             updateUser(userList);
-
+            setUserList(userList);
             showUserInfo(userList);
           }
         );
@@ -140,7 +144,9 @@ function getStompClient(
               // to 준영이형 if문 안에 로비 페이지로 이동.
               if(JSON.parse(message.body).content===hostName) {
                 stompClient.disconnect();
-                console.log("방장 나가서 사라진방");
+                // window.alert("방장이 나가서 방이 사라졌습니다.");
+                setModalOpen(true);
+                // await navigate(`/main`);
               }
             } 
           }
@@ -219,8 +225,39 @@ function getStompClient(
     }
 
     function showMessage(message) {
-      $("#messages").append("<tr><td>" + message + "</td></tr>");
+  let sender, content;
+  let messageClass = "message-other";
+
+  // 메시지에 ':'가 있는 경우
+  if (message.includes(":")) {
+    [sender, content] = message.split(":");
+
+    if (sender.trim() === myName) {
+      messageClass = "message-own";
+      $("#messages").append(
+        `<tr><td class="message ${messageClass}" style="background-color:purple; color:white">` +
+          content +
+          "</td></tr>"
+      );
+    } else {
+      $("#messages").append(
+          "<tr>"+`<td class="message ${messageClass}" style="background-color:#77838F; color:black">` +
+         `${sender} :` + content +
+          "</td></tr>"
+      );
     }
+  } else {
+    // 메시지에 ':'가 없는 경우
+    content = message;
+    $("#messages").append(
+      "<tr><td class='welcome-ms'>" + content + "</td></tr>"
+    );
+  }
+
+  // $("#messages").append(
+  //   `<tr><td class="message ${messageClass}">` + content + "</td></tr>"
+  // );
+}
 
     async function showUserInfo(namelist) {
       var resultDiv = document.getElementById("result");
