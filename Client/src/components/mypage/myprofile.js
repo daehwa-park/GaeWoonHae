@@ -155,6 +155,8 @@ const Myprofilepage = () => {
         .post("/api/record/date/"+userId, date)
         .then((res)=>{
           console.log("선택 기간 운동")
+          console.log(selectedDate)
+          
           console.log(res)
           var calculatedKcal =0;
             for(var i=0 ; i<res.data.data.length; i++){
@@ -343,35 +345,25 @@ const Myprofilepage = () => {
                     <div className='kcal'>소모 칼로리 : {dateKcal} Kcal</div>
                     */}
                     <table className="kcal-table">
-  <tbody>
-    <tr>
-      <td>TODAY KCAL</td>
-      <td>    {todayKcal} Kcal</td>
-    </tr>
-    <tr>
-      <td>TOTAL KCAL</td>
-      <td>    {totalKcal} Kcal</td>
-    </tr>
-    <tr>
-      <td>SELECTED DATE</td>
-      <td>    {formatDate(selectedDate)}</td>
-    </tr>
-    <tr>
-      <td>SELECTED KCAL</td>
-      <td>    {dateKcal} Kcal</td>
-    </tr>
-  </tbody>
-</table>
-
-                    {/* <div>
-                        <div className="text-gray-500 mt-4">
-                          선택 날짜:
-                        {formatDate(selectedDate)}
-                        </div>
-                        <div className='kcal'>
-                          {dateKcal} Kcal</div>
-
-                    </div> */}
+                      <tbody>
+                        <tr>
+                          <td className="colored-td">TODAY KCAL  </td>
+                          <td>  :  {todayKcal} Kcal</td>
+                        </tr>
+                        <tr>
+                          <td className="colored-td">TOTAL KCAL  </td>
+                          <td>  :  {totalKcal} Kcal</td>
+                        </tr>
+                        <tr>
+                          <td className="colored-td">SELECTED DATE  </td>
+                          <td>  :  {formatDate(selectedDate)}</td>
+                        </tr>
+                        <tr>
+                          <td className="colored-td">SELECTED KCAL  </td>
+                          <td>  :  {dateKcal} Kcal</td>
+                        </tr>
+                      </tbody>
+                    </table>
                 </div>
             </div>
         </div>
