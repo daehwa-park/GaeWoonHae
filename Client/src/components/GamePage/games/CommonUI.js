@@ -67,25 +67,21 @@ const CommonUI = ({props}) => {
             <div className={`ranking-list${gameType}`}>
                 <div className={`game-ranking-ui${gameType}`}>
                         <div className={`game-ranking1-${gameType}`}>현재 랭킹</div>
-                            {/* <div className='ranking2'>
-                                1위 : <br/>2위 : <br/>3위 : <br/>4위 : <br/>
-                            </div> */}
                         <div className={`game-ranking2-${gameType}`}>
                             {userList.map((user, idx) => (
                                 <div className='user-ranking' key={idx}>
-                                    {userList.length ===1 && (
-                                        <img className='user-rank1' src={first} alt="" />
-                                    )}
-                                    {userList.length ===2 && (
+                                    {idx===0 && (
                                         <div>
                                             <img className='user-rank1' src={first} alt="" />
+                                        </div>
+                                    )}
+                                    {idx ===1 && (
+                                        <div>
                                             <img className='user-rank2' src={second} alt="" />
                                         </div>
                                     )}
-                                    {userList.length ===3 && (
+                                    {idx ===2 && (
                                         <div>
-                                            <img className='user-rank1' src={first} alt="" />
-                                            <img className='user-rank2' src={second} alt="" />
                                             <img className='user-rank3' src={third} alt="" />
                                         </div>
                                     )}
