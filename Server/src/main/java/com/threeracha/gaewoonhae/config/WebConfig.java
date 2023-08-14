@@ -34,7 +34,9 @@ public class WebConfig implements WebMvcConfigurer {
                         "/api/sessions/**",
                         "/gameroom/**",
                         "/chatroom/**",
-                        "/**/swagger/**"
+                        "/v3/api-docs/**",  // Swagger JSON 경로
+                        "/swagger-resources/**",  // Swagger 리소스 경로
+                        "/swagger-ui/**"  // Swagger UI 경로
                 );
     }
 }
