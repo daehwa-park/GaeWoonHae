@@ -277,7 +277,7 @@ const GameLoader = ({props}) => {
 
     return(
         <div className='jumpingjack'>
-            {gameType === 1 && <JumpingJack props={{curPoseState, success, fail}}/>}
+            {gameType === 1 && <JumpingJack props={{curPoseState, success, fail,finished}}/>}
             {gameType === 2 && <Pictogram props={{curPoseState, success, fail, started,loadcomplete}}/>}
             {audioPlaying && (<audio src="/music/mosquito_kill.mp3"
             autoPlay

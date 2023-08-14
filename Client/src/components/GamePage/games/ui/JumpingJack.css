@@ -1,18 +1,123 @@
 .screen-ui {
     z-index : 10000;
     position: absolute;
-    top: 10vh;
-    left: 30vw;
+    width: 40vw;
+    height: 60vh;
+    top: 8vh;
+    left: 15vw;
+    /* border: 2px solid red; */
 }
 
 .screen-row {
     display: flex;
 }
 
-
 .img-container {
+    width: 20vw;
+    height: 30vh;
+    /* border: 2px solid red; */
 }
 
 .mosquito-img {
-    width: 10vw;
+    width: 13vw;
+    transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out;
+}
+
+@media (max-width: 1620px) {
+    .screen-ui {
+        left: 33vw;
+    }
+}
+@media (max-width: 1420px) {
+    .screen-ui {
+        left: 38vw;
+    }
+  }
+
+.mos-1 {
+    transform: translate(0, 0);
+}
+
+.mos-1.active {
+    animation: moveAndResize 4s forwards
+}
+.mos-2 {
+    transform: translate(0, 0);
+}
+
+.mos-2.active {
+    animation: moveAndResize 4s forwards
+}
+.mos-3 {
+    transform: translate(0, 0);
+}
+
+.mos-3.active {
+    animation: moveAndResize 4s forwards
+}
+.mos-4 {
+    transform: translate(0, 0);
+}
+
+.mos-4.active {
+    animation: moveAndResize 4s forwards
+}
+
+@keyframes moveAndResize {
+    0% {
+        transform: translate(0, 0);
+    }
+    10% {
+        transform: translate(40px, 60px);
+    }
+    25% {
+        transform: translate(50px, 0);
+    }
+    30% {
+        transform: translate(20px, 10px);
+    }
+    40% {
+        transform: translate(30px, 25px);
+    }
+    50% {
+        transform: translate(50px, 50px);
+    }
+    60% {
+        transform: translate(10px, 40px);
+    }
+    75% {
+        transform: translate(0, 50px);
+    }
+    80% {
+        transform: translate(30px, 0);
+    }
+    90% {
+        transform: translate(20px, 40px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+
+.mos-1.dead {
+    animation: deadAndResize 5s forwards
+}
+.mos-2.dead {
+    animation: deadAndResize 5s forwards
+}
+.mos-3.dead {
+    animation: deadAndResize 5s forwards
+}
+.mos-4.dead {
+    animation: deadAndResize 5s forwards
+}
+
+@keyframes deadAndResize {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(0, 100px);
+    }
 }
