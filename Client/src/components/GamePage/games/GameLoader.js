@@ -52,11 +52,12 @@ const GameLoader = ({props}) => {
         curPose.current = num;
 
         console.log("자세 바뀜~~@@@@@@@@@@@@@@@");
-
-        failTimerId.current = setTimeout(() => {
-            console.log("실패 예약@@@@@@@@@@@@@@@@@@@@@@@")
-            setFail(true);
-        }, 9000);
+        if (!finished) {
+            failTimerId.current = setTimeout(() => {
+                console.log("실패 예약@@@@@@@@@@@@@@@@@@@@@@@")
+                setFail(true);
+            }, 9000);
+        }
     }
 
 
@@ -277,8 +278,8 @@ const GameLoader = ({props}) => {
 
     return(
         <div className='jumpingjack'>
-            {gameType === 1 && <JumpingJack props={{curPoseState, success, fail,finished}}/>}
-            {gameType === 2 && <Pictogram props={{curPoseState, success, fail, started,loadcomplete}}/>}
+            {gameType === 1 && <JumpingJack props={{curPoseState, success, fail, finished}}/>}
+            {gameType === 2 && <Pictogram props={{curPoseState, success, fail, started,loadcomplete, finished }}/>}
             {audioPlaying && (<audio src="/music/mosquito_kill.mp3"
             autoPlay
             onEnded={() => setAudioPlaying(false)}
