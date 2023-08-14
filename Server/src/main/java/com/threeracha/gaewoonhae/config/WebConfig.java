@@ -28,6 +28,13 @@ public class WebConfig implements WebMvcConfigurer {
 
         interceptorRegistry.addInterceptor(authInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/api/oauth/login/**", "/api/oauth/regen", "/api/sessions/**", "/gameroom/**", "/chatroom/**");
+                .excludePathPatterns(
+                        "/api/oauth/login/**",
+                        "/api/oauth/regen",
+                        "/api/sessions/**",
+                        "/gameroom/**",
+                        "/chatroom/**",
+                        "/**/swagger/**"
+                );
     }
 }
