@@ -8,7 +8,8 @@ const Pictogram = ({props}) => {
     const success = props.success;
     const fail = props.fail;
     const loadcomplete = props.loadcomplete;
-    
+    const finish = props.finished;
+
     // 성공,실패 이미지
     const successImg = '/images/picto/success.png';
     const failImg = '/images/picto/fail.png';
@@ -101,20 +102,24 @@ const Pictogram = ({props}) => {
 
     return (
         <div>
-            {pictoExist ? (
-                <div className="picto-imgs" style={{ width: `${size}vw`, height: `${size}vw`,top: `${top}vw`, left: `${left}vw`  }} >
-                    <img className="picto-img" style={{ width: `${size2}vw`, height: `${size2}vw` }}  src={pictoImageUrl} alt="" />       
+            {!finish ? (
+                <div>
+                    {pictoExist ? (
+                        <div className="picto-imgs" style={{ width: `${size}vw`, height: `${size}vw`,top: `${top}vw`, left: `${left}vw`  }} >
+                            <img className="picto-img" style={{ width: `${size2}vw`, height: `${size2}vw` }}  src={pictoImageUrl} alt="" />       
+                        </div>
+                    ) : null}
+        
+                    {successType ? (
+                        <img className="success-img"   src={successImg} alt="" />       
+                        ):null}
+                    
+        
+                    {failType ? (
+                        <img className="fail-img"   src={failImg} alt="" />       
+                        ):null}
                 </div>
-            ) : null}
-
-            {successType ? (
-                <img className="success-img"   src={successImg} alt="" />       
-                ):null}
-            
-
-            {failType ? (
-                <img className="fail-img"   src={failImg} alt="" />       
-                ):null}
+            ):null}
                
         </div>
     );
