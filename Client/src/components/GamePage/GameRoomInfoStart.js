@@ -46,7 +46,7 @@ const GameRoomInfoStart = ({ userList, refUserList }) => {
         )}
       </div>
 
-      <button onClick={() => refreshList()}>refresh</button>
+      {/* <button onClick={() => refreshList()} >refresh</button> */}
     </div>
   );
 };

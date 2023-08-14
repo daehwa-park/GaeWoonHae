@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { roomActions } from "../../redux/reducer/roomInfoReducer";
-
+// import "./LimitTime.css";
 const LimitTime = () => {
   const hostName = useSelector((state) => state.roomInfo.hostName);
   const myName = useSelector((state) => state.auth.user.nickname);
@@ -22,7 +22,7 @@ const LimitTime = () => {
   }, [limitTime]);
   return (
     <Card bg="light">
-      <Card.Header className="card-head" style={{ backgroundColor: "#e6e6fa" }}>
+      <Card.Header className="card-head">
         제한 시간
       </Card.Header>
       <Card.Body>

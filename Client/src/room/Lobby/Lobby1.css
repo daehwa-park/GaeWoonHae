@@ -1,32 +1,35 @@
 .navbar-lobby {
   /* position: absolute; */
   width: 100%;
-  height: 10%;
+  height: 0%;
   background-color: #FEFCF5;
-  z-index: -5;
+  /* z-index: -5; */
 }
 .lobby-main{
   width: 100%;
-  height: 90%;
-  /*border: 10px solid red; */
+  height: 90vh;
+  border: 10px solid red;
 }
 
 .lobbymain {
   /* display: flex; */
   height: 100%;
   width: 100%;
+  /* border: 10px solid red; */
 }
 .invite-time-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 250px;
+  height: 13vh;
   flex-direction: column;
+  font-family: 'CustomFont', sans-serif;
 }
 .invite-time-container > * {
   box-sizing: border-box;
-  width: 100%;
-  height: 50%;
+  width: 80%;
+  height: 10%;
+  font-family: 'CustomFont', sans-serif;
 }
 .custom-card-header {
   background-color: #e6e6fa; 
@@ -46,7 +49,8 @@
 
 .lobby-body {
   background-color: #FFFBF6;
-  height: 100vh;
+  height: 100%;
+  font-family: 'CustomFont', sans-serif;
 }
 
 .title1 {
@@ -73,13 +77,14 @@
   justify-content: center;
   padding: 10px;
   text-align: center;
+  
 }
 
 .title-box {
   /* background-color: #f3e8ff; 연한 보라색 배경색 설정 */
   padding: 10px;
   border-radius: 5px;
-  font-family: "pixel-robo";
+  
 }
 .gradient-text {
   background: linear-gradient(45deg, red, blue); /* 그라데이션의 색상과 방향을 설정합니다. */
@@ -129,11 +134,10 @@
 }
 
 .card-head {
-  font-family: "pixel-robo";
+  font-size: larger;
 }
 
 .card-body {
-  font-family: "dung-geun-mo";
   font-weight: 700;
-  font-size: larger;
+  font-size: x-large;
 }

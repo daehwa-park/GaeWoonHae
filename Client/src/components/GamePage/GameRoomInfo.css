@@ -1,6 +1,8 @@
 .game-room-info-start {
-  /* background-color: rgb(199, 125, 199); */
-  height: 77vh;
+  /* background-color: rgb(232, 184, 121); */
+  height: 60vh;
+  padding: 5%;
+  border-radius: 10px;
 }
 .count-people {
 display: flex;
@@ -9,11 +11,11 @@ margin-bottom: 10px;
 padding: 10px;
 padding-left: 20px;
 background-color: rgb(189, 125, 250);
-color:aliceblue
+color:aliceblue;
+border-radius: 10px;
 }
 
 .count-people > * {
-font-family: "dung-geun-mo";
 /* font-style:oblique; */
 }
 
@@ -36,7 +38,6 @@ padding: 10px;
 padding-left: 20px;
 padding-right: 20px;
 border-radius: 10px;
-font-family: "dung-geun-mo";
 margin: 7px 0;
 
 }

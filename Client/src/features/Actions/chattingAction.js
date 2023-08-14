@@ -11,6 +11,7 @@ function getStompClient(
   hostName,
   sessionId,
   myName,
+  setUserList,
   updateUser,
   navigate,
   gameType,
@@ -91,6 +92,8 @@ function getStompClient(
                 JSON.stringify(userList)
               );
               updateUser(userList);
+              setUserList(userList);
+
               console.log(JSON.stringify(userList, null, 2));
             }
           }
@@ -108,7 +111,7 @@ function getStompClient(
               );
             }
             updateUser(userList);
-
+            setUserList(userList);
             showUserInfo(userList);
           }
         );
@@ -219,40 +222,39 @@ function getStompClient(
     }
 
     function showMessage(message) {
-      let sender, content;
-      let messageClass = "message-other";
-    
-      // 메시지에 ':'가 있는 경우
-      if (message.includes(":")) {
-        [sender, content] = message.split(":");
-    
-        if (sender.trim() === myName) {
-          messageClass = "message-own";
-          $("#messages").append(
-            `<tr><td class="message ${messageClass}" style="background-color:purple; color:white">` +
-              content +
-              "</td></tr>"
-          );
-        } else {
-          $("#messages").append(
-            `<p>${sender}<p/>` +
-              `<tr><td class="message ${messageClass}" style="background-color:#77838F; color:black">` +
-              content +
-              "</td></tr>"
-          );
-        }
-      } else {
-        // 메시지에 ':'가 없는 경우
-        content = message;
-        $("#messages").append(
-          "<tr><td class='welcome-ms'>" + content + "</td></tr>"
-        );
-      }
-    
-      // $("#messages").append(
-      //   `<tr><td class="message ${messageClass}">` + content + "</td></tr>"
-      // );
+  let sender, content;
+  let messageClass = "message-other";
+
+  // 메시지에 ':'가 있는 경우
+  if (message.includes(":")) {
+    [sender, content] = message.split(":");
+
+    if (sender.trim() === myName) {
+      messageClass = "message-own";
+      $("#messages").append(
+        `<tr><td class="message ${messageClass}" style="background-color:purple; color:white">` +
+          content +
+          "</td></tr>"
+      );
+    } else {
+      $("#messages").append(
+          "<tr>"+`<td class="message ${messageClass}" style="background-color:#77838F; color:black">` +
+         `${sender} :` + content +
+          "</td></tr>"
+      );
     }
+  } else {
+    // 메시지에 ':'가 없는 경우
+    content = message;
+    $("#messages").append(
+      "<tr><td class='welcome-ms'>" + content + "</td></tr>"
+    );
+  }
+
+  // $("#messages").append(
+  //   `<tr><td class="message ${messageClass}">` + content + "</td></tr>"
+  // );
+}
 
     async function showUserInfo(namelist) {
       var resultDiv = document.getElementById("result");

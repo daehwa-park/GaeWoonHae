@@ -129,7 +129,7 @@ const Lobby = () => {
           </Row>
           <Row>
             <Col md={3} className="chat-col">
-              <Chatting updateUserList={updateUserList} />
+              <Chatting setUserList={setUserList} updateUserList={updateUserList} />
             </Col>
             <Col md={6} className="video-col">
               <Row>
@@ -139,7 +139,7 @@ const Lobby = () => {
                 id="canvas1"
                 className="outputImage"
                 ref={faceImgRef}
-                style={{ width: "480px", borderRadius: "10px" }}
+                style={{ width: "95%", borderRadius: "10px", marginLeft: "3%" }}
                 
               />
               <img className="emoji" alt="input" ref={emoji} style={{ display: "none" }}></img>
@@ -148,11 +148,11 @@ const Lobby = () => {
                 className="webcam"
                 mirrored
                 screenshotFormat="image/jpeg"
-                style={{ width: "480px", visibility: "hidden" ,display:"flex", position:"absolute" }}
+                style={{ width: "360px", visibility: "hidden" ,display:"flex", position:"absolute" }}
               />
             </div>
               </Row>
-              <Row className="text-center">
+              {/* <Row className="text-center">
                 <Col className="invite-time-container">
                   <Card bg="light">
                     <Card.Header
@@ -165,9 +165,9 @@ const Lobby = () => {
                   </Card>
                 </Col>
                 <Col className="invite-time-container">
-                  <LimitTime />
+                  <LimitTime/>
                 </Col>
-              </Row>
+              </Row> */}
             </Col>
             <Col md={3} className="game-col">
               {/* <div>{userList && userList[0].username}</div> */}

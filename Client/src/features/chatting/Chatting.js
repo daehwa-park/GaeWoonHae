@@ -6,7 +6,7 @@ import { chattingAction } from "../Actions/chattingAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Chatting = ({ setUserList, refUserList }) => {
+const Chatting = ({ setUserList, updateUserList }) => {
   const gameType = useSelector((state) => state.roomInfo.gameType);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,9 +20,16 @@ const Chatting = ({ setUserList, refUserList }) => {
   const handleInputChange = (e) => {
     setChatMessage(e.target.value); // 채팅 메세지가 입력되면 state를 갱신합니다.
   };
+
   const handleLeaveRoom = () => {
     navigate("/main");
   };
+  const updateUser = (userlist) => {
+    console.log("dis", userlist);
+    updateUserList(userlist);
+  }
+
+
   const saveStompClient = () => {
     dispatch(
       chattingAction.getStompClient(
@@ -30,19 +37,19 @@ const Chatting = ({ setUserList, refUserList }) => {
         sessionId,
         myName,
         setUserList,
+        updateUser,
         navigate,
         gameType,
         limitTime,
-
-    userId
-  )
-);
+        userId
+      )
+    );
   };
   const handleSend = () => {
     console.log(chatMessage);
 
-// 채팅을 보낸 후 입력창을 초기화
-setChatMessage("");
+    // 채팅을 보낸 후 입력창을 초기화
+    setChatMessage("");
   };
 
   useEffect(() => {
@@ -85,7 +92,7 @@ setChatMessage("");
             게임 시작
           </button>
         )}
-        <button
+          <button
           id="leaveRoom"
           className="leave-room-btn"
           type="button"

@@ -18,9 +18,9 @@
   right: 18%;
   height: 8%;
   width: 10%;  /* 컴포넌트 가로폭의 절반 크기 */
-  background-color: purple; /* 보라색 배경 */
-  color: white;  /* 텍스트는 흰색 */
-  border: none;
+  background-color: rgb(255, 255, 255); /* 보라색 배경 */
+  color: rgb(0, 0, 0);  /* 텍스트는 흰색 */
+  border: 2px solid;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
@@ -28,7 +28,8 @@
 }
 
 .gamestart-btn:hover {
-  background-color: darkviolet; /* 보라색의 어두운 색상으로 호버 효과 */
+  background-color: rgb(218, 108, 5); /* 보라색의 어두운 색상으로 호버 효과 */
+  color: white;
 }
 .chat-box {
     border: 2px solid rgb(235, 230, 230);
@@ -66,9 +67,9 @@
     right: 7%;  /* 게임스타트 버튼 옆에 위치 */
     height: 8%;
     width: 10%;
-    background-color: #f542c2;  /* 붉은색 배경 */
-    color: white;  /* 텍스트는 흰색 */
-    border: none;
+    background-color: #ffffff;  /* 붉은색 배경 */
+    color: black;  /* 텍스트는 흰색 */
+    border: 2px solid;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
@@ -76,7 +77,8 @@
 }
 
 .leave-room-btn:hover {
-    background-color: #d32f2f; /* 붉은색의 어두운 색상으로 호버 효과 */
+    background-color: #661d9a; /* 붉은색의 어두운 색상으로 호버 효과 */
+    color: white;
 }
 
 .welcome-ms {
@@ -106,7 +108,7 @@
   
   .message-own {
     background-color: #4CAF50;
-    color: red;
+    color: rgb(225, 67, 67);
     word-wrap: break-word;
     float: right;
     border-top-right-radius: 0;
@@ -137,7 +139,7 @@
 }
 
 .send-btn:hover {
-    background-color: #c322e3; /* 마우스를 올렸을 때의 배경색 */
+    background-color: #e1a223; /* 마우스를 올렸을 때의 배경색 */
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* 마우스를 올렸을 때의 그림자 효과 */
 }
 ::-webkit-scrollbar-button {
