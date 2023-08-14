@@ -6,7 +6,7 @@ import { chattingAction } from "../Actions/chattingAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Chatting = ({ setUserList, updateUserList }) => {
+const Chatting = ({ setModalOpen, setUserList, updateUserList }) => {
   const gameType = useSelector((state) => state.roomInfo.gameType);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -33,6 +33,7 @@ const Chatting = ({ setUserList, updateUserList }) => {
   const saveStompClient = () => {
     dispatch(
       chattingAction.getStompClient(
+        setModalOpen,
         hostName,
         sessionId,
         myName,

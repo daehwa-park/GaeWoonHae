@@ -8,6 +8,7 @@ import Stomp from "stompjs";
 import { roomActions } from "../../redux/reducer/roomInfoReducer";
 import { enterRoomAction } from "./enterRoomAction";
 function getStompClient(
+  setModalOpen,
   hostName,
   sessionId,
   myName,
@@ -143,7 +144,9 @@ function getStompClient(
               // to 준영이형 if문 안에 로비 페이지로 이동.
               if(JSON.parse(message.body).content===hostName) {
                 stompClient.disconnect();
-                console.log("방장 나가서 사라진방");
+                // window.alert("방장이 나가서 방이 사라졌습니다.");
+                setModalOpen(true);
+                // await navigate(`/main`);
               }
             } 
           }

@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import "./Lobby1.css";
 import { Container, Row, Col, Card } from "react-bootstrap/";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-
+import LobbyClose from "../../components/modal/LobbyClose";
 import Chatting from "../../features/chatting/Chatting";
 import GameRoomInfoStart from "../../components/GamePage/GameRoomInfoStart";
 import logo from "../../assets/img/mainlogo.png";
@@ -19,6 +19,8 @@ import {
 import cv from "@techstark/opencv-js";
 
 const Lobby = () => {
+
+  const [modalOpen, setModalOpen] = useState(false);
 
   const webcamRef = useRef();
   const imgRef = useRef();
@@ -121,6 +123,7 @@ const Lobby = () => {
         <img className="main-hover" src={logo} alt="" />
       </div>
       <div className="lobby-main">
+      {modalOpen && (<LobbyClose setModalOpen={setModalOpen}/>)}
         <Container>
           <Row className="title-row">
             <Col className="title-box">
@@ -129,7 +132,7 @@ const Lobby = () => {
           </Row>
           <Row>
             <Col md={3} className="chat-col">
-              <Chatting setUserList={setUserList} updateUserList={updateUserList} />
+              <Chatting setModalOpen={setModalOpen} setUserList={setUserList} updateUserList={updateUserList} />
             </Col>
             <Col md={6} className="video-col">
               <Row>
