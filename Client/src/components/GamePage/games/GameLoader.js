@@ -117,7 +117,6 @@ const GameLoader = ({props}) => {
             cancelAnimationFrame(loopPredId.current);
             return;
         }
-        console.log("팔벌려뛰기 인식 루프", finishedRef.current);
        
         if (model && webcam) {
             await webcam.update();

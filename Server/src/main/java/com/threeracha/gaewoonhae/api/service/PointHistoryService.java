@@ -41,8 +41,7 @@ public class PointHistoryService {
         pointHistory.setPointChange(emojiPrice);
 
         // [SQL 타임 스탬프 사용해 현재 및 날짜 데이터 변환 실시]
-        long nowDate = System.currentTimeMillis();
-        Timestamp timeStamp = new Timestamp(nowDate);
+        Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
 
         pointHistory.setChangeTime(timeStamp);
 

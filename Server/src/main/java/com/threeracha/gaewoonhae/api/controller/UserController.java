@@ -38,9 +38,9 @@ public class UserController {
     @Parameter(name = "userId", description = "조회할 사용자의 userId")
     @GetMapping("/userinfo/{userId}")
     public ResponseEntity<CommonResponse<UserInfoResponse>> getUserInfo (@PathVariable("userId") Long userId) {
-
+        System.out.println("유저 조회 실행됨");
         User userInfo = userService.getUserInfo(userId);
-
+        System.out.println(userInfo);
         return new ResponseEntity<>(
                 makeCommonResponse(SUCCESS, new UserInfoResponse(userInfo)), HttpStatus.OK);
     }
