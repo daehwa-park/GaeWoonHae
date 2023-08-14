@@ -75,13 +75,19 @@ public class RecordService {
 
     public List<RecordResponse> getRecordsDate(Long userId, Timestamp startDatetime) {
 
+       Timestamp startDateTimeZero = Timestamp.valueOf(
+                LocalDateTime.of(startDatetime
+                                .toLocalDateTime()
+                                .toLocalDate(),
+                        LocalTime.of(0,0,0)));
+
         Timestamp endDatetime = Timestamp.valueOf(
                 LocalDateTime.of(startDatetime
                                             .toLocalDateTime()
                                             .toLocalDate(),
                 LocalTime.of(23,59,59)));
 
-        List<Record> records = recordRepository.findRecordsByUserUserIdAndRecordDateTimeBetween(userId, startDatetime, endDatetime)
+        List<Record> records = recordRepository.findRecordsByUserUserIdAndRecordDateTimeBetween(userId, startDateTimeZero, endDatetime)
                 .orElseThrow(() -> new CustomException(CustomExceptionList.EXERCISE_RECORD_NOT_EXIST));
 
         return records.stream()
