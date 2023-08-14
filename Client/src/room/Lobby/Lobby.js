@@ -6,7 +6,7 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 import LobbyClose from "../../components/modal/LobbyClose";
 import Chatting from "../../features/chatting/Chatting";
 import GameRoomInfoStart from "../../components/GamePage/GameRoomInfoStart";
-import logo from "../../assets/img/mainlogo.png";
+import logo from "../../assets/img/purple_logo.png";
 import LimitTime from "../../components/GamePage/LimitTime";
 // 대기방 - 박 터트리기
 
@@ -113,15 +113,45 @@ const Lobby = () => {
     plusOne();
   }
 
-  const plusOne = () => {
+  const plusOne = () => {    
     setNum(prev => prev + 1);
   }
+  const [showCode, setShowCode] = useState(false);
 
+  const handleMouseEnter = () => {
+    setShowCode(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowCode(false);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(sessionId);
+    alert("초대코드가 복사되었습니다!");
+    setShowCode(false);
+  };
   return (
     <div className="lobby-body">
-      <div className="navbar-lobby">
-        <img className="main-hover" src={logo} alt="" />
+    <div className="navbar-lobby">
+      <img className="main-hover" src={logo} alt="" />
+      <div
+        className={`invitation-code ${showCode ? "hovered" : ""}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {showCode ? (
+          <>
+            {sessionId}{" "}
+            <button className="code-copy" onClick={handleCopy}>
+              Copy
+            </button>
+          </>
+        ) : (
+          "초대코드"
+        )}
       </div>
+    </div>
       <div className="lobby-main">
       {modalOpen && (<LobbyClose setModalOpen={setModalOpen}/>)}
         <Container>

@@ -65,24 +65,31 @@ const Chatting = ({ setModalOpen, setUserList, updateUserList }) => {
           <tbody id="messages"></tbody>
         </table>
       </div>
-      <Form className="chat-input-form">
-        <Form.Control
-          type="text"
-          id="chat"
-          value={chatMessage}
-          className="chat-input"
-          placeholder="채팅 입력"
-          onChange={handleInputChange}
-        />
-        <button
-          id="send"
-          className="send-btn"
-          variant="primary"
-          type="submit"
-          onClick={handleSend}
-        >
-          Send
-        </button>
+      <Form className="chat-input-form row">
+        <div className="col-9">
+          <Form.Control
+            type="text"
+            id="chat"
+            value={chatMessage}
+            className="chat-input"
+            placeholder="채팅 입력"
+            onChange={handleInputChange}
+            style={{ margin: "0px" }}
+          />
+        </div>
+        <div className="col-3 mx-0">
+          <button
+            id="send"
+            className="send-btn"
+            type="submit"
+            onClick={handleSend}
+            style={{ margin: "0px" }}
+          >
+            Send
+          </button>
+        </div>
+      </Form>
+      <Form>
         {hostName === myName && (
           <button
             id="gameStart"
@@ -93,7 +100,7 @@ const Chatting = ({ setModalOpen, setUserList, updateUserList }) => {
             게임 시작
           </button>
         )}
-          <button
+        <button
           id="leaveRoom"
           className="leave-room-btn"
           type="button"

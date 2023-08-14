@@ -6,6 +6,7 @@ import Pictogram from './ui/Pictogram';
 
 const GameLoader = ({props}) => {
 
+    const [audioPlaying, setAudioPlaying] = useState(false);
     // Props
     const setCount = props.setCount;
     const started = props.started;
@@ -147,7 +148,7 @@ const GameLoader = ({props}) => {
 
             // 테스트용 키버튼 동작 
             else if (key.current) {
-
+                setAudioPlaying(true);
                 setSuccess(true);
                 key.current = false;
                 ready1.current = ready2.current = set.current = false;
@@ -212,10 +213,10 @@ const GameLoader = ({props}) => {
         if (success) {
             console.log("성공함@@@@@@@@@@@@@@@@@@@@");
             clearTimeout(failTimerId.current);
-
+            
             setCount(prev => prev + 1);
             setSuccess(false);
-
+            
             getNextPose();
         }
     }, [success]);
@@ -279,6 +280,10 @@ const GameLoader = ({props}) => {
         <div className='jumpingjack'>
             {gameType === 1 && <JumpingJack props={{curPoseState, success, fail}}/>}
             {gameType === 2 && <Pictogram props={{curPoseState, success, fail, started,loadcomplete}}/>}
+            {audioPlaying && (<audio src="/music/mosquito_kill.mp3"
+            autoPlay
+            onEnded={() => setAudioPlaying(false)}
+            ></audio>)}
         </div>
     )
 }

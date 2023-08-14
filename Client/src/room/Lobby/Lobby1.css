@@ -3,6 +3,8 @@
   width: 100%;
   height: 0%;
   background-color: #FEFCF5;
+  display: flex;
+  justify-content: space-between;
   /* z-index: -5; */
 }
 .lobby-main{
@@ -111,14 +113,7 @@
 }
 
 
-/* 채팅 입력창 스타일 */
-.chat-input {
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 5px;
-  background-color: #f3e8ff;
-}
+
 
 /* 채팅 입력창 전송 버튼 스타일 */
 
@@ -140,4 +135,42 @@
 .card-body {
   font-weight: 700;
   font-size: x-large;
+}
+
+.invitation-code {
+  margin-right: 7vw;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+.invitation-box {
+  background-color: #f3e8ff; /* 초기 배경색 */
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.invitation-box:hover {
+  background-color: #d1c2e0; /* 호버 시 배경색 */
+}
+
+.copy-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding-left: 5px;
+  display: none; /* 처음에는 숨김 */
+}
+
+.invitation-box:hover .copy-btn {
+  display: inline-block; /* 호버 시 표시 */
+}
+
+.code-copy {
+  background-color: rgb(255, 255, 255);
+  border: 0px ;
+  margin-left: 1px;
 }
