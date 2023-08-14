@@ -142,7 +142,7 @@ const Mainslide=() => {
                                   </h3>
                                     <div className="centered-image-container">
                                         {/* <img src="/images/img/squat_gif.gif" alt="튜토리얼 GIF" className="centered-image" /> */}
-                                        
+                                        <img src="/images/img/mosquito.gif" alt="튜토리얼 GIF" className="centered-image" height="200" width="200" />
                                     </div>
                                     {/* 박수 동작으로 화면에 나타나는 모기를 잡아보자! <br/>
                                     게임이 종료될때까지 많이 성공한 사람이 승리! */}
@@ -163,6 +163,7 @@ const Mainslide=() => {
                                         </h3>
              
                                        <div className="centered-image-container">
+                                       <img src="/images/img/pictogram.gif" alt="튜토리얼 GIF" className="centered-image" />
                                         {/* <img src="/images/img/squat_gif.gif" alt="튜토리얼 GIF" className="centered-image" /> */}
                                         </div>
                                         {/* <img src="/images/img/2.png" alt="튜토리얼 GIF"  className="centered-text" /> */}
