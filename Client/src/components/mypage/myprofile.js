@@ -22,6 +22,7 @@ import emoji7 from '../../assets/emoji/emoji7.png'
 import emoji8 from '../../assets/emoji/emoji8.png'
 import emoji9 from '../../assets/emoji/emoji9.png'
 import emoji10 from '../../assets/emoji/emoji10.png'
+import emojix from '../../assets/emoji/emojix.png'
 
 //달력
 import Calendar from 'react-calendar';
@@ -248,6 +249,7 @@ const Myprofilepage = () => {
     8: emoji8,
     9: emoji9,
     10: emoji10,
+    11: emojix,
   };
   
   const getEmoji = (emojiId) => {
