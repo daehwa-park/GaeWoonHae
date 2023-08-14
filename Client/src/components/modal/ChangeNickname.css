@@ -1,6 +1,13 @@
-
+@font-face {
+    font-family: 'CustomFont';
+    src: url('../../assets/font/DungGeunMo.woff2') format('woff2'),
+    url('../../assets/font/DungGeunMo.woff') format('woff')
+    /* 다양한 포맷의 폰트 파일을 지정 */
+  }
 
 .nickmodal-container {
+    
+    font-family: 'CustomFont', sans-serif;
     position: fixed;
     top: 0;
     left: 0;
@@ -15,6 +22,7 @@
 }
 
 #nickmodals {
+    font-family: 'CustomFont', sans-serif;
     position: absolute;
     top: 38vh;
     left: 38vw;

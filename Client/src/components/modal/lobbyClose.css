@@ -1,0 +1,55 @@
+#lobbymodals {
+    position: absolute;
+    top: 21%;
+    left: 28%;
+    width: 45vw;
+    height: 60vh;
+    border: 2px solid rgb(204, 200, 200);
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 2px 2px rgb(133, 132, 132);
+    z-index: 1;
+    text-align: center;
+}
+
+.header {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 25%;
+  font-family: 'CustomFont', sans-serif;
+}
+
+  .buttons {
+    display: flex; /* 가로 정렬 설정 */
+    justify-content: center; /* 버튼 사이 간격 설정 */
+    align-self: flex-end;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 5%;
+  }
+
+  .Button {
+    width: 120px; /* 버튼 너비 설정 */
+    height: 40px;
+    border: 2px solid rgb(204, 200, 200);
+    border-radius: 5px;
+    background-color: rgb(221, 216, 225);
+    box-shadow: 4px 4px rgb(133, 132, 132);
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    font-family: 'CustomFont', sans-serif;
+  }
+  
+  .Button:hover,
+  .Button:focus,
+  .Button:active {
+    background-color:  rgb(235, 162, 78);
+    box-shadow: 4px 4px rgb(182, 122, 55);
+    color: #ffffff;
+  }
