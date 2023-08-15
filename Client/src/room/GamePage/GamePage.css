@@ -109,7 +109,7 @@
 .mainvideo {
     width: 81vw;
     height: 83vh;
-    
+    /* border: 3px solid red; */
 }
 
 .footer {
@@ -126,27 +126,33 @@
 }
 
 
-#main-videos {
+#game-main-videos {
+    /* position: relative; */
+    display: flex;
+    align-items: center;
     width: 60vw;
+    height: 79vh;
     /* border: 5px solid rgb(182, 21, 182); */
     
 }
 
-#main-video {
-    /* display: flex; */
+#game-main-video {
     /* margin-top: 3vh;
     margin-left: 1vw; */
-    width: 86%;
-    margin:  3vh auto;
+    width: 92vh;
+    /* margin:  3vh auto; */
+
+    margin-top: 3vh;
     /* height: auto; */
-    /* height: 62%; */
+    /* height: 70vh; */
+    margin-left :5vw;
     /* border: 20px solid salmon; */
 }
 
-#main-videocss{
+/* #main-videocss{
     border :5px solid red;
 
-}
+} */
 #sub-videos {
     margin: 3vh 2vw;
     width: 14vw;

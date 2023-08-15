@@ -25,14 +25,15 @@ box-sizing: border-box; /* 패딩과 보더를 요소의 전체 너비 및 높�
 }
 
 .chat-box {
-border: 2px solid rgb(235, 230, 230);
-margin-bottom: 5px;
-padding: 10px;
-height: 60vh;
-overflow-y: auto;
-background-color: rgb(250, 239, 249);
-border-radius: 10px;
-box-shadow: 1px 1px 1px 1px rgb(226, 223, 223);
+  position: relative;
+  border: 2px solid rgb(235, 230, 230);
+  margin-bottom: 5px;
+  padding: 10px;
+  height: 52vh;
+  overflow-y: auto;
+  background-color: #F0F0F0;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgb(226, 223, 223);
 }
 /* 스크롤바가 항상 표시되지 않도록 기본 설정 */
 .chat-box::-webkit-scrollbar {
@@ -57,12 +58,12 @@ overflow-y: overlay;
 position: absolute;
 bottom: 5%;
 right: 18%;
-height: 8%;
+height: 7%;
 width: 10%;  /* 컴포넌트 가로폭의 절반 크기 */
 background-color: rgb(255, 255, 255); /* 보라색 배경 */
 color: rgb(0, 0, 0);  /* 텍스트는 흰색 */
 border: 2px solid;
-border-radius: 5px;
+border-radius: 10px;
 font-size: 16px;
 cursor: pointer;
 transition: background-color 0.3s;
@@ -78,12 +79,12 @@ color: white;
   position: absolute;
   bottom: 5%;
   right: 7%;  /* 게임스타트 버튼 옆에 위치 */
-  height: 8%;
+  height: 7%;
   width: 10%;
   background-color: #ffffff;  /* 붉은색 배경 */
   color: black;  /* 텍스트는 흰색 */
   border: 2px solid;
-  border-radius: 5px;
+  border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -142,7 +143,7 @@ color: white;
 .send-btn {
   
   height: 40px;
-  background-color: #d354c4;  /* 버튼의 배경색 */
+  background-color: #3498db;  /* 버튼의 배경색 */
   color: white;               /* 버튼의 글자색 */
   border: none;               /* 테두리 없애기 */
          /* 버튼 안쪽의 여백 설정 */
@@ -162,4 +163,29 @@ color: white;
 }
 ::-webkit-scrollbar-button {
 display: none;
+}
+
+.AAA {
+  /* border: 10px solid red; */
+  position: absolute;
+  left: 1.5vw;
+  bottom: 1vh;
+}
+
+
+.chat-msg {
+  margin: 0 auto;
+}
+
+.chat-top-bar {
+  background-color: #F0F0F0; /* 채팅 상단바 배경색 */
+  padding: 10px; /* 채팅 상단바 패딩 */
+  border-bottom: 1px solid #ccc; /* 채팅 상단바 아래 테두리 */
+}
+
+/* 채팅방 제목 스타일 */
+.chat-room-title {
+  font-size: 1.2em; /* 텍스트 크기 */
+  color: #333; /* 텍스트 색상 */
+  font-weight: bold; /* 텍스트 굵기 */
 }

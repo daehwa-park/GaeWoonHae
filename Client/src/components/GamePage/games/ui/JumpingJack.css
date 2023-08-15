@@ -1,10 +1,10 @@
 .screen-ui {
     /* z-index : 10; */
     position: absolute;
-    width: 40vw;
-    height: 60vh;
+    width: 50vw;
+    height: 70vh;
     top: 8vh;
-    left: 15vw;
+    left: 27vw;
     /* border: 2px solid red; */
 }
 
@@ -13,8 +13,8 @@
 }
 
 .img-container {
-    width: 20vw;
-    height: 30vh;
+    width: 25vw;
+    height: 35vh;
     /* border: 2px solid red; */
 }
 
