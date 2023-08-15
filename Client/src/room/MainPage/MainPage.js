@@ -14,9 +14,17 @@ const Mainpage = () => {
   const userId = useSelector((state) => state.auth.user.userId);
   const dispatch = useDispatch();
 
+  const [circlePosition, setCirclePosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (event) => {
+    const { clientX, clientY } = event;
+    setCirclePosition({ x: clientX, y: clientY });
+  };
+
+
+  
   const checking=()=>{
     localStorage.removeItem('music')
-    console.log('asdf')
   }
   useEffect(() => {
     // 메인페이지로 오면 방정보 리듀서를 초기화 합니다.
@@ -25,12 +33,32 @@ const Mainpage = () => {
     dispatch(authenticateAction.getUserInfo(userId));
 
     localStorage.setItem('music',true)
-    return checking()
-  });
+    return ()=> {
+      checking()
+  
+    } 
+  },[]);
+
+  useEffect(()=> {
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return ()=> {
+      window.removeEventListener("mousemove", handleMouseMove);
+    } 
+  })
 
   return (
     <div>
       <div className="maintitle">
+      <div
+        className="circle"
+          style={{
+            transform: `translate(${circlePosition.x - 10}px, ${
+              circlePosition.y - 10
+            }px)`,
+            opacity: 1,
+          }}
+        ></div>
         {/* 상단 네비바 */}
         <NavBox className="mainnavbar" />
         <NavTitle className="mainnavbar2" />

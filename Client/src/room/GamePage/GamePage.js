@@ -537,13 +537,13 @@ const GamePage = () => {
                                 <img className="emoji" alt="input" ref={emojiRef} style={{display:'none'}} />
                             </div>
 
+                            {/* 위에 공통 UI */}
+                            <CommonUI props={{count, timer, renderingUserList, loadcomplete, finished, setFinished, gameTime, gameType}} />
                             <div id="video-container" style={{ display:"flex"}}>
                                 {/* 내 화면 */}
-                                <div id="main-videos">
-                                    <div id="main-video" >
-                                        <UserVideoComponent id="main-videocss" streamManager={mainStreamManager}/>
-                                        {/* 위에 공통 UI */}
-                                        <CommonUI props={{count, timer, renderingUserList, loadcomplete, finished, setFinished, gameTime, gameType}} />
+                                <div id="game-main-videos">
+                                    <div id="game-main-video" >
+                                        <UserVideoComponent id="main-videocss" streamManager={mainStreamManager} />
                                     </div>
                                 </div>
                                 

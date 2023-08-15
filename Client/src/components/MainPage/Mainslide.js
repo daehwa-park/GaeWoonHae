@@ -147,9 +147,6 @@ const Mainslide=() => {
                                     {/* 박수 동작으로 화면에 나타나는 모기를 잡아보자! <br/>
                                     게임이 종료될때까지 많이 성공한 사람이 승리! */}
                                     {/* <img src="/images/img/1.png" alt="튜토리얼 GIF"  className="centered-text" /> */}
-                                    
-                                  
-                                    
                                 </div>
                             </div>
                         </div>
