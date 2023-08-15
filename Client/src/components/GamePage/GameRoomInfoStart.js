@@ -55,8 +55,25 @@ const GameRoomInfoStart = ({ userList, refUserList }) => {
       <div className="card-list">
         {userList.map((person, idx) =>
           person.username === hostName ? (
-            <div key={idx} className="user-card">
-              {person.username} <div>🌟</div>
+            // <div key={idx} className="user-card">
+            //   {person.username} <div>🌟</div>
+            // </div>
+            <div>
+              <div key={idx} className="user-card">
+                {person.username} <div>🌟</div>
+              </div>
+              <div key={idx} className="user-card">
+                {person.username} <div>🌟</div>
+              </div>
+              <div key={idx} className="user-card">
+                {person.username} <div>🌟</div>
+              </div>
+              <div key={idx} className="user-card">
+                {person.username} <div>🌟</div>
+              </div>
+              <div key={idx} className="user-card">
+                {person.username} <div>🌟</div>
+              </div>
             </div>
           ) : (
             <div key={idx} className="user-card">
@@ -65,6 +82,9 @@ const GameRoomInfoStart = ({ userList, refUserList }) => {
           )
         )}
       </div>
+
+      <div className="setting-emoji">이모지 변경하기</div>
+
       {hostName === myName && (
         <div
           className="time-setting-btn"

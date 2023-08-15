@@ -11,6 +11,8 @@
   /* 다양한 포맷의 폰트 파일을 지정 */
 }
 
+
+
 /*--------------------------------------------------------------
 슬라이드 스타일
 --------------------------------------------------------------*/
@@ -286,7 +288,7 @@ h2 {
   margin: 0 0 40px;
   text-transform: capitalize;
   transition:all .4s ease;
-  font-family: ;
+
 } 
 
 @media (max-width: 1199px) {
@@ -481,9 +483,4 @@ a:hover {
   border-top: 12px solid #ff5500; /* 선 두께 */
   border-right: 12px solid #da821f; /* 선 두께 */
   transform: rotate(45deg); /* 각도 */
-}
-
-.arrow-left:hover {
-
-  /* background-color: #f37f20; 마우스 호버 시 배경색 변경 */
 }
