@@ -58,23 +58,12 @@ const GameRoomInfoStart = ({ userList, refUserList }) => {
             // <div key={idx} className="user-card">
             //   {person.username} <div>🌟</div>
             // </div>
-            <div>
+       
               <div key={idx} className="user-card">
-                {person.username} <div>🌟</div>
+                {person.username} <div key={idx}>🌟</div>
               </div>
-              <div key={idx} className="user-card">
-                {person.username} <div>🌟</div>
-              </div>
-              <div key={idx} className="user-card">
-                {person.username} <div>🌟</div>
-              </div>
-              <div key={idx} className="user-card">
-                {person.username} <div>🌟</div>
-              </div>
-              <div key={idx} className="user-card">
-                {person.username} <div>🌟</div>
-              </div>
-            </div>
+              
+    
           ) : (
             <div key={idx} className="user-card">
               {person.username}

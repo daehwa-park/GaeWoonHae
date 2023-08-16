@@ -158,11 +158,13 @@
   }
 
   .tutorial{
+    position: relative;
+    display: flex;
+    justify-content: space-around;
     border: 20px red;
-    width: 36vw;
+    width: 55vw;
     margin: 0 auto;
-    border: 5px solid rgb(0, 0, 0);
-
+    /* border: 5px solid rgb(0, 0, 0); */
   }
 
   .tutorial-name{
@@ -170,7 +172,77 @@
     font-size: 2vw;
   }
 
+  .mostuto{
+    height: 33vh;
+  }
+
   .tutorial-content{
     margin-top: 2vh;
     font-size: 1vw;
   }
+
+  .mos-img-modal {
+    position: absolute;
+    height: 8vh;
+    left: 27.5vw;
+  }
+
+  .mosdie-img-modal {
+    position: absolute;
+    height: 5vh;
+    left: 42vw;
+    top: 4vh;
+  }
+
+  .mst1 {
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+  }
+  
+  .mst1.show {
+    opacity: 1;
+  }
+  .mst2 {
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+  }
+  
+  .mst2.show {
+    opacity: 1;
+  }
+  .mst3 {
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+  }
+  
+  .mst3.show {
+    opacity: 1;
+  }
+  
+  .mst4 {
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+  }
+  
+  .mst4.show {
+    opacity: 1;
+  }
+  
+  .mst5 {
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+  }
+  
+  .mst5.show {
+    opacity: 1;
+  }
+  
+  .mst6 {
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+  }
+  
+  .mst6.show {
+    opacity: 1;
+  }
+  
