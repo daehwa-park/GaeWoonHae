@@ -66,31 +66,29 @@ const CommonUI = ({props}) => {
                 {/* <Timer time={60}/> */}
             <div className={`ranking-list${gameType}`}>
                 <div className={`game-ranking-ui${gameType}`}>
-                        <div className={`game-ranking1-${gameType}`}>현재 랭킹</div>
-                            {/* <div className='ranking2'>
-                                1위 : <br/>2위 : <br/>3위 : <br/>4위 : <br/>
-                            </div> */}
+                        <div className={`game-ranking1-${gameType}`}><div className='user-rank0'>👑</div><div className='user-rank10'>👑</div>현재 랭킹</div>
                         <div className={`game-ranking2-${gameType}`}>
                             {userList.map((user, idx) => (
+                           
                                 <div className='user-ranking' key={idx}>
-                                    {userList.length ===1 && (
-                                        <img className='user-rank1' src={first} alt="" />
-                                    )}
-                                    {userList.length ===2 && (
-                                        <div>
-                                            <img className='user-rank1' src={first} alt="" />
-                                            <img className='user-rank2' src={second} alt="" />
+                                    {idx===0 && (
+                                        <div className='user-rank1'>
+                                            🥇
                                         </div>
                                     )}
-                                    {userList.length ===3 && (
-                                        <div>
-                                            <img className='user-rank1' src={first} alt="" />
-                                            <img className='user-rank2' src={second} alt="" />
-                                            <img className='user-rank3' src={third} alt="" />
+                                    {idx ===1 && (
+                                        <div className='user-rank1'>
+                                            🥈
+                                        </div>
+                                    )}
+                                    {idx ===2 && (
+                                        <div className='user-rank1'>
+                                            🥉
                                         </div>
                                     )}
                                     {idx+1}위 {user.username} {user.count}개 
                                 </div>
+                        
                             ))}
                             {/* <div className='user-ranking'>1위 김두현 12개</div>
                             <div className='user-ranking'>2위 김두현 12개</div>

@@ -61,34 +61,37 @@ const Chatting = ({ setModalOpen, setUserList, updateUserList }) => {
   return (
     <div>
       <div className="chat-box">
-        <table className="table">
+        <div className="chat-top-bar">
+          <span className="chat-room-title">{gameType===1 ? <div>모기잡이방</div> : <div>픽토그램방</div>}</span>
+        </div>
+        <table className="table chat-msg">
           <tbody id="messages"></tbody>
         </table>
+        <Form className="chat-input-form row AAA">
+          <div className="col-9 BBB">
+            <Form.Control
+              type="text"
+              id="chat"
+              value={chatMessage}
+              className="chat-input"
+              placeholder="채팅 입력"
+              onChange={handleInputChange}
+              style={{ width:"15vw"   }}
+            />
+          </div>
+          <div className="col-3 mx-0">
+            <button
+              id="send"
+              className="send-btn"
+              type="submit"
+              onClick={handleSend}
+              style={{ margin: "0px" }}
+            >
+              Send
+            </button>
+          </div>
+        </Form>
       </div>
-      <Form className="chat-input-form row">
-        <div className="col-9">
-          <Form.Control
-            type="text"
-            id="chat"
-            value={chatMessage}
-            className="chat-input"
-            placeholder="채팅 입력"
-            onChange={handleInputChange}
-            style={{ margin: "0px" }}
-          />
-        </div>
-        <div className="col-3 mx-0">
-          <button
-            id="send"
-            className="send-btn"
-            type="submit"
-            onClick={handleSend}
-            style={{ margin: "0px" }}
-          >
-            Send
-          </button>
-        </div>
-      </Form>
       <Form>
         {hostName === myName && (
           <button

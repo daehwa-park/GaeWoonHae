@@ -9,6 +9,9 @@ import emoji7 from "../../assets/emoji/emoji7.png";
 import emoji8 from "../../assets/emoji/emoji8.png";
 import emoji9 from "../../assets/emoji/emoji9.png";
 import emoji10 from "../../assets/emoji/emoji10.png";
+import Emojishop from "../../assets/emoji/emojishop.png";
+import ShopOpen from "../../assets/emoji/emojishop_open.png";
+import Storetitle from "../../assets/emoji/storetitle.png";
 
 import { useEffect, useState, useRef } from "react";
 import { emojiShopAction } from "../../features/Actions/emojiprocessing";
@@ -162,7 +165,7 @@ const Myemojipage = () => {
   return (
     <div className="mypage-body2">
       <div className="emoji-shop">
-        <h3 className="emoji-title1">이모지 상점 </h3>
+        <h3 className="emoji-title1"><img className="emoji-shop-img" src={Emojishop} alt="" />이모지 상점 </h3>
          {/* {saveEmoji}</h3> */}
         <h3 className="emoji-title2">
           보유 포인트: <span>{userPoint}</span>
@@ -175,6 +178,7 @@ const Myemojipage = () => {
             <div className="emoji-video">
               <img className="inputImage" alt="input" ref={imgRef} style={{ display: "none" }} />
               <canvas
+          
                 id="canvas1"
                 className="outputImage"
                 ref={faceImgRef}
@@ -197,10 +201,10 @@ const Myemojipage = () => {
                   {selectedEmoji ? (
                     <img className="selected-emoji" src={selectedEmoji} alt="" />
                   ) : (
-                    <p className="selected-emoji">선택된 이모지 없음</p>
+                    <p className="selected-emoji">선택된 이모지가 없어요!</p>
                   )}
                 </div>
-                <div>
+                <div className="emoji-info">
                   <div className="emoji-id"><span>번호 :</span> <span>{selectEmojiId}</span></div>
                   <div className="emoji-price"><span>가격 :</span> <span>{selectPrice}  
                    <img className="money-img2" src="/images/img/coin.png" alt="My Image" width="18"/>
@@ -210,19 +214,21 @@ const Myemojipage = () => {
             </div>
         </div>
         <div className="emoji-right">
+          {/* <img className="Storetitle" src={Storetitle} alt="" /> */}
           {/* 이모지 종류 리스트 */}
-          <div className="emojicomp">
-
-              {emojiArray.map((emoji, index) => (
-                <img
-                  key={index}
-                  className="emoji-size"
-                  src={emoji}
-                  onClick={() => handleEmojiClick(emoji, index)}
-                  alt=""
-                />
-              ))}
-     
+          <div className="emojishop-bar">
+            <div className="emojicomp">
+                {emojiArray.map((emoji, index) => (
+                  <img
+                    key={index}
+                    className="emoji-size"
+                    src={emoji}
+                    onClick={() => handleEmojiClick(emoji, index)}
+                    alt=""
+                  />
+                ))}
+            </div>
+            {/* <img className="shop-openimg" src={ShopOpen} alt="" /> */}
           </div>
         </div>
       </div>

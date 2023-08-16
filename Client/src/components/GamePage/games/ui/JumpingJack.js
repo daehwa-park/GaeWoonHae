@@ -9,7 +9,7 @@ const JumpingJack = ({props}) => {
 
     const curPoseState = props.curPoseState;
     const success = props.success;
-    const fail = props.fail;
+    const finish = props.finished;
 
     const [deadstate,setDeadstate] =useState(false)
     const [kill1,setKill1] =useState(false)
@@ -21,20 +21,8 @@ const JumpingJack = ({props}) => {
     const mosquito3 =!kill3 ? livemosquito : deadMosquito ;
     const mosquito4 =!kill4 ? livemosquito : deadMosquito ;
 
-    const normalImages = [
-        useRef(),
-        useRef(),
-        useRef(),
-        useRef()
-    ];
-
-    const successImages = [
-        useRef(),
-        useRef(),
-        useRef(),
-        useRef()
-    ];
-
+    const [marginLeft,setMarginLeft] =useState(0)
+    const [marginTop,setMarginTop] =useState(0)
 
     useEffect(() => {
         if (success) {
@@ -59,51 +47,87 @@ const JumpingJack = ({props}) => {
     },[success]);
 
     useEffect(() => {
-        if (fail) {
-            let curPose = curPoseState;
-            // normalImages[curPose].current.style.setProperty('display', 'none');
-        }
-    },[fail]);
+        // const newPositions = positions.map((position) => ({
+        //     x: Math.random() * (window.innerWidth - 0.1 * window.innerWidth),
+        //     y: Math.random() * (window.innerHeight - 0.1 * window.innerHeight), 
+        //   }));
+        //   setPositions(newPositions);
 
-    useEffect(() => {
-        let curPose = curPoseState;
         if (curPoseState !== undefined) {
-            console.log("모기 이미지 띄우자~~~~~~~~~~~~~~~~~~~~~~~~!@@@@@",curPoseState)  
-            setKill1(false)
-            setKill2(false)
-            setKill3(false)
-            setKill4(false)
-
+            const marginLeft= `${Math.random() * 10}vw`; // 0vw ~ 20vw 범위에서 랜덤 값
+            const marginTop= `${Math.random() * 10}vw`;
+            setMarginLeft(marginLeft)
+            setMarginTop(marginTop)
+            // setPositions([marginLeft,marginTop])
+            console.log("모기 이미지 띄우자~~~~~~~~~~~~~~~~~~~~~~~~!@@@@@",curPoseState)
+            if (deadstate===1) {
+                setKill2(false)
+                setKill3(false)
+                setKill4(false)
+                setTimeout(()=>{
+                    setKill1(false)
+                },2000)
+            }  else if (deadstate===2) {
+                setKill1(false)
+                setKill3(false)
+                setKill4(false)
+                setTimeout(()=>{
+                    setKill2(false)
+                },2000)
+            } else if (deadstate===3) {
+                setKill1(false)
+                setKill2(false)
+                setKill4(false)
+                setTimeout(()=>{
+                    setKill3(false)
+                },2000)
+            } else if (deadstate===4) {
+                setKill1(false)
+                setKill2(false)
+                setKill3(false)
+                setTimeout(()=>{
+                    setKill4(false)
+                },2000)
+            }
         }        
     }, [curPoseState])
 
     return (
         <div className="screen-ui">
-            <div className="screen-row">
-                <div className="img-container">
-                    {curPoseState === 0 || deadstate===1 ? (
-                        <img className={`mosquito-img mos-1 ${curPoseState === 0 && !kill1 ? 'active' : ''} ${kill1 ? 'dead' : ''}`} src={mosquito1} alt=""/>
-                    
-                   ) : null}
-                   </div>
-                <div className="img-container">
-                    {curPoseState === 1 || deadstate===2 ? (
-                         <img className={`mosquito-img mos-2 ${curPoseState === 1 && !kill2 ? 'active' : ''} ${kill2 ? 'dead' : ''}`} src={mosquito2} alt="" />
-                   ) : null}
-                   </div>
-            </div>
-            <div className="screen-row">
-                <div className="img-container">
-                    {curPoseState === 2 || deadstate===3 ? (
-                   <img className={`mosquito-img mos-3 ${curPoseState === 2 && !kill3 ? 'active' : ''} ${kill3 ? 'dead' : ''}`} src={mosquito3} alt="" />
-                   ) : null}
+            {!finish ? (
+                <div>
+                    <div className="screen-row">
+                        <div className="img-container">
+                            
+                            {curPoseState === 0 || deadstate===1 ? (
+                                <img className={`mosquito-img mos-1 ${curPoseState === 0 && !kill1 ? 'active' : ''} ${kill1 ? 'dead' : ''}`}  style={{marginLeft:marginLeft,marginTop:marginTop}} src={mosquito1} alt=""/>
+                            
+                        ) : null}
+                        </div>
+                        <div className="img-container">
+                            
+                            {curPoseState === 1 || deadstate===2 ? (
+                            <img className={`mosquito-img mos-2 ${curPoseState === 1 && !kill2 ? 'active' : ''} ${kill2 ? 'dead' : ''}`} style={{marginLeft:marginLeft,marginTop:marginTop}} src={mosquito2} alt="" />
+                        ) : null}
+                        </div>
+                    </div>
+                    <div className="screen-row">
+                        <div className="img-container">
+                           
+                            {curPoseState === 2 || deadstate===3 ? (
+                        <img className={`mosquito-img mos-3 ${curPoseState === 2 && !kill3 ? 'active' : ''} ${kill3 ? 'dead' : ''}`} style={{marginLeft:marginLeft,marginTop:marginTop}} src={mosquito3} alt="" />
+ 
+                        ) : null}
+                        </div>
+                        <div className="img-container">
+                           
+                            {curPoseState === 3 || deadstate===4 ? (
+                        <img className={`mosquito-img mos-4 ${curPoseState === 3 && !kill4 ? 'active' : ''} ${kill4 ? 'dead' : ''}`} style={{marginLeft:marginLeft,marginTop:marginTop}} src={mosquito4} alt="" />
+                        ) : null}
+                        </div>
+                    </div>
                 </div>
-                <div className="img-container">
-                    {curPoseState === 3 || deadstate===4 ? (
-                   <img className={`mosquito-img mos-4 ${curPoseState === 3 && !kill4 ? 'active' : ''} ${kill4 ? 'dead' : ''}`} src={mosquito4} alt="" />
-                   ) : null}
-                </div>
-            </div>
+            ) : null}
         </div>
     
     );

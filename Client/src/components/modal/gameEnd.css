@@ -98,7 +98,7 @@
     margin-top: 5%;
   }
 
-  .Button {
+  .End-Button {
     width: 120px; /* 버튼 너비 설정 */
     height: 40px;
     border: 2px solid rgb(204, 200, 200);
@@ -113,11 +113,12 @@
     align-items: center;
     cursor: grab;
     font-family: 'CustomFont', sans-serif;
+    z-index: 1000;
   }
   
-  .Button:hover,
-  .Button:focus,
-  .Button:active {
+  .End-Button:hover,
+  .End-Button:focus,
+  .End-Button:active {
     background-color:  rgb(235, 162, 78);
     box-shadow: 4px 4px rgb(182, 122, 55);
     color: #ffffff;

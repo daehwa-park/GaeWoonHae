@@ -13,26 +13,28 @@
 }
 /* 채팅 입력창 스타일 */
 .chat-input {
-
-width: 100%;
-margin-right: 5px;
-height: 40px;
-border: 1px solid #ccc;
-border-radius: 5px;
-padding: 5px;
-background-color: #f3e8ff;
-box-sizing: border-box; /* 패딩과 보더를 요소의 전체 너비 및 높이에 포함 */
+  width: 22vw;
+  margin-left: 1.3vw;
+  margin-right: 3vw;
+  height: 40px;
+  border: 20px solid #ccc;
+  border-radius: 5px;
+  /* padding: 5px; */
+  background-color: #f3e8ff;
+  box-sizing: border-box; /* 패딩과 보더를 요소의 전체 너비 및 높이에 포함 */
 }
 
 .chat-box {
-border: 2px solid rgb(235, 230, 230);
-margin-bottom: 5px;
-padding: 10px;
-height: 60vh;
-overflow-y: auto;
-background-color: rgb(250, 239, 249);
-border-radius: 10px;
-box-shadow: 1px 1px 1px 1px rgb(226, 223, 223);
+  position: relative;
+  border: 2px solid rgb(235, 230, 230);
+  margin-bottom: 5px;
+  padding: 10px;
+  width: 22vw;
+  height: 52vh;
+  overflow-y: auto;
+  background-color: #F0F0F0;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgb(226, 223, 223);
 }
 /* 스크롤바가 항상 표시되지 않도록 기본 설정 */
 .chat-box::-webkit-scrollbar {
@@ -54,18 +56,19 @@ background-color: #888; /* 호버 시 색상 */
 overflow-y: overlay;
 }
 .gamestart-btn {
-position: absolute;
-bottom: 5%;
-right: 18%;
-height: 8%;
-width: 10%;  /* 컴포넌트 가로폭의 절반 크기 */
-background-color: rgb(255, 255, 255); /* 보라색 배경 */
-color: rgb(0, 0, 0);  /* 텍스트는 흰색 */
-border: 2px solid;
-border-radius: 5px;
-font-size: 16px;
-cursor: pointer;
-transition: background-color 0.3s;
+
+  position: absolute;
+  bottom: 4%;
+  right: 18%;
+  height: 7%;
+  width: 10%;  /* 컴포넌트 가로폭의 절반 크기 */
+  background-color: rgb(255, 255, 255); /* 보라색 배경 */
+  color: rgb(0, 0, 0);  /* 텍스트는 흰색 */
+  border: 2px solid;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .gamestart-btn:hover {
@@ -76,14 +79,14 @@ color: white;
 
 .leave-room-btn {
   position: absolute;
-  bottom: 5%;
+  bottom: 4%;
   right: 7%;  /* 게임스타트 버튼 옆에 위치 */
-  height: 8%;
+  height: 7%;
   width: 10%;
   background-color: #ffffff;  /* 붉은색 배경 */
   color: black;  /* 텍스트는 흰색 */
   border: 2px solid;
-  border-radius: 5px;
+  border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -96,11 +99,10 @@ color: white;
 
 .welcome-ms {
   padding: 5px 10px;
-  margin: 5px;
+  margin: 5px auto;
   border-radius: 8px;
   width: 100%;
   display: inline-block;
-  background-color: aqua;
   clear: both;
   text-align: center;
   
@@ -142,7 +144,7 @@ color: white;
 .send-btn {
   
   height: 40px;
-  background-color: #d354c4;  /* 버튼의 배경색 */
+  background-color: #3498db;  /* 버튼의 배경색 */
   color: white;               /* 버튼의 글자색 */
   border: none;               /* 테두리 없애기 */
          /* 버튼 안쪽의 여백 설정 */
@@ -163,3 +165,30 @@ color: white;
 ::-webkit-scrollbar-button {
 display: none;
 }
+
+.AAA {
+  /* border: 10px solid red; */
+  position: absolute;
+  bottom: 1vh;
+  width: 22vw;
+}
+
+
+/* .chat-msg {
+  margin: 0 auto;
+} */
+
+.chat-top-bar {
+  background-color: #F0F0F0; /* 채팅 상단바 배경색 */
+  padding: 10px; /* 채팅 상단바 패딩 */
+  border-bottom: 1px solid #ccc; /* 채팅 상단바 아래 테두리 */
+}
+
+/* 채팅방 제목 스타일 */
+.chat-room-title {
+  font-size: 1.2em; /* 텍스트 크기 */
+  color: #333; /* 텍스트 색상 */
+  font-weight: bold; /* 텍스트 굵기 */
+  text-align: center;
+}
+

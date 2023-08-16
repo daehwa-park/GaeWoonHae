@@ -5,7 +5,6 @@
 
 import axios from "axios";
 import { authActions } from "../../redux/reducer/authenticateReducer";
-import { useDispatch } from "react-redux";
 
 
 // 로그인요청 주소
@@ -107,10 +106,10 @@ function getTokensUserId(authorizationCode) {
       })
       .then((res) => {
         const tokens = res.data.data.tokens;
-        window.localStorage.setItem("accessToken", tokens.accessToken);
-        window.localStorage.setItem("refreshToken", tokens.refreshToken);
+        localStorage.setItem("accessToken", tokens.accessToken);
+        localStorage.setItem("refreshToken", tokens.refreshToken);
         const userId = res.data.data.userId;
-        window.localStorage.setItem("userId", userId);
+        localStorage.setItem("userId", userId);
         dispatch(authActions.getTokensUserId({ tokens, userId }));
       })
 
@@ -138,14 +137,15 @@ function getUserInfo(userId) {
 
 // 유저 로그아웃 요청
 function userLogout(userId){
-  return async () =>{
+  return async (dispatch, state) =>{
     await loginApi
     .delete("/api/oauth/logout/" + userId)
-    .then(
-          console.log("로그아웃 완료!!")
-      )
+    .then(() => {
+      localStorage.clear();
+      console.log("로그아웃 성공");
+    })
       .catch((err)=>{
-        console.log("err메세지:"+err);
+          console.log("err메세지:"+err);
       });
   };
 }

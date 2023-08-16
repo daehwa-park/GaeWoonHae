@@ -46,7 +46,7 @@ function GameEndModal({ setModalOpen, props }) {
                     ))}
                 </div>
                 <div className="buttons">
-                    <button  className="Button" onClick={closeModal} >🔙 나가기</button>
+                    <button  className="End-Button" onClick={closeModal} >🔙 나가기</button>
                 </div>
         </div>
     );
