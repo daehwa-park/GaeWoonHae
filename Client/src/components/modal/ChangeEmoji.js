@@ -90,20 +90,21 @@ function ChangeEmojiModal({ setModalOpen }) {
     <div className="modal-container">
 
         <div id='changemodals'>
-            <h3 id='codetxt2'>이모지 변경하기</h3>
+            <h3 id='codetxt7'>이모지 변경하기</h3>
+            <div className='changeemoji-text'>내가 보유중인 이모지 :</div>
             <div className='emoji-box2'>
                 {/* <div className='emoji-img2' >{selectedEmoji ? <img className='selected-emoji' src={selectedEmoji} alt='' /> : '구입한 이모지가 없습니다.'}</div> */}
                 <div className='emojicomp2'>
-                    <img className='emoji-size' src={emojix} onClick={() => handleEmojiClick(emojix,11)} alt=""/>
+                    <img className='emoji-size2' src={emojix} onClick={() => handleEmojiClick(emojix,11)} alt=""/>
                     {saveEmoji.map((emojiId)=>(
-                        <img className='emoji-size' src={getEmoji(emojiId)} onClick={() => handleEmojiClick(getEmoji(emojiId),emojiId)} alt=""/>
+                        <img className='emoji-size2' src={getEmoji(emojiId)} onClick={() => handleEmojiClick(getEmoji(emojiId),emojiId)} alt=""/>
                     ))}
                 {/* <img className='emoji-size' src={emoji2} onClick={() => handleEmojiClick(emoji2,2)} alt=""/>
                 <img className='emoji-size' src={emoji3} onClick={() => handleEmojiClick(emoji3,3)} alt=""/> */}
                 </div>
                
             </div>
-            <div>현재 선택 이모지 : {selectedEmoji ? <img className='selected-emoji' src={selectedEmoji} alt=''/> : '선택한 이모지가 없습니다.'}</div>
+            <div className='select-emoji-change'>현재 선택한 이모지 : <br/>{selectedEmoji ? <img className='selected-emoji' src={selectedEmoji} alt=''/> : '선택한 이모지가 없습니다.'}</div>
 
          
             <div id='changemodal'>

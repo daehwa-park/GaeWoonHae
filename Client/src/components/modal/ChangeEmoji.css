@@ -1,18 +1,22 @@
 #changemodals {
     position: absolute;
-    top: 21%;
-    left: 23%;
-    width: 700px;
-    height: 500px;
+    top: 20vh;
+    left: 20vw;
+    width: 60vw;
+    height: 60vh;
     border: 2px solid rgb(204, 200, 200);
     border-radius: 20px;
     background-color: white;
     box-shadow: 2px 2px rgb(133, 132, 132);
     z-index: 1;
-    text-align: center;
+    /* text-align: center; */
 }
 .emoji-box2 {
     display:flex;
+    margin: 0 auto;
+    width: 40vw;
+    height: 15vh;
+    /* border: 3px solid black; */
 }
 .emoji-img2 {
     /* margin: 20vh 0 0 1vw; */
@@ -22,9 +26,19 @@
 }
 .emojicomp2 {
     margin: 0 auto;
-    width: 50vw;
-    height: 35vh;
+    width: 40vw;
+    height: 21vh;
     /* border: 2px solid black; */
+}
+
+.select-emoji-change {
+    border: 4px solid rgb(244, 185, 74);
+    width: 20vw;
+    height: 12vh;
+    border-radius: 10px;
+    margin: 0 auto;
+    text-align: center;
+    /* line-height: 9vh; */
 }
 
 #codetxt2 {
@@ -42,8 +56,8 @@
     /* margin: 0 auto; */
     margin-top: 40px;
     margin-left: 20px;
-    width: 110px;
-    height: 30px;
+    width: 9vw;
+    height: 4vh;
     border: 2px solid rgb(204, 200, 200);
     border-radius: 20px;
     background-color: white;
@@ -51,6 +65,8 @@
     text-transform: uppercase;
     transition:all .2s ease;
     font-size: 15px;
+    text-align: center;
+    line-height: 4vh;
 }
 
 #changebutton:hover, #changebutton:focus, #changebutton:active {
@@ -71,4 +87,25 @@
     z-index: 1000;
 
     background-color: rgba(0, 0, 0, 0.6);  /* 배경을 흐린 회색으로 설정 */
+}
+
+.emoji-size2 {
+    height: 10vh;
+}
+
+.changeemoji-text {
+    font-size: 1.4vw;
+    margin-top: 7vh;
+    margin-bottom: 2vh ;
+    margin-left: 8vh;
+}
+
+#codetxt7 {
+    width: 60vw;
+    font-size: 3.5vh;
+    font-weight: 600;
+    margin-top: 3vh ;
+    /* border: 2px solid ; */
+    text-align: center;
+    margin-bottom: 1vh;
 }
