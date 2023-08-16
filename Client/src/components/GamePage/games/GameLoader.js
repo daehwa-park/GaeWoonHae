@@ -239,6 +239,14 @@ const GameLoader = ({props}) => {
             setFail(false);
 
             getNextPose();
+            
+            if (gameType == 2) {
+                finishedRef.current = true;
+                setTimeout(() => {
+                    finishedRef.current = false;
+                    loopPredId.current = requestAnimationFrame(predictPictogram)
+                }, waitTime);
+            }
         }
     },[fail]);
 
