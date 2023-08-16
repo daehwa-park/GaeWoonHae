@@ -198,7 +198,7 @@ const GameLoader = ({props}) => {
                 setTimeout(() => {
                     loopPredId.current = requestAnimationFrame(predictPictogram)
                 }, waitTime);
-            } else {
+            } else if (!fail) {
                 loopPredId.current = requestAnimationFrame(predictPictogram)
             }
         }
@@ -236,17 +236,19 @@ const GameLoader = ({props}) => {
     useEffect(() => {
         if(fail) {
             console.log("실패함@@@@@@@@@@@@@@@@@@@@");
-            setFail(false);
 
-            getNextPose();
-            
+            if (gameType == 1) {
+                setFail(false);
+            }
+
             if (gameType == 2) {
-                finishedRef.current = true;
                 setTimeout(() => {
-                    finishedRef.current = false;
+                    setFail(false);
                     loopPredId.current = requestAnimationFrame(predictPictogram)
                 }, waitTime);
             }
+
+            getNextPose();
         }
     },[fail]);
 
