@@ -25,28 +25,27 @@ const LoginKakaoPage = () => {
   const isToken = (accessToken) => {
     console.log("이스토큰 실행");
     dispatch(authActions.loginJudgement({ accessToken }));
-    navigate("/main");
-  };
 
-  const getUserInfo = async () => {
-    console.log("유저인포 실행");
-    dispatch(authenticateAction.getUserInfo(userId));
   };
 
   // 토큰이 없으면 getLoginToken 함수를 있으면 토큰이 있으면 로그인 여부 처리 함수를 실행한다.
   useEffect(() => {
-    console.log("로그인 실행");
     getLoginTokens();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   useEffect(() => {
       if (accessToken && accessToken !== "") {
-        console.log(accessToken);
         isToken(accessToken);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accessToken]);
+    }, [accessToken]);
+    
+    useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      navigate("/main");
+    }
+  }, [isLoggined])
 
   // useEffect(() => {
   //   if (isLoggined) {

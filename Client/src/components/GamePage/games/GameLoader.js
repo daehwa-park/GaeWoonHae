@@ -193,7 +193,7 @@ const GameLoader = ({props}) => {
             }
 
 
-            if (prediction[poseNum].probability > 0.7 || key.current) {
+            if (prediction[poseNum].probability > 0.7) {
                 setSuccess(true);
                 setTimeout(() => {
                     loopPredId.current = requestAnimationFrame(predictPictogram)
@@ -281,12 +281,6 @@ const GameLoader = ({props}) => {
 
     }, [finished]);
 
-    const key = useRef(false);
-
-    // 테스트용
-    window.addEventListener("keydown", (e) => {
-        key.current = true;
-    });
 
     return(
         <div className='jumpingjack'>
