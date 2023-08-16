@@ -26,12 +26,17 @@ public class AuthInterceptor implements HandlerInterceptor {
             return true;
         }
 
+        if (request.getRequestURI().contains("gwh-websocket")) {
+            return true;
+        }
+
         String token = request.getHeader("token");
-        if (authTokensGenerator.verifyToken(token)) {
+        if (token != null && authTokensGenerator.verifyToken(token)) {
             log.info("access confirmed");
             return true;
         }
         log.error("access denied");
+        log.error(request.getRequestURI());
         throw new CustomException(CustomExceptionList.ACCESS_TOKEN_ERROR);
     }
 }
