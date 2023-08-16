@@ -25,7 +25,7 @@ const Pictogram = ({props}) => {
     const [pictoExist, setPictoExist] = useState(false);
     // 픽토그램 애니메이션, 포지션
     const [size, setSize] = useState(30);
-    const [size2, setSize2] = useState(20);
+    const [size2, setSize2] = useState(25);
     const [top, setTop] = useState(7);
     const [left, setLeft] = useState(37);
     // 픽토그램 중앙에서 보여주는 시간
@@ -39,8 +39,8 @@ const Pictogram = ({props}) => {
             setTimeout(()=>{
                 setSize(15);
                 setSize2(10);
-                setTop(3);
-                setLeft(27);
+                setTop(4);
+                setLeft(26);
             },time2)  // waitTime 시간뒤에 픽토그램 애니메이션, 포지션 이동
         }
     },[loadcomplete]);
@@ -52,7 +52,7 @@ const Pictogram = ({props}) => {
             setPictoExist(false); // 픽토그램 제거
             setSuccessType(true);
             setSize(30); // 픽토그램 상태 복귀
-            setSize2(20); // 픽토그램 상태 복귀
+            setSize2(25); // 픽토그램 상태 복귀
             setTop(7);
             setLeft(37);
             setTimeout(()=>{   // 1초 뒤에
@@ -62,8 +62,8 @@ const Pictogram = ({props}) => {
             setTimeout(()=>{   // 1초 뒤에
                 setSize(15);
                 setSize2(10);
-                setTop(3);
-                setLeft(27);
+                setTop(4);
+                setLeft(26);
             },time1+time2)
         }
     },[success]);
@@ -74,8 +74,8 @@ const Pictogram = ({props}) => {
             setPictoExist(false); // 픽토그램 제거
             setFailType(true); // 실패 아이콘
             setSize(30); // 픽토그램 상태 복귀
-            setSize2(20); // 픽토그램 상태 복귀
-            setTop(7);
+            setSize2(25); // 픽토그램 상태 복귀
+            setTop(4);
             setLeft(37);
             setTimeout(()=>{   // 1초 뒤에
                 setFailType(false); // 실패 아이콘 제거s
@@ -84,8 +84,8 @@ const Pictogram = ({props}) => {
             setTimeout(()=>{   // 1초 뒤에
                 setSize(15);
                 setSize2(10);
-                setTop(3);
-                setLeft(27);
+                setTop(4);
+                setLeft(26);
             },time2)
         }
     },[fail]);
