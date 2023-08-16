@@ -191,9 +191,9 @@ const GameLoader = ({props}) => {
                 prediction = await model2.predict(posenetOutput);
                 poseNum = curPose.current % 4;
             }
+            console.log(curPose.current, poseNum);
 
-
-            if (prediction[poseNum].probability > 0.7) {
+            if (prediction[poseNum].probability > 0.85) {
                 setSuccess(true);
                 setTimeout(() => {
                     loopPredId.current = requestAnimationFrame(predictPictogram)
