@@ -5,7 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { enterRoomAction } from "../../features/Actions/enterRoomAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-
+import mostuto1 from "../../assets/game/jumpingjack/mos_tuto1.png"
+import mostuto2 from "../../assets/game/jumpingjack/mos_tuto2.png"
+import mostuto3 from "../../assets/game/jumpingjack/mos_tuto3.png"
+import mostuto4 from "../../assets/game/jumpingjack/mos_tuto4.png"
+import mostuto from "../../assets/game/jumpingjack/mosquito2.png"
+import mostutodie from "../../assets/game/jumpingjack/mosquito3.png"
 
 function GoLobbyModal({ setModalOpen, value }) {
 
@@ -19,6 +24,14 @@ function GoLobbyModal({ setModalOpen, value }) {
     setModalOpen(false);
   };
   const [shouldNavigate, setShouldNavigate] = useState(false); // shouldNavigate 상태 추가
+
+
+  const [showMessage1, setShowMessage1] = useState(false);
+  const [showMessage2, setShowMessage2] = useState(false);
+  const [showMessage3, setShowMessage3] = useState(false);
+  const [showMessage4, setShowMessage4] = useState(false);
+  const [showMessage5, setShowMessage5] = useState(false);
+  const [showMessage6, setShowMessage6] = useState(false);
 
   const goToLobby = () => {
     if (shouldNavigate) {
@@ -68,6 +81,28 @@ function GoLobbyModal({ setModalOpen, value }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldNavigate]);
 
+  useEffect(()=>{
+    const timer1 = setTimeout(() => {
+      setShowMessage1(true);
+    }, 900);
+    const timer2 = setTimeout(() => {
+      setShowMessage2(true);
+    }, 1800);
+    const timer3 = setTimeout(() => {
+      setShowMessage3(true);
+    }, 2700);
+    const timer4 = setTimeout(() => {
+      setShowMessage4(true);
+    }, 3600);
+    const timer5 = setTimeout(() => {
+      setShowMessage5(true);
+    }, 4000);
+    const timer6 = setTimeout(() => {
+      setShowMessage6(true);
+    }, 4900);
+  },[]);
+
+
   return (
     <div className="modal-container">
       <div className="golobby">
@@ -80,7 +115,13 @@ function GoLobbyModal({ setModalOpen, value }) {
         {value===1 && (
           <div>   
             <div className="tutorial">
-              <img src="images/img/cap.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+              {/* <img src="images/img/cap.png" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} /> */}
+              <img className={`mostuto mst1 ${showMessage1 ? 'show' : ''}`} src={mostuto1} alt=""/>
+              <img className={`mostuto mst2 ${showMessage2 ? 'show' : ''}`} src={mostuto2} alt=""/>
+              <img className={`mostuto mst3 ${showMessage3 ? 'show' : ''}`} src={mostuto3} alt=""/>
+              <img className={`mostuto mst5 ${showMessage5 ? 'show' : ''}`} src={mostuto4} alt=""/>
+              <img className={`mos-img-modal mst4 ${showMessage4 ? 'show' : ''}`} src={mostuto} alt=""/>
+              <img className={`mosdie-img-modal mst6 ${showMessage6 ? 'show' : ''}`} src={mostutodie} alt=""/>
             </div>
             <br/>
             <p className="tutorial-content"> 화면에 나타나는 모기를 그림과 같은 동작을 통해 더 많이, 더빠르게 잡자 !<br/>
