@@ -479,6 +479,9 @@ const GamePage = () => {
                 // 내 정보를 해당 채널로 보내면 됨
                 JSON.stringify({ chat: "게임종료" })
             );
+            if (finishGameTimer.current !== undefined) {
+                clearTimeout(finishGameTimer.current);
+            }
             finishedGameStatus();
             console.log("자 이제 넘어가도록 하지");
         }
