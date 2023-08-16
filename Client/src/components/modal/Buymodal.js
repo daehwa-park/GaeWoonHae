@@ -55,7 +55,7 @@ function BuyModal({ setModalOpen, userPoint,userId,selectEmojiId, selectPrice, E
         <div id='Buymodals'>
             {changeBuyMD === 0 && (
                 <div>
-                    <h3 id='codetxt2'>구매하시겠습니까?</h3>
+                    <h3 id='codetxt3'>구매하시겠습니까?</h3>
                     <div id='Buymodal'>
                         <p className="btn-enter" id='buybutton'  onClick={emojiBuy} >확인</p>
                         <p id='buybutton' onClick={closeModal}>취소</p>
@@ -65,7 +65,7 @@ function BuyModal({ setModalOpen, userPoint,userId,selectEmojiId, selectPrice, E
 
             {changeBuyMD === 1 && (
                 <div>
-                    <h3 id='codetxt2'>이미 구매한 이모지 입니다</h3>
+                    <h3 id='codetxt4'>이미 구매한 이모지 입니다</h3>
                     <div id='Buymodal'>
                         <p id='buybutton' onClick={closeModal} >확인</p>
                     </div>
@@ -74,7 +74,7 @@ function BuyModal({ setModalOpen, userPoint,userId,selectEmojiId, selectPrice, E
 
             {changeBuyMD === 2 && (
                 <div>
-                    <h3 id='codetxt2'>포인트가 부족합니다.</h3>
+                    <h3 id='codetxt5'>포인트가 부족합니다.</h3>
                     <div id='Buymodal'>
                         <p id='buybutton' onClick={closeModal} >확인</p>
                     </div>
@@ -83,8 +83,8 @@ function BuyModal({ setModalOpen, userPoint,userId,selectEmojiId, selectPrice, E
 
             {changeBuyMD === 3 && (
                 <div>
-                    <h3 id='codetxt2'>이모지 구매가 완료되었습니다.</h3>
-                    남은 포인트 : {userPoint}
+                    <h3 id='codetxt2'>이모지 구매가 <br/> 완료되었습니다.</h3>
+                    <div id='savepoint'>남은 포인트 : {userPoint}</div>
                     <div id='Buymodal'>
                         <p id='buybutton' onClick={closeModal} >확인</p>
 

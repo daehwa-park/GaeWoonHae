@@ -110,11 +110,11 @@
 }
 
 .modalButton-left{ 
-    margin-top: 3vh;
+    margin-top: 2vh;
     /* margin: 0 auto; */
     margin-left: 12vw;
     width: 15vw;
-    height: 10vh;
+    height: 9vh;
     background-color:white ;
 
     border: 2px solid rgb(235, 230, 230);
@@ -125,11 +125,11 @@
     transition:all .2s ease;
 }
 .modalButton-right{ 
-    margin-top: 3vh;
+    margin-top: 2vh;
     margin-left: 5vw; 
     /* margin: 0 auto; */
     width: 15vw;
-    height: 10vh;
+    height: 9vh;
     background-color:white ;
     
     border: 2px solid rgb(235, 230, 230);

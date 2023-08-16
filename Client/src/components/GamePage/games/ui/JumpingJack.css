@@ -19,8 +19,9 @@
 }
 
 .mosquito-img {
-    width: 13vw;
+    width: 10vw;
     transition: transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out;
+    z-index: 1;
 }
 
 @media (max-width: 1620px) {

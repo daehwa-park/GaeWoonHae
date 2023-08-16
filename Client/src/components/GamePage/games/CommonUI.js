@@ -66,26 +66,65 @@ const CommonUI = ({props}) => {
                 {/* <Timer time={60}/> */}
             <div className={`ranking-list${gameType}`}>
                 <div className={`game-ranking-ui${gameType}`}>
-                        <div className={`game-ranking1-${gameType}`}>현재 랭킹</div>
+                        <div className={`game-ranking1-${gameType}`}><div className='user-rank0'>👑</div><div className='user-rank10'>👑</div>현재 랭킹</div>
                         <div className={`game-ranking2-${gameType}`}>
                             {userList.map((user, idx) => (
+                                <div>
                                 <div className='user-ranking' key={idx}>
                                     {idx===0 && (
-                                        <div>
-                                            <img className='user-rank1' src={first} alt="" />
+                                        <div className='user-rank1'>
+                                            🥇
                                         </div>
                                     )}
                                     {idx ===1 && (
-                                        <div>
-                                            <img className='user-rank2' src={second} alt="" />
+                                        <div className='user-rank1'>
+                                            🥈
                                         </div>
                                     )}
                                     {idx ===2 && (
-                                        <div>
-                                            <img className='user-rank3' src={third} alt="" />
+                                        <div className='user-rank1'>
+                                            🥉
                                         </div>
                                     )}
                                     {idx+1}위 {user.username} {user.count}개 
+                                </div>
+                                <div className='user-ranking' key={idx}>
+                                    {idx===0 && (
+                                        <div className='user-rank1'>
+                                            🥇
+                                        </div>
+                                    )}
+                                    {idx ===1 && (
+                                        <div className='user-rank1'>
+                                            🥈
+                                        </div>
+                                    )}
+                                    {idx ===2 && (
+                                        <div className='user-rank1'>
+                                            🥉
+                                        </div>
+                                    )}
+                                    {idx+1}위 {user.username} {user.count}개 
+                                </div>
+                                <div className='user-ranking' key={idx}>
+                                    {idx===0 && (
+                                        <div className='user-rank1'>
+                                            🥇
+                                        </div>
+                                    )}
+                                    {idx ===1 && (
+                                        <div className='user-rank1'>
+                                            🥈
+                                        </div>
+                                    )}
+                                    {idx ===2 && (
+                                        <div className='user-rank1'>
+                                            🥉
+                                        </div>
+                                    )}
+                                    {idx+1}위 {user.username} {user.count}개 
+                                </div>
+                               
                                 </div>
                             ))}
                             {/* <div className='user-ranking'>1위 김두현 12개</div>

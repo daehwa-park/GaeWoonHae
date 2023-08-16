@@ -56,7 +56,7 @@ const GameLoader = ({props}) => {
             failTimerId.current = setTimeout(() => {
                 console.log("실패 예약@@@@@@@@@@@@@@@@@@@@@@@")
                 setFail(true);
-            }, 9000);
+            }, 6000);
         }
     }
 
