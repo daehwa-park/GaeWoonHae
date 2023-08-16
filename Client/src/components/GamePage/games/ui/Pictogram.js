@@ -48,7 +48,6 @@ const Pictogram = ({props}) => {
     useEffect(() => {
         if (success) {
             let curPose = curPoseState;
-            console.log('성공@@@@@@@@@@@@@',success);
             setPictoExist(false); // 픽토그램 제거
             setSuccessType(true);
             setSize(30); // 픽토그램 상태 복귀
