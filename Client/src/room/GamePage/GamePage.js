@@ -94,6 +94,7 @@ const GamePage = () => {
     const faceImgRef = useRef();
     const emojiRef = useRef();
     const updateEmojiId = useRef();
+    const finishGameTimer = useRef(undefined);
 
     // 비디오 종료 조건
     const stopVideo = useRef(false);
@@ -299,6 +300,15 @@ const GamePage = () => {
                     else if(myName === hostName) {
                         setfinishUserCount(++finishUserCountRef.current);
                         console.log("한놈 끝났다.");
+
+                        if (finishGameTimer.current !== undefined) {
+                            clearTimeout(finishGameTimer.current);
+                        }
+
+                        finishGameTimer.current = setTimeout(() => {
+                            finishUserCountRef.current = userList.current;
+                            setfinishUserCount(finishUserCountRef.current);
+                        }, 10000);
                     }
                 }
             );
