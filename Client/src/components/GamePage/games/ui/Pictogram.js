@@ -56,7 +56,7 @@ const Pictogram = ({props}) => {
             setTop(7);
             setLeft(37);
             setTimeout(()=>{   // 1초 뒤에
-                setFailType(false); // 실패 아이콘 제거
+                setSuccessType(false); // 실패 아이콘 제거
                 setPictoExist(true); // 픽토그램 재생성
             },time1)
             setTimeout(()=>{   // 1초 뒤에

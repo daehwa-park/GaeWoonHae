@@ -1,10 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Righteous&subset=latin-ext');
 
+
+@font-face {
+    font-family: 'CustomFont';
+    src: url('../../assets/font/DungGeunMo.woff') format('woff2'),
+    url('../../assets/font/DungGeunMo.woff') format('woff')
+    /* 다양한 포맷의 폰트 파일을 지정 */
+  }
+  
 .gamepage {
     background-color: #FEFCF5;
     height: 100%;
     width: 100%;
+    font-family: 'CustomFont', sans-serif;
 }
 .game-header {
     height: 6vh;
@@ -30,7 +39,13 @@
     position: absolute;
     /* z-index: 0; */
 }
-
+.game-outputImage{
+    height: 70vh;
+    width: 50vw;
+    /* border: 5px solid rgb(215, 245, 240); */
+    border-radius: 10px;
+    box-shadow: 0 0 10px black;
+}
 .game-mainscreen {
     background-color: white;
     margin-top: 1.5vh;
@@ -48,11 +63,18 @@
     display:flex;
     width: 100vw;
     height: 83vh;
-    border: 6px solid rgb(96, 97, 97);
+    border: 6px solid #FD7F32;
     border-radius: 20px;
 }
 .game-logo {
     width: 16vw;
+    /* border: 100px solid palegreen; */
+    display: inline;
+    background-image: 
+        linear-gradient(to right, firebrick, darkorange);
+    background-size: 100% 10%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
 }
 .gametitles {
     /* background-color: aquamarine;
@@ -62,8 +84,9 @@
     width: 20vw;
     height: 20vh;
     margin: 4vh auto;
-    border: 6px solid rgb(128, 125, 125);
-    border-radius: 8px;
+    /* border-left: 3px solid  rgb(255, 118, 117, 0.5);
+    border-right: 3px solid  rgb(255, 118, 117, 0.5);
+    border-radius: 10px; */
 }
 
 #video-container {
@@ -79,8 +102,9 @@
 }
 
 .game-titletag {
-    font-size: 1vw;
+    font-size: 1.1vw;
     margin-top: 3vh;
+    font-weight: 600;
 }
 
 .messagebtntag{
@@ -91,7 +115,8 @@
     height: 82vh;
     /* border-right: 7px solid rgb(104, 104, 104); */
     /* border-right: 7px dashed rgb(104, 104, 104); */
-    border-right: 2mm ridge rgba(112, 112, 112, 0.6);;
+    border-right: 2mm ridge rgb(253, 127, 50,0.5);
+    /* border-right: 2mm ridge rgba(112, 112, 112, 0.6); */
     /* border-radius: 5px; */
 }
 
@@ -125,7 +150,6 @@
     /* background-color: blue; */
 }
 
-
 #game-main-videos {
     /* position: relative; */
     display: flex;
@@ -154,21 +178,32 @@
 
 } */
 #sub-videos {
-    margin: 3vh 2vw;
-    width: 14vw;
+    margin: 6vh 2vw;
+    width: 13vw;
     /* margin: 0 0 0 3vw; */
-    height: 80vh;
+    height: 64vh;
     /* border: 5px solid salmon; */
     /* flex: 1 0 50%; */
     /* display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr); */
 }
+
+.sublist {
+    font-size: 1.8vw;
+    font-weight: 5500;
+    text-shadow: rgb(123, 122, 122) 1px 1px;
+    color: #4b4a49;
+    /* width: 10vw;
+    height: 5vh;
+    border: 3px solid black; */
+    /* z-index: 10000; */
+}
 #sub-titlebox1 {
     
 
     width: 13vw;
-    height: 4vh;
+    height: 5vh;
     /* background-color: #FD7F32; */
     background: linear-gradient(#FEC986,white);
     border-radius: 15px 15px 0 0;
@@ -178,7 +213,7 @@
     
 
     width: 13vw;
-    height: 4vh;
+    height: 16vh;
     /* background-color: #FD7F32; */
     background: linear-gradient(#4175f9,white);
     border-radius: 15px 15px 0 0;
@@ -188,7 +223,7 @@
 #sub-video2 {
 
     width: 13vw;
-    /* height: 20vh; */
+    height: 16vh;
     border: 4px solid rgb(81, 80, 80);
     display: flex;
     /* justify-content: center;
@@ -201,20 +236,23 @@
     margin-top: 14vh;
 }
 
-
+.streamcomponent {
+    width: 13vw;
+    height: 16vh;
+}
 /* .gameloader {
     position: absolute;
     top: 90%;
     left: 5%;
 } */
 
-.btn-back {
+.btn-back2 {
     position: absolute;
     right: 5vw;
     bottom: 1vh;;
     text-align: center;
-    width: 9vw;
-    height: 5vh;
+    width: 10vw;
+    height: 7vh;
     border: 2px solid rgb(235, 230, 230);
     background-color: white;
     border-radius: 10px;
@@ -222,4 +260,18 @@
     text-transform: uppercase;
     transition:all .2s ease;
     font-weight: 700;
+}
+
+.streamcomponent {
+    position: relative;
+}
+
+.sub-name {
+    position: absolute;
+    top: 2px;
+    right: 3px;
+    font-size: 2vh;
+    height: 1vh;
+    width: 4vw;
+
 }

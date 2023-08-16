@@ -1,3 +1,4 @@
+
 .timers {
     width: 120px;
     height: 120px;
@@ -13,24 +14,25 @@
     width: 10vw;
     height: 6vh;
     /* border: 2px solid black; */
-    background-color: rgb(236, 228, 217);
+    background-color: rgb(241, 235, 225);
     text-align: center;
     line-height: 6vh;
     border-radius: 5px;
-    font-size: 20px;
+    font-size: 2.6vh;
     font-weight: 600;
 }
 
 .timer1 {
     position: absolute;
     top: 6vh;
-    left: 27vw;
+    left: 25vw;
     width: 180px;
     height: 180px;
     /* width: 10vw;
     height: 10vw; */
     border-radius: 50%;
     background-color: white;
+    z-index: 0;
 }
 
 .timer2 {
@@ -73,9 +75,8 @@
 
 .ranking-list1 {
     position: absolute;
-    top: 30vh;
-    left: 2.5vw;
-  
+    top: 35vh;
+    left: 2vw;
     /* background-color: wheat; */
     /* position: 2; */
     /* border: 5px solid black; */
@@ -83,25 +84,39 @@
 .ranking-list2 {
     position: absolute;
     top: 30vh;
-    left: 2.5vw;
-  
-    /* background-color: wheat; */
-    /* position: 2; */
-    /* border: 5px solid black; */
+    left: 2vw;
 }
 
+.user-rank0 {
+    position: absolute;
+    left: 3vw;
+    width: 2vw;
+    /* height: 1.5vw; */
+    font-size: 2vh;
+}
+.user-rank10 {
+    position: absolute;
+    left: 3vw;
+    width: 21vw;
+    height: 1.5vw;
+    font-size: 2vh;
+}
 .user-rank1 {
     position: absolute;
     left: 2vw;
     width: 2vw;
-    height: 2vw;
+    height: 1.5vw;
+    top: 0.5vh;
+    font-size: 2vh;
 }
 .user-rank2 {
     position: absolute;
     left: 2vw;
     width: 2vw;
-    height: 2vw;
+    height: 1.7vw;
     margin-top: 4vh;
+    top: 0.5vh;
+    font-size: 2vh;
 }
 .user-rank3 {
     position: absolute;
@@ -109,6 +124,8 @@
     width: 2vw;
     height: 2vw;
     margin-top: 8vh;
+    top: 0.5vh;
+    font-size: 2vh;
 }
 
 
@@ -124,29 +141,33 @@
     /* border: 5px solid black; */
 }
 .game-ranking1-1 {
-    width: 15vw;
+    width: 17vw;
     height: 6vh;
     margin: auto;
     border: 1px 1px 0 1px solid rgb(201, 198, 198);
-    border-radius: 20px;
+    border-radius: 20px 20px 0 0;
     text-align: center;
     line-height: 6vh;
     /* background-color: #FD7F32; */
-    background: linear-gradient(#FEC986 0%,white 95%);
-    font-size: 20px;
+    /* background: linear-gradient(#FEC986 0%,white 95%); */
+    /* background: linear-gradient(to right, #3498db, #e74c3c); */
+    background: linear-gradient(to right, rgb(255, 177, 66, 0.8), rgb(255, 118, 117, 0.8));
+    font-size: 2.5vh;
     font-weight: 550;
+    border-collapse: collapse;
+    box-shadow: 0 1px 0 rgb(192, 189, 189);
 }
 .game-ranking2-1 {
     text-align: center;
     margin: auto;
-    width: 15vw;
-    height: 45vh;
+    width: 17vw;
+    height: 38vh;
     /* border: 1px solid rgb(201, 198, 198); */
     background-color: #F9F5FF;
     border: 2px solid rgb(235, 230, 230);
-    border-radius: 10px;
-    box-shadow: 1px 1px 1px 1px rgb(192, 189, 189);
-    font-size: 20px;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 0 1px rgb(192, 189, 189);
+    font-size: 2vh;
     font-weight: 550;
 }
 .game-ranking1-2 {
@@ -159,7 +180,7 @@
     line-height: 6vh;
     /* background-color: #FD7F32; */
     background: linear-gradient(#1e69ff 0%,white 95%);
-    font-size: 20px;
+    font-size: 2vh;
     font-weight: 550;
 }
 .game-ranking2-2 {
@@ -179,6 +200,8 @@
 .user-ranking {
     position: relative;
     margin-top: 2vh;
+    font-size: 2.5vh;
+    font-weight: 580;
 }
 
 .picto2 {

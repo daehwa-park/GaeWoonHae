@@ -32,7 +32,7 @@ import Stomp from "stompjs"
 import CountLoading from './countloading'
 import Loading from './loading'
 import { current } from '@reduxjs/toolkit';
-
+import OpenViduVideoComponent from '../../features/openvidu_opencv/openvidu/OvVideo';
 // 게임페이지
 
 const GamePage = () => {
@@ -480,11 +480,16 @@ const GamePage = () => {
     //     // eslint-disable-next-line react-hooks/exhaustive-deps
     // },[userList])
 
+    const getNicknameTag = (sub) => {
+        // Gets the nickName of the user
+        return JSON.parse(sub.stream.connection.data).clientData;
+      };
+
 
     return (
         <div className='gamepage'>
             {/* 헤더 */}
-            <div className="game-header">
+            <div className="game-header" onClick={goMain}>
                 <img className="main-hover"  src={logo} alt="" />
             </div>
             <div className="game-mainscreenimg">
@@ -526,16 +531,6 @@ const GamePage = () => {
                 
                         <div id="session">
                             {/* OpenCV용 Canvas (전부 invisible 시켜놓으면 됨) */}
-                            <div style={{ width: "400px" ,visibility:"hidden" ,display:"flex", position:"absolute"}}>
-                                <Webcam
-                                        ref={webcamRef}
-                                        className="webcam"
-                                        mirrored
-                                        screenshotFormat="image/jpeg" />
-                                <canvas id="canvas1" className="outputImage" ref={faceImgRef} style={{visibility:"hidden"}}/>
-                                <img className="inputImage" alt="input" ref={imgRef} style={{display:'none' }}/>
-                                <img className="emoji" alt="input" ref={emojiRef} style={{display:'none'}} />
-                            </div>
 
                             {/* 위에 공통 UI */}
                             <CommonUI props={{count, timer, renderingUserList, loadcomplete, finished, setFinished, gameTime, gameType}} />
@@ -543,24 +538,50 @@ const GamePage = () => {
                                 {/* 내 화면 */}
                                 <div id="game-main-videos">
                                     <div id="game-main-video" >
-                                        <UserVideoComponent id="main-videocss" streamManager={mainStreamManager} />
+                                        <Webcam
+                                            ref={webcamRef}
+                                            className="webcam"
+                                            mirrored
+                                            style={{visibility:"hidden", width: "400px", position:"absolute"}}
+                                            screenshotFormat="image/jpeg" />
+                                        <canvas id="canvas1" className="game-outputImage" ref={faceImgRef} />
+                                        <img className="inputImage" alt="input" ref={imgRef} style={{display:'none' }}/>
+                                        <img className="emoji" alt="input" ref={emojiRef} style={{display:'none'}} />
+                                        {/* <Webcam
+                                                ref={webcamRef}
+                                                className="webcam"
+                                                style={{ width: "400px" , visibility: "hidden",display:"flex", position:"absolute"}}
+                                                mirrored
+                                                // screenshotFormat="image/jpeg" 
+                                        />
+                                        <canvas id="canvas-game" className="outputImage-game" ref={faceImgRef} style={{width: "400px"}}/>
+                                        <img className="inputImage-game" alt="input" ref={imgRef} style={{display:'none' }}/>
+                                        <img className="emoji-game" alt="input" ref={emojiRef} style={{display:'none'}} /> */}
+                                        {/* <UserVideoComponent id="main-videocss" streamManager={mainStreamManager} /> */}
                                     </div>
                                 </div>
-                                
+
                                 {console.log("구독자 수!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" , subscriber.length)}
                                 {/* 참여자가 4명이상일떄 */}
-
+                                
                                 {subscriber.length >= 4 ? (
                                     <div id="sub-videos" > 
-                                        <div id={`sub-titlebox${gameType}`}></div>
+                                        {/* <div id={`sub-titlebox${gameType}`}></div> */}
+                                        <div className='sublist'>참가자</div>
                                         {subscriber.map((sub, i) => (
             
                                                 <div id="sub-video2 sub-titlebox" key={i}>
-                                                    <h2>{i+1}</h2>
-                                                {/* <span>{sub.id}</span> */}
+                                                    {/* <UserVideoComponent streamManager={sub} /> */}
+                                                    <div>
+                                                        {sub !== undefined ? (
+                                                            <div className="streamcomponent">
+                                                                <div className="sub-name">{getNicknameTag(sub)}</div>
+                                                                <OpenViduVideoComponent streamManager={sub} />
+                                                                {/* <div><p>{this.getNicknameTag()}</p></div> */}
+                                                            </div>
+                                                        ) : null}
+                                                    </div>
                                                 
-                                                    <UserVideoComponent streamManager={sub} />
-                                                    {/* {LenSubscribers} */}
                                                 </div>
                                             ))
                                         }
@@ -570,14 +591,22 @@ const GamePage = () => {
                                 {/* 참여자가 3명 이하일때 빈자리 표기 */}
                                 {subscriber.length <= 3 ? (
                                 <div id="sub-videos" > 
-                                    <div id="sub-titlebox"></div>
+
+                                    <div className='sublist'>참가자</div>
+                                    {/* <div id={`sub-titlebox${gameType}`}></div> */}
                                     {subscriber.map((sub, i) => (
                                             // <div id="sub-video2" key={sub.id} onClick={() => this.handleMainVideoStream(sub)} >
                                             <div id="sub-video2" key={i}>
-                                                {/* <h2>{i+1}</h2> */}
-                                            {/* <span>{sub.id}</span> */}
-                                                <UserVideoComponent streamManager={sub} />
-                                                {/* {LenSubscribers} */}
+                                                {/* <UserVideoComponent streamManager={sub} /> */}
+                                                <div>
+                                                        {sub !== undefined ? (
+                                                            <div className="streamcomponent">
+                                                                <div className="sub-name">{getNicknameTag(sub)}</div>
+                                                                <OpenViduVideoComponent streamManager={sub} />
+                                                                {/* <div><p>{this.getNicknameTag()}</p></div> */}
+                                                            </div>
+                                                        ) : null}
+                                                    </div>
                                             </div>
                                         ))
                                     } 
@@ -621,7 +650,7 @@ const GamePage = () => {
             <div className="footer"></div>
             {/* <button type="button" onClick={init}>Start</button>
             <h4>횟수 : {myCount}</h4> */}
-            <button className="btn-back" onClick={goMain}> 방 나가기 </button>
+            <button className="btn-back2" onClick={goMain}> 방 나가기 </button>
             {/* <Link to='/main'><button>게임나가기</button></Link> */}
         </div>
     )

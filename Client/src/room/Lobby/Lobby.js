@@ -28,6 +28,11 @@ const Lobby = () => {
   const faceImgRef = useRef();
   const emoji = useRef();
   const stopVideo = useRef(false);
+
+  const [showMessage, setShowMessage] = useState(false);
+  const [showMessage2, setShowMessage2] = useState(false);
+  const [showMessage3, setShowMessage3] = useState(false);
+
     // 언마운트시에 비디오 종료
     const onUnmount = () => {
       stopVideo.current = true
@@ -42,7 +47,19 @@ const Lobby = () => {
   
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-  
+    
+    useEffect(()=>{
+      const timer = setTimeout(() => {
+        setShowMessage(true);
+      }, 3000);
+      const timer2 = setTimeout(() => {
+        setShowMessage2(true);
+      }, 5000);
+      const timer3 = setTimeout(() => {
+        setShowMessage3(true);
+      }, 7000);
+    },[]);
+
     const init = async () => {
       await loadHaarFaceModels(); //opencv : 학습 데이터 import
       nextTick();
@@ -200,8 +217,11 @@ const Lobby = () => {
               <div>
                 <div className="lobby-message">
                   <div className="lobby-msgbox"></div>
-                  <div className="lobby-message1">대기하는동안 화면을 조정해보세요.</div>
-                  <div className="lobby-message2">플레이시간과 원하는 이모지를 선택했다면, <div className="lobby-message3">레츠 고 !!</div></div>
+                  <div className={`lobby-message1 ${showMessage ? 'show' : ''}`}>대기하는동안 화면을 조정해보세요.</div>
+                  <div className="lobby-message23">
+                    <div className={`lobby-message2 ${showMessage2 ? 'show' : ''}`}>플레이시간과 원하는 이모지를 선택했다면, <div className={`lobby-message3 ${showMessage3 ? 'show' : ''}`}>레츠 고 !!</div></div>
+                    
+                  </div>
                   {/* <div className="lobby-message2">게임 시작!!</div> */}
                 </div>
               </div>

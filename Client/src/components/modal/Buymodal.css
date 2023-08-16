@@ -12,8 +12,24 @@
     text-align: center;
 }
 #codetxt2 {
-    margin-top: 5vh;
+    margin-top: 4vh;
+    margin-bottom: 2.5vh;
+    font-size: 1.8vw;
+}
+#codetxt3 {
+    margin-top: 4vh;
     margin-bottom: 6vh;
+    font-size: 1.8vw;
+}
+#codetxt4 {
+    margin-top: 4vh;
+    margin-bottom: 6vh;
+    font-size: 1.8vw;
+}
+#codetxt5 {
+    margin-top: 4vh;
+    margin-bottom: 6vh;
+    font-size: 1.8vw;
 }
 
 #Buymodal {
@@ -36,7 +52,10 @@
     font-size: 1vw;
     line-height: 3.5vh;
 }
-
+#savepoint {
+    margin-bottom: 0.5vh;
+    font-size: 1.2vw;
+}
 #buybutton:hover, #buybutton:focus, #buybutton:active {
     background-color:#a5c8e9 ;
     color: #282a2b;
