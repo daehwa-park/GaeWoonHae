@@ -62,7 +62,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "400", description = "bad request operation", content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
     })
-    @DeleteMapping("/resign")
+    @PostMapping("/resign")
     public ResponseEntity<CommonResponse<String>> resignUser(@RequestBody ResignUserRequest resignUserReq) {
 
         return new ResponseEntity<>(makeCommonResponse(SUCCESS, userService.removeUser(resignUserReq)), HttpStatus.OK);
