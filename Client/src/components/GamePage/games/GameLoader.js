@@ -24,6 +24,8 @@ const GameLoader = ({props}) => {
     const [success, setSuccess] = useState(false);
     const [fail, setFail] = useState(false);
 
+    const failRef = useRef(false);
+
     const curPose = useRef();
     const poseList = useRef([]);
 
@@ -58,6 +60,7 @@ const GameLoader = ({props}) => {
             failTimerId.current = setTimeout(() => {
                 console.log("실패 예약@@@@@@@@@@@@@@@@@@@@@@@")
                 setFail(true);
+                failRef.current = true;
             }, 6000);
         }
     }
@@ -193,13 +196,18 @@ const GameLoader = ({props}) => {
             }
             console.log(curPose.current, poseNum);
 
-            if (prediction[poseNum].probability > 0.85) {
+            if (prediction[poseNum].probability > 0.85 || poseNum == 1 || poseNum == 2) {
                 setSuccess(true);
                 setTimeout(() => {
-                    loopPredId.current = requestAnimationFrame(predictPictogram)
+                    loopPredId.current = requestAnimationFrame(predictPictogram);
                 }, waitTime);
-            } else if (!fail) {
-                loopPredId.current = requestAnimationFrame(predictPictogram)
+            } else if (failRef.current) {
+                failRef.current = false;
+                setTimeout(() => {
+                    loopPredId.current = requestAnimationFrame(predictPictogram);
+                }, waitTime);
+            } else {
+                loopPredId.current = requestAnimationFrame(predictPictogram);
             }
         }
     }
@@ -237,17 +245,7 @@ const GameLoader = ({props}) => {
         if(fail) {
             console.log("실패함@@@@@@@@@@@@@@@@@@@@");
 
-            if (gameType == 1) {
-                setFail(false);
-            }
-
-            if (gameType == 2) {
-                setTimeout(() => {
-                    setFail(false);
-                    loopPredId.current = requestAnimationFrame(predictPictogram)
-                }, waitTime);
-            }
-
+            setFail(false);
             getNextPose();
         }
     },[fail]);
