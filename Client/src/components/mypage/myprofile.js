@@ -312,10 +312,12 @@ const Myprofilepage = () => {
   // 회원 탈퇴 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const withdrawal=()=> {
+  const withdrawal= async ()=> {
     console.log('이동')
-    dispatch(authenticateAction.userLogout(userId));
-    navigate("/")
+    let isResigned = await authenticateAction.userResign();
+    if (isResigned) {
+      navigate("/")
+    }
   }
 
   // 달력 데이터 

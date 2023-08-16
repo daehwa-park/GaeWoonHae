@@ -42,7 +42,7 @@ const LoginKakaoPage = () => {
     }, [accessToken]);
     
     useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
+    if (isLoggined) {
       navigate("/main");
     }
   }, [isLoggined])

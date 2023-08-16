@@ -106,10 +106,10 @@ function getTokensUserId(authorizationCode) {
       })
       .then((res) => {
         const tokens = res.data.data.tokens;
-        localStorage.setItem("accessToken", tokens.accessToken);
-        localStorage.setItem("refreshToken", tokens.refreshToken);
+        window.localStorage.setItem("accessToken", tokens.accessToken);
+        window.localStorage.setItem("refreshToken", tokens.refreshToken);
         const userId = res.data.data.userId;
-        localStorage.setItem("userId", userId);
+        window.localStorage.setItem("userId", userId);
         dispatch(authActions.getTokensUserId({ tokens, userId }));
       })
 
@@ -141,7 +141,7 @@ function userLogout(userId){
     await loginApi
     .delete("/api/oauth/logout/" + userId)
     .then(() => {
-      localStorage.clear();
+      window.localStorage.clear();
       console.log("로그아웃 성공");
     })
       .catch((err)=>{
@@ -150,4 +150,40 @@ function userLogout(userId){
   };
 }
 
-export const authenticateAction = { getTokensUserId, getUserInfo, userLogout, refreshToken };
+async function userResign() {
+  let alert = "회원을 탈퇴하면 데이터를 복구하실 수 없습니다.\n정말로 회원을 탈퇴하시겠습니까?";  
+  let lastAlert = "회원을 탈퇴하시려면 현재 사용중인 닉네임을 입력해 주세요";
+  let nickname;
+
+  const userId = localStorage.getItem("userId");
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  if (window.confirm(alert)) {
+    nickname = prompt(lastAlert);
+
+    console.log(userId, nickname, refreshToken);
+    
+    await loginApi
+    .post("/api/user/resign", {
+      userId,
+      nickname,
+      refreshToken
+    })
+    .then((resp) => {
+      const msg = resp.data;
+      if (msg === "success") {
+        alert("회원 탈퇴가 완료되었습니다.\n다시 방문하시길 기다리겠습니다.");
+        return true;
+      } else {
+        alert("회원 탈퇴를 할 수 없습니다.");
+        return false;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      return false;
+    })
+  }
+}
+
+export const authenticateAction = { getTokensUserId, getUserInfo, userLogout, refreshToken, userResign };
