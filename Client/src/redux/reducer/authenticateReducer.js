@@ -57,6 +57,19 @@ const authenticateSlice = createSlice({
 
       state.user.saveEmoji = action.payload.emojiList.sort((a, b) => a-b) ?? [1];
     },
+    reset(state) {
+      state.accessToken = "";
+      state.refreshToken = "";
+      state.isLoggined = false;
+      state.user = {
+        userId: null,
+        nickname: "",
+        point: 0,
+        emojiId: null,
+        oauthProvider: "",
+        saveEmoji: [1],
+      }
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(PURGE, () => initialState);

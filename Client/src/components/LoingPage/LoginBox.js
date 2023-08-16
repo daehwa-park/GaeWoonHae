@@ -2,11 +2,16 @@
 
 
 // import { Link } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../redux/reducer/authenticateReducer";
 import "./LoginBox.css";
 // import "./LoginKakaoPage"
 
+
 const LoginBox = () => {
+  const dispatch = useDispatch();
+
   const getKakaoAuthURL = () => {
     const kakaoAuthURL =
       "https://kauth.kakao.com/oauth/authorize" +
@@ -17,6 +22,10 @@ const LoginBox = () => {
       "&response_type=code";
     window.location.href = kakaoAuthURL; // URL로 리다이렉트
   };
+
+  useEffect(()=> {
+    dispatch(authActions.reset());
+  },[])
 
   return (
     <div className="login-box">
