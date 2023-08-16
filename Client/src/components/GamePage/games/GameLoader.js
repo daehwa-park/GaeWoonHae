@@ -24,12 +24,13 @@ const GameLoader = ({props}) => {
     const [success, setSuccess] = useState(false);
     const [fail, setFail] = useState(false);
 
+    const predictCheck = useRef(false);
+
     const curPose = useRef();
     const poseList = useRef([]);
 
     const URL = useRef("");
     const URL2 = useRef("");
-    const loopWebcamId = useRef(null);
     const loopPredId = useRef(null);
     const failTimerId = useRef(null);
     const finishedRef = useRef(false);
@@ -40,10 +41,11 @@ const GameLoader = ({props}) => {
     const set = useRef(false);
 
     // 픽토그램 딜레이 시간
-    const waitTime =2000;
+    const waitTime = useRef(500);
 
 
     const getNextPose = () => {
+        predictCheck.current = false;
         let num = curPose.current;
         
         while(num === curPose.current) {
@@ -56,10 +58,13 @@ const GameLoader = ({props}) => {
         console.log("자세 바뀜~~@@@@@@@@@@@@@@@");
         if (!finished) {
             failTimerId.current = setTimeout(() => {
-                console.log("실패 예약@@@@@@@@@@@@@@@@@@@@@@@")
                 setFail(true);
             }, 6000);
         }
+
+        setTimeout(() => {
+            predictCheck.current = true;
+        }, waitTime.current);
     }
 
 
@@ -73,11 +78,13 @@ const GameLoader = ({props}) => {
             case 1: 
                 URL.current = 'https://teachablemachine.withgoogle.com/models/-T38dkjNF/';
                 poseList.current = [0, 1, 2, 3];
+                waitTime.current = 500;
                 break;
             case 2: 
                 URL.current = 'https://teachablemachine.withgoogle.com/models/074HcVDD9/';
                 URL2.current = 'https://teachablemachine.withgoogle.com/models/C9-H895DS/'
                 poseList.current = [0, 1, 2, 3, 4, 5, 6];
+                waitTime.current = 2000;
                 break;
             default:
                 URL.current = 'https://teachablemachine.withgoogle.com/models/-T38dkjNF/';
@@ -100,12 +107,12 @@ const GameLoader = ({props}) => {
     }
 
     const setTmModel = async() => {
-        if (gameType == 1) {
+        if (gameType === 1) {
             const modelURL = `${URL.current}model.json`;
             const metadataURL = `${URL.current}metadata.json`;
     
             setModel(await window.tmPose.load(modelURL, metadataURL));
-        } else if (gameType == 2) {
+        } else if (gameType === 2) {
             const modelURL = `${URL.current}model.json`;
             const metadataURL = `${URL.current}metadata.json`;
             
@@ -152,13 +159,12 @@ const GameLoader = ({props}) => {
                 console.log("ready2 -> true");
             }
             
-            else if (ready1.current && set.current && ready2.current && prediction[curPose.current].probability > 0.85) {
-
+            else if (predictCheck.current && ready1.current && set.current && ready2.current 
+                && prediction[curPose.current].probability > 0.85) {
                 setSuccess(true);
                 ready1.current = ready2.current = set.current = false;
             }
         }
-
         loopPredId.current = requestAnimationFrame(predictJumpingJack);
     }
 
@@ -193,14 +199,30 @@ const GameLoader = ({props}) => {
             }
             console.log(curPose.current, poseNum);
 
-            if (prediction[poseNum].probability > 0.85) {
+            if (predictCheck.current && prediction[poseNum].probability > 0.85) {
                 setSuccess(true);
-                setTimeout(() => {
-                    loopPredId.current = requestAnimationFrame(predictPictogram)
-                }, waitTime);
-            } else if (!fail) {
-                loopPredId.current = requestAnimationFrame(predictPictogram)
             }
+        }
+        loopPredId.current = requestAnimationFrame(predictPictogram);
+    }
+
+    const loopPredict = async () => {
+        console.log("게임 로직 선택기");
+        switch(gameType) {
+            case 1:
+                setTimeout(() => {
+                    predictCheck.current = true;
+                    loopPredId.current = requestAnimationFrame(predictJumpingJack);
+                }, waitTime.current);
+                break;
+            case 2:
+                setTimeout(() => {
+                    predictCheck.current = true;
+                    loopPredId.current = requestAnimationFrame(predictPictogram);
+                }, waitTime.current);
+                break;
+            default:
+                break;
         }
     }
 
@@ -223,7 +245,7 @@ const GameLoader = ({props}) => {
 
     useEffect(() => {
         if (success) {
-            console.log("성공함@@@@@@@@@@@@@@@@@@@@");
+            console.log("성공 시 콜백 @@@@@@@@@@@@@@@@@@@@@");
             clearTimeout(failTimerId.current);
             
             setCount(prev => prev + 1);
@@ -235,42 +257,16 @@ const GameLoader = ({props}) => {
 
     useEffect(() => {
         if(fail) {
-            console.log("실패함@@@@@@@@@@@@@@@@@@@@");
+            console.log("실패 시 콜백 @@@@@@@@@@@@@@@@@@@@@");
+            clearTimeout(failTimerId.current);
 
-            if (gameType == 1) {
-                setFail(false);
-            }
-
-            if (gameType == 2) {
-                setTimeout(() => {
-                    setFail(false);
-                    loopPredId.current = requestAnimationFrame(predictPictogram)
-                }, waitTime);
-            }
+            setFail(false);
 
             getNextPose();
         }
     },[fail]);
 
     useEffect(() => {
-        const loopPredict = async () => {
-            console.log("게임 로직 선택기");
-            switch(gameType) {
-                case 1:
-                    requestAnimationFrame(predictJumpingJack);
-                    break;
-                case 2:
-                    setTimeout(() => {
-                        requestAnimationFrame(predictPictogram);
-                    }, waitTime);
-                    break;
-                case 3:
-                    break;
-                default:
-                    break;
-            }
-        }
-
         if (started)  {
             console.log("게임 로더 게임 시작 인식함!!!")
             setTimeout(()=> {
