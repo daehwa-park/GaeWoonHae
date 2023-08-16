@@ -18,6 +18,7 @@ const GameLoader = ({props}) => {
 
     // states
     const [model, setModel] = useState();
+    const [model2, setModel2] = useState();
     const [webcam, setWebcam] = useState();
     const [curPoseState, setCurPoseState] = useState();
     const [success, setSuccess] = useState(false);
@@ -27,6 +28,7 @@ const GameLoader = ({props}) => {
     const poseList = useRef([]);
 
     const URL = useRef("");
+    const URL2 = useRef("");
     const loopWebcamId = useRef(null);
     const loopPredId = useRef(null);
     const failTimerId = useRef(null);
@@ -73,14 +75,12 @@ const GameLoader = ({props}) => {
                 poseList.current = [0, 1, 2, 3];
                 break;
             case 2: 
-                URL.current = 'https://teachablemachine.withgoogle.com/models/99dOWJKg2/';
-                poseList.current = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-                break;
-            case 3: 
-                URL.current = 'https://teachablemachine.withgoogle.com/models/PP6A_2GsN/';
+                URL.current = 'https://teachablemachine.withgoogle.com/models/074HcVDD9/';
+                URL2.current = 'https://teachablemachine.withgoogle.com/models/C9-H895DS/'
+                poseList.current = [0, 1, 2, 3, 4, 5, 6];
                 break;
             default:
-                URL.current = 'https://teachablemachine.withgoogle.com/models/M-BMZ7bbw/';
+                URL.current = 'https://teachablemachine.withgoogle.com/models/-T38dkjNF/';
                 break;
         }
 
@@ -100,10 +100,22 @@ const GameLoader = ({props}) => {
     }
 
     const setTmModel = async() => {
-        const modelURL = `${URL.current}model.json`;
-        const metadataURL = `${URL.current}metadata.json`;
-
-        setModel(await window.tmPose.load(modelURL, metadataURL));
+        if (gameType == 1) {
+            const modelURL = `${URL.current}model.json`;
+            const metadataURL = `${URL.current}metadata.json`;
+    
+            setModel(await window.tmPose.load(modelURL, metadataURL));
+        } else if (gameType == 2) {
+            const modelURL = `${URL.current}model.json`;
+            const metadataURL = `${URL.current}metadata.json`;
+            
+            const model2URL = `${URL2.current}model.json`;
+            const metadata2URL = `${URL2.current}metadata.json`;
+            
+    
+            setModel(await window.tmPose.load(modelURL, metadataURL));
+            setModel2(await window.tmPose.load(model2URL, metadata2URL));
+        }
     }
     
 
@@ -145,18 +157,17 @@ const GameLoader = ({props}) => {
                 setSuccess(true);
                 ready1.current = ready2.current = set.current = false;
             }
-
-            // 테스트용 키버튼 동작 
-            else if (key.current) {
-                setAudioPlaying(true);
-                setSuccess(true);
-                key.current = false;
-                ready1.current = ready2.current = set.current = false;
-            }
         }
 
         loopPredId.current = requestAnimationFrame(predictJumpingJack);
     }
+
+
+
+    /*
+    * 0 - 손머리위로, 1 - 쿵푸, 2 - 런지, 3 - 러닝
+    * 4 - 아래로 숙이기, 5 - 스쿼트, 6 - 던지기
+    */
 
     const predictPictogram = async () => {
 
@@ -168,25 +179,26 @@ const GameLoader = ({props}) => {
 
         if (model && webcam) {
             await webcam.update();
-            const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
-            const prediction = await model.predict(posenetOutput);
+            let poseNum;
+            let prediction;
+            
+            if (curPose.current < 4) {
+                const {pose, posenetOutput} = await model.estimatePose(webcam.canvas);
+                prediction = await model.predict(posenetOutput);
+                poseNum = curPose.current;
+            } else {
+                const {pose, posenetOutput} = await model2.estimatePose(webcam.canvas);
+                prediction = await model2.predict(posenetOutput);
+                poseNum = curPose.current % 4;
+            }
 
-            if (prediction[curPose.current].probability > 0.85 || key.current) {
+
+            if (prediction[poseNum].probability > 0.7 || key.current) {
                 setSuccess(true);
                 setTimeout(() => {
                     loopPredId.current = requestAnimationFrame(predictPictogram)
                 }, waitTime);
-            } 
-
-            // 테스트용 키버튼
-            if (key.current) {
-                setSuccess(true);
-                key.current = false;
-                setTimeout(() => {
-                    loopPredId.current = requestAnimationFrame(predictPictogram)
-                }, waitTime);
-            } 
-            else {
+            } else {
                 loopPredId.current = requestAnimationFrame(predictPictogram)
             }
         }
