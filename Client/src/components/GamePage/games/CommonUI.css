@@ -37,9 +37,10 @@
 
 .timer2 {
     position: absolute;
-    top: 32vw;
+    /* top: 32vw; */
+    bottom: 4vh;
     /* top: 6vh; */
-    left: 67vw;
+    left: 67.5vw;
     /* width: 10vw;
     height: 10vw; */
     width: 180px;
