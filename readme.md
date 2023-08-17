@@ -1,5 +1,7 @@
 
 # 🎮+ 🤸‍♀️ = 개운해(Web-RTC 기반 바디 레크리에이션 플랫폼)
+<span style="font-size: 24px;">크게 나타낼 텍스트</span>
+
 
 ## 🌟 서비스 개요
 
@@ -63,7 +65,6 @@
 ## 🛠️ 개발 환경
 
 
-
 - BackEnd
 ```
     Intelliji
@@ -74,7 +75,6 @@
     Spring Security
     Stomp-websocket 2.3.3
     Mysql
-    
 ```
     
 
@@ -94,7 +94,6 @@
     AWS ec2
     Nginx
     Docker 24.0.04
-    
 ```
     
 - Convergence Technology
@@ -103,17 +102,16 @@
     ⚙ Teachable Machine 0.8.3
     OpenVIdu 2.28.0
     OpenCV 4.8.0
-    
 ```
 
 ## 🤝 팀소개
 ![team.png](./team.png)
 
 ## 📋 산출물
-- 기능정의서
-- ERD
-- 시스템 다이어그램
-- API 명세서
+- [기능정의서]()
+- [ERD]()
+- [시스템 다이어그램]()
+- [API 명세서]()
 
 ## 📋 팀스페이스
 
