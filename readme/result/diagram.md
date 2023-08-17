@@ -2,8 +2,6 @@
 # 시스템 다이어그램
 
 1. 로그인 다이어그램
-
-
 ![login seq diagram.png](./login seq diagram.png)
 
 
