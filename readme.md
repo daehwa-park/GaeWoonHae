@@ -3,9 +3,9 @@
 
 ## 🌟 서비스 개요
 <center>
-[ ![gif_logo.gif](./gif_logo.gif) ](https://youtube/Wdtb7Ek3Li4)
+[![gif_logo.gif](./gif_logo.gif)](https://youtube/Wdtb7Ek3Li4)
 
-(로고를 클릭하면 소개 UCC로 이동합니다.)
+
 
 ***놀면서 운동하는 가면 놀이터***
 
