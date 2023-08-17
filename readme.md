@@ -1,6 +1,5 @@
 
-# 🎮+ 🤸‍♀️ = 개운해(Web-RTC 기반 바디 레크리에이션 플랫폼)
-<span style="font-size: 100px;">크게 나타낼 텍스트</span>
+# 🎮 + 🤸‍♀️ = 개운해(Web-RTC 기반 바디 레크리에이션 플랫폼)
 
 
 ## 🌟 서비스 개요
@@ -10,7 +9,7 @@
 [GWH UCC 클릭](https://youtube/Wdtb7Ek3Li4)
 
 # 놀면서 운동하는 가면 놀이터
-- 게임으로 운동해, 개운해는 운동에 진입장벽을 느끼는 현대인들에게 재밌고 뿌듯한 액티비티를 제공하고자 합니다
+- 게임으로 운동해, 개운해는 운동에 진입장벽을 느끼는 현대인들에게 재밌고 뿌듯한 액티비티를 제공합니다 !
 
 
 
@@ -57,7 +56,7 @@
 ## 📡 기술 스택
 - [STOMP 웹 소켓 프로토콜](../readme/websocket.md)
 - [OpenCV.js 이미지 처리](../readme/opencv.md)
-- [3. Teachable Machine 모션 캡쳐](../readme/teachablemachine.md)
+- [Teachable Machine 모션 캡쳐](../readme/teachablemachine.md)
 
 
 
@@ -67,7 +66,7 @@
 
 - BackEnd
 ```
-    Intelliji
+    IntelliJ
     Java 11
     Spring boot 2.7.1
     Gradle
@@ -108,10 +107,10 @@
 ![team.png](./team.png)
 
 ## 📋 산출물
-- [기능정의서]()
-- [ERD]()
-- [시스템 다이어그램]()
-- [API 명세서]()
+- [기능정의서](../readme/result/기능정의서.md)
+- [ERD](../readme/result/erd.md)
+- [시스템 다이어그램](../readme/result/diagram.md)
+- [API 명세서](../readme/result/api.md)
 
 ## 📋 팀스페이스
 
