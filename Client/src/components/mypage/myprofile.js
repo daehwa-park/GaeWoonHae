@@ -314,10 +314,13 @@ const Myprofilepage = () => {
   const navigate = useNavigate();
   const withdrawal= async ()=> {
     console.log('이동')
-    let isResigned = await authenticateAction.userResign();
-    if (isResigned) {
-      navigate("/")
-    }
+    await authenticateAction.userResign()
+    .then((rst) => {
+      console.log(rst);
+      if (rst) {
+        navigate("/")
+      }
+    });
   }
 
   // 달력 데이터 
