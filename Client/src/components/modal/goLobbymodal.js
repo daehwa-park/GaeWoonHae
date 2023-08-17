@@ -84,22 +84,22 @@ function GoLobbyModal({ setModalOpen, value }) {
   useEffect(()=>{
     const timer1 = setTimeout(() => {
       setShowMessage1(true);
-    }, 900);
+    }, 200);
     const timer2 = setTimeout(() => {
       setShowMessage2(true);
-    }, 1800);
+    }, 1100);
     const timer3 = setTimeout(() => {
       setShowMessage3(true);
-    }, 2700);
+    }, 2000);
     const timer4 = setTimeout(() => {
       setShowMessage4(true);
-    }, 3600);
+    }, 2900);
     const timer5 = setTimeout(() => {
       setShowMessage5(true);
-    }, 4000);
+    }, 3300);
     const timer6 = setTimeout(() => {
       setShowMessage6(true);
-    }, 4900);
+    }, 4200);
   },[]);
 
 
