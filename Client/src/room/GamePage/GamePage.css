@@ -63,7 +63,8 @@
     display:flex;
     width: 100vw;
     height: 83vh;
-    border: 6px solid #FD7F32;
+    /* border: 6px solid #FD7F32; */
+    border: 6px solid rgb(253, 127, 50, 0.15);
     border-radius: 20px;
 }
 .game-logo {
@@ -115,7 +116,8 @@
     height: 82vh;
     /* border-right: 7px solid rgb(104, 104, 104); */
     /* border-right: 7px dashed rgb(104, 104, 104); */
-    border-right: 2mm ridge rgb(253, 127, 50,0.5);
+    /* border-right: 2mm ridge rgb(253, 127, 50,0.5); */
+    border-right: 2mm ridge rgb(253, 127, 50, 0.1);
     /* border-right: 2mm ridge rgba(112, 112, 112, 0.6); */
     /* border-radius: 5px; */
 }
@@ -129,7 +131,15 @@
     border-radius: 3vw;
 }
 
-
+.blockingmodal {
+    position: absolute;
+    top: 2.3vh;
+    width: 75vw;
+    height: 81vh;
+    background-color: #ffffff;
+    z-index: 1;
+    border-radius: 10px;
+}
 
 .mainvideo {
     width: 81vw;
@@ -266,6 +276,9 @@
     position: relative;
 }
 
+.gameenmodal {
+    z-index: 1000;
+}
 .sub-name {
     position: absolute;
     top: 2px;

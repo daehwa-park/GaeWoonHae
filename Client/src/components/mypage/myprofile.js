@@ -312,10 +312,15 @@ const Myprofilepage = () => {
   // 회원 탈퇴 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const withdrawal=()=> {
+  const withdrawal= async ()=> {
     console.log('이동')
-    dispatch(authenticateAction.userLogout(userId));
-    navigate("/")
+    await authenticateAction.userResign()
+    .then((rst) => {
+      console.log(rst);
+      if (rst) {
+        navigate("/")
+      }
+    });
   }
 
   // 달력 데이터 
@@ -361,7 +366,7 @@ const Myprofilepage = () => {
               포인트 : <span className='points'>{userpoint}<img className='mypage-money' src="/images/img/coin.png" alt="My Image" width="25"/>
               </span>  
               
-              <button className='changebtn' onClick={()=>showLobbyModal3()}>조회</button> 
+              <button className='changebtn2' onClick={()=>showLobbyModal3()}>조회</button> 
           </div>
          
           <div className='leavesecession' onClick={()=>withdrawal()} >탈퇴하기</div>

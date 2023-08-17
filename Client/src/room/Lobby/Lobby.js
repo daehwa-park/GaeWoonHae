@@ -17,9 +17,30 @@ import {
   detectHaarFace,
 } from "../../features/openvidu_opencv/opencv/haarFaceDetection"; // 얼굴인식 컴포넌트
 import cv from "@techstark/opencv-js";
+import ChangeEmo from '../../components/modal/ChangeEmoji'
 
+import emoji1 from "../../assets/emoji/emoji1.png";
+import emoji2 from "../../assets/emoji/emoji2.png";
+import emoji3 from "../../assets/emoji/emoji3.png";
+import emoji4 from "../../assets/emoji/emoji4.png";
+import emoji5 from "../../assets/emoji/emoji5.png";
+import emoji6 from "../../assets/emoji/emoji6.png";
+import emoji7 from "../../assets/emoji/emoji7.png";
+import emoji8 from "../../assets/emoji/emoji8.png";
+import emoji9 from "../../assets/emoji/emoji9.png";
+import emoji10 from "../../assets/emoji/emoji10.png";
+import emojix from "../../assets/emoji/emojix.png";
+
+import {edituserinfo} from '../../features/Actions/edituserinfo'
+import { useDispatch } from "react-redux";
+import { emojiShopAction } from '../../features/Actions/emojiprocessing'
 const Lobby = () => {
-  const useremojiId = useSelector(state => state.auth.user.emojiId);
+  const firstUseremoji = useSelector(state => state.auth.user.emojiId);
+
+  // const selectId =useRef(1)
+  const [selectId,setSelectId] =useState(1)
+  // const [useremojiId,setUseremojiId] =useState(firstUseremoji)
+  const useremojiId =useRef(firstUseremoji)
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -33,12 +54,84 @@ const Lobby = () => {
   const [showMessage2, setShowMessage2] = useState(false);
   const [showMessage3, setShowMessage3] = useState(false);
 
+  const emojiArray = [
+    emoji1,
+    emoji2,
+    emoji3,
+    emoji4,
+    emoji5,
+    emoji6,
+    emoji7,
+    emoji8,
+    emoji9,
+    emoji10,
+  ];
+// 구입한 이모지 리스트
+const saveEmoji = useSelector((state) => state.auth.user.saveEmoji) ?? [1];
+// 선택한 이모지 id
+const [emojiId, setEmojiId] = useState(1)
+const userId = useSelector((state) => state.auth.user.userId);
+// 모달 끄기 
+const closeModal = () => {
+    setModalOpen(false);
+    setLobbyModalOpen2(false)
+};
+
+
+const dispatch = useDispatch();
+const emojiSellect = async() => {
+  dispatch(emojiShopAction.applyEmoji(userId, emojiId));
+  setSelectId(emojiId);
+  closeModal();
+}
+const emojiList = async(userId) => {
+    console.log('리스트 가져오기')
+    dispatch(edituserinfo.getEmojiList(userId));
+}
+
+useEffect(()=> {
+    const fetchData = async () => {
+        await emojiList(userId)
+        console.log(saveEmoji,'@@@@@@@@@')
+    }
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+},[])
+//선택된 이모지 이미지정보
+const [selectedEmoji, setSelectedEmoji] = useState(null);
+//선택된 이모지 id값 - 실행시 유저의 이모지 id값을 가져온다.
+// const [selectEmojiId, setSelectEmojiId] = useState(userEmojiId);
+
+// 이모지 선택시 정보 변경
+const handleEmojiClick = (emoji,num) => {
+    setSelectedEmoji(emoji);
+    setEmojiId(num)
+    // setSelectEmojiId(num);
+    console.log(1)
+};     
+
+const getEmoji = (emojiId) => {
+    switch (emojiId) {
+        case emojiId:
+          return emojiArray[emojiId-1];
+
+        default:
+          return ""; 
+      }
+    };
+
     // 언마운트시에 비디오 종료
     const onUnmount = () => {
       stopVideo.current = true
       console.log('언마운트 성공')
     }
   
+    useEffect(()=>{
+      useremojiId.current=selectId
+      // console.log('바뀐거 확인',useremojiId,selectId)
+      
+    },[selectId])
+
     // 이모지 리스트 서버에 요청
     useEffect(() => {
       init();
@@ -48,6 +141,8 @@ const Lobby = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
+
+  
     useEffect(()=>{
       const timer = setTimeout(() => {
         setShowMessage(true);
@@ -88,8 +183,8 @@ const Lobby = () => {
           try {
             const img = cv.imread(imgRef.current);
 
-            if(useremojiId !== 11){
-              emoji.current.src = `../../images/emoji/emoji${useremojiId}.png`; // 이모지
+            if(useremojiId.current !== 11){
+              emoji.current.src = `../../images/emoji/emoji${useremojiId.current}.png`; // 이모지
               const emo = cv.imread(emoji.current);
               detectHaarFace(img, emo); // opencv : loadHaarFaceModels()로 화면인식을 학습 => 포인트에 이모지 씌우기
             }
@@ -124,6 +219,8 @@ const Lobby = () => {
   const sessionId = useSelector((state) => state.roomInfo.sessionId);
   const gameName = gameNameList[gameType - 1];
 
+  const [LobbymodalOpen2, setLobbyModalOpen2] = useState(false);
+  
   const updateUserList = (userlist) => {
     refUserList.current = userlist;
     console.log(refUserList.current, "lobbyupdate");
@@ -148,8 +245,43 @@ const Lobby = () => {
     alert("초대코드가 복사되었습니다!");
     setShowCode(false);
   };
+
+  const showLobbyModal2 = () => {
+    setLobbyModalOpen2(true);
+  };
+
+
   return (
     <div className="lobby-body">
+      {LobbymodalOpen2 && 
+      
+      <div className="modal-container">
+
+          <div id='changemodals'>
+              <h3 id='codetxt7'>이모지 변경하기</h3>
+              <div className='changeemoji-text'>내가 보유중인 이모지 :</div>
+              <div className='emoji-box2'>
+                  {/* <div className='emoji-img2' >{selectedEmoji ? <img className='selected-emoji' src={selectedEmoji} alt='' /> : '구입한 이모지가 없습니다.'}</div> */}
+                  <div className='emojicomp2'>
+                      <img className='emoji-size2' src={emojix} onClick={() => handleEmojiClick(emojix,11)} alt=""/>
+                      {saveEmoji.map((emojiId)=>(
+                          <img className='emoji-size2' src={getEmoji(emojiId)} onClick={() => handleEmojiClick(getEmoji(emojiId),emojiId)} alt=""/>
+                      ))}
+                  {/* <img className='emoji-size' src={emoji2} onClick={() => handleEmojiClick(emoji2,2)} alt=""/>
+                  <img className='emoji-size' src={emoji3} onClick={() => handleEmojiClick(emoji3,3)} alt=""/> */}
+                  </div>
+                
+              </div>
+              <div className='select-emoji-change'>현재 선택한 이모지 : <br/>{selectedEmoji ? <img className='selected-emoji' src={selectedEmoji} alt=''/> : '선택한 이모지가 없습니다.'}</div>
+
+          
+              <div id='changemodal'>
+                  <p id='changebutton' onClick={emojiSellect}>적용</p>
+                  <p id='changebutton' onClick={closeModal}>취소</p>
+              </div>
+          </div>
+      </div>
+      }
     <div className="navbar-lobby">
       <img className="main-hover" src={logo} alt="" />
       <div
@@ -159,8 +291,8 @@ const Lobby = () => {
       >
         {showCode ? (
           <>
-            <div>
-              <span onClick={handleCopy}>
+            <div onClick={handleCopy}>
+              <span >
                 코드 :
               </span>
               {sessionId}{" "}
@@ -183,12 +315,15 @@ const Lobby = () => {
             </div>
           </div>
           <div className="lobby-room">
-            <div className="lobby-user">
-              {/* <div>{userList && userList[0].username}</div> */}
-              <GameRoomInfoStart
-                userList={userList}
-                refUserList={refUserList}
-              />
+            <div className="lobby-left">
+              <div className="lobby-user">
+                {/* <div>{userList && userList[0].username}</div> */}
+                <GameRoomInfoStart
+                  userList={userList}
+                  refUserList={refUserList}
+                />
+                <div className="setting-emoji" onClick={()=>showLobbyModal2()}>이모지 변경하기</div>
+              </div>
             </div>
             <div className="lobby-video">
               <div>
@@ -222,25 +357,8 @@ const Lobby = () => {
                     <div className={`lobby-message2 ${showMessage2 ? 'show' : ''}`}>플레이시간과 원하는 이모지를 선택했다면, <div className={`lobby-message3 ${showMessage3 ? 'show' : ''}`}>레츠 고 !!</div></div>
                     
                   </div>
-                  {/* <div className="lobby-message2">게임 시작!!</div> */}
                 </div>
               </div>
-              {/* <Row className="text-center">
-                <Col className="invite-time-container">
-                  <Card bg="light">
-                    <Card.Header
-                      className="card-head"
-                      style={{ backgroundColor: "#e6e6fa" }}
-                    >
-                      초대코드
-                    </Card.Header>
-                    <Card.Body className="card-body">{sessionId}</Card.Body>
-                    </Card>
-                </Col>
-                <Col className="invite-time-container">
-                <LimitTime/>
-                </Col>
-              </Row> */}
             </div>
             <div className="chat-col">
               <div className="chat-name">채팅창</div>
