@@ -2,10 +2,14 @@
 # 🎮+ 🤸‍♀️ = 개운해(Web-RTC 기반 바디 레크리에이션 플랫폼)
 
 ## 🌟 서비스 개요
+<div style="text-align: center;">
+  Your centered text goes here.
+</div>
+
 <center>
-[(![gif_logo.gif](./gif_logo.gif))](https://youtube/Wdtb7Ek3Li4)
+![gif_logo.gif](./gif_logo.gif))
 
-
+[UCC](https://youtube/Wdtb7Ek3Li4)
 
 ***놀면서 운동하는 가면 놀이터***
 
