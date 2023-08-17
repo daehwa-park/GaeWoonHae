@@ -74,6 +74,7 @@ const Myemojipage = () => {
     setSelectPrice(emojiPriceList[num]);
 
     selectedEmojiRef.current = emoji;
+    console.log(emoji,'@@@@@@@@@@@@@@@')
   };
 
   // 이모지 선택 취소
@@ -95,7 +96,8 @@ const Myemojipage = () => {
   useEffect(() => {
     emojiShopdata();
     init();
-
+    setSelectedEmoji(emojiArray[selectEmojiId-1])
+    
     return onUnmount  
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
