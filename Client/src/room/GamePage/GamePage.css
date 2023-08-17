@@ -139,6 +139,8 @@
     background-color: #ffffff;
     z-index: 1;
     border-radius: 10px;
+    text-align: center;
+    line-height: 81vh;
 }
 
 .mainvideo {
@@ -197,6 +199,10 @@
     /* display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr); */
+}
+
+.blockingmodal-text {
+    font-size: 4vh;
 }
 
 .sublist {
