@@ -2,6 +2,8 @@ package com.threeracha.gaewoonhae.db.domain;
 import javax.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 
 @NoArgsConstructor //기본 생성자 만들어줌
@@ -21,6 +23,7 @@ public class UserBuyEmoji {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne

@@ -154,6 +154,7 @@ async function userResign() {
   let alert = "회원을 탈퇴하면 데이터를 복구하실 수 없습니다.\n정말로 회원을 탈퇴하시겠습니까?";  
   let lastAlert = "회원을 탈퇴하시려면 현재 사용중인 닉네임을 입력해 주세요";
   let nickname;
+  let msg = false;
 
   const userId = localStorage.getItem("userId");
   const refreshToken = localStorage.getItem("refreshToken");
@@ -170,19 +171,19 @@ async function userResign() {
       refreshToken
     })
     .then((resp) => {
-      const msg = resp.data;
-      if (msg === "success") {
-        alert("회원 탈퇴가 완료되었습니다.\n다시 방문하시길 기다리겠습니다.");
-        return true;
-      } else {
-        alert("회원 탈퇴를 할 수 없습니다.");
-        return false;
-      }
+      msg = resp.data.data;
     })
     .catch((error) => {
       console.log(error);
-      return false;
     })
+  }
+
+  if (msg === "success") {
+    window.alert("회원 탈퇴가 완료되었습니다.\n다시 방문하시길 기다리겠습니다.");
+    return true;
+  } else {
+    window.alert("회원 탈퇴를 할 수 없습니다.");
+    return false;
   }
 }
 
