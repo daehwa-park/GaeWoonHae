@@ -166,6 +166,16 @@
     margin: 0 auto;
     /* border: 5px solid rgb(0, 0, 0); */
   }
+  .tutorial2{
+    position: relative;
+    display: flex;
+    /* justify-content: space-around; */
+    border: 20px red;
+    width: 55vw;
+    margin: 0 auto;
+    /* border: 5px solid rgb(0, 0, 0); */
+    height: 33vh;
+  }
 
   .tutorial-name{
     margin: 5vh 0 6vh 0;
@@ -184,7 +194,7 @@
   .mos-img-modal {
     position: absolute;
     height: 8vh;
-    left: 27.5vw;
+    left: 29vw;
   }
 
   .mosdie-img-modal {
@@ -220,6 +230,7 @@
   }
   
   .mst4 {
+    transform: scaleX(-1);
     opacity: 0;
     transition: opacity 0.7s ease-in-out;
   }
@@ -229,6 +240,7 @@
   }
   
   .mst5 {
+    
     opacity: 0;
     transition: opacity 0.7s ease-in-out;
   }
@@ -245,4 +257,73 @@
   .mst6.show {
     opacity: 1;
   }
+
+  .pictos {
+    height: 33vh;
+    position: absolute;
+    left: 10vw;
+    top: 0;
+  }
+
+  .pictos2 {
+    transform: scaleX(-1);
+    height: 25vh;
+    position: absolute;
+    left: 20vw;
+    top: 5vh;
+  }
+  .pictos3 {
+    height: 28vh;
+    position: absolute;
+    left: 35vw;
+    top: 2vh;
+  }
   
+  .success-imgs {
+    height: 22vh;
+    position: absolute;
+    left: 35vw;
+    top: 5vh;
+  }
+
+  .pic1 {
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+  }
+  
+  .pic1.show {
+    opacity: 1;
+  }
+  .pic2 {
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+  }
+  
+  .pic2.show {
+    opacity: 1;
+  }
+  .pic3 {
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+  }
+  
+  .pic3.show {
+    opacity: 1;
+  }
+  .pic4 {
+    opacity: 0;
+    transition: fadeInOut 5.5s ease-in-out;
+  }
+  
+  .pic4.show {
+    opacity: 1;
+  }
+
+  @keyframes fadeInOut {
+    0%, 70% {
+      opacity: 0;
+    }
+    30%, 100% {
+      opacity: 1;
+    }
+  }

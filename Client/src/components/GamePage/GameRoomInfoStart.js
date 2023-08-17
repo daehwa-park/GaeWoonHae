@@ -70,74 +70,7 @@ const GameRoomInfoStart = ({ userList, refUserList }) => {
             </div>
           )
         )}
-        {userList.map((person, idx) =>
-          person.username === hostName ? (
-            // <div key={idx} className="user-card">
-            //   {person.username} <div>🌟</div>
-            // </div>
-       
-              <div key={idx} className="user-card">
-                {person.username} <div key={idx}>🌟</div>
-              </div>
-              
-    
-          ) : (
-            <div key={idx} className="user-card">
-              {person.username}
-            </div>
-          )
-        )}
-        {userList.map((person, idx) =>
-          person.username === hostName ? (
-            // <div key={idx} className="user-card">
-            //   {person.username} <div>🌟</div>
-            // </div>
-       
-              <div key={idx} className="user-card">
-                {person.username} <div key={idx}>🌟</div>
-              </div>
-              
-    
-          ) : (
-            <div key={idx} className="user-card">
-              {person.username}
-            </div>
-          )
-        )}
-        {userList.map((person, idx) =>
-          person.username === hostName ? (
-            // <div key={idx} className="user-card">
-            //   {person.username} <div>🌟</div>
-            // </div>
-       
-              <div key={idx} className="user-card">
-                {person.username} <div key={idx}>🌟</div>
-              </div>
-              
-    
-          ) : (
-            <div key={idx} className="user-card">
-              {person.username}
-            </div>
-          )
-        )}
-        {userList.map((person, idx) =>
-          person.username === hostName ? (
-            // <div key={idx} className="user-card">
-            //   {person.username} <div>🌟</div>
-            // </div>
-       
-              <div key={idx} className="user-card">
-                {person.username} <div key={idx}>🌟</div>
-              </div>
-              
-    
-          ) : (
-            <div key={idx} className="user-card">
-              {person.username}
-            </div>
-          )
-        )}
+
       </div>
 
       {/* <div className="setting-emoji">이모지 변경하기</div> */}

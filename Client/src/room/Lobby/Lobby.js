@@ -39,7 +39,8 @@ const Lobby = () => {
 
   // const selectId =useRef(1)
   const [selectId,setSelectId] =useState(1)
-  const [useremojiId,setUseremojiId] =useState(firstUseremoji)
+  // const [useremojiId,setUseremojiId] =useState(firstUseremoji)
+  const useremojiId =useRef(firstUseremoji)
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -126,8 +127,8 @@ const getEmoji = (emojiId) => {
     }
   
     useEffect(()=>{
-      setUseremojiId(selectId)
-      console.log('바뀐거 확인',useremojiId,selectId)
+      useremojiId.current=selectId
+      // console.log('바뀐거 확인',useremojiId,selectId)
       
     },[selectId])
 
@@ -182,8 +183,8 @@ const getEmoji = (emojiId) => {
           try {
             const img = cv.imread(imgRef.current);
 
-            if(useremojiId !== 11){
-              emoji.current.src = `../../images/emoji/emoji${useremojiId}.png`; // 이모지
+            if(useremojiId.current !== 11){
+              emoji.current.src = `../../images/emoji/emoji${useremojiId.current}.png`; // 이모지
               const emo = cv.imread(emoji.current);
               detectHaarFace(img, emo); // opencv : loadHaarFaceModels()로 화면인식을 학습 => 포인트에 이모지 씌우기
             }
@@ -314,13 +315,15 @@ const getEmoji = (emojiId) => {
             </div>
           </div>
           <div className="lobby-room">
-            <div className="lobby-user">
-              {/* <div>{userList && userList[0].username}</div> */}
-              <GameRoomInfoStart
-                userList={userList}
-                refUserList={refUserList}
-              />
-              <div className="setting-emoji" onClick={()=>showLobbyModal2()}>이모지 변경하기</div>
+            <div className="lobby-left">
+              <div className="lobby-user">
+                {/* <div>{userList && userList[0].username}</div> */}
+                <GameRoomInfoStart
+                  userList={userList}
+                  refUserList={refUserList}
+                />
+                <div className="setting-emoji" onClick={()=>showLobbyModal2()}>이모지 변경하기</div>
+              </div>
             </div>
             <div className="lobby-video">
               <div>
