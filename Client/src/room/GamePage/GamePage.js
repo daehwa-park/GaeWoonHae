@@ -7,6 +7,7 @@ import logo from '../../assets/img/purple_logo.png'
 import { useNavigate } from 'react-router-dom';
 //게임종료를 위한 action 호출
 import { enterRoomAction } from "../../features/Actions/enterRoomAction";
+import empty from "../../assets/img/empty.png";
 
 
 // components
@@ -628,7 +629,7 @@ const GamePage = () => {
                                     {renderingcount.map((count,i) => {
                                         if (count <= 3-subscriber.length){
                                             return (
-                                                <div id="sub-video2 sub-titlebox" key={i}><img id="sub-video2" src="/images/img/emty.png" alt="dsa" /></div>
+                                                <div id="sub-video2 sub-titlebox" key={i}><img id="sub-video2" src={empty} alt="EMPTY" /></div>
                                             ); 
                                         } else {
                                             return null;

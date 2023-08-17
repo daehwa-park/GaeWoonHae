@@ -6,6 +6,7 @@
 2. 서버에 이미지 올리기
 3. 깃에 올라가지 않는 파일들
 4. 기술 스택과 버전 정리
+5. 시연 시나리오
 
 ## 서버에 설정하기
 
@@ -489,3 +490,41 @@ mysql : 8.0.33
 spring : 2.7.1
 
 외부 API : 카카오 로그인 REST API
+
+## 시연 시나리오
+
+1. 랜딩 페이지
+   ![landing](/PortingManualImage/landingpage.png)
+   카카오 로그인 버튼을 누른다.
+2. 로그인
+   ![login](/PortingManualImage/kakaologin.png)
+3. 메인 페이지
+   ![main](/PortingManualImage/mainpage.png)
+   메인 페이지의 우측 상단에 있는 이모지 상점을 누른다.
+4. 이모지 상점
+   ![shop](/PortingManualImage/emojishop.png)
+   ![buy](/PortingManualImage/buybuy.png)
+   이모지 상점에서 이모지 2개 구입한다.
+5. 마이 페이지
+   ![my](/PortingManualImage/mypage.png)
+   마이페이지에서 이모지를 누르면 이모지 변경 모달이 나온다.
+   ![change](/PortingManualImage/selectemoji.png)
+   사용할 이모지를 선택하고 적용을 누른다.
+   ![update](/PortingManualImage/emojiupdate.png)
+   선택한 이모지가 맞는지 확인
+6. 모기 잡기 게임 선택
+   ![mos](/PortingManualImage/mosq.png)
+   방 생성 버튼을 누른다.
+7. 로비
+   ![lobby](/PortingManualImage/lobby.png)
+   우측 하단의 게임 시작 버튼을 누른다.
+8. 게임 진행
+   ![game](/PortingManualImage/gameroom.png)
+9. 초대 코드로 접속
+   ![invite](/PortingManualImage/invite.png)
+   픽토그램 방으로 이동
+10. 게임 결과
+    ![result](/PortingManualImage/gameresult.png)
+    게임 결과를 확인하고 나가기 버튼을 누름
+11. 운동량 변경 확인
+    ![record](/PortingManualImage/recordupdate.png)
