@@ -3,7 +3,7 @@
 
 ## 🌟 서비스 개요
 <center>
-[![gif_logo.gif](./gif_logo.gif)](https://youtube/Wdtb7Ek3Li4)
+[(![gif_logo.gif](./gif_logo.gif))](https://youtube/Wdtb7Ek3Li4)
 
 
 
