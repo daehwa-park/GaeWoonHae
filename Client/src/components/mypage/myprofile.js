@@ -366,7 +366,7 @@ const Myprofilepage = () => {
               포인트 : <span className='points'>{userpoint}<img className='mypage-money' src="/images/img/coin.png" alt="My Image" width="25"/>
               </span>  
               
-              <button className='changebtn' onClick={()=>showLobbyModal3()}>조회</button> 
+              <button className='changebtn2' onClick={()=>showLobbyModal3()}>조회</button> 
           </div>
          
           <div className='leavesecession' onClick={()=>withdrawal()} >탈퇴하기</div>

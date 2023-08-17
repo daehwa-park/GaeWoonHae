@@ -97,7 +97,7 @@ function ChangeEmojiModal({ setModalOpen }) {
                 <div className='emojicomp2'>
                     <img className='emoji-size2' src={emojix} onClick={() => handleEmojiClick(emojix,11)} alt=""/>
                     {saveEmoji.map((emojiId)=>(
-                        <img className='emoji-size2' src={getEmoji(emojiId)} onClick={() => handleEmojiClick(getEmoji(emojiId),emojiId)} alt=""/>
+                        <img key={emojiId} className='emoji-size2' src={getEmoji(emojiId)} onClick={() => handleEmojiClick(getEmoji(emojiId),emojiId)} alt=""/>
                     ))}
                 {/* <img className='emoji-size' src={emoji2} onClick={() => handleEmojiClick(emoji2,2)} alt=""/>
                 <img className='emoji-size' src={emoji3} onClick={() => handleEmojiClick(emoji3,3)} alt=""/> */}
@@ -112,7 +112,7 @@ function ChangeEmojiModal({ setModalOpen }) {
                 <p id='changebutton' onClick={closeModal}>취소</p>
             </div>
         </div>
-        </div>
+    </div>
     );
 }
 export default ChangeEmojiModal;

@@ -9,17 +9,16 @@
 }
 
 #send {
-  margin-left: 15vw;
+  /* margin-left: 15vw; */
 }
 /* 채팅 입력창 스타일 */
 .chat-input {
-  width: 22vw;
+  width: 18vw;
   margin-left: 1.3vw;
   margin-right: 3vw;
   height: 40px;
   border: 20px solid #ccc;
   border-radius: 5px;
-  /* padding: 5px; */
   background-color: #f3e8ff;
   box-sizing: border-box; /* 패딩과 보더를 요소의 전체 너비 및 높이에 포함 */
 }
@@ -31,30 +30,36 @@
   padding: 10px;
   width: 22vw;
   height: 52vh;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   background-color: #F0F0F0;
   border-radius: 10px;
   box-shadow: 1px 1px 1px 1px rgb(226, 223, 223);
 }
+
+/* .chatinput1 {
+  position: absolute;
+  width: 10vw;
+  bottom: 0;
+  left: 0;
+} */
+
 /* 스크롤바가 항상 표시되지 않도록 기본 설정 */
-.chat-box::-webkit-scrollbar {
-width: 8px;
+.chat-msg::-webkit-scrollbar {
+width: 20vw;
 background-color: transparent;
 }
 
-.chat-box::-webkit-scrollbar-thumb {
+.chat-msg::-webkit-scrollbar-thumb {
 background-color: rgba(0,0,0,0); /* 투명하게 설정 */
 }
 
 /* 채팅 박스를 호버할 때만 스크롤바 표시 */
-.chat-box:hover::-webkit-scrollbar-thumb {
+.chat-msg:hover::-webkit-scrollbar-thumb {
 background-color: #888; /* 호버 시 색상 */
 }
 
 /* 스크롤바가 채팅 내용 위에 뜨도록 설정 */
-.chat-box {
-overflow-y: overlay;
-}
+
 .gamestart-btn {
 
   position: absolute;
@@ -122,7 +127,6 @@ color: white;
 }
 
 .message-own {
-  background-color: #4CAF50;
   color: rgb(225, 67, 67);
   word-wrap: break-word;
   float: right;
@@ -142,7 +146,6 @@ color: white;
 }
 
 .send-btn {
-  
   height: 40px;
   background-color: #3498db;  /* 버튼의 배경색 */
   color: white;               /* 버튼의 글자색 */
@@ -163,21 +166,20 @@ color: white;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* 마우스를 올렸을 때의 그림자 효과 */
 }
 ::-webkit-scrollbar-button {
-display: none;
+  display: none;
 }
 
-.AAA {
-  /* border: 10px solid red; */
-  position: absolute;
-  bottom: 1vh;
+
+.chat-msg {
+  width: 21vw;
+  height: 30vh;
+  border: 1px solid rgb(184, 3, 3);
+  margin: 0 auto;
+  overflow-y: auto !important;
+}
+.chattag {
   width: 22vw;
 }
-
-
-/* .chat-msg {
-  margin: 0 auto;
-} */
-
 .chat-top-bar {
   background-color: #F0F0F0; /* 채팅 상단바 배경색 */
   padding: 10px; /* 채팅 상단바 패딩 */

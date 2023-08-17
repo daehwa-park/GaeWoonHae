@@ -64,28 +64,28 @@ const Chatting = ({ setModalOpen, setUserList, updateUserList }) => {
         <div className="chat-top-bar">
           <span className="chat-room-title">{gameType===1 ? <div>모기잡이방</div> : <div>픽토그램방</div>}</span>
         </div>
-        <table className="table chat-msg">
-          <tbody id="messages"></tbody>
-        </table>
-        <Form className="chat-input-form row AAA">
-          <div className="col-9 BBB">
+  
+          <div className="table chat-msg">
+            <div id="messages"></div>
+          </div>
+
+        <Form className="chat-input-form">
+          <div>
             <Form.Control
               type="text"
-              id="chat"
+              // id="chat"
               value={chatMessage}
               className="chat-input"
               placeholder="채팅 입력"
               onChange={handleInputChange}
-              style={{ width:"15vw"   }}
             />
           </div>
-          <div className="col-3 mx-0">
+          <div className="chatsendbtn mx-0">
             <button
-              id="send"
+              // id="send"
               className="send-btn"
               type="submit"
               onClick={handleSend}
-              style={{ margin: "0px" }}
             >
               Send
             </button>
