@@ -1,5 +1,5 @@
 
-### 1. STOMP 웹 소켓 프로토콜
+# STOMP 웹 소켓 프로토콜
 
 STOMP(Simple/Stream Text Oriented Message Protocol)란, 클라이언트와 서버 간 통신과 클라이언트 간의 서버를 경유한 상호 통신이 가능하도록 websocket 위에서 동작하는 문자 기반 메시징 프로토콜입니다.
 
