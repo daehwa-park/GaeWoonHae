@@ -225,32 +225,34 @@ function getStompClient(
     }
 
     function showMessage(message) {
-  let sender, content;
-  let messageClass = "message-other";
+      let sender, content;
+      let messageClass = "message-other";
+        
+      var chatBox = document.getElementById("messages");
+      chatBox.scrollTop = chatBox.scrollHeight;
+      // 메시지에 ':'가 있는 경우
+      if (message.includes(":")) {
+        [sender, content] = message.split(":");
 
-  // 메시지에 ':'가 있는 경우
-  if (message.includes(":")) {
-    [sender, content] = message.split(":");
-
-    if (sender.trim() === myName) {
-      messageClass = "message-own";
-      $("#messages").append(
-        `<tr><td class="message ${messageClass}" style="background-color:purple; color:white">` +
-          content +
-          "</td></tr>"
-      );
-    } else {
-      $("#messages").append(
-          "<tr>"+`<td class="message ${messageClass}" style="background-color:#77838F; color:black">` +
-         `${sender} :` + content +
-          "</td></tr>"
-      );
+        if (sender.trim() === myName) {
+          messageClass = "message-own";
+          $("#messages").append(
+            `<tr><td class="message ${messageClass}" style="background-color:purple; color:white">` +
+              content +
+              "</td></tr>"
+          );
+        } else {
+          $("#messages").append(
+              "<tr>"+`<td class="message ${messageClass}" style="background-color:#77838F; color:black">` +
+            `${sender} :` + content +
+              "</td></tr>"
+          );
     }
   } else {
     // 메시지에 ':'가 없는 경우
     content = message;
     $("#messages").append(
-      "<tr><td class='welcome-ms'>" + content + "</td></tr>"
+      "<tr><td class='welcome-ms' style='text-align: center; line-height: 4vh;'>" + content + "</td></tr>"
     );
   }
 

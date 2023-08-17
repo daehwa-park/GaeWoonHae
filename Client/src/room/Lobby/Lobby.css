@@ -10,10 +10,11 @@
 .navbar-lobby {
   /* position: absolute; */
   width: 100%;
-  height: 0%;
+  height: 9vh;
   background-color: #FEFCF5;
   display: flex;
   justify-content: space-between;
+  /* border: 10px solid red; */
   /* z-index: -5; */
 }
 .lobby-main{
@@ -23,12 +24,6 @@
   
 }
 
-.lobbymain {
-  /* display: flex; */
-  height: 100%;
-  width: 100%;
-  /* border: 10px solid red; */
-}
 .invite-time-container {
   display: flex;
   justify-content: center;
@@ -260,13 +255,19 @@
   background-color: white;
   box-shadow: 0 2px 3px  black;
 }
+.lobby-left{
+  width: 25vw;
+  border-radius: 1px;
+  border-right: 4px solid rgb(181, 181, 252,0.2);
 
+}
 .lobby-user{
   margin: 0 2vw;
   width: 25vw;
-  height: 67vh;
-  border-radius: 1px;
-  border-right: 4px solid rgb(181, 181, 252,0.2);
+  height: 50vh;
+  /* border-radius: 1px;
+  border-right: 4px solid rgb(181, 181, 252,0.2); */
+  /* border: 5px solid red; */
   /* box-shadow: 0 2px 3px  rgb(181, 181, 252); */
   /* box-shadow: -5px 0px 3px rgb(99, 99, 99) inset; */
 }
@@ -376,16 +377,17 @@
 }
 
 .setting-emoji {
-  position: absolute;
+  /* position: absolute; */
   font-size: 2vh;
-  width: 19vw;
+  width: 18.5vw;
   height: 5vh;
   background-color: rgb(194, 167, 126,0.8);
   border-radius: 5px;
   text-align: center;
   line-height: 5vh;
   z-index: 10;
-  bottom: 17.5vh;
-  left: 5.5vw;
+  margin-left: 1.2vw;
+  /* top: 80vh; */
+  /* left: 5.5vw; */
 }
 
