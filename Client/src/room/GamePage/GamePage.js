@@ -498,7 +498,7 @@ const GamePage = () => {
                 {loading ? <Loading /> : null }
                 {counting ? <CountLoading updateLoadingComplete={updateLoadingComplete} /> : null}
                 {/* 게임 종료 모달 */}
-                {GamemodalOpen && (<GameEndBtn setModalOpen={setGameModalOpen} props={{renderingUserList}}/>)}
+                {GamemodalOpen && (<GameEndBtn className="gameenmodal" setModalOpen={setGameModalOpen} props={{renderingUserList}}/>)}
 
                 <div className="gamescreen">
                     <div className='messagebtntag'>
@@ -537,6 +537,7 @@ const GamePage = () => {
                             <div id="video-container" style={{ display:"flex"}}>
                                 {/* 내 화면 */}
                                 <div id="game-main-videos">
+                                    {finished ? (<div className='blockingmodal'></div>) : null}
                                     <div id="game-main-video" >
                                         <Webcam
                                             ref={webcamRef}

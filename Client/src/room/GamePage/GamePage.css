@@ -131,7 +131,15 @@
     border-radius: 3vw;
 }
 
-
+.blockingmodal {
+    position: absolute;
+    top: 2.3vh;
+    width: 75vw;
+    height: 81vh;
+    background-color: #ffffff;
+    z-index: 1;
+    border-radius: 10px;
+}
 
 .mainvideo {
     width: 81vw;
@@ -268,6 +276,9 @@
     position: relative;
 }
 
+.gameenmodal {
+    z-index: 1000;
+}
 .sub-name {
     position: absolute;
     top: 2px;

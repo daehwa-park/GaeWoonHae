@@ -8,14 +8,11 @@
   height: 40vh;
 }
 
-#send {
-  /* margin-left: 15vw; */
-}
 /* 채팅 입력창 스타일 */
 .chat-input {
-  width: 18vw;
-  margin-left: 1.3vw;
-  margin-right: 3vw;
+  width: 20vw;
+  margin-left: 0.6vw;
+  margin-right: 1vw;
   height: 40px;
   border: 20px solid #ccc;
   border-radius: 5px;
@@ -24,13 +21,13 @@
 }
 
 .chat-box {
-  position: relative;
+  border:2px solid saddlebrown;
+  width: 22vw;
+  height: 52vh;
+  /* position: relative; */
   border: 2px solid rgb(235, 230, 230);
   margin-bottom: 5px;
   padding: 10px;
-  width: 22vw;
-  height: 52vh;
-  /* overflow-y: auto; */
   background-color: #F0F0F0;
   border-radius: 10px;
   box-shadow: 1px 1px 1px 1px rgb(226, 223, 223);
@@ -106,11 +103,12 @@ color: white;
   padding: 5px 10px;
   margin: 5px auto;
   border-radius: 8px;
-  width: 100%;
+  width: 17vw;
+  height: 5vh;
   display: inline-block;
   clear: both;
   text-align: center;
-  
+  background-color: white;
 }
 
 
@@ -118,21 +116,26 @@ color: white;
   padding: 5px 10px;
   margin: 5px;
   border-radius: 8px;
-  max-width: 70%;
+  /* max-width: 40%; */
   display: inline-block;
   
   clear: both;
-  text-align: left;
+  /* text-align: left; */
  
 }
-
+.message-container {
+  width: 21vw;
+  height: 38vh;
+  overflow-y: auto;
+  /* border: 2px solid red; */
+}
 .message-own {
+  /* width: 20vw; */
   color: rgb(225, 67, 67);
-  word-wrap: break-word;
-  float: right;
+  /* word-wrap: break-word; */
+  /* float: right; */
   border-top-right-radius: 0;
-  margin-left: auto;  /* 이 행을 추가하여 좌측 여백을 최대로 합니다. */
-  margin-right: 5px;  /* 여백을 줄입니다. */
+  /* margin-right: 5px;  여백을 줄입니다. */
 }
 
 .message-other {
@@ -145,8 +148,18 @@ color: white;
   margin-left: 5px;  /* 여백을 줄입니다. */
 }
 
+.chat-input-form {
+  margin-top: 1vh;
+  width: 21vw;
+  display: flex;
+  align-items: center;
+  height: 5vh;
+  /* border: 2px solid black; */
+}
+
 .send-btn {
-  height: 40px;
+ 
+  height: 4.5vh;
   background-color: #3498db;  /* 버튼의 배경색 */
   color: white;               /* 버튼의 글자색 */
   border: none;               /* 테두리 없애기 */
@@ -156,7 +169,6 @@ color: white;
   border-radius: 4px;         /* 모서리를 둥글게 */
   transition: all 0.3s;       /* 전환 효과 적용 */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* 그림자 효과 */
-  margin-top: 5px;
   box-sizing: border-box;
   margin-left: 0px;
 }
@@ -171,11 +183,11 @@ color: white;
 
 
 .chat-msg {
-  width: 21vw;
-  height: 30vh;
-  border: 1px solid rgb(184, 3, 3);
-  margin: 0 auto;
-  overflow-y: auto !important;
+  /* width: 21vw;
+  height: 30vh; */
+  /* border: 1px solid rgb(184, 3, 3); */
+  /* margin: 0 auto; */
+  /* max-height: 30vh; */
 }
 .chattag {
   width: 22vw;
