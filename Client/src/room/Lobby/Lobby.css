@@ -120,18 +120,14 @@
 }
 
 .title-box {
-  position: relative;
-  margin: 1rem -10px;
+  color: #fff;
   padding: 0.7rem 0.7rem 0.7rem 2rem;
-  /* background: rgb(30, 136, 229,0.8); */
-  /* background: #FD7F32; */
-  /* background: linear-gradient(to right, rgb(255, 177, 66, 0.8), rgb(255, 118, 117, 0.8)); */
-  background: linear-gradient(to right, rgba(248, 218, 153, 0.1), rgba(248, 218, 153, 0.8));
-  /* border: 1px solid black; */
-  box-shadow: 0 0 2px black;
-  border-radius: 5px;
+  border-radius: 10px;
+  background: linear-gradient(45deg, rgb(254, 107, 139,0.3) 30%, rgb(255, 142, 83, 0.3) 90%);
+  box-shadow: rgba(255, 105, 135, 0.3) 0px 3px 5px 2px;
+  margin-bottom: 1vh;
 }
-.title-box::before, .title-box::after {
+/* .title-box::before, .title-box::after {
   position: absolute;
   content: '';
 }
@@ -142,7 +138,7 @@
   height: 0px;
   border-top: 10px solid #8cb5d8;
   border-left: 10px solid transparent;
-}
+} */
 /* .title-box::after {
   right: 0px;
   bottom: -10px;
@@ -253,7 +249,7 @@
   /* border: 5px solid black; */
   border-radius: 20px;
   background-color: white;
-  box-shadow: 0 2px 3px  black;
+  box-shadow: 0 1px 1px  black;
 }
 .lobby-left{
   width: 25vw;
@@ -283,7 +279,7 @@
 
   width: 30vw;
   height: 40vh;
-  border: 4px solid rgb(56, 56, 56);
+  border: 2px solid rgb(56, 56, 56,0.2);
   margin: 1vh auto;
 }
 
@@ -389,5 +385,11 @@
   margin-left: 1.2vw;
   /* top: 80vh; */
   /* left: 5.5vw; */
+  transition: background-color 0.3s;
+}
+.setting-emoji:hover {
+  background-color: rgb(226, 195, 152); /* 보라색의 어두운 색상으로 호버 효과 */
+  color: white;
+
 }
 
