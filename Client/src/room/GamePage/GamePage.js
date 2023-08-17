@@ -306,15 +306,6 @@ const GamePage = () => {
                     else if(myName === hostName) {
                         setfinishUserCount(++finishUserCountRef.current);
                         console.log("한놈 끝났다.");
-
-                        if (finishGameTimer.current !== undefined) {
-                            clearTimeout(finishGameTimer.current);
-                        }
-
-                        finishGameTimer.current = setTimeout(() => {
-                            finishUserCountRef.current = userList.current;
-                            setfinishUserCount(finishUserCountRef.current);
-                        }, 10000);
                     }
                 }
             );
@@ -479,15 +470,12 @@ const GamePage = () => {
     //0809
     useEffect(()=> {
         console.log("현재 참여 유저 리스트 수",userList.current.length, "끝난 유저 수", finishUserCountRef.current);
-        if (myName === hostName && finishUserCountRef.current>=userList.current.length) {
+        if (myName === hostName && (finishUserCountRef.current>=userList.current.length || finishUserCountRef.current >= 3)) {
             stompClient.send(
                 "/app/gameroom/" + sessionId + "/gamefinish",{},
                 // 내 정보를 해당 채널로 보내면 됨
                 JSON.stringify({ chat: "게임종료" })
             );
-            if (finishGameTimer.current !== undefined) {
-                clearTimeout(finishGameTimer.current);
-            }
             finishedGameStatus();
             console.log("자 이제 넘어가도록 하지");
         }
