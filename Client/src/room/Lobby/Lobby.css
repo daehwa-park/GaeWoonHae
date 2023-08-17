@@ -125,7 +125,7 @@
   border-radius: 10px;
   background: linear-gradient(45deg, rgb(254, 107, 139,0.3) 30%, rgb(255, 142, 83, 0.3) 90%);
   box-shadow: rgba(255, 105, 135, 0.3) 0px 3px 5px 2px;
-  margin-bottom: 1vh;
+  margin-bottom: 2vh;
 }
 /* .title-box::before, .title-box::after {
   position: absolute;
@@ -377,7 +377,7 @@
   font-size: 2vh;
   width: 18.5vw;
   height: 5vh;
-  background-color: rgb(194, 167, 126,0.8);
+  background-color: rgba(252, 190, 98, 0.5);
   border-radius: 5px;
   text-align: center;
   line-height: 5vh;
