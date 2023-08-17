@@ -33,7 +33,12 @@ import CountLoading from './countloading'
 import Loading from './loading'
 import { current } from '@reduxjs/toolkit';
 import OpenViduVideoComponent from '../../features/openvidu_opencv/openvidu/OvVideo';
+
+import Endloading from '../../assets/img/end_loading.gif'
+
 // 게임페이지
+
+
 
 const GamePage = () => {
     const dispatch = useDispatch();
@@ -550,7 +555,14 @@ const GamePage = () => {
                             <div id="video-container" style={{ display:"flex"}}>
                                 {/* 내 화면 */}
                                 <div id="game-main-videos">
-                                    {finished ? (<div className='blockingmodal'></div>) : null}
+                                    {finished ? (<div className='blockingmodal'>
+                                        <div className='blockingmodal'>
+                                            <div className='blockingmodal-text'>
+                                                다른사람이 끝날때까지 잠시만 기다려 주세요.
+                                            </div>
+                                            {/* <img className='blockingmodal-text' src={Endloading} alt="" /> */}
+                                        </div>
+                                    </div>) : null}
                                     <div id="game-main-video" >
                                         <Webcam
                                             ref={webcamRef}
