@@ -66,11 +66,13 @@ background-color: #888; /* 호버 시 색상 */
   width: 10%;  /* 컴포넌트 가로폭의 절반 크기 */
   background-color: rgb(255, 255, 255); /* 보라색 배경 */
   color: rgb(0, 0, 0);  /* 텍스트는 흰색 */
-  border: 2px solid;
-  border-radius: 10px;
-  font-size: 16px;
+
+  font-size: 2vh;
   cursor: pointer;
   transition: background-color 0.3s;
+  border: 2px solid rgb(235, 230, 230);
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgb(192, 189, 189);
 }
 
 .gamestart-btn:hover {
@@ -87,11 +89,12 @@ color: white;
   width: 10%;
   background-color: #ffffff;  /* 붉은색 배경 */
   color: black;  /* 텍스트는 흰색 */
-  border: 2px solid;
-  border-radius: 10px;
-  font-size: 16px;
+  font-size: 2vh;
   cursor: pointer;
   transition: background-color 0.3s;
+  border: 2px solid rgb(235, 230, 230);
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgb(192, 189, 189);
 }
 
 .leave-room-btn:hover {

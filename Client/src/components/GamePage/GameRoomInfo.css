@@ -1,12 +1,12 @@
 .game-room-info-start {
   /* background-color: rgb(175, 237, 248); */
-  height: 53vh;
+  height: 50vh;
   width: 21vw;
   padding: 0 5%;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  margin-top: 4vh;
+  margin-top: 6.5vh;
   /* border: 5px solid red; */
 }
 .count-people {
