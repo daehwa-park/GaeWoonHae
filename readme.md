@@ -1,6 +1,6 @@
 
 # 🎮+ 🤸‍♀️ = 개운해(Web-RTC 기반 바디 레크리에이션 플랫폼)
-<span style="font-size: 24px;">크게 나타낼 텍스트</span>
+<span style="font-size: 100px;">크게 나타낼 텍스트</span>
 
 
 ## 🌟 서비스 개요
