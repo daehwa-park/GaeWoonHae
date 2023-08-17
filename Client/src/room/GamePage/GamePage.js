@@ -94,6 +94,7 @@ const GamePage = () => {
     const faceImgRef = useRef();
     const emojiRef = useRef();
     const updateEmojiId = useRef();
+    const finishGameTimer = useRef(undefined);
 
     // 비디오 종료 조건
     const stopVideo = useRef(false);
@@ -299,6 +300,15 @@ const GamePage = () => {
                     else if(myName === hostName) {
                         setfinishUserCount(++finishUserCountRef.current);
                         console.log("한놈 끝났다.");
+
+                        if (finishGameTimer.current !== undefined) {
+                            clearTimeout(finishGameTimer.current);
+                        }
+
+                        finishGameTimer.current = setTimeout(() => {
+                            finishUserCountRef.current = userList.current;
+                            setfinishUserCount(finishUserCountRef.current);
+                        }, 10000);
                     }
                 }
             );
@@ -469,6 +479,9 @@ const GamePage = () => {
                 // 내 정보를 해당 채널로 보내면 됨
                 JSON.stringify({ chat: "게임종료" })
             );
+            if (finishGameTimer.current !== undefined) {
+                clearTimeout(finishGameTimer.current);
+            }
             finishedGameStatus();
             console.log("자 이제 넘어가도록 하지");
         }
@@ -498,7 +511,7 @@ const GamePage = () => {
                 {loading ? <Loading /> : null }
                 {counting ? <CountLoading updateLoadingComplete={updateLoadingComplete} /> : null}
                 {/* 게임 종료 모달 */}
-                {GamemodalOpen && (<GameEndBtn setModalOpen={setGameModalOpen} props={{renderingUserList}}/>)}
+                {GamemodalOpen && (<GameEndBtn className="gameenmodal" setModalOpen={setGameModalOpen} props={{renderingUserList}}/>)}
 
                 <div className="gamescreen">
                     <div className='messagebtntag'>
@@ -537,6 +550,7 @@ const GamePage = () => {
                             <div id="video-container" style={{ display:"flex"}}>
                                 {/* 내 화면 */}
                                 <div id="game-main-videos">
+                                    {finished ? (<div className='blockingmodal'></div>) : null}
                                     <div id="game-main-video" >
                                         <Webcam
                                             ref={webcamRef}

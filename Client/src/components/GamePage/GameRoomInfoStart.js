@@ -13,7 +13,7 @@ const GameRoomInfoStart = ({ userList, refUserList }) => {
   console.log(hostName, myName);
   const [limitTime, setLimitTime] = useState(60); // 초기 제한 시간은 30초로 설정합니다.
   const [isSelecting, setIsSelecting] = useState(false);
-  const timeOptions = [60, 90, 150, 180];
+  const timeOptions = [30, 60, 90, 150, 180];
   const saveTime = () => {
     dispatch(roomActions.getLimitTime({ limitTime }));
   };
@@ -70,9 +70,10 @@ const GameRoomInfoStart = ({ userList, refUserList }) => {
             </div>
           )
         )}
+
       </div>
 
-      <div className="setting-emoji">이모지 변경하기</div>
+      {/* <div className="setting-emoji">이모지 변경하기</div> */}
 
       {hostName === myName && (
         <div

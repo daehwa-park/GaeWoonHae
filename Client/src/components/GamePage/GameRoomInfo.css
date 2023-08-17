@@ -1,12 +1,13 @@
 .game-room-info-start {
   /* background-color: rgb(175, 237, 248); */
-  height: 60vh;
+  height: 53vh;
   width: 21vw;
-  padding: 5%;
+  padding: 0 5%;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   margin-top: 4vh;
+  /* border: 5px solid red; */
 }
 .count-people {
 display: flex;
@@ -14,8 +15,10 @@ flex-direction: column;
 margin-bottom: 10px;
 padding: 10px;
 padding-left: 20px;
-background-color: rgb(175, 231, 248);
-color:aliceblue;
+/* background-color: rgb(175, 231, 248); */
+background-color: #eeeefc;
+/* color:aliceblue; */
+color:black;
 border-radius: 10px;
 }
 
@@ -31,40 +34,34 @@ height: 34vh;
 
 }
 .head-of-room {
-vertical-align: middle; /* 이미지를 수직 중앙으로 정렬 */
-height: 1.3em; /* 글자 크기에 맞추기 위한 높이 설정. 글자 크기가 16px이라면 이미지의 높이도 16px가 됩니다. */
-width: auto; /* 가로 세로 비율 유지 */
+  vertical-align: middle; /* 이미지를 수직 중앙으로 정렬 */
+  height: 1.5vh; /* 글자 크기에 맞추기 위한 높이 설정. 글자 크기가 16px이라면 이미지의 높이도 16px가 됩니다. */
+  width: auto; /* 가로 세로 비율 유지 */
 }
 
 .user-card {
 display: flex;
 justify-content: space-between;
-background-color: #e6e6fa; /* 연보라색 */
-background-color: #eeeefc; /* 연보라색 */
+/* background-color: #e6e6fa; */
+/* background-color: #f3f3fa; */
 padding: 10px;
 padding-left: 20px;
 padding-right: 20px;
 border-radius: 10px;
-margin: 7px 0;
-
+margin: 1vh 0;
+height: 4vh;
+align-items: center;
 }
 
-.setting-emoji {
-  font-size: 2vh;
-  width: 100%;
-  height: 5vh;
-  background-color: rgb(194, 167, 126);
-  border-radius: 5px;
-  text-align: center;
-  line-height: 5vh;
-}
 
 .time-setting-btn {
-  margin-top: 1vh;
+  margin-top: 2vh;
   width: 100%;
   height: 5vh;
-  background-color: rgb(133, 103, 103,0.8);
-  color: rgb(255, 255, 255);
+  color: black;
+  /* background-color: rgb(133, 103, 103,0.8); */
+  background-color: #f0dab7;
+  /* color: rgb(255, 255, 255); */
   padding: 10px;
   border-radius: 5px;
   text-align: center;

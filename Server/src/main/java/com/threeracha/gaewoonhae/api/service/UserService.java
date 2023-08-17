@@ -70,16 +70,12 @@ public class UserService {
         User user = userRepository.findByUserIdAndNickname(resignUserReq.getUserId(), resignUserReq.getNickname())
                 .orElseThrow(() -> new CustomException(CustomExceptionList.USER_NOT_FOUND_ERROR));
 
-        /*
-            refreshToken이 일치하는지 검증하는 로직 작성 요망 (Redis 설치 후)
-         */
-        
-        userRepository.deleteById(user.getUserId());
-        
-        /*
-            redis에서 삭제 로직
-         */
-
-        return "resign complete";
+        if (user.getNickname().equals(resignUserReq.getNickname()) &&
+                user.getRefreshToken().equals(resignUserReq.getRefreshToken())) {
+            userRepository.deleteById(user.getUserId());
+            return "success";
+        } else {
+            return "fail";
+        }
     }
 }

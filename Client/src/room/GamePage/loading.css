@@ -19,7 +19,7 @@
     top:50%;
     left:50%;
     transform:translateX(-50%) translateY(-50%) scale(0.8);
-  background:white;
+    background:white;
     animation:bg 0.5s linear infinite;
     /* border-bottom:3px solid #404143; */
     border-radius: 100%;
@@ -71,7 +71,15 @@
     left:10px;
     animation: container 0.4s linear infinite;
   }
-  
+  .babaleimg {
+    position: absolute;
+    z-index: 10000; /* 다른 요소들보다 앞으로 오게 하려면 더 큰 값으로 설정 */
+    width: 2.7vw;
+    height: 2.7vw;
+    top: 43.5%; /* 원하는 위치로 조절 */
+    left: 48%; /* 원하는 위치로 조절 */
+    animation: updown-half 0.4s linear infinite;
+  }
   .truck > .glases{
     background: rgb(40,181,245);
     background: -moz-linear-gradient(-45deg, rgba(40,181,245,1) 0%, rgba(40,181,245,1) 50%, rgba(2,153,227,1) 52%, rgba(2,153,227,1) 100%);

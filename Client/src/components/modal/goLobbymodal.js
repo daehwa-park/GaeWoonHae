@@ -11,6 +11,10 @@ import mostuto3 from "../../assets/game/jumpingjack/mos_tuto3.png"
 import mostuto4 from "../../assets/game/jumpingjack/mos_tuto4.png"
 import mostuto from "../../assets/game/jumpingjack/mosquito2.png"
 import mostutodie from "../../assets/game/jumpingjack/mosquito3.png"
+import picto_tuto1 from "../../assets/game/picto/picto_tuto1.png"
+import picto_tuto2 from "../../assets/game/picto/picto_tuto2.png"
+import picto_tuto3 from "../../assets/game/picto/picto_tuto3.png"
+import picto_tuto4 from "../../assets/game/picto/picto_tuto4.png"
 
 function GoLobbyModal({ setModalOpen, value }) {
 
@@ -32,6 +36,10 @@ function GoLobbyModal({ setModalOpen, value }) {
   const [showMessage4, setShowMessage4] = useState(false);
   const [showMessage5, setShowMessage5] = useState(false);
   const [showMessage6, setShowMessage6] = useState(false);
+  const [showMessage7, setShowMessage7] = useState(false);
+  const [showMessage8, setShowMessage8] = useState(false);
+  const [showMessage9, setShowMessage9] = useState(false);
+  const [showMessage10, setShowMessage10] = useState(false);
 
   const goToLobby = () => {
     if (shouldNavigate) {
@@ -84,22 +92,34 @@ function GoLobbyModal({ setModalOpen, value }) {
   useEffect(()=>{
     const timer1 = setTimeout(() => {
       setShowMessage1(true);
-    }, 900);
+    }, 200);
     const timer2 = setTimeout(() => {
       setShowMessage2(true);
-    }, 1800);
+    }, 1100);
     const timer3 = setTimeout(() => {
       setShowMessage3(true);
-    }, 2700);
+    }, 2000);
     const timer4 = setTimeout(() => {
       setShowMessage4(true);
-    }, 3600);
+    }, 2900);
     const timer5 = setTimeout(() => {
       setShowMessage5(true);
-    }, 4000);
+    }, 3300);
     const timer6 = setTimeout(() => {
       setShowMessage6(true);
-    }, 4900);
+    }, 4200);
+    const timer7 = setTimeout(() => {
+      setShowMessage7(true);
+    }, 400);
+    const timer8 = setTimeout(() => {
+      setShowMessage8(true);
+    }, 1400);
+    const timer9 = setTimeout(() => {
+      setShowMessage9(true);
+    }, 2200);
+    const timer10 = setTimeout(() => {
+      setShowMessage10(true);
+    }, 3200);
   },[]);
 
 
@@ -131,8 +151,11 @@ function GoLobbyModal({ setModalOpen, value }) {
         )}
         {value===2 && (
           <div>   
-            <div className="tutorial">
-              <img src="" alt="" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+            <div className="tutorial2">
+              <img className={`pictos pic1 ${showMessage7 ? 'show' : ''}`} src={picto_tuto1} alt=""/>
+              <img className={`pictos2 pic2 ${showMessage8 ? 'show' : ''}`} src={picto_tuto2} alt=""/>
+              <img className={`pictos3 pic3 ${showMessage9 ? 'show' : ''}`} src={picto_tuto3} alt=""/>
+              <img className={`success-imgs pic4 ${showMessage10 ? 'show' : ''}`} src={picto_tuto4} alt=""/>
             </div>
             <br/>
             <p className="tutorial-content"> 화면에 나타나는 동작을 더빠르게 !<br/>
