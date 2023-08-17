@@ -37,8 +37,7 @@ import { emojiShopAction } from '../../features/Actions/emojiprocessing'
 const Lobby = () => {
   const firstUseremoji = useSelector(state => state.auth.user.emojiId);
 
-  // const selectId =useRef(1)
-  const [selectId,setSelectId] =useState(1)
+  const [selectId,setSelectId] =useState(firstUseremoji)
   // const [useremojiId,setUseremojiId] =useState(firstUseremoji)
   const useremojiId =useRef(firstUseremoji)
 
@@ -126,6 +125,9 @@ const getEmoji = (emojiId) => {
       console.log('언마운트 성공')
     }
   
+    // useEffect(()=>{
+    //   setFirstemoji
+    // },[])
     useEffect(()=>{
       useremojiId.current=selectId
       // console.log('바뀐거 확인',useremojiId,selectId)
@@ -355,7 +357,6 @@ const getEmoji = (emojiId) => {
                   <div className={`lobby-message1 ${showMessage ? 'show' : ''}`}>대기하는동안 화면을 조정해보세요.</div>
                   <div className="lobby-message23">
                     <div className={`lobby-message2 ${showMessage2 ? 'show' : ''}`}>플레이시간과 원하는 이모지를 선택했다면, <div className={`lobby-message3 ${showMessage3 ? 'show' : ''}`}>레츠 고 !!</div></div>
-                    
                   </div>
                 </div>
               </div>
