@@ -45,9 +45,20 @@
 
 - 게임방 입장
 
-- 게임 진행
+![enterToRoom.gif](./enterToRoom.gif)
+
+- 게임 진행(모기 잡아라)
+
+![mosquito.gif](./mosquito.gif)
+
+- 게임 진행(픽토그램)
+
+![pictogram.gif](./pictogram.gif)
 
 - 결과페이지
+
+![gameEnd.gif](./gameEnd.gif)
+
 
 ## 🏘️시스템 아키텍쳐
 
