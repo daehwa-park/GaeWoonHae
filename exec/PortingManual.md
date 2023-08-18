@@ -188,6 +188,7 @@ curl https://s3-eu-west-1.amazonaws.com/aws.openvidu.io/install_openvidu_latest.
 ```
 
 설치가 잘 되었다면 이런 화면이 나오게 된다.
+
 ![install](./PortingManualImage/openviduinstall.png)
 
 3. .env 파일을 수정해 환경설정
@@ -216,6 +217,7 @@ cd /opt/openvidu # 오픈비두가 설치된 폴더 안에서
 ```
 
 실행이 잘 된다면 이렇게 나온다.
+
 ![open](./PortingManualImage/openvidu.png)
 
 `https://DOMAIN_OR_PUBLIC_IP:HTTPS_PORT/`
