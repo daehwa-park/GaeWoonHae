@@ -92,7 +92,8 @@ sudo vim /etc/nginx/sites-available/{파일명}.conf
 conf 파일 말고 default에 작성해도 무관하다.
 certbot이 어느정도 자동으로 작성해주기 때문에 인증 후에 작성하는 것이 좋다.
 
-![nginxconf](/PortingManualImage/nginxconf.png)
+![nginxconf](./PortingManualImage/nginxconf.png)
+
 수정한 부분은 location 부분이다.
 
 / 로 요청한다면 프론트엔드가 올려져 있는 도커 컨테이너의 주소로 가게 하고
@@ -145,14 +146,15 @@ App은 사실상 필요 없는 부분이고 Redis도 따로 설정해주지 않�
 
 않기 때문에 Openvidu를 실행하고 docker ps를 하면 4개의 컨테이너가 올라가 있는것을 볼 수 있다.
 
-![openvidu](/PortingManualImage/dockeropenvidu.png)
+![openvidu](./PortingManualImage/dockeropenvidu.png)
+
 Openvidu는 https를 무조건 사용해야 하기 때문에 인증을 받아야 한다.
 
 ### 중요!
 
 공식 문서를 보면 죄다 영어라 눈에 띄지 않아서 지나칠 수 있지만
 
-![Untitled](/PortingManualImage/firewall.png)
+![Untitled](./PortingManualImage/firewall.png)
 
 여기에 해당하는 포트를 모두 열어줘야 한다.
 
@@ -186,8 +188,11 @@ curl https://s3-eu-west-1.amazonaws.com/aws.openvidu.io/install_openvidu_latest.
 ```
 
 설치가 잘 되었다면 이런 화면이 나오게 된다.
-![install](/PortingManualImage/openviduinstall.png) 3. .env 파일을 수정해 환경설정
-![env](/PortingManualImage/env1.png)
+![install](./PortingManualImage/openviduinstall.png)
+
+3. .env 파일을 수정해 환경설정
+
+![env](./PortingManualImage/env1.png)
 
 - DOMAIN_OR_PUBLIC_IP : 사용하는 도메인 주소
 - OPENVIDU_SECRET : 프로젝트에서 사용할 비밀번호
@@ -211,9 +216,12 @@ cd /opt/openvidu # 오픈비두가 설치된 폴더 안에서
 ```
 
 실행이 잘 된다면 이렇게 나온다.
-![open](/PortingManualImage/openvidu.png)
+![open](./PortingManualImage/openvidu.png)
+
 `https://DOMAIN_OR_PUBLIC_IP:HTTPS_PORT/`
-![call](/PortingManualImage/call.png)
+
+![call](./PortingManualImage/call.png)
+
 이것과 비슷한 call app이 실행된다면 서버 실행 성공
 
 openvidu rest api를 사용할 때 위의 주소를 사용해서 서버와 연결하면 된다.
@@ -359,7 +367,8 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 
 이후 `docker ps`를 입력했을 때
 
-![result](/PortingManualImage/result.png)
+![result](./PortingManualImage/result.png)
+
 이렇게 나온다면 성공이고 잘 실행되는지 확인하면 끝!
 
 ## 깃에 올라가지 않는 파일들
@@ -494,37 +503,51 @@ spring : 2.7.1
 ## 시연 시나리오
 
 1. 랜딩 페이지
-   ![landing](/PortingManualImage/landingpage.png)
+   ![landing](./PortingManualImage/landingpage.png)
+
    카카오 로그인 버튼을 누른다.
 2. 로그인
-   ![login](/PortingManualImage/kakaologin.png)
+   ![login](./PortingManualImage/kakaologin.png)
+
 3. 메인 페이지
-   ![main](/PortingManualImage/mainpage.png)
+   ![main](./PortingManualImage/mainpage.png)
+
    메인 페이지의 우측 상단에 있는 이모지 상점을 누른다.
 4. 이모지 상점
-   ![shop](/PortingManualImage/emojishop.png)
-   ![buy](/PortingManualImage/buybuy.png)
+   ![shop](./PortingManualImage/emojishop.png)
+
+   ![buy](./PortingManualImage/buybuy.png)
+
    이모지 상점에서 이모지 2개 구입한다.
 5. 마이 페이지
-   ![my](/PortingManualImage/mypage.png)
+   ![my](./PortingManualImage/mypage.png)
+
    마이페이지에서 이모지를 누르면 이모지 변경 모달이 나온다.
-   ![change](/PortingManualImage/selectemoji.png)
+   ![change](./PortingManualImage/selectemoji.png)
+
    사용할 이모지를 선택하고 적용을 누른다.
-   ![update](/PortingManualImage/emojiupdate.png)
+   ![update](./PortingManualImage/emojiupdate.png)
+
    선택한 이모지가 맞는지 확인
 6. 모기 잡기 게임 선택
-   ![mos](/PortingManualImage/mosq.png)
+   ![mos](./PortingManualImage/mosq.png)
+
    방 생성 버튼을 누른다.
 7. 로비
-   ![lobby](/PortingManualImage/lobby.png)
+   ![lobby](./PortingManualImage/lobby.png)
+
    우측 하단의 게임 시작 버튼을 누른다.
 8. 게임 진행
-   ![game](/PortingManualImage/gameroom.png)
+   ![game](./PortingManualImage/gameroom.png)
+
 9. 초대 코드로 접속
-   ![invite](/PortingManualImage/invite.png)
+   ![invite](./PortingManualImage/invite.png)
+
    픽토그램 방으로 이동
 10. 게임 결과
-    ![result](/PortingManualImage/gameresult.png)
+    ![result](./PortingManualImage/gameresult.png)
+
     게임 결과를 확인하고 나가기 버튼을 누름
 11. 운동량 변경 확인
-    ![record](/PortingManualImage/recordupdate.png)
+    ![record](./PortingManualImage/recordupdate.png)
+    
